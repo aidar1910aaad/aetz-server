@@ -57,7 +57,7 @@ export class CategoriesController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.PTO)
   @ApiOperation({ summary: 'Удалить категорию по ID' })
   @ApiParam({ name: 'id', type: Number })
   @ApiResponse({ status: 200, description: 'Категория удалена' })

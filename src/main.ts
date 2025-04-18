@@ -7,7 +7,7 @@ async function bootstrap() {
 
   // ✅ Включаем CORS
   app.enableCors({
-    origin: '*', // на проде: ['https://твой-домен.kz']
+    origin: ['http://localhost:3000', 'https://aetz-client.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true, // если нужно передавать токен/cookie
