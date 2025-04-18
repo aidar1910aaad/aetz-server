@@ -24,15 +24,15 @@ export class AuthService {
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Неверный логин или пароль');
     }
-
+  
+    const { password: _, ...safeUser } = user; // удаляем password
+  
     const payload = { username: user.username, sub: user.id, role: user.role };
+  
     return {
       access_token: this.jwtService.sign(payload),
-      user: {
-        id: user.id,
-        username: user.username,
-        role: user.role,
-      },
+      user: safeUser, // возвращаем все данные
     };
   }
+  
 }
