@@ -1,5 +1,5 @@
 import {
-  Controller, Get, Post, Body, Param, Patch, UseGuards, ParseIntPipe,
+  Controller, Get, Post, Body, Param, Patch, UseGuards, ParseIntPipe, Delete,
 } from '@nestjs/common';
 import { MaterialsService } from './materials.service';
 import { CreateMaterialDto } from './dto/create-material.dto';
@@ -51,4 +51,11 @@ export class MaterialsController {
   getHistory(@Param('id', ParseIntPipe) id: number) {
     return this.materialsService.getHistory(id);
   }
+  @Delete(':id')
+  @ApiOperation({ summary: 'Удалить материал' })
+  @ApiResponse({ status: 200, description: 'Материал успешно удалён' })
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.materialsService.delete(id);
+}
+
 }

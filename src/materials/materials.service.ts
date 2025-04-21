@@ -114,4 +114,15 @@ const material = this.materialRepo.create({
       order: { changedAt: 'DESC' },
     });
   }
+
+  async delete(id: number): Promise<void> {
+    const material = await this.materialRepo.findOne({ where: { id } });
+  
+    if (!material) {
+      throw new NotFoundException(`Материал с ID ${id} не найден`);
+    }
+  
+    await this.materialRepo.remove(material);
+  }
+  
 }
