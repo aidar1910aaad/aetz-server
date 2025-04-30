@@ -26,11 +26,15 @@ export class CategoriesController {
 
   @Post()
   @Roles(UserRole.ADMIN, UserRole.PTO)
-  @ApiOperation({ summary: 'Создать новую категорию' })
-  @ApiResponse({ status: 201, description: 'Категория успешно создана' })
-  create(@Body() dto: CreateCategoryDto) {
+  @ApiOperation({ summary: 'Создать одну или несколько категорий' })
+  @ApiResponse({ status: 201, description: 'Категория(и) успешно созданы' })
+  create(@Body() dto: CreateCategoryDto | CreateCategoryDto[]) {
+    if (Array.isArray(dto)) {
+      return Promise.all(dto.map((item) => this.categoriesService.create(item)));
+    }
     return this.categoriesService.create(dto);
   }
+  
 
   @Get()
   @ApiOperation({ summary: 'Получить все категории' })
