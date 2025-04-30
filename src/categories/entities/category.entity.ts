@@ -9,6 +9,9 @@ export class Category {
   @Column({ unique: true })
   name: string;
 
+  @Column({ nullable: true }) // ✅ описание необязательно
+  description?: string;
+
   @OneToMany(() => Material, (material) => material.category)
   materials: Material[];
 }
