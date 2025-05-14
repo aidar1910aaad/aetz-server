@@ -66,17 +66,20 @@ const material = this.materialRepo.create({
     const results: Material[] = [];
   
     for (const dto of dtos) {
-      const material = this.materialRepo.create();
-  
-      if (dto.name) material.name = dto.name;
-      if (dto.unit) material.unit = dto.unit;
-      if (dto.price) material.price = dto.price;
+      const material = this.materialRepo.create({
+        name: dto.name || 'Без названия',
+        unit: dto.unit || 'шт',
+        price: typeof dto.price === 'number' && !isNaN(dto.price) ? dto.price : 0,
+        code: dto.code ? String(dto.code) : String(Date.now()),
+      });
   
       if (dto.categoryId) {
         const category = await this.materialRepo.manager.findOneBy(Category, {
           id: dto.categoryId,
         });
-        if (category) material.category = category;
+        if (category) {
+          material.category = category;
+        }
       }
   
       const saved = await this.materialRepo.save(material);
@@ -85,7 +88,7 @@ const material = this.materialRepo.create({
   
     return results;
   }
-
+  
   async update(id: number, dto: UpdateMaterialDto): Promise<Material> {
     const material = await this.findOne(id);
 
