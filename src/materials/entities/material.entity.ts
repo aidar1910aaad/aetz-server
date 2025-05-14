@@ -15,6 +15,9 @@ import {
   
     @Column()
     name: string;
+
+    @Column({ nullable: true })
+    code: string;
   
     @Column()
     unit: string;

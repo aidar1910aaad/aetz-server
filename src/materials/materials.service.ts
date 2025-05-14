@@ -33,9 +33,11 @@ if (dto.categoryId) {
 const material = this.materialRepo.create({
   name: dto.name,
   unit: dto.unit,
-  price: dto.price,
+  price: dto.price ?? 0, // если undefined, ставим 0
+  code: dto.code,
   category: category ?? undefined,
 });
+
 
   
     const saved = await this.materialRepo.save(material);
@@ -58,6 +60,30 @@ const material = this.materialRepo.create({
 
     if (!material) throw new NotFoundException('Материал не найден');
     return material;
+  }
+
+  async createMany(dtos: CreateMaterialDto[]): Promise<Material[]> {
+    const results: Material[] = [];
+  
+    for (const dto of dtos) {
+      const material = this.materialRepo.create();
+  
+      if (dto.name) material.name = dto.name;
+      if (dto.unit) material.unit = dto.unit;
+      if (dto.price) material.price = dto.price;
+  
+      if (dto.categoryId) {
+        const category = await this.materialRepo.manager.findOneBy(Category, {
+          id: dto.categoryId,
+        });
+        if (category) material.category = category;
+      }
+  
+      const saved = await this.materialRepo.save(material);
+      results.push(saved);
+    }
+  
+    return results;
   }
 
   async update(id: number, dto: UpdateMaterialDto): Promise<Material> {

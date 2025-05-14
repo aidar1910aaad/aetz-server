@@ -23,6 +23,12 @@ export class CreateMaterialDto {
   @IsNumber()
   price: number;
 
+  @ApiProperty({ example: '10000009398' })
+  @IsOptional()
+  @IsString()
+  code?: string;
+
+
   @ApiProperty({
     example: 1,
     description: 'ID категории (опционально)',

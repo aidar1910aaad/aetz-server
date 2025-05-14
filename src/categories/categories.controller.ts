@@ -18,7 +18,7 @@ import {
 } from '@nestjs/swagger';
 
 @ApiTags('Categories')
-@ApiBearerAuth()
+@ApiBearerAuth('access-token')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('categories')
 export class CategoriesController {
