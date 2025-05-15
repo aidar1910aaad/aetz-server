@@ -6,6 +6,7 @@ import { CreateMaterialDto } from './dto/create-material.dto';
 import { UpdateMaterialDto } from './dto/update-material.dto';
 import { MaterialHistory } from './entities/material-history.entity';
 import { Category } from '../categories/entities/category.entity';
+import { FindOptionsWhere, ILike } from 'typeorm';
 
 @Injectable()
 export class MaterialsService {
@@ -48,8 +49,43 @@ const material = this.materialRepo.create({
   }
   
 
-  async findAll(): Promise<Material[]> {
-    return this.materialRepo.find({ relations: ['category'] });
+  async findAll(query: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    sort?: 'name' | 'price' | 'code';
+    order?: 'ASC' | 'DESC';
+    categoryId?: number;
+  }): Promise<{ data: Material[]; total: number }> {
+    const {
+      page = 1,
+      limit = 50,
+      search,
+      sort = 'name',
+      order = 'ASC',
+      categoryId,
+    } = query;
+  
+    const where: FindOptionsWhere<Material>[] = [];
+  
+    if (search) {
+      where.push({ name: ILike(`%${search}%`) });
+      where.push({ code: ILike(`%${search}%`) });
+    }
+  
+    if (categoryId) {
+      where.push({ category: { id: categoryId } });
+    }
+  
+    const [data, total] = await this.materialRepo.findAndCount({
+      where: where.length > 0 ? where : undefined,
+      relations: ['category'],
+      order: { [sort]: order },
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+  
+    return { data, total };
   }
 
   async findOne(id: number): Promise<Material> {

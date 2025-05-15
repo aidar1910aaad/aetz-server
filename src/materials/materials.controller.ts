@@ -5,6 +5,7 @@ import { MaterialsService } from './materials.service';
 import { Material } from './entities/material.entity';
 import { CreateMaterialDto } from './dto/create-material.dto';
 import { UpdateMaterialDto } from './dto/update-material.dto';
+import { Query } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
@@ -30,11 +31,18 @@ export class MaterialsController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Получить список всех материалов' })
-  @ApiResponse({ status: 200, description: 'Успешно' })
-  findAll() {
-    return this.materialsService.findAll();
-  }
+@ApiOperation({ summary: 'Получить список всех материалов (с фильтрами)' })
+@ApiResponse({ status: 200, description: 'Успешно' })
+findAll(
+  @Query('page') page?: number,
+  @Query('limit') limit?: number,
+  @Query('search') search?: string,
+  @Query('sort') sort?: 'name' | 'price' | 'code',
+  @Query('order') order?: 'ASC' | 'DESC',
+  @Query('categoryId') categoryId?: number,
+) {
+  return this.materialsService.findAll({ page, limit, search, sort, order, categoryId });
+}
 
   @Get(':id')
   @ApiOperation({ summary: 'Получить материал по ID' })
