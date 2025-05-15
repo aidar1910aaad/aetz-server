@@ -1,13 +1,21 @@
+import { IsString, IsNotEmpty, IsObject, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateCalculationItemDto } from './create-calculation-item.dto';
 
 export class CreateCalculationDto {
-  @ApiProperty({ example: 'Калькуляция на подстанцию №3' })
+  @ApiProperty({ example: 'Камера КСО А12-10 900×1000' })
+  @IsString()
   name: string;
 
-  @ApiProperty({ example: 'Aidar' })
-  createdBy: string;
+  @ApiProperty({ example: '900x1000' })
+  @IsString()
+  slug: string;
 
-  @ApiProperty({ type: [CreateCalculationItemDto] })
-  items: CreateCalculationItemDto[];
+  @ApiProperty({ example: 1 })
+  @IsNumber()
+  @IsNotEmpty()
+  groupId: number;
+
+  @ApiProperty({ example: { materials: [], total: 0 } })
+  @IsObject()
+  data: any;
 }

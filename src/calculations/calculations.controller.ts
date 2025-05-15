@@ -1,47 +1,81 @@
 import {
-    Controller, Post, Body, Get, Param, Patch
-  } from '@nestjs/common';
-  import { CalculationsService } from './calculations.service';
-  import { CreateCalculationDto } from './dto/create-calculation.dto';
-  import { UpdateStatusDto } from './dto/update-status.dto';
-  import { ApiTags, ApiOperation, ApiParam, ApiBody } from '@nestjs/swagger';
-  import { UpdateCalculationDto } from './dto/update-calculation.dto';
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  ParseIntPipe,
+  UseGuards,
+} from '@nestjs/common';
+import { CalculationsService } from './calculations.service';
+import { CreateCalculationDto } from './dto/create-calculation.dto';
+import { CreateCalculationGroupDto } from './dto/create-calculation-group.dto';
+import {
+  ApiTags,
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { UserRole } from '../users/entities/user.entity';
+import { Calculation } from './entities/calculation.entity';
+import { CalculationGroup } from './entities/calculation-group.entity';
 
 @ApiTags('Calculations')
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('calculations')
 export class CalculationsController {
-  constructor(private readonly service: CalculationsService) {}
+  constructor(private readonly calculationsService: CalculationsService) {}
 
+  // ✅ Создание группы
+  @Post('groups')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({ summary: 'Создать группу калькуляций' })
+  @ApiResponse({ status: 201, type: CalculationGroup })
+  createGroup(@Body() dto: CreateCalculationGroupDto) {
+    return this.calculationsService.createGroup(dto);
+  }
+
+  // ✅ Получение всех групп
+  @Get('groups')
+  @ApiOperation({ summary: 'Получить список всех групп калькуляций' })
+  @ApiResponse({ status: 200, type: [CalculationGroup] })
+  getAllGroups() {
+    return this.calculationsService.getAllGroups();
+  }
+
+  // ✅ Создание калькуляции
   @Post()
-  @ApiOperation({ summary: 'Создать новую калькуляцию' })
-  create(@Body() dto: CreateCalculationDto) {
-    return this.service.create(dto);
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({ summary: 'Создать калькуляцию в группе' })
+  @ApiResponse({ status: 201, type: Calculation })
+  createCalculation(@Body() dto: CreateCalculationDto) {
+    return this.calculationsService.createCalculation(dto);
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Получить одну калькуляцию с позициями' })
-  @ApiParam({ name: 'id', example: 1 })
-  findOne(@Param('id') id: string) {
-    return this.service.findOne(+id);
+  // ✅ Получить все калькуляции по группе
+  @Get('groups/:slug/calculations')
+  @ApiOperation({ summary: 'Получить список калькуляций в группе' })
+  @ApiParam({ name: 'slug', type: String })
+  @ApiResponse({ status: 200, type: [Calculation] })
+  getGroupCalculations(@Param('slug') slug: string) {
+    return this.calculationsService.getCalculationsByGroupSlug(slug);
   }
 
-  @Patch(':id/status')
-  @ApiOperation({ summary: 'Изменить статус калькуляции' })
-  updateStatus(@Param('id') id: string, @Body() dto: UpdateStatusDto) {
-    return this.service.updateStatus(+id, dto);
+  // ✅ Получить конкретную калькуляцию по slugs
+  @Get(':groupSlug/:calcSlug')
+  @ApiOperation({ summary: 'Получить конкретную калькуляцию по slug группы и калькуляции' })
+  @ApiParam({ name: 'groupSlug', type: String })
+  @ApiParam({ name: 'calcSlug', type: String })
+  @ApiResponse({ status: 200, type: Calculation })
+  getOne(
+    @Param('groupSlug') groupSlug: string,
+    @Param('calcSlug') calcSlug: string,
+  ) {
+    return this.calculationsService.getCalculation(groupSlug, calcSlug);
   }
-
-  @Get(':id/logs')
-  @ApiOperation({ summary: 'Получить историю изменений калькуляции' })
-  getLogs(@Param('id') id: string) {
-    return this.service.getLogs(+id);
-  }
-
-  @Patch(':id')
-@ApiOperation({ summary: 'Обновить калькуляцию (название и/или позиции)' })
-update(@Param('id') id: string, @Body() dto: UpdateCalculationDto) {
-  return this.service.update(+id, dto);
 }
-}
-
-  

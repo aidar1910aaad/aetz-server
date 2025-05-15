@@ -1,142 +1,115 @@
-import { Injectable } from '@nestjs/common';
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Calculation } from './entities/calculation.entity';
-import { CalculationItem } from './entities/calculation-item.entity';
-import { CalculationLog } from './entities/calculation-log.entity';
-import { CreateCalculationDto } from './dto/create-calculation.dto';
-import { UpdateStatusDto } from './dto/update-status.dto';
-import { UpdateCalculationDto } from './dto/update-calculation.dto';
+import slugify from 'slugify';
 
+import { Material } from '../materials/entities/material.entity';
+import { CalculationGroup } from './entities/calculation-group.entity';
+import { Calculation } from './entities/calculation.entity';
+import { CreateCalculationDto } from './dto/create-calculation.dto';
+import { CreateCalculationGroupDto } from './dto/create-calculation-group.dto';
 
 @Injectable()
 export class CalculationsService {
   constructor(
+    @InjectRepository(CalculationGroup)
+    private readonly groupRepo: Repository<CalculationGroup>,
+
     @InjectRepository(Calculation)
     private readonly calcRepo: Repository<Calculation>,
-    @InjectRepository(CalculationItem)
-    private readonly itemRepo: Repository<CalculationItem>,
-    @InjectRepository(CalculationLog)
-    private readonly logRepo: Repository<CalculationLog>,
+
+    @InjectRepository(Material)
+    private readonly materialRepo: Repository<Material>, // 👈 обязательно
   ) {}
 
-  async create(dto: CreateCalculationDto): Promise<Calculation> {
-    const items = dto.items.map((item) => {
-      const total = Number(item.unitPrice) * Number(item.quantity);
-      return this.itemRepo.create({
-        ...item,
-        totalPrice: total,
-      });
-    });
-
-    const calculation = this.calcRepo.create({
+  // ✅ Создание группы
+  async createGroup(dto: CreateCalculationGroupDto): Promise<CalculationGroup> {
+    const group = this.groupRepo.create({
       name: dto.name,
-      createdBy: dto.createdBy,
-      items,
+      slug: dto.slug || slugify(dto.name, { lower: true, strict: true }),
     });
 
-    const saved = await this.calcRepo.save(calculation);
-
-    await this.logRepo.save({
-      calculation: saved,
-      by: dto.createdBy,
-      action: 'created',
-    });
-
-    return saved;
+    return this.groupRepo.save(group);
   }
 
-  async findOne(id: number): Promise<Calculation> {
+  // ✅ Получение всех групп
+  async getAllGroups(): Promise<CalculationGroup[]> {
+    return this.groupRepo.find();
+  }
+
+  // ✅ Поиск группы по slug
+  async getGroupBySlug(slug: string): Promise<CalculationGroup> {
+    const group = await this.groupRepo.findOne({ where: { slug } });
+    if (!group) throw new NotFoundException('Группа не найдена');
+    return group;
+  }
+
+  // ✅ Создание калькуляции
+  async createCalculation(dto: CreateCalculationDto): Promise<Calculation> {
+    const group = await this.groupRepo.findOne({ where: { id: dto.groupId } });
+    if (!group) throw new NotFoundException('Группа не найдена');
+
+    const calc = this.calcRepo.create({
+      name: dto.name,
+      slug: dto.slug,
+      data: dto.data,
+      group,
+    });
+
+    return this.calcRepo.save(calc);
+  }
+
+  // ✅ Получить все калькуляции группы
+  async getCalculationsByGroupSlug(slug: string): Promise<Calculation[]> {
+    const group = await this.getGroupBySlug(slug);
+    return this.calcRepo.find({
+      where: { group: { id: group.id } },
+      order: { name: 'ASC' },
+    });
+  }
+
+  // ✅ Получить одну калькуляцию и обновить цены на лету
+  async getCalculation(groupSlug: string, calcSlug: string): Promise<Calculation> {
+    const group = await this.getGroupBySlug(groupSlug);
+  
     const calc = await this.calcRepo.findOne({
-      where: { id },
-      relations: ['items'],
+      where: {
+        slug: calcSlug,
+        group: { id: group.id },
+      },
+      relations: ['group'],
     });
   
-    if (!calc) {
-      throw new NotFoundException('Калькуляция не найдена');
+    if (!calc) throw new NotFoundException('Калькуляция не найдена');
+  
+    // 🔄 Загружаем актуальные цены
+    const freshMaterials = await this.materialRepo.find();
+    const materialsMap = new Map(freshMaterials.map((m) => [m.id, m.price]));
+  
+    // 🛡 Защита от отсутствия data или categories
+    if (!calc.data || !Array.isArray(calc.data.categories)) {
+      calc.data = { categories: [] };
+      return calc;
     }
+  
+    // 🔁 Обновляем цены
+    const updatedCategories = calc.data.categories.map((cat) => ({
+      ...cat,
+      items: Array.isArray(cat.items)
+        ? cat.items.map((item) => {
+            if (!item.id) return item; // ручной материал
+            const freshPrice = materialsMap.get(item.id);
+            return {
+              ...item,
+              price: freshPrice ?? item.price,
+            };
+          })
+        : [],
+    }));
+  
+    calc.data.categories = updatedCategories;
   
     return calc;
   }
-
-  async updateStatus(id: number, dto: UpdateStatusDto): Promise<Calculation> {
-    const calc = await this.calcRepo.findOneBy({ id });
-
-    if (!calc) throw new Error('Калькуляция не найдена');
-
-    const prevStatus = calc.status;
-    calc.status = dto.status;
-
-    const saved = await this.calcRepo.save(calc);
-
-    await this.logRepo.save({
-      calculation: saved,
-      by: dto.changedBy,
-      action: 'status_changed',
-      field: 'status',
-      oldValue: prevStatus,
-      newValue: dto.status,
-    });
-
-    return saved;
-  }
-
-  async getLogs(id: number): Promise<CalculationLog[]> {
-    return this.logRepo.find({
-      where: { calculation: { id } },
-      order: { timestamp: 'DESC' },
-    });
-  }
-
-  async update(id: number, dto: UpdateCalculationDto): Promise<Calculation> {
-    const calc = await this.calcRepo.findOne({
-      where: { id },
-      relations: ['items'],
-    });
   
-    if (!calc) throw new Error('Калькуляция не найдена');
-  
-    // Обновление имени
-    if (dto.name && dto.name !== calc.name) {
-      await this.logRepo.save({
-        calculation: calc,
-        by: dto.changedBy || 'неизвестный',
-        action: 'updated',
-        field: 'name',
-        oldValue: calc.name,
-        newValue: dto.name,
-      });
-      calc.name = dto.name;
-    }
-  
-    // Обновление позиций (перезапись)
-    if (dto.items && dto.items.length > 0) {
-      // Удалим старые
-      await this.itemRepo.delete({ calculation: { id: calc.id } });
-  
-      // Добавим новые
-      const newItems = dto.items.map((item) => {
-        const total = Number(item.unitPrice) * Number(item.quantity);
-        return this.itemRepo.create({
-          ...item,
-          totalPrice: total,
-          calculation: calc,
-        });
-      });
-  
-      calc.items = await this.itemRepo.save(newItems);
-  
-      await this.logRepo.save({
-        calculation: calc,
-        by: dto.changedBy || 'неизвестный',
-        action: 'updated',
-        field: 'items',
-        oldValue: `Перезаписано ${calc.items.length} позиций`,
-        newValue: `Добавлено ${newItems.length} позиций`,
-      });
-    }
-  
-    return this.calcRepo.save(calc);
-  }
 }

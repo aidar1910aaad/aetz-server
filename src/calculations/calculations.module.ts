@@ -2,19 +2,20 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CalculationsService } from './calculations.service';
 import { CalculationsController } from './calculations.controller';
+import { CalculationGroup } from './entities/calculation-group.entity';
 import { Calculation } from './entities/calculation.entity';
-import { CalculationItem } from './entities/calculation-item.entity';
-import { CalculationLog } from './entities/calculation-log.entity';
+import { Material } from '../materials/entities/material.entity'; // 👈 уже есть
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
+      CalculationGroup,
       Calculation,
-      CalculationItem,
-      CalculationLog,
+      Material, // ✅ Добавь сюда
     ]),
   ],
   controllers: [CalculationsController],
   providers: [CalculationsService],
+  exports: [CalculationsService],
 })
 export class CalculationsModule {}
