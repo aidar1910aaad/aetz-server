@@ -6,7 +6,7 @@ import { CreateMaterialDto } from './dto/create-material.dto';
 import { UpdateMaterialDto } from './dto/update-material.dto';
 import { MaterialHistory } from './entities/material-history.entity';
 import { Category } from '../categories/entities/category.entity';
-import { FindOptionsWhere, ILike } from 'typeorm';
+import { FindOptionsWhere, ILike, In } from 'typeorm';
 
 @Injectable()
 export class MaterialsService {
@@ -16,38 +16,35 @@ export class MaterialsService {
 
     @InjectRepository(MaterialHistory)
     private readonly historyRepo: Repository<MaterialHistory>,
-  ) {}
+  ) { }
 
   async create(dto: CreateMaterialDto): Promise<Material> {
     let category: Category | undefined;
 
-if (dto.categoryId) {
-  const found = await this.materialRepo.manager.findOneBy(Category, { id: dto.categoryId });
+    if (dto.categoryId) {
+      const found = await this.materialRepo.manager.findOneBy(Category, { id: dto.categoryId });
 
-  if (!found) {
-    throw new NotFoundException(`Категория с ID ${dto.categoryId} не найдена`);
-  }
+      if (!found) {
+        throw new NotFoundException(`Категория с ID ${dto.categoryId} не найдена`);
+      }
 
-  category = found;
-}
-  
-const material = this.materialRepo.create({
-  name: dto.name,
-  unit: dto.unit,
-  price: dto.price ?? 0, // если undefined, ставим 0
-  code: dto.code,
-  category: category ?? undefined,
-});
+      category = found;
+    }
 
+    const material = new Material();
+    material.name = dto.name;
+    material.unit = dto.unit;
+    material.price = dto.price ?? 0;
+    material.code = dto.code || String(Date.now());
+    if (category) {
+      material.category = category;
+    }
 
-  
     const saved = await this.materialRepo.save(material);
-  
     console.log('✅ СОХРАНЕНО:', saved);
-  
     return saved;
   }
-  
+
 
   async findAll(query: {
     page?: number;
@@ -65,18 +62,18 @@ const material = this.materialRepo.create({
       order = 'ASC',
       categoryId,
     } = query;
-  
+
     const where: FindOptionsWhere<Material>[] = [];
-  
+
     if (search) {
       where.push({ name: ILike(`%${search}%`) });
       where.push({ code: ILike(`%${search}%`) });
     }
-  
+
     if (categoryId) {
       where.push({ category: { id: categoryId } });
     }
-  
+
     const [data, total] = await this.materialRepo.findAndCount({
       where: where.length > 0 ? where : undefined,
       relations: ['category'],
@@ -84,7 +81,7 @@ const material = this.materialRepo.create({
       take: limit,
       skip: (page - 1) * limit,
     });
-  
+
     return { data, total };
   }
 
@@ -100,31 +97,48 @@ const material = this.materialRepo.create({
 
   async createMany(dtos: CreateMaterialDto[]): Promise<Material[]> {
     const results: Material[] = [];
-  
+    const batchSize = 100; // Размер пакета для вставки
+    let currentBatch: Material[] = [];
+
     for (const dto of dtos) {
-      const material = this.materialRepo.create({
-        name: dto.name || 'Без названия',
-        unit: dto.unit || 'шт',
-        price: typeof dto.price === 'number' && !isNaN(dto.price) ? dto.price : 0,
-        code: dto.code ? String(dto.code) : String(Date.now()),
-      });
-  
+      let category: Category | undefined;
       if (dto.categoryId) {
-        const category = await this.materialRepo.manager.findOneBy(Category, {
-          id: dto.categoryId,
-        });
-        if (category) {
-          material.category = category;
+        const found = await this.materialRepo.manager.findOneBy(Category, { id: dto.categoryId });
+        if (found) {
+          category = found;
         }
       }
-  
-      const saved = await this.materialRepo.save(material);
-      results.push(saved);
+
+      const material = new Material();
+      material.name = dto.name || 'Без названия';
+      material.unit = dto.unit || 'шт';
+      material.price = typeof dto.price === 'number' && !isNaN(dto.price) ? dto.price : 0;
+      material.code = dto.code ? String(dto.code) : String(Date.now());
+      if (category) {
+        material.category = category;
+      }
+
+      currentBatch.push(material);
+
+      // Когда накопили достаточно материалов, сохраняем пакет
+      if (currentBatch.length >= batchSize) {
+        const savedBatch = await this.materialRepo.save(currentBatch);
+        results.push(...savedBatch);
+        console.log(`✅ Сохранен пакет из ${savedBatch.length} материалов`);
+        currentBatch = [];
+      }
     }
-  
+
+    // Сохраняем оставшиеся материалы
+    if (currentBatch.length > 0) {
+      const savedBatch = await this.materialRepo.save(currentBatch);
+      results.push(...savedBatch);
+      console.log(`✅ Сохранен последний пакет из ${savedBatch.length} материалов`);
+    }
+
     return results;
   }
-  
+
   async update(id: number, dto: UpdateMaterialDto): Promise<Material> {
     const material = await this.findOne(id);
 
@@ -182,12 +196,12 @@ const material = this.materialRepo.create({
 
   async delete(id: number): Promise<void> {
     const material = await this.materialRepo.findOne({ where: { id } });
-  
+
     if (!material) {
       throw new NotFoundException(`Материал с ID ${id} не найден`);
     }
-  
+
     await this.materialRepo.remove(material);
   }
-  
+
 }

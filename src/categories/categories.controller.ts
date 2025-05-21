@@ -22,7 +22,7 @@ import {
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('categories')
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) {}
+  constructor(private readonly categoriesService: CategoriesService) { }
 
   @Post()
   @Roles(UserRole.ADMIN, UserRole.PTO)
@@ -34,7 +34,7 @@ export class CategoriesController {
     }
     return this.categoriesService.create(dto);
   }
-  
+
 
   @Get()
   @ApiOperation({ summary: 'Получить все категории' })
@@ -70,10 +70,18 @@ export class CategoriesController {
   }
 
   @Get(':id/materials')
-@ApiOperation({ summary: 'Получить все материалы по категории' })
-@ApiParam({ name: 'id', type: Number })
-@ApiResponse({ status: 200, description: 'Список материалов', type: [Material] })
-async getMaterialsByCategory(@Param('id', ParseIntPipe) id: number): Promise<Material[]> {
-  return this.categoriesService.findMaterialsByCategoryId(id);
-}
+  @ApiOperation({ summary: 'Получить все материалы по категории' })
+  @ApiParam({ name: 'id', type: Number })
+  @ApiResponse({ status: 200, description: 'Список материалов', type: [Material] })
+  async getMaterialsByCategory(@Param('id', ParseIntPipe) id: number): Promise<Material[]> {
+    return this.categoriesService.findMaterialsByCategoryId(id);
+  }
+
+  @Delete('batch')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({ summary: 'Удалить несколько категорий по ID' })
+  @ApiResponse({ status: 200, description: 'Категории удалены' })
+  removeMany(@Body() ids: number[]) {
+    return this.categoriesService.removeMany(ids);
+  }
 }

@@ -1,5 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateMaterialDto {
   @ApiProperty({
@@ -28,10 +28,9 @@ export class CreateMaterialDto {
   @IsString()
   code?: string;
 
-
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 1,
-    description: 'ID категории (опционально)',
+    description: 'ID категории (если не указан, категория будет null)',
     required: false,
   })
   @IsOptional()

@@ -11,11 +11,12 @@ import { CalculationsModule } from 'calculations/calculations.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { SettingsModule } from './settings/settings.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal: true, 
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -24,7 +25,7 @@ import { APP_GUARD } from '@nestjs/core';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      ssl: true, 
+      ssl: true,
       extra: {
         ssl: {
           rejectUnauthorized: false,
@@ -33,12 +34,13 @@ import { APP_GUARD } from '@nestjs/core';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    
+
     AuthModule,
     UsersModule,
     MaterialsModule,
     CategoriesModule,
     CalculationsModule,
+    SettingsModule,
   ],
   controllers: [AppController],
   providers: [
@@ -53,4 +55,4 @@ import { APP_GUARD } from '@nestjs/core';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
