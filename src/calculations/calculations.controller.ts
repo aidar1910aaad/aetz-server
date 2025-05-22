@@ -6,10 +6,12 @@ import {
   Param,
   ParseIntPipe,
   UseGuards,
+  Patch,
 } from '@nestjs/common';
 import { CalculationsService } from './calculations.service';
 import { CreateCalculationDto } from './dto/create-calculation.dto';
 import { CreateCalculationGroupDto } from './dto/create-calculation-group.dto';
+import { UpdateCalculationDto } from './dto/update-calculation.dto';
 import {
   ApiTags,
   ApiBearerAuth,
@@ -29,7 +31,7 @@ import { CalculationGroup } from './entities/calculation-group.entity';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('calculations')
 export class CalculationsController {
-  constructor(private readonly calculationsService: CalculationsService) {}
+  constructor(private readonly calculationsService: CalculationsService) { }
 
   // ✅ Создание группы
   @Post('groups')
@@ -77,5 +79,35 @@ export class CalculationsController {
     @Param('calcSlug') calcSlug: string,
   ) {
     return this.calculationsService.getCalculation(groupSlug, calcSlug);
+  }
+
+  // ✅ Обновление калькуляции
+  @Patch(':groupSlug/:calcSlug')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({
+    summary: 'Обновить калькуляцию',
+    description: 'Обновляет калькуляцию. Можно отправить как полные данные, так и только измененные части. Все поля являются необязательными.'
+  })
+  @ApiParam({
+    name: 'groupSlug',
+    type: String,
+    description: 'Slug группы калькуляций'
+  })
+  @ApiParam({
+    name: 'calcSlug',
+    type: String,
+    description: 'Slug калькуляции'
+  })
+  @ApiResponse({
+    status: 200,
+    type: Calculation,
+    description: 'Возвращает обновленную калькуляцию с актуальными ценами материалов'
+  })
+  updateCalculation(
+    @Param('groupSlug') groupSlug: string,
+    @Param('calcSlug') calcSlug: string,
+    @Body() dto: UpdateCalculationDto,
+  ) {
+    return this.calculationsService.updateCalculation(groupSlug, calcSlug, dto);
   }
 }
