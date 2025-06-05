@@ -60,7 +60,6 @@ import { BmzSettings } from './bmz/entities/bmz-settings.entity';
       },
       retryAttempts: 10,
       retryDelay: 3000,
-      keepConnectionAlive: true,
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
