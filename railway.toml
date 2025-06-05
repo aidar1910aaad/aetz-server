@@ -6,8 +6,10 @@ buildCommand = "npm run build"
 startCommand = "npm run start:prod"
 healthcheckPath = "/"
 healthcheckTimeout = 100
-restartPolicyType = "on-failure"
-restartPolicyMaxRetries = 10
 
 [phases.setup]
-nixPkgs = ["nodejs_20"] 
+nixPkgs = ["nodejs_20"]
+
+[env]
+NODE_ENV = "production"
+NODE_OPTIONS = "--require crypto" 
