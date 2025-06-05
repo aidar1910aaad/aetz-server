@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as crypto from 'crypto';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -32,57 +33,46 @@ import { BmzSettings } from './bmz/entities/bmz-settings.entity';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    TypeOrmModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const isDevelopment = configService.get('NODE_ENV') !== 'production';
-        return {
-          type: 'postgres',
-          host: configService.get('DB_HOST', 'ep-spring-sun-a1m8k0rq-pooler.ap-southeast-1.aws.neon.tech'),
-          port: configService.get('DB_PORT', 5432),
-          username: configService.get('DB_USERNAME', 'neondb_owner'),
-          password: configService.get('DB_PASSWORD', 'npg_oceiQT3vR2JX'),
-          database: configService.get('DB_NAME', 'neondb'),
-          entities: [
-            User,
-            BmzSettings,
-            Setting,
-            CurrencySettings,
-            Material,
-            Category,
-            CalculationGroup,
-            Calculation,
-            Transformer,
-          ],
-          synchronize: isDevelopment,
-          logging: isDevelopment,
-          ssl: {
-            rejectUnauthorized: false,
-          },
-          extra: {
-            max: 10,
-            min: 1,
-            connectionTimeoutMillis: 10000,
-            idleTimeoutMillis: 30000,
-            maxUses: 7500,
-          },
-          retryAttempts: 10,
-          retryDelay: 3000,
-        };
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DB_HOST || 'ep-spring-sun-a1m8k0rq-pooler.ap-southeast-1.aws.neon.tech',
+      port: parseInt(process.env.DB_PORT || '5432', 10),
+      username: process.env.DB_USERNAME || 'neondb_owner',
+      password: process.env.DB_PASSWORD || 'npg_oceiQT3vR2JX',
+      database: process.env.DB_NAME || 'neondb',
+      entities: [
+        User,
+        BmzSettings,
+        Setting,
+        CurrencySettings,
+        Material,
+        Category,
+        CalculationGroup,
+        Calculation,
+        Transformer,
+      ],
+      synchronize: process.env.NODE_ENV !== 'production',
+      logging: process.env.NODE_ENV !== 'production',
+      ssl: {
+        rejectUnauthorized: false,
       },
+      extra: {
+        max: 10,
+        min: 1,
+        connectionTimeoutMillis: 10000,
+        idleTimeoutMillis: 30000,
+        maxUses: 7500,
+      },
+      retryAttempts: 10,
+      retryDelay: 3000,
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET', 'supersecretkey'),
-        signOptions: { 
-          expiresIn: configService.get('JWT_EXPIRES_IN', '36000s'),
-          algorithm: 'HS256',
-        },
-      }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'supersecretkey',
+      signOptions: { 
+        expiresIn: process.env.JWT_EXPIRES_IN || '36000s',
+        algorithm: 'HS256',
+      },
     }),
     AuthModule,
     UsersModule,
