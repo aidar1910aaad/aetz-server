@@ -2,45 +2,48 @@ import { IsNumber, IsString, IsBoolean, IsArray, ValidateNested, IsOptional } fr
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
-class CategorySettingDto {
+export class CategorySettingDto {
     @ApiProperty({
         example: 1,
-        description: 'ID категории',
-        type: Number
+        description: 'ID категории из базы данных',
+        type: Number,
+        required: true
     })
     @IsNumber()
     categoryId: number;
 
     @ApiProperty({
         example: 'switch',
-        description: 'Тип настройки (switch, counter, rza, transformer, additionalEquipment)',
+        description: 'Тип настройки (может быть любая строка)',
         type: String,
-        enum: ['switch', 'counter', 'rza', 'transformer', 'additionalEquipment']
+        required: true
     })
     @IsString()
     type: string;
 
     @ApiProperty({
         example: true,
-        description: 'Видимость настройки',
+        description: 'Видимость настройки в интерфейсе',
         type: Boolean,
-        default: true
+        default: true,
+        required: true
     })
     @IsBoolean()
     isVisible: boolean;
 }
 
-class EquipmentSettingsDto {
+export class EquipmentSettingsDto {
     @ApiProperty({
         type: [CategorySettingDto],
-        description: 'Настройки для РУСН',
+        description: 'Настройки для РУСН (Распределительное устройство среднего напряжения)',
         example: [
             {
                 categoryId: 1,
                 type: 'switch',
                 isVisible: true
             }
-        ]
+        ],
+        required: false
     })
     @IsArray()
     @ValidateNested({ each: true })
@@ -50,14 +53,15 @@ class EquipmentSettingsDto {
 
     @ApiProperty({
         type: [CategorySettingDto],
-        description: 'Настройки для БМЗ',
+        description: 'Настройки для БМЗ (Блок мотор-генератор)',
         example: [
             {
                 categoryId: 2,
                 type: 'counter',
                 isVisible: true
             }
-        ]
+        ],
+        required: false
     })
     @IsArray()
     @ValidateNested({ each: true })
@@ -67,14 +71,15 @@ class EquipmentSettingsDto {
 
     @ApiProperty({
         type: [CategorySettingDto],
-        description: 'Настройки для РУНН',
+        description: 'Настройки для РУНН (Распределительное устройство низкого напряжения)',
         example: [
             {
                 categoryId: 3,
                 type: 'rza',
                 isVisible: true
             }
-        ]
+        ],
+        required: false
     })
     @IsArray()
     @ValidateNested({ each: true })
@@ -91,7 +96,8 @@ class EquipmentSettingsDto {
                 type: 'transformer',
                 isVisible: true
             }
-        ]
+        ],
+        required: false
     })
     @IsArray()
     @ValidateNested({ each: true })
@@ -108,7 +114,8 @@ class EquipmentSettingsDto {
                 type: 'counter',
                 isVisible: true
             }
-        ]
+        ],
+        required: false
     })
     @IsArray()
     @ValidateNested({ each: true })
@@ -125,19 +132,74 @@ class EquipmentSettingsDto {
                 type: 'rza',
                 isVisible: true
             }
-        ]
+        ],
+        required: false
     })
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => CategorySettingDto)
     @IsOptional()
     additionalEquipment: CategorySettingDto[] = [];
+
+    @ApiProperty({
+        type: [CategorySettingDto],
+        description: 'Настройки для СР (Система релейной защиты)',
+        example: [
+            {
+                categoryId: 7,
+                type: 'switch',
+                isVisible: true
+            }
+        ],
+        required: false
+    })
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => CategorySettingDto)
+    @IsOptional()
+    sr: CategorySettingDto[] = [];
+
+    @ApiProperty({
+        type: [CategorySettingDto],
+        description: 'Настройки для ТСН (Трансформатор собственных нужд)',
+        example: [
+            {
+                categoryId: 8,
+                type: 'counter',
+                isVisible: true
+            }
+        ],
+        required: false
+    })
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => CategorySettingDto)
+    @IsOptional()
+    tsn: CategorySettingDto[] = [];
+
+    @ApiProperty({
+        type: [CategorySettingDto],
+        description: 'Настройки для ТН (Трансформатор напряжения)',
+        example: [
+            {
+                categoryId: 9,
+                type: 'transformer',
+                isVisible: true
+            }
+        ],
+        required: false
+    })
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => CategorySettingDto)
+    @IsOptional()
+    tn: CategorySettingDto[] = [];
 }
 
 export class CreateSettingDto {
     @ApiProperty({
         type: EquipmentSettingsDto,
-        description: 'Настройки для всех типов оборудования',
+        description: 'Настройки для всех типов оборудования. При обновлении можно отправить только те секции, которые нужно изменить.',
         example: {
             rusn: [
                 {
@@ -153,7 +215,8 @@ export class CreateSettingDto {
                     isVisible: true
                 }
             ]
-        }
+        },
+        required: true
     })
     @ValidateNested()
     @Type(() => EquipmentSettingsDto)

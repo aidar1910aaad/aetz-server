@@ -1,100 +1,89 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, UseGuards } from '@nestjs/common';
 import { SettingsService } from './settings.service';
+import { Setting } from './entities/setting.entity';
 import { CreateSettingDto } from './dto/create-setting.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { UserRole } from '../users/entities/user.entity';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
-@ApiTags('Settings')
+@ApiTags('settings')
 @ApiBearerAuth('access-token')
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('settings')
 export class SettingsController {
     constructor(private readonly settingsService: SettingsService) { }
 
+    @Get()
+    @ApiOperation({
+        summary: 'Получить текущие настройки',
+        description: 'Возвращает единственную запись настроек из базы данных'
+    })
+    @ApiResponse({
+        status: 200,
+        description: 'Возвращает текущие настройки',
+        type: Setting
+    })
+    @ApiResponse({
+        status: 401,
+        description: 'Требуется авторизация'
+    })
+    @ApiResponse({
+        status: 404,
+        description: 'Настройки не найдены'
+    })
+    async getSettings() {
+        return this.settingsService.getSettings();
+    }
+
     @Post()
-    @ApiOperation({ summary: 'Создать настройки' })
-    @ApiBody({ type: CreateSettingDto })
+    @Roles(UserRole.ADMIN)
+    @ApiOperation({
+        summary: 'Создать начальные настройки',
+        description: 'Создает первую запись настроек. Этот метод можно использовать только один раз при первой инициализации.'
+    })
     @ApiResponse({
         status: 201,
         description: 'Настройки успешно созданы',
-        type: CreateSettingDto
+        type: Setting
     })
     @ApiResponse({
         status: 401,
-        description: 'Не авторизован'
+        description: 'Требуется авторизация'
     })
     @ApiResponse({
-        status: 400,
-        description: 'Неверный формат данных'
+        status: 403,
+        description: 'Доступ запрещен. Требуются права администратора'
     })
-    create(@Body() dto: CreateSettingDto) {
-        return this.settingsService.create(dto);
+    async create(@Body() createSettingDto: CreateSettingDto) {
+        return this.settingsService.create(createSettingDto);
     }
 
-    @Get()
-    @ApiOperation({ summary: 'Получить все настройки' })
+    @Put()
+    @Roles(UserRole.ADMIN, UserRole.PTO)
+    @ApiOperation({
+        summary: 'Обновить текущие настройки',
+        description: 'Обновляет существующие настройки. Можно отправить только те секции, которые нужно обновить. Остальные останутся без изменений.'
+    })
     @ApiResponse({
         status: 200,
-        description: 'Список настроек',
-        type: [CreateSettingDto]
+        description: 'Настройки успешно обновлены',
+        type: Setting
     })
     @ApiResponse({
         status: 401,
-        description: 'Не авторизован'
-    })
-    findAll() {
-        return this.settingsService.findAll();
-    }
-
-    @Patch(':id')
-    @ApiOperation({ summary: 'Обновить настройки' })
-    @ApiParam({
-        name: 'id',
-        description: 'ID настройки',
-        type: 'number'
-    })
-    @ApiBody({ type: CreateSettingDto })
-    @ApiResponse({
-        status: 200,
-        description: 'Настройки обновлены',
-        type: CreateSettingDto
+        description: 'Требуется авторизация'
     })
     @ApiResponse({
-        status: 401,
-        description: 'Не авторизован'
+        status: 403,
+        description: 'Доступ запрещен. Требуются права администратора или PTO'
     })
     @ApiResponse({
         status: 404,
         description: 'Настройки не найдены'
     })
-    @ApiResponse({
-        status: 400,
-        description: 'Неверный формат данных'
-    })
-    update(@Param('id', ParseIntPipe) id: number, @Body() dto: CreateSettingDto) {
-        return this.settingsService.update(id, dto);
-    }
-
-    @Delete(':id')
-    @ApiOperation({ summary: 'Удалить настройки' })
-    @ApiParam({
-        name: 'id',
-        description: 'ID настройки',
-        type: 'number'
-    })
-    @ApiResponse({
-        status: 200,
-        description: 'Настройки удалены'
-    })
-    @ApiResponse({
-        status: 401,
-        description: 'Не авторизован'
-    })
-    @ApiResponse({
-        status: 404,
-        description: 'Настройки не найдены'
-    })
-    remove(@Param('id', ParseIntPipe) id: number) {
-        return this.settingsService.delete(id);
+    async update(@Body() updateSettingDto: CreateSettingDto) {
+        return this.settingsService.update(updateSettingDto);
     }
 } 

@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Setting } from './entities/setting.entity';
 import { CreateSettingDto } from './dto/create-setting.dto';
 import { Category } from '../categories/entities/category.entity';
+import { In } from 'typeorm';
 
 @Injectable()
 export class SettingsService {
@@ -12,7 +13,28 @@ export class SettingsService {
         private readonly settingRepo: Repository<Setting>,
         @InjectRepository(Category)
         private readonly categoryRepo: Repository<Category>,
-    ) { }
+    ) {
+        this.initializeSettings();
+    }
+
+    private async initializeSettings() {
+        const count = await this.settingRepo.count();
+        if (count === 0) {
+            const defaultSettings = new Setting();
+            defaultSettings.settings = {
+                rusn: [],
+                bmz: [],
+                runn: [],
+                work: [],
+                transformer: [],
+                additionalEquipment: [],
+                sr: [],
+                tsn: [],
+                tn: []
+            };
+            await this.settingRepo.save(defaultSettings);
+        }
+    }
 
     async create(dto: CreateSettingDto): Promise<Setting> {
         // Проверяем существование всех категорий
@@ -22,7 +44,10 @@ export class SettingsService {
             ...(dto.settings.runn || []).map(s => s.categoryId),
             ...(dto.settings.work || []).map(s => s.categoryId),
             ...(dto.settings.transformer || []).map(s => s.categoryId),
-            ...(dto.settings.additionalEquipment || []).map(s => s.categoryId)
+            ...(dto.settings.additionalEquipment || []).map(s => s.categoryId),
+            ...(dto.settings.sr || []).map(s => s.categoryId),
+            ...(dto.settings.tsn || []).map(s => s.categoryId),
+            ...(dto.settings.tn || []).map(s => s.categoryId)
         ];
 
         const uniqueCategoryIds = [...new Set(allCategoryIds)];
@@ -38,23 +63,26 @@ export class SettingsService {
             }
         }
 
-        const setting = new Setting();
+        const setting = await this.getSettings();
         setting.settings = dto.settings;
-
         return this.settingRepo.save(setting);
     }
 
-    async findAll(): Promise<Setting[]> {
-        return this.settingRepo.find({
-            order: { id: 'ASC' }
+    async getSettings(): Promise<Setting> {
+        const setting = await this.settingRepo.findOne({
+            where: {},
+            order: { createdAt: 'DESC' }
         });
+
+        if (!setting) {
+            throw new NotFoundException('Настройки не найдены');
+        }
+
+        return setting;
     }
 
-    async update(id: number, dto: CreateSettingDto): Promise<Setting> {
-        const setting = await this.settingRepo.findOne({ where: { id } });
-        if (!setting) {
-            throw new NotFoundException(`Настройка с ID ${id} не найдена`);
-        }
+    async update(dto: CreateSettingDto): Promise<Setting> {
+        const setting = await this.getSettings();
 
         // Проверяем существование всех категорий из обновляемых полей
         const allCategoryIds = [
@@ -63,7 +91,10 @@ export class SettingsService {
             ...(dto.settings.runn || []).map(s => s.categoryId),
             ...(dto.settings.work || []).map(s => s.categoryId),
             ...(dto.settings.transformer || []).map(s => s.categoryId),
-            ...(dto.settings.additionalEquipment || []).map(s => s.categoryId)
+            ...(dto.settings.additionalEquipment || []).map(s => s.categoryId),
+            ...(dto.settings.sr || []).map(s => s.categoryId),
+            ...(dto.settings.tsn || []).map(s => s.categoryId),
+            ...(dto.settings.tn || []).map(s => s.categoryId)
         ];
 
         const uniqueCategoryIds = [...new Set(allCategoryIds)];
@@ -88,16 +119,27 @@ export class SettingsService {
         if (dto.settings.work) updatedSettings.work = dto.settings.work;
         if (dto.settings.transformer) updatedSettings.transformer = dto.settings.transformer;
         if (dto.settings.additionalEquipment) updatedSettings.additionalEquipment = dto.settings.additionalEquipment;
+        if (dto.settings.sr) updatedSettings.sr = dto.settings.sr;
+        if (dto.settings.tsn) updatedSettings.tsn = dto.settings.tsn;
+        if (dto.settings.tn) updatedSettings.tn = dto.settings.tn;
 
         setting.settings = updatedSettings;
         return this.settingRepo.save(setting);
     }
 
-    async delete(id: number): Promise<void> {
-        const setting = await this.settingRepo.findOne({ where: { id } });
-        if (!setting) {
-            throw new NotFoundException(`Настройка с ID ${id} не найдена`);
-        }
-        await this.settingRepo.remove(setting);
+    async reset(): Promise<Setting> {
+        const setting = await this.getSettings();
+        setting.settings = {
+            rusn: [],
+            bmz: [],
+            runn: [],
+            work: [],
+            transformer: [],
+            additionalEquipment: [],
+            sr: [],
+            tsn: [],
+            tn: []
+        };
+        return this.settingRepo.save(setting);
     }
 } 

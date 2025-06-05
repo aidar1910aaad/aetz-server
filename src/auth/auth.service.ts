@@ -12,7 +12,7 @@ export class AuthService {
 
   async validateUser(username: string, pass: string) {
     const user = await this.usersService.findByUsername(username);
-    if (user && await bcrypt.compare(pass, user.password)) {
+    if (user && (await bcrypt.compare(pass, user.password))) {
       const { password, ...result } = user;
       return result;
     }
@@ -21,18 +21,26 @@ export class AuthService {
 
   async login({ username, password }: { username: string; password: string }) {
     const user = await this.usersService.findByUsername(username);
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      throw new UnauthorizedException('Неверный логин или пароль');
+    if (!user) {
+      throw new UnauthorizedException('Пользователь не найден');
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Неверный пароль');
     }
   
-    const { password: _, ...safeUser } = user; // удаляем password
+    const { password: _, ...safeUser } = user;
   
-    const payload = { username: user.username, sub: user.id, role: user.role };
+    const payload = { 
+      sub: user.id,
+      username: user.username,
+      role: user.role // Используем существующее поле role
+    };
   
     return {
       access_token: this.jwtService.sign(payload),
-      user: safeUser, // возвращаем все данные
+      user: safeUser,
     };
   }
-  
 }

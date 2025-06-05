@@ -13,14 +13,30 @@ async function bootstrap() {
 
   // ✅ CORS
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'https://aetz-client.vercel.app'],
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'Accept',
+      'Origin',
+      'X-Requested-With',
+      'Access-Control-Request-Method',
+      'Access-Control-Request-Headers'
+    ],
+    exposedHeaders: ['Content-Range', 'X-Content-Range'],
     credentials: true,
+    maxAge: 3600,
+    preflightContinue: false,
+    optionsSuccessStatus: 204
   });
 
   // Включаем валидацию
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(new ValidationPipe({
+    transform: true,
+    whitelist: true,
+    forbidNonWhitelisted: true,
+  }));
 
   // 📚 Swagger
   const config = new DocumentBuilder()

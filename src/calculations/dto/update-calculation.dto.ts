@@ -1,10 +1,12 @@
-import { IsString, IsNotEmpty, IsObject, IsOptional } from 'class-validator';
+import { IsString, IsObject, IsOptional, ValidateNested } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { CreateCalculationDataDto } from './create-calculation.dto';
 
 export class UpdateCalculationDto {
     @ApiPropertyOptional({
         example: 'Камера КСО А12-10 900×1000',
-        description: 'Новое название калькуляции (необязательно)'
+        description: 'Новое название калькуляции. Если не указано, останется прежним'
     })
     @IsOptional()
     @IsString()
@@ -12,31 +14,57 @@ export class UpdateCalculationDto {
 
     @ApiPropertyOptional({
         example: '900x1000',
-        description: 'Новый slug калькуляции (необязательно)'
+        description: 'Новый уникальный идентификатор калькуляции (slug). Если не указан, останется прежним'
     })
     @IsOptional()
     @IsString()
     slug?: string;
 
     @ApiPropertyOptional({
+        type: CreateCalculationDataDto,
+        description: `Данные калькуляции. Можно обновить:
+- Категории и материалы
+- Настройки расчета (часы, ставки, проценты)
+- Конфигурацию ячейки (тип и оборудование)
+Если какие-то поля не указаны, они останутся без изменений`,
         example: {
             categories: [
                 {
-                    name: "Категория 1",
+                    name: "Кабельная продукция",
                     items: [
                         {
                             id: 1,
-                            name: "Материал 1",
-                            quantity: 2,
-                            price: 1000
+                            name: "Кабель ВВГнг-LS 3x2.5",
+                            unit: "м",
+                            price: 1000,
+                            quantity: 2
                         }
                     ]
                 }
-            ]
-        },
-        description: 'Данные калькуляции (необязательно). Можно отправить как полные данные, так и только измененные части'
+            ],
+            calculation: {
+                manufacturingHours: 1,
+                hourlyRate: 2000,
+                overheadPercentage: 10,
+                adminPercentage: 15,
+                plannedProfitPercentage: 10,
+                ndsPercentage: 12
+            },
+            cellConfig: {
+                type: "0.4kv",
+                materials: {
+                    switch: {
+                        id: 1,
+                        name: "Выключатель ВА57-35",
+                        price: 50000,
+                        type: "switch"
+                    }
+                }
+            }
+        }
     })
     @IsOptional()
-    @IsObject()
-    data?: any;
+    @ValidateNested()
+    @Type(() => CreateCalculationDataDto)
+    data?: CreateCalculationDataDto;
 } 
