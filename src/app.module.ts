@@ -51,7 +51,9 @@ import { BmzSettings } from './bmz/entities/bmz-settings.entity';
         Calculation,
         Transformer,
       ],
-      synchronize: process.env.NODE_ENV !== 'production',
+      migrations: [__dirname + '/migrations/*{.ts,.js}'],
+      migrationsRun: true,
+      synchronize: false,
       logging: process.env.NODE_ENV !== 'production',
       ssl: {
         rejectUnauthorized: false,

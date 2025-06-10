@@ -4,7 +4,7 @@ export class UpdateCategoryCodes1716120000000 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         // Получаем все категории
         const categories = await queryRunner.query(`SELECT id, name FROM category`);
-        
+
         // Для каждой категории генерируем код на основе имени
         for (const category of categories) {
             const code = this.generateCode(category.name);

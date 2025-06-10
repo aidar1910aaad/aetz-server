@@ -44,8 +44,9 @@ export class TransformersController {
   }
 
   @Post('batch')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
   @ApiOperation({ summary: 'Создать несколько трансформаторов' })
-  @ApiResponse({ status: 201, description: 'Трансформаторы успешно созданы.' })
+  @ApiResponse({ status: 201, type: [Transformer] })
   createMany(@Body() createTransformersDto: CreateTransformersDto) {
     return this.transformersService.createMany(createTransformersDto);
   }
