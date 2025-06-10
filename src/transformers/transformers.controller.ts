@@ -13,6 +13,7 @@ import {
 import { TransformersService } from './transformers.service';
 import { CreateTransformerDto } from './dto/create-transformer.dto';
 import { UpdateTransformerDto } from './dto/update-transformer.dto';
+import { CreateTransformersDto } from './dto/create-transformers.dto';
 import { Transformer } from './entities/transformer.entity';
 import {
   ApiTags,
@@ -40,6 +41,13 @@ export class TransformersController {
   @ApiResponse({ status: 201, type: Transformer })
   create(@Body() createTransformerDto: CreateTransformerDto) {
     return this.transformersService.create(createTransformerDto);
+  }
+
+  @Post('batch')
+  @ApiOperation({ summary: 'Создать несколько трансформаторов' })
+  @ApiResponse({ status: 201, description: 'Трансформаторы успешно созданы.' })
+  createMany(@Body() createTransformersDto: CreateTransformersDto) {
+    return this.transformersService.createMany(createTransformersDto);
   }
 
   @Get()

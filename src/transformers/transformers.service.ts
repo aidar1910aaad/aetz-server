@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Transformer } from './entities/transformer.entity';
 import { CreateTransformerDto } from './dto/create-transformer.dto';
 import { UpdateTransformerDto } from './dto/update-transformer.dto';
+import { CreateTransformersDto } from './dto/create-transformers.dto';
 
 @Injectable()
 export class TransformersService {
@@ -14,21 +15,24 @@ export class TransformersService {
 
   async create(createTransformerDto: CreateTransformerDto): Promise<Transformer> {
     const transformer = this.transformerRepository.create(createTransformerDto);
-    return this.transformerRepository.save(transformer);
+    return await this.transformerRepository.save(transformer);
+  }
+
+  async createMany(createTransformersDto: CreateTransformersDto): Promise<Transformer[]> {
+    const transformers = createTransformersDto.transformers.map(dto => 
+      this.transformerRepository.create(dto)
+    );
+    return await this.transformerRepository.save(transformers);
   }
 
   async findAll(): Promise<Transformer[]> {
-    return this.transformerRepository.find({
-      order: {
-        model: 'ASC',
-      },
-    });
+    return await this.transformerRepository.find();
   }
 
   async findOne(id: number): Promise<Transformer> {
     const transformer = await this.transformerRepository.findOne({ where: { id } });
     if (!transformer) {
-      throw new NotFoundException(`Трансформатор с ID ${id} не найден`);
+      throw new NotFoundException(`Transformer with ID ${id} not found`);
     }
     return transformer;
   }
@@ -36,7 +40,7 @@ export class TransformersService {
   async update(id: number, updateTransformerDto: UpdateTransformerDto): Promise<Transformer> {
     const transformer = await this.findOne(id);
     Object.assign(transformer, updateTransformerDto);
-    return this.transformerRepository.save(transformer);
+    return await this.transformerRepository.save(transformer);
   }
 
   async remove(id: number): Promise<void> {
