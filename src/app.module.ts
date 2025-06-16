@@ -18,6 +18,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { TransformersModule } from './transformers/transformers.module';
 import { PassportModule } from '@nestjs/passport';
 import { BmzModule } from './bmz/bmz.module';
+import { SwitchgearModule } from './switchgear/switchgear.module';
 import { User } from './users/entities/user.entity';
 import { Setting } from './settings/entities/setting.entity';
 import { CurrencySettings } from './currency-settings/entities/currency-settings.entity';
@@ -27,6 +28,7 @@ import { CalculationGroup } from './calculations/entities/calculation-group.enti
 import { Calculation } from './calculations/entities/calculation.entity';
 import { Transformer } from './transformers/entities/transformer.entity';
 import { BmzSettings } from './bmz/entities/bmz-settings.entity';
+import { SwitchgearConfig } from './switchgear/entities/switchgear-config.entity';
 
 @Module({
   imports: [
@@ -50,6 +52,7 @@ import { BmzSettings } from './bmz/entities/bmz-settings.entity';
         CalculationGroup,
         Calculation,
         Transformer,
+        SwitchgearConfig,
       ],
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
       migrationsRun: true,
@@ -85,6 +88,7 @@ import { BmzSettings } from './bmz/entities/bmz-settings.entity';
     CurrencySettingsModule,
     TransformersModule,
     BmzModule,
+    SwitchgearModule,
   ],
   controllers: [AppController],
   providers: [

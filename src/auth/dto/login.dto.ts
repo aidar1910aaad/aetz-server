@@ -1,29 +1,24 @@
+import { IsString, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MinLength, MaxLength, Matches } from 'class-validator';
 
 export class LoginDto {
   @ApiProperty({
-    example: 'aidar',
     description: 'Имя пользователя',
+    example: 'admin',
     minLength: 3,
-    maxLength: 20
+    maxLength: 50
   })
   @IsString()
-  @MinLength(3)
-  @MaxLength(20)
-  @Matches(/^[a-zA-Z0-9_-]+$/, {
-    message: 'Имя пользователя может содержать только буквы, цифры, дефис и подчеркивание'
-  })
+  @IsNotEmpty()
   username: string;
 
   @ApiProperty({
-    example: 'password123',
     description: 'Пароль пользователя',
+    example: 'admin123',
     minLength: 6,
-    maxLength: 20
+    maxLength: 50
   })
   @IsString()
-  @MinLength(6)
-  @MaxLength(20)
+  @IsNotEmpty()
   password: string;
 }

@@ -11,8 +11,23 @@ export class AuthController {
 
   @Public()
   @Post('login')
-  @ApiOperation({ summary: 'Вход в систему' })
-  @ApiBody({ type: LoginDto })
+  @ApiOperation({ 
+    summary: 'Вход в систему',
+    description: 'Аутентификация пользователя и получение JWT токена'
+  })
+  @ApiBody({ 
+    type: LoginDto,
+    description: 'Учетные данные пользователя',
+    examples: {
+      admin: {
+        value: {
+          username: 'admin',
+          password: 'admin123'
+        },
+        summary: 'Пример входа администратора'
+      }
+    }
+  })
   @ApiResponse({ 
     status: 200, 
     description: 'Успешный вход',
@@ -21,16 +36,24 @@ export class AuthController {
       properties: {
         access_token: {
           type: 'string',
-          description: 'JWT токен для авторизации'
+          description: 'JWT токен для авторизации',
+          example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
         },
         user: {
           type: 'object',
           properties: {
-            id: { type: 'number' },
-            username: { type: 'string' },
+            id: { 
+              type: 'number',
+              example: 1
+            },
+            username: { 
+              type: 'string',
+              example: 'admin'
+            },
             role: { 
               type: 'string',
-              enum: ['ADMIN', 'PTO', 'USER']
+              enum: ['ADMIN', 'PTO', 'USER'],
+              example: 'ADMIN'
             }
           }
         }
@@ -39,7 +62,20 @@ export class AuthController {
   })
   @ApiResponse({ 
     status: 401, 
-    description: 'Неверные учетные данные' 
+    description: 'Неверные учетные данные',
+    schema: {
+      type: 'object',
+      properties: {
+        statusCode: {
+          type: 'number',
+          example: 401
+        },
+        message: {
+          type: 'string',
+          example: 'Неверные учетные данные'
+        }
+      }
+    }
   })
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
