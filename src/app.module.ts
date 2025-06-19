@@ -29,6 +29,7 @@ import { Calculation } from './calculations/entities/calculation.entity';
 import { Transformer } from './transformers/entities/transformer.entity';
 import { BmzSettings } from './bmz/entities/bmz-settings.entity';
 import { SwitchgearConfig } from './switchgear/entities/switchgear-config.entity';
+import { MaterialHistory } from './materials/entities/material-history.entity';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { SwitchgearConfig } from './switchgear/entities/switchgear-config.entity
         Calculation,
         Transformer,
         SwitchgearConfig,
+        MaterialHistory,
       ],
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
       migrationsRun: true,
