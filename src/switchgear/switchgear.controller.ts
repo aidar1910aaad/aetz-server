@@ -36,7 +36,11 @@ export class SwitchgearController {
   @Post()
   @Roles(UserRole.ADMIN, UserRole.PTO)
   @ApiOperation({ summary: 'Создать новую конфигурацию ячеек РУ' })
-  @ApiResponse({ status: 201, description: 'Конфигурация успешно создана', type: SwitchgearConfig })
+  @ApiResponse({
+    status: 201,
+    description: 'Конфигурация успешно создана',
+    type: SwitchgearConfig,
+  })
   create(@Body() createSwitchgearConfigDto: CreateSwitchgearConfigDto) {
     return this.switchgearService.create(createSwitchgearConfigDto);
   }
@@ -44,9 +48,17 @@ export class SwitchgearController {
   @Get()
   @ApiOperation({ summary: 'Получить список конфигураций ячеек РУ' })
   @ApiQuery({ name: 'type', required: false, description: 'Фильтр по типу' })
-  @ApiQuery({ name: 'amperage', required: false, description: 'Фильтр по току' })
+  @ApiQuery({
+    name: 'amperage',
+    required: false,
+    description: 'Фильтр по току',
+  })
   @ApiQuery({ name: 'group', required: false, description: 'Фильтр по группе' })
-  @ApiResponse({ status: 200, description: 'Список конфигураций', type: [SwitchgearConfig] })
+  @ApiResponse({
+    status: 200,
+    description: 'Список конфигураций',
+    type: [SwitchgearConfig],
+  })
   findAll(
     @Query('type') type?: string,
     @Query('amperage') amperage?: number,
@@ -58,7 +70,11 @@ export class SwitchgearController {
   @Get(':id')
   @ApiOperation({ summary: 'Получить конфигурацию по ID' })
   @ApiParam({ name: 'id', description: 'ID конфигурации' })
-  @ApiResponse({ status: 200, description: 'Конфигурация найдена', type: SwitchgearConfig })
+  @ApiResponse({
+    status: 200,
+    description: 'Конфигурация найдена',
+    type: SwitchgearConfig,
+  })
   @ApiResponse({ status: 404, description: 'Конфигурация не найдена' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.switchgearService.findOne(id);
@@ -68,7 +84,11 @@ export class SwitchgearController {
   @Roles(UserRole.ADMIN, UserRole.PTO)
   @ApiOperation({ summary: 'Обновить конфигурацию' })
   @ApiParam({ name: 'id', description: 'ID конфигурации' })
-  @ApiResponse({ status: 200, description: 'Конфигурация обновлена', type: SwitchgearConfig })
+  @ApiResponse({
+    status: 200,
+    description: 'Конфигурация обновлена',
+    type: SwitchgearConfig,
+  })
   @ApiResponse({ status: 404, description: 'Конфигурация не найдена' })
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -78,7 +98,7 @@ export class SwitchgearController {
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.PTO)
   @ApiOperation({ summary: 'Удалить конфигурацию' })
   @ApiParam({ name: 'id', description: 'ID конфигурации' })
   @ApiResponse({ status: 200, description: 'Конфигурация удалена' })
@@ -86,4 +106,4 @@ export class SwitchgearController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.switchgearService.remove(id);
   }
-} 
+}
