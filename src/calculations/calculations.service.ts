@@ -70,7 +70,10 @@ export class CalculationsService {
   }
 
   // ✅ Получить одну калькуляцию и обновить цены на лету
-  async getCalculation(groupSlug: string, calcSlug: string): Promise<Calculation> {
+  async getCalculation(
+    groupSlug: string,
+    calcSlug: string,
+  ): Promise<Calculation> {
     const group = await this.getGroupBySlug(groupSlug);
 
     const calc = await this.calcRepo.findOne({
@@ -163,5 +166,27 @@ export class CalculationsService {
     }
 
     return updatedCalc;
+  }
+
+  // Удаление калькуляции по groupSlug и calcSlug
+  async deleteCalculation(groupSlug: string, calcSlug: string): Promise<void> {
+    const group = await this.getGroupBySlug(groupSlug);
+    const calc = await this.calcRepo.findOne({
+      where: { slug: calcSlug, group: { id: group.id } },
+    });
+    if (!calc) throw new NotFoundException('Калькуляция не найдена');
+    await this.calcRepo.remove(calc);
+  }
+
+  // Удаление группы по slug
+  async deleteGroup(slug: string): Promise<void> {
+    const group = await this.groupRepo.findOne({ where: { slug } });
+    if (!group) throw new NotFoundException('Группа не найдена');
+    await this.groupRepo.remove(group);
+  }
+
+  // Получить все калькуляции без фильтра по группе
+  async getAllCalculations(): Promise<Calculation[]> {
+    return this.calcRepo.find({ order: { name: 'ASC' } });
   }
 }

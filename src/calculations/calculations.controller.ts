@@ -4,9 +4,9 @@ import {
   Post,
   Body,
   Param,
-  ParseIntPipe,
   UseGuards,
   Patch,
+  Delete,
 } from '@nestjs/common';
 import { CalculationsService } from './calculations.service';
 import { CreateCalculationDto } from './dto/create-calculation.dto';
@@ -31,7 +31,7 @@ import { CalculationGroup } from './entities/calculation-group.entity';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('calculations')
 export class CalculationsController {
-  constructor(private readonly calculationsService: CalculationsService) { }
+  constructor(private readonly calculationsService: CalculationsService) {}
 
   // ✅ Создание группы
   @Post('groups')
@@ -70,8 +70,14 @@ export class CalculationsController {
 
   // ✅ Получить конкретную калькуляцию по slugs
   @Get(':groupSlug/:calcSlug')
-  @ApiOperation({ summary: 'Получить конкретную калькуляцию по slug группы и калькуляции' })
-  @ApiParam({ name: 'groupSlug', type: String })
+  @ApiOperation({
+    summary: 'Получить конкретную калькуляцию по slug группы и калькуляции',
+  })
+  @ApiParam({
+    name: 'groupSlug',
+    type: String,
+    description: 'Slug группы калькуляции',
+  })
   @ApiParam({ name: 'calcSlug', type: String })
   @ApiResponse({ status: 200, type: Calculation })
   getOne(
@@ -86,22 +92,24 @@ export class CalculationsController {
   @Roles(UserRole.ADMIN, UserRole.PTO)
   @ApiOperation({
     summary: 'Обновить калькуляцию',
-    description: 'Обновляет калькуляцию. Можно отправить как полные данные, так и только измененные части. Все поля являются необязательными.'
+    description:
+      'Обновляет калькуляцию. Можно отправить как полные данные, так и только измененные части. Все поля являются необязательными.',
   })
   @ApiParam({
     name: 'groupSlug',
     type: String,
-    description: 'Slug группы калькуляций'
+    description: 'Slug группы калькуляции',
   })
   @ApiParam({
     name: 'calcSlug',
     type: String,
-    description: 'Slug калькуляции'
+    description: 'Slug калькуляции',
   })
   @ApiResponse({
     status: 200,
     type: Calculation,
-    description: 'Возвращает обновленную калькуляцию с актуальными ценами материалов'
+    description:
+      'Возвращает обновленную калькуляцию с актуальными ценами материалов',
   })
   updateCalculation(
     @Param('groupSlug') groupSlug: string,
@@ -109,5 +117,39 @@ export class CalculationsController {
     @Body() dto: UpdateCalculationDto,
   ) {
     return this.calculationsService.updateCalculation(groupSlug, calcSlug, dto);
+  }
+
+  // Удалить калькуляцию
+  @Delete(':groupSlug/:calcSlug')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({ summary: 'Удалить калькуляцию' })
+  @ApiParam({
+    name: 'groupSlug',
+    type: String,
+    description: 'Slug группы калькуляции',
+  })
+  @ApiParam({ name: 'calcSlug', type: String, description: 'Slug калькуляции' })
+  @ApiResponse({ status: 200, description: 'Калькуляция успешно удалена' })
+  @ApiResponse({ status: 404, description: 'Калькуляция не найдена' })
+  deleteCalculation(
+    @Param('groupSlug') groupSlug: string,
+    @Param('calcSlug') calcSlug: string,
+  ) {
+    return this.calculationsService.deleteCalculation(groupSlug, calcSlug);
+  }
+
+  // Удалить группу калькуляций
+  @Delete('groups/:slug')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({ summary: 'Удалить группу калькуляций' })
+  @ApiParam({
+    name: 'slug',
+    type: String,
+    description: 'Slug группы калькуляций',
+  })
+  @ApiResponse({ status: 200, description: 'Группа успешно удалена' })
+  @ApiResponse({ status: 404, description: 'Группа не найдена' })
+  deleteGroup(@Param('slug') slug: string) {
+    return this.calculationsService.deleteGroup(slug);
   }
 }
