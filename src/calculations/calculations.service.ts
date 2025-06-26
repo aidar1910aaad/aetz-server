@@ -9,6 +9,7 @@ import { Calculation } from './entities/calculation.entity';
 import { CreateCalculationDto } from './dto/create-calculation.dto';
 import { CreateCalculationGroupDto } from './dto/create-calculation-group.dto';
 import { UpdateCalculationDto } from './dto/update-calculation.dto';
+import { UpdateCalculationGroupDto } from './dto/update-calculation-group.dto';
 
 @Injectable()
 export class CalculationsService {
@@ -27,7 +28,8 @@ export class CalculationsService {
   async createGroup(dto: CreateCalculationGroupDto): Promise<CalculationGroup> {
     const group = this.groupRepo.create({
       name: dto.name,
-      slug: dto.slug || slugify(dto.name, { lower: true, strict: true }),
+      slug: slugify(dto.name, { lower: true, strict: true }),
+      voltageType: dto.voltageType,
     });
 
     return this.groupRepo.save(group);
@@ -178,15 +180,78 @@ export class CalculationsService {
     await this.calcRepo.remove(calc);
   }
 
-  // Удаление группы по slug
-  async deleteGroup(slug: string): Promise<void> {
-    const group = await this.groupRepo.findOne({ where: { slug } });
-    if (!group) throw new NotFoundException('Группа не найдена');
+  // Удаление группы по ID
+  async deleteGroupById(id: number): Promise<void> {
+    console.log('=== УДАЛЕНИЕ ГРУППЫ ПО ID ===');
+    console.log('Запрошенный ID:', id, 'тип:', typeof id);
+    
+    // Сначала проверим, есть ли группа с таким ID
+    const allGroups = await this.groupRepo.find();
+    console.log('Все группы в базе:', allGroups.map(g => `ID:${g.id}, slug:[${g.slug}]`));
+    
+    const group = await this.groupRepo.findOne({ 
+      where: { id }, 
+      relations: ['calculations'] 
+    });
+    
+    console.log('Результат поиска по ID:', group ? `найдена - id=${group.id}, slug=[${group.slug}]` : 'НЕ НАЙДЕНА');
+    
+    if (!group) {
+      console.log('❌ Группа не найдена, выбрасываем исключение');
+      throw new NotFoundException('Группа не найдена');
+    }
+    
+    console.log('✅ Группа найдена, начинаем удаление...');
+    
+    // Если есть связанные калькуляции — удаляем их вручную
+    if (group.calculations && group.calculations.length > 0) {
+      console.log(`Удаляю ${group.calculations.length} связанных калькуляций...`);
+      await this.calcRepo.remove(group.calculations);
+    }
+    
     await this.groupRepo.remove(group);
+    console.log('✅ Группа успешно удалена:', group.slug);
   }
 
   // Получить все калькуляции без фильтра по группе
   async getAllCalculations(): Promise<Calculation[]> {
     return this.calcRepo.find({ order: { name: 'ASC' } });
+  }
+
+  // ✅ Обновление группы
+  async updateGroup(
+    slug: string,
+    dto: UpdateCalculationGroupDto,
+  ): Promise<CalculationGroup> {
+    console.log('=== СЕРВИС: ОБНОВЛЕНИЕ ГРУППЫ ===');
+    console.log('Ищем группу по slug:', slug);
+    
+    // Проверим все группы в базе
+    const allGroups = await this.groupRepo.find();
+    console.log('Все группы в базе:', allGroups.map(g => `slug:[${g.slug}], id:${g.id}`));
+    
+    const group = await this.getGroupBySlug(slug);
+    console.log('Найдена группа:', group ? `id=${group.id}, slug=[${group.slug}]` : 'НЕ НАЙДЕНА');
+    
+    // Обновляем только те поля, которые были переданы
+    if (dto.name) {
+      group.name = dto.name;
+      // Автоматически генерируем новый slug при изменении названия
+      group.slug = slugify(dto.name, { lower: true, strict: true });
+      console.log('Название изменено, новый slug:', group.slug);
+    }
+    
+    // Игнорируем dto.slug - slug генерируется автоматически
+    if (dto.voltageType !== undefined) {
+      group.voltageType = dto.voltageType;
+    }
+    
+    console.log('Обновленные данные:', { 
+      name: group.name, 
+      slug: group.slug, 
+      voltageType: group.voltageType 
+    });
+    
+    return this.groupRepo.save(group);
   }
 }

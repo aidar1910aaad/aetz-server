@@ -7,11 +7,13 @@ import {
   UseGuards,
   Patch,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CalculationsService } from './calculations.service';
 import { CreateCalculationDto } from './dto/create-calculation.dto';
 import { CreateCalculationGroupDto } from './dto/create-calculation-group.dto';
 import { UpdateCalculationDto } from './dto/update-calculation.dto';
+import { UpdateCalculationGroupDto } from './dto/update-calculation-group.dto';
 import {
   ApiTags,
   ApiBearerAuth,
@@ -33,21 +35,38 @@ import { CalculationGroup } from './entities/calculation-group.entity';
 export class CalculationsController {
   constructor(private readonly calculationsService: CalculationsService) {}
 
-  // ✅ Создание группы
-  @Post('groups')
-  @Roles(UserRole.ADMIN, UserRole.PTO)
-  @ApiOperation({ summary: 'Создать группу калькуляций' })
-  @ApiResponse({ status: 201, type: CalculationGroup })
-  createGroup(@Body() dto: CreateCalculationGroupDto) {
-    return this.calculationsService.createGroup(dto);
-  }
-
   // ✅ Получение всех групп
   @Get('groups')
   @ApiOperation({ summary: 'Получить список всех групп калькуляций' })
   @ApiResponse({ status: 200, type: [CalculationGroup] })
   getAllGroups() {
     return this.calculationsService.getAllGroups();
+  }
+
+  // ✅ Обновление группы
+  @Patch('groups/:slug')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({ summary: 'Обновить группу калькуляций' })
+  @ApiParam({
+    name: 'slug',
+    type: String,
+    description: 'Slug группы калькуляций',
+  })
+  @ApiResponse({
+    status: 200,
+    type: CalculationGroup,
+    description: 'Группа успешно обновлена',
+  })
+  @ApiResponse({ status: 404, description: 'Группа не найдена' })
+  updateGroup(
+    @Param('slug') slug: string,
+    @Body() dto: UpdateCalculationGroupDto,
+  ) {
+    console.log('=== ОБНОВЛЕНИЕ ГРУППЫ ===');
+    console.log('Slug:', slug);
+    console.log('DTO:', JSON.stringify(dto, null, 2));
+    console.log('DTO keys:', Object.keys(dto));
+    return this.calculationsService.updateGroup(slug, dto);
   }
 
   // ✅ Создание калькуляции
@@ -59,13 +78,34 @@ export class CalculationsController {
     return this.calculationsService.createCalculation(dto);
   }
 
-  // ✅ Получить все калькуляции по группе
-  @Get('groups/:slug/calculations')
-  @ApiOperation({ summary: 'Получить список калькуляций в группе' })
-  @ApiParam({ name: 'slug', type: String })
+  // ✅ Создание группы
+  @Post('groups')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({ summary: 'Создать группу калькуляций' })
+  @ApiResponse({ status: 201, type: CalculationGroup })
+  createGroup(@Body() dto: CreateCalculationGroupDto) {
+    return this.calculationsService.createGroup(dto);
+  }
+
+  // ✅ Получить все калькуляции из всех групп
+  @Get('all')
+  @ApiOperation({ summary: 'Получить список всех калькуляций из всех групп' })
   @ApiResponse({ status: 200, type: [Calculation] })
-  getGroupCalculations(@Param('slug') slug: string) {
-    return this.calculationsService.getCalculationsByGroupSlug(slug);
+  getAllCalculations() {
+    return this.calculationsService.getAllCalculations();
+  }
+
+  // Удалить группу калькуляций по ID
+  @Delete('groups/:id')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({ summary: 'Удалить группу калькуляций по ID' })
+  @ApiParam({ name: 'id', description: 'ID группы калькуляций', type: Number })
+  @ApiResponse({ status: 200, description: 'Группа успешно удалена' })
+  @ApiResponse({ status: 404, description: 'Группа не найдена' })
+  async deleteGroupById(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    console.log('=== КОНТРОЛЛЕР: УДАЛЕНИЕ ГРУППЫ ===');
+    console.log('Получен запрос на удаление группы с ID:', id, 'тип:', typeof id);
+    return this.calculationsService.deleteGroupById(id);
   }
 
   // ✅ Получить конкретную калькуляцию по slugs
@@ -85,6 +125,15 @@ export class CalculationsController {
     @Param('calcSlug') calcSlug: string,
   ) {
     return this.calculationsService.getCalculation(groupSlug, calcSlug);
+  }
+
+  // ✅ Получить все калькуляции по группе
+  @Get('groups/:slug/calculations')
+  @ApiOperation({ summary: 'Получить список калькуляций в группе' })
+  @ApiParam({ name: 'slug', type: String })
+  @ApiResponse({ status: 200, type: [Calculation] })
+  getGroupCalculations(@Param('slug') slug: string) {
+    return this.calculationsService.getCalculationsByGroupSlug(slug);
   }
 
   // ✅ Обновление калькуляции
@@ -136,20 +185,5 @@ export class CalculationsController {
     @Param('calcSlug') calcSlug: string,
   ) {
     return this.calculationsService.deleteCalculation(groupSlug, calcSlug);
-  }
-
-  // Удалить группу калькуляций
-  @Delete('groups/:slug')
-  @Roles(UserRole.ADMIN, UserRole.PTO)
-  @ApiOperation({ summary: 'Удалить группу калькуляций' })
-  @ApiParam({
-    name: 'slug',
-    type: String,
-    description: 'Slug группы калькуляций',
-  })
-  @ApiResponse({ status: 200, description: 'Группа успешно удалена' })
-  @ApiResponse({ status: 404, description: 'Группа не найдена' })
-  deleteGroup(@Param('slug') slug: string) {
-    return this.calculationsService.deleteGroup(slug);
   }
 }

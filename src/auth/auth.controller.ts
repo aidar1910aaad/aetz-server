@@ -21,8 +21,8 @@ export class AuthController {
     examples: {
       admin: {
         value: {
-          username: 'admin',
-          password: 'admin123'
+          username: 'aidarr',
+          password: 'yerlal'
         },
         summary: 'Пример входа администратора'
       }
