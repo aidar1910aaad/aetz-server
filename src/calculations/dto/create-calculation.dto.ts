@@ -80,22 +80,22 @@ export class CreateCellMaterialDto implements CellMaterial {
   price: number;
 
   @ApiProperty({ 
-    enum: ['switch', 'rza', 'counter', 'sr', 'tsn', 'tn'],
-    description: 'Тип оборудования: выключатель, РЗА, счетчик, СР, ТСН или ТН',
+    enum: ['switch', 'rza', 'counter', 'sr', 'tsn', 'tn', 'pu', 'disconnector', 'busbar', 'busbridge'],
+    description: 'Тип оборудования: выключатель, РЗА, счетчик, СР, ТСН, ТН, ПУ, разъединитель, шина или шинный мост',
     example: 'switch'
   })
-  @IsEnum(['switch', 'rza', 'counter', 'sr', 'tsn', 'tn'])
-  type: 'switch' | 'rza' | 'counter' | 'sr' | 'tsn' | 'tn';
+  @IsEnum(['switch', 'rza', 'counter', 'sr', 'tsn', 'tn', 'pu', 'disconnector', 'busbar', 'busbridge'])
+  type: 'switch' | 'rza' | 'counter' | 'sr' | 'tsn' | 'tn' | 'pu' | 'disconnector' | 'busbar' | 'busbridge';
 }
 
 export class CreateCellConfigDto implements CellConfig {
   @ApiProperty({ 
-    enum: ['0.4kv', '10kv', '20kv', 'rza'],
-    description: 'Тип ячейки: 0.4кВ, 10кВ, 20кВ или РЗА',
+    enum: ['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn'],
+    description: 'Тип ячейки: 0.4кВ, 10кВ, 20кВ, РЗА, ПУ, разъединитель, шина, шинный мост, выключатель, ТН или ТСН',
     example: '0.4kv'
   })
-  @IsEnum(['0.4kv', '10kv', '20kv', 'rza'])
-  type: '0.4kv' | '10kv' | '20kv' | 'rza';
+  @IsEnum(['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn'])
+  type: '0.4kv' | '10kv' | '20kv' | 'rza' | 'pu' | 'disconnector' | 'busbar' | 'busbridge' | 'switch' | 'tn' | 'tsn';
 
   @ApiProperty({
     description: 'Конфигурация оборудования ячейки',
@@ -105,7 +105,27 @@ export class CreateCellConfigDto implements CellConfig {
       counter: { id: 3, name: 'Счетчик Меркурий', price: 25000, type: 'counter' },
       sr: { id: 4, name: 'СР Устройство', price: 30000, type: 'sr' },
       tsn: { id: 5, name: 'ТСН Трансформатор', price: 45000, type: 'tsn' },
-      tn: { id: 6, name: 'ТН Трансформатор', price: 40000, type: 'tn' }
+      tn: { id: 6, name: 'ТН Трансформатор', price: 40000, type: 'tn' },
+      tt: [
+        { id: 7, name: 'ТТ Трансформатор тока', price: 15000, type: 'switch' },
+        { id: 8, name: 'ТТ Трансформатор тока 2', price: 18000, type: 'switch' }
+      ],
+      pu: [
+        { id: 9, name: 'ПУ Прибор учета', price: 12000, type: 'counter' },
+        { id: 10, name: 'ПУ Прибор учета 2', price: 14000, type: 'counter' }
+      ],
+      disconnector: [
+        { id: 11, name: 'Разъединитель РЛНД', price: 25000, type: 'disconnector' },
+        { id: 12, name: 'Разъединитель РЛНД 2', price: 28000, type: 'disconnector' }
+      ],
+      busbar: [
+        { id: 13, name: 'Шина медная 60x6', price: 8000, type: 'busbar' },
+        { id: 14, name: 'Шина медная 80x8', price: 10000, type: 'busbar' }
+      ],
+      busbridge: [
+        { id: 15, name: 'Шинный мост 60x6', price: 12000, type: 'busbridge' },
+        { id: 16, name: 'Шинный мост 80x8', price: 15000, type: 'busbridge' }
+      ]
     }
   })
   @IsObject()
@@ -116,6 +136,11 @@ export class CreateCellConfigDto implements CellConfig {
     sr?: CreateCellMaterialDto;
     tsn?: CreateCellMaterialDto;
     tn?: CreateCellMaterialDto;
+    tt?: CreateCellMaterialDto[];
+    pu?: CreateCellMaterialDto[];
+    disconnector?: CreateCellMaterialDto[];
+    busbar?: CreateCellMaterialDto[];
+    busbridge?: CreateCellMaterialDto[];
   };
 }
 

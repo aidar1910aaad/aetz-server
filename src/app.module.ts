@@ -59,7 +59,7 @@ import { MaterialHistory } from './materials/entities/material-history.entity';
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
       migrationsRun: true,
       synchronize: false,
-      logging: process.env.NODE_ENV !== 'production',
+      logging: false,
       ssl: {
         rejectUnauthorized: false,
       },

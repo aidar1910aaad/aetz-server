@@ -7,12 +7,6 @@ import * as bodyParser from 'body-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Глобальное логирование всех HTTP-запросов
-  app.use((req, res, next) => {
-    console.log('HTTP', req.method, req.url);
-    next();
-  });
-
   // 📦 Увеличить лимит размера тела запроса
   app.use(bodyParser.json({ limit: '20mb' }));
   app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));

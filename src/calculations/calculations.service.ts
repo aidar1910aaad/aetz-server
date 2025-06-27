@@ -24,6 +24,53 @@ export class CalculationsService {
     private readonly materialRepo: Repository<Material>, // 👈 обязательно
   ) { }
 
+  // 🔄 Вспомогательная функция для обновления цен в cellConfig
+  private updateCellConfigPrices(cellConfig: any, materialsMap: Map<number, number>) {
+    if (!cellConfig || !cellConfig.materials) {
+      return cellConfig;
+    }
+
+    const updatedMaterials = { ...cellConfig.materials };
+
+    // Обновляем цены для одиночных материалов
+    const singleMaterialTypes = ['switch', 'rza', 'counter', 'sr', 'tsn', 'tn'];
+    singleMaterialTypes.forEach(type => {
+      if (updatedMaterials[type] && updatedMaterials[type].id) {
+        const freshPrice = materialsMap.get(updatedMaterials[type].id);
+        if (freshPrice !== undefined) {
+          updatedMaterials[type] = {
+            ...updatedMaterials[type],
+            price: freshPrice,
+          };
+        }
+      }
+    });
+
+    // Обновляем цены для массивов материалов
+    const arrayMaterialTypes = ['tt', 'pu', 'disconnector', 'busbar', 'busbridge'];
+    arrayMaterialTypes.forEach(type => {
+      if (Array.isArray(updatedMaterials[type])) {
+        updatedMaterials[type] = updatedMaterials[type].map((material: any) => {
+          if (material && material.id) {
+            const freshPrice = materialsMap.get(material.id);
+            if (freshPrice !== undefined) {
+              return {
+                ...material,
+                price: freshPrice,
+              };
+            }
+          }
+          return material;
+        });
+      }
+    });
+
+    return {
+      ...cellConfig,
+      materials: updatedMaterials,
+    };
+  }
+
   // ✅ Создание группы
   async createGroup(dto: CreateCalculationGroupDto): Promise<CalculationGroup> {
     const group = this.groupRepo.create({
@@ -115,6 +162,11 @@ export class CalculationsService {
 
     calc.data.categories = updatedCategories;
 
+    // 🔄 Обновляем цены в cellConfig
+    if (calc.data.cellConfig) {
+      calc.data.cellConfig = this.updateCellConfigPrices(calc.data.cellConfig, materialsMap);
+    }
+
     return calc;
   }
 
@@ -165,6 +217,11 @@ export class CalculationsService {
       }));
 
       updatedCalc.data.categories = updatedCategories;
+    }
+
+    // 🔄 Обновляем цены в cellConfig
+    if (updatedCalc.data && updatedCalc.data.cellConfig) {
+      updatedCalc.data.cellConfig = this.updateCellConfigPrices(updatedCalc.data.cellConfig, materialsMap);
     }
 
     return updatedCalc;

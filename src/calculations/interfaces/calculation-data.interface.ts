@@ -15,11 +15,11 @@ export interface CellMaterial {
   id: number;
   name: string;
   price: number;
-  type: 'switch' | 'rza' | 'counter' | 'sr' | 'tsn' | 'tn';
+  type: 'switch' | 'rza' | 'counter' | 'sr' | 'tsn' | 'tn' | 'pu' | 'disconnector' | 'busbar' | 'busbridge';
 }
 
 export interface CellConfig {
-  type: '0.4kv' | '10kv' | '20kv' | 'rza';
+  type: '0.4kv' | '10kv' | '20kv' | 'rza' | 'pu' | 'disconnector' | 'busbar' | 'busbridge' | 'switch' | 'tn' | 'tsn';
   materials: {
     switch?: CellMaterial;
     rza?: CellMaterial;
@@ -27,6 +27,11 @@ export interface CellConfig {
     sr?: CellMaterial;
     tsn?: CellMaterial;
     tn?: CellMaterial;
+    tt?: CellMaterial[]; 
+    pu?: CellMaterial[];
+    disconnector?: CellMaterial[];
+    busbar?: CellMaterial[];
+    busbridge?: CellMaterial[];
   };
 }
 
@@ -42,5 +47,5 @@ export interface CalculationSettings {
 export interface CalculationData {
   categories: CalculationCategory[];
   calculation: CalculationSettings;
-  cellConfig: CellConfig;
+  cellConfig?: CellConfig;
 } 

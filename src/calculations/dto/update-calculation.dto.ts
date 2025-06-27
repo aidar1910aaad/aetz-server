@@ -58,7 +58,27 @@ export class UpdateCalculationDto {
                         name: "Выключатель ВА57-35",
                         price: 50000,
                         type: "switch"
-                    }
+                    },
+                    tt: [
+                        { id: 7, name: 'ТТ Трансформатор тока', price: 15000, type: 'switch' },
+                        { id: 8, name: 'ТТ Трансформатор тока 2', price: 18000, type: 'switch' }
+                    ],
+                    pu: [
+                        { id: 9, name: 'ПУ Прибор учета', price: 12000, type: 'counter' },
+                        { id: 10, name: 'ПУ Прибор учета 2', price: 14000, type: 'counter' }
+                    ],
+                    disconnector: [
+                        { id: 11, name: 'Разъединитель РЛНД', price: 25000, type: 'disconnector' },
+                        { id: 12, name: 'Разъединитель РЛНД 2', price: 28000, type: 'disconnector' }
+                    ],
+                    busbar: [
+                        { id: 13, name: 'Шина медная 60x6', price: 8000, type: 'busbar' },
+                        { id: 14, name: 'Шина медная 80x8', price: 10000, type: 'busbar' }
+                    ],
+                    busbridge: [
+                        { id: 15, name: 'Шинный мост 60x6', price: 12000, type: 'busbridge' },
+                        { id: 16, name: 'Шинный мост 80x8', price: 15000, type: 'busbridge' }
+                    ]
                 }
             }
         }
