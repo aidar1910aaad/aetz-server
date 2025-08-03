@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm';
+import { Bid } from '../../bids/entities/bid.entity';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -47,6 +48,9 @@ export class User {
     default: UserRole.PTO,
   })
   role: UserRole;
+
+  @OneToMany(() => Bid, (bid) => bid.user)
+  bids: Bid[];
 
   @CreateDateColumn()
   createdAt: Date;

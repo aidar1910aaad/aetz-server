@@ -30,6 +30,8 @@ import { Transformer } from './transformers/entities/transformer.entity';
 import { BmzSettings } from './bmz/entities/bmz-settings.entity';
 import { SwitchgearConfig } from './switchgear/entities/switchgear-config.entity';
 import { MaterialHistory } from './materials/entities/material-history.entity';
+import { BidsModule } from './bids/bids.module';
+import { Bid } from './bids/entities/bid.entity';
 
 @Module({
   imports: [
@@ -55,6 +57,7 @@ import { MaterialHistory } from './materials/entities/material-history.entity';
         Transformer,
         SwitchgearConfig,
         MaterialHistory,
+        Bid,
       ],
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
       migrationsRun: true,
@@ -91,6 +94,7 @@ import { MaterialHistory } from './materials/entities/material-history.entity';
     TransformersModule,
     BmzModule,
     SwitchgearModule,
+    BidsModule,
   ],
   controllers: [AppController],
   providers: [
