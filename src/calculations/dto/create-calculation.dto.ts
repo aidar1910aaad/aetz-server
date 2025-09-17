@@ -90,12 +90,12 @@ export class CreateCellMaterialDto implements CellMaterial {
 
 export class CreateCellConfigDto implements CellConfig {
   @ApiProperty({ 
-    enum: ['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn'],
-    description: 'Тип ячейки: 0.4кВ, 10кВ, 20кВ, РЗА, ПУ, разъединитель, шина, шинный мост, выключатель, ТН или ТСН',
+    enum: ['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn', 'input', 'section_switch', 'outgoing'],
+    description: 'Тип ячейки: 0.4кВ, 10кВ, 20кВ, РЗА, ПУ, разъединитель, шина, шинный мост, выключатель, ТН, ТСН, ввод, секционный выключатель или отходящая',
     example: '0.4kv'
   })
-  @IsEnum(['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn'])
-  type: '0.4kv' | '10kv' | '20kv' | 'rza' | 'pu' | 'disconnector' | 'busbar' | 'busbridge' | 'switch' | 'tn' | 'tsn';
+  @IsEnum(['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn', 'input', 'section_switch', 'outgoing'])
+  type: '0.4kv' | '10kv' | '20kv' | 'rza' | 'pu' | 'disconnector' | 'busbar' | 'busbridge' | 'switch' | 'tn' | 'tsn' | 'input' | 'section_switch' | 'outgoing';
 
   @ApiProperty({
     description: 'Конфигурация оборудования ячейки',
