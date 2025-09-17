@@ -4,93 +4,127 @@ import {
   IsObject,
   IsOptional,
   IsNotEmpty,
-  ValidateNested,
-  IsNumber,
   IsString,
+  IsNumber,
 } from 'class-validator';
 
-class MetaUserDto {
-  @ApiProperty({ example: 1 })
+class UserDto {
+  @ApiProperty({ example: 4, description: 'ID пользователя' })
   @IsNumber()
   id: number;
 
-  @ApiProperty({ example: 'ivanov' })
+  @ApiProperty({ example: 'aidarr', description: 'Имя пользователя' })
   @IsString()
   username: string;
 
-  @ApiProperty({ example: 'Иван' })
+  @ApiProperty({ example: 'Айдар', description: 'Имя' })
   @IsString()
   firstName: string;
 
-  @ApiProperty({ example: 'Иванов' })
+  @ApiProperty({ example: 'Айдарович', description: 'Фамилия' })
   @IsString()
   lastName: string;
 }
 
-class MetaDto {
-  @ApiProperty({ example: '12345' })
-  @IsNotEmpty()
+export class CreateBidDto {
+  @ApiProperty({ 
+    example: 'БКТП', 
+    description: 'Тип заявки' 
+  })
   @IsString()
-  taskNumber: string;
+  @IsNotEmpty()
+  type: string;
 
-  @ApiProperty({ example: '2024-05-30' })
-  @IsNotEmpty()
+  @ApiProperty({ 
+    example: '2025-09-17', 
+    description: 'Дата заявки' 
+  })
   @IsString()
+  @IsNotEmpty()
   date: string;
 
-  @ApiProperty({ example: 'ООО Ромашка' })
-  @IsNotEmpty()
+  @ApiProperty({ 
+    example: 'фывафыва', 
+    description: 'Название клиента' 
+  })
   @IsString()
+  @IsNotEmpty()
   client: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
-  @IsObject()
-  @ValidateNested()
-  @Type(() => MetaUserDto)
-  user: MetaUserDto;
-
-  @ApiProperty({ example: 'БКТП' })
-  @IsNotEmpty()
+  @ApiProperty({ 
+    example: 'укфыва', 
+    description: 'Номер задачи' 
+  })
   @IsString()
-  type: string;
-}
+  @IsNotEmpty()
+  taskNumber: string;
 
-export class CreateBidDto {
-  @ApiProperty({ type: MetaDto, description: 'Meta information' })
+  @ApiPropertyOptional({ 
+    example: 52899246.5920094, 
+    description: 'Общая сумма заявки' 
+  })
+  @IsOptional()
+  @IsNumber()
+  totalAmount?: number;
+
+  @ApiProperty({ 
+    description: 'Информация о пользователе', 
+    type: UserDto
+  })
   @IsObject()
   @IsNotEmpty()
-  @ValidateNested()
-  @Type(() => MetaDto)
-  meta: MetaDto;
+  @Type(() => UserDto)
+  user: UserDto;
 
-  @ApiPropertyOptional({ type: 'object', description: 'BMZ data', additionalProperties: true })
+  @ApiProperty({ 
+    description: 'Все данные заявки (гибкая структура)', 
+    example: {
+      bmz: { 
+        buildingType: 'bmz', 
+        length: 5000, 
+        width: 6000, 
+        height: 3000, 
+        thickness: 100,
+        total: 1500000
+      },
+      transformer: { 
+        selected: { id: 1, model: 'ТСЛ-1250/20', price: 19026000 }, 
+        total: 19026000 
+      },
+      rusn: { 
+        cellConfigs: [
+          { type: '0.4kv', materials: { switch: { id: 1, name: 'Выключатель', price: 50000 } } }
+        ], 
+        busbarSummary: { total: 100000 },
+        total: 150000 
+      },
+      runn: { 
+        cellSummaries: [
+          { type: '10kv', quantity: 2, total: 500000 }
+        ], 
+        total: 9088368.92 
+      },
+      additionalEquipment: { 
+        selected: { id: 1, name: 'Вентиляция' }, 
+        equipmentList: [
+          { id: 1, name: 'Вентиляция', price: 50000 },
+          { id: 2, name: 'Утепление', price: 30000 }
+        ], 
+        total: 80000 
+      },
+      works: { 
+        selected: { id: 1, name: 'Монтаж' }, 
+        worksList: [
+          { id: 1, name: 'Монтаж БМЗ', price: 500000 },
+          { id: 2, name: 'Монтаж трансформатора', price: 300000 }
+        ], 
+        total: 1865410 
+      }
+    },
+    type: 'object',
+    additionalProperties: true
+  })
   @IsObject()
-  @IsOptional()
-  bmz?: any;
-
-  @ApiPropertyOptional({ type: 'object', description: 'Transformer data', additionalProperties: true })
-  @IsObject()
-  @IsOptional()
-  transformer?: any;
-
-  @ApiPropertyOptional({ type: 'object', description: 'RUSN data', additionalProperties: true })
-  @IsObject()
-  @IsOptional()
-  rusn?: any;
-
-  @ApiPropertyOptional({ type: 'object', description: 'Additional equipment data', additionalProperties: true })
-  @IsObject()
-  @IsOptional()
-  additionalEquipment?: any;
-
-  @ApiPropertyOptional({ type: 'object', description: 'Works data', additionalProperties: true })
-  @IsObject()
-  @IsOptional()
-  works?: any;
-
-  @ApiPropertyOptional({ type: 'object', description: 'Totals data', additionalProperties: true })
-  @IsObject()
-  @IsOptional()
-  totals?: any;
+  @IsNotEmpty()
+  data: any;
 } 
