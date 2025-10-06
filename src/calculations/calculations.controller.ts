@@ -28,7 +28,7 @@ import { UserRole } from '../users/entities/user.entity';
 import { Calculation } from './entities/calculation.entity';
 import { CalculationGroup } from './entities/calculation-group.entity';
 
-@ApiTags('Calculations')
+@ApiTags('Расчеты')
 @ApiBearerAuth('access-token')
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('calculations')
@@ -37,8 +37,30 @@ export class CalculationsController {
 
   // ✅ Получение всех групп
   @Get('groups')
-  @ApiOperation({ summary: 'Получить список всех групп калькуляций' })
-  @ApiResponse({ status: 200, type: [CalculationGroup] })
+  @ApiOperation({ 
+    summary: 'Получить список всех групп расчетов',
+    description: 'Возвращает список всех групп расчетов с их метаданными и настройками.'
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Список групп расчетов получен',
+    type: [CalculationGroup],
+    schema: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: { type: 'number', example: 1 },
+          name: { type: 'string', example: 'Электротехнические расчеты' },
+          slug: { type: 'string', example: 'electrical-calculations' },
+          description: { type: 'string', example: 'Расчеты для электротехнических проектов' },
+          createdAt: { type: 'string', format: 'date-time' },
+          updatedAt: { type: 'string', format: 'date-time' }
+        }
+      }
+    }
+  })
+  @ApiResponse({ status: 401, description: 'Не авторизован' })
   getAllGroups() {
     return this.calculationsService.getAllGroups();
   }

@@ -4,10 +4,9 @@ import { Repository } from 'typeorm';
 import { Material } from './entities/material.entity';
 import { CreateMaterialDto } from './dto/create-material.dto';
 import { UpdateMaterialDto } from './dto/update-material.dto';
-import { MaterialHistoryFilterDto } from './dto/material-history-filter.dto';
 import { MaterialHistory } from './entities/material-history.entity';
 import { Category } from '../categories/entities/category.entity';
-import { FindOptionsWhere, ILike, In, Between, MoreThanOrEqual, LessThanOrEqual } from 'typeorm';
+import { FindOptionsWhere, ILike } from 'typeorm';
 
 @Injectable()
 export class MaterialsService {
@@ -195,78 +194,12 @@ export class MaterialsService {
     });
   }
 
-  async getHistoryWithFilters(filters: MaterialHistoryFilterDto): Promise<{
-    data: MaterialHistory[];
-    total: number;
-    limit: number;
-    offset: number;
-  }> {
-    const {
-      materialName,
-      materialCode,
-      categoryId,
-      fieldChanged,
-      changedBy,
-      dateFrom,
-      dateTo,
-      limit = 10,
-      offset = 0,
-    } = filters;
-
-    // Строим условия для фильтрации
-    const whereConditions: any = {};
-
-    // Фильтр по материалу
-    if (materialName || materialCode || categoryId) {
-      whereConditions.material = {};
-      
-      if (materialName) {
-        whereConditions.material.name = ILike(`%${materialName}%`);
-      }
-      
-      if (materialCode) {
-        whereConditions.material.code = ILike(`%${materialCode}%`);
-      }
-      
-      if (categoryId) {
-        whereConditions.material.category = { id: categoryId };
-      }
-    }
-
-    // Фильтр по полю изменения
-    if (fieldChanged) {
-      whereConditions.fieldChanged = ILike(`%${fieldChanged}%`);
-    }
-
-    // Фильтр по пользователю
-    if (changedBy) {
-      whereConditions.changedBy = ILike(`%${changedBy}%`);
-    }
-
-    // Фильтр по дате
-    if (dateFrom && dateTo) {
-      whereConditions.changedAt = Between(new Date(dateFrom), new Date(dateTo));
-    } else if (dateFrom) {
-      whereConditions.changedAt = MoreThanOrEqual(new Date(dateFrom));
-    } else if (dateTo) {
-      whereConditions.changedAt = LessThanOrEqual(new Date(dateTo));
-    }
-
-    // Получаем данные с пагинацией
-    const [data, total] = await this.historyRepo.findAndCount({
-      where: whereConditions,
+  async getRecentHistory(): Promise<MaterialHistory[]> {
+    return this.historyRepo.find({
       relations: ['material', 'material.category'],
       order: { changedAt: 'DESC' },
-      take: limit,
-      skip: offset,
+      take: 10,
     });
-
-    return {
-      data,
-      total,
-      limit,
-      offset,
-    };
   }
 
   async delete(id: number): Promise<void> {

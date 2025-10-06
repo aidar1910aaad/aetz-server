@@ -42,30 +42,81 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('AETZ API')
     .setDescription(`
-      <h2>Добро пожаловать в API документацию AETZ</h2>
-      <p>Здесь вы найдете все необходимые эндпоинты для работы с системой.</p>
-      <h3>Как начать:</h3>
-      <ol>
-        <li>Авторизуйтесь через <code>/auth/login</code></li>
-        <li>Скопируйте полученный токен</li>
-        <li>Нажмите кнопку "Authorize" и вставьте токен</li>
-      </ol>
-      <h3>Основные разделы:</h3>
-      <ul>
-        <li>🔐 <b>Аутентификация</b> - вход в систему</li>
-        <li>👥 <b>Пользователи</b> - управление пользователями</li>
-        <li>📦 <b>Материалы</b> - работа с материалами</li>
-        <li>📋 <b>Категории</b> - управление категориями</li>
-        <li>🧮 <b>Расчеты</b> - работа с расчетами</li>
-        <li>📝 <b>Заявки</b> - работа с заявками</li>
-        <li>⚙️ <b>Настройки</b> - системные настройки</li>
-        <li>💱 <b>Валюты</b> - настройки валют</li>
-        <li>🔌 <b>Трансформаторы</b> - работа с трансформаторами</li>
-        <li>🏭 <b>БМЗ</b> - работа с БМЗ</li>
-        <li>⚡ <b>РУ</b> - работа с распределительными устройствами</li>
-      </ul>
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <h2 style="color: #2563eb; margin-bottom: 20px;">🏢 AETZ API - Система управления электротехническими проектами</h2>
+        <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
+          Комплексная система для управления материалами, расчетами и проектами в области электротехники.
+        </p>
+        
+        <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+          <h3 style="color: #1f2937; margin-bottom: 15px;">🚀 Быстрый старт</h3>
+          <ol style="color: #374151; line-height: 1.6;">
+            <li>Выполните авторизацию через <code style="background: #e5e7eb; padding: 2px 6px; border-radius: 4px;">POST /auth/login</code></li>
+            <li>Скопируйте полученный JWT токен</li>
+            <li>Нажмите кнопку <strong>"Authorize"</strong> в правом верхнем углу</li>
+            <li>Вставьте токен в формате: <code>Bearer ваш_токен</code></li>
+          </ol>
+        </div>
+
+        <div style="background: #fef3c7; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+          <h3 style="color: #92400e; margin-bottom: 15px;">⚠️ Важно</h3>
+          <p style="color: #92400e; margin: 0;">
+            Все эндпоинты требуют авторизации, кроме <code>/auth/login</code> и <code>/auth/register</code>
+          </p>
+        </div>
+
+        <h3 style="color: #1f2937; margin-bottom: 15px;">📋 Основные модули системы</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #3b82f6;">
+            <strong>🔐 Аутентификация</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Вход в систему и управление токенами</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #10b981;">
+            <strong>👥 Пользователи</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Управление пользователями системы</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #f59e0b;">
+            <strong>📦 Материалы</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Работа с материалами и их свойствами</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #8b5cf6;">
+            <strong>📋 Категории</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Управление категориями материалов</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #ef4444;">
+            <strong>🧮 Расчеты</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Работа с расчетами и их группами</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #06b6d4;">
+            <strong>📝 Заявки</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Работа с заявками</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #84cc16;">
+            <strong>⚙️ Настройки</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Системные настройки</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #f97316;">
+            <strong>💱 Валюты</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Настройки валют и курсов</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #ec4899;">
+            <strong>🔌 Трансформаторы</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Работа с трансформаторами</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #6366f1;">
+            <strong>🏭 БМЗ</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Работа с блоками модульных зданий</span>
+          </div>
+          <div style="background: #f9fafb; padding: 15px; border-radius: 6px; border-left: 4px solid #14b8a6;">
+            <strong>⚡ РУ</strong><br>
+            <span style="color: #6b7280; font-size: 14px;">Работа с распределительными устройствами</span>
+          </div>
+        </div>
+      </div>
     `)
-    .setVersion('1.0')
+    .setVersion('1.0.0')
+    .setContact('AETZ Team', 'https://aetz-client.vercel.app', 'support@aetz.com')
+    .setLicense('MIT', 'https://opensource.org/licenses/MIT')
     .addTag('Аутентификация', 'Вход в систему и управление токенами')
     .addTag('Пользователи', 'Управление пользователями системы')
     .addTag('Материалы', 'Работа с материалами и их свойствами')
@@ -94,26 +145,30 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document, {
     swaggerOptions: {
       persistAuthorization: true,
-      docExpansion: 'none',
+      docExpansion: 'list',
       filter: true,
       showRequestDuration: true,
       syntaxHighlight: {
-        theme: 'monokai'
+        theme: 'agate'
       },
       tryItOutEnabled: true,
       requestInterceptor: (req) => {
         req.credentials = 'include';
         return req;
       },
-      defaultModelsExpandDepth: 3,
-      defaultModelExpandDepth: 3,
+      defaultModelsExpandDepth: 2,
+      defaultModelExpandDepth: 2,
       displayRequestDuration: true,
       showExtensions: true,
       showCommonExtensions: true,
       tagsSorter: 'alpha',
       operationsSorter: 'alpha',
+      deepLinking: true,
+      displayOperationId: false,
+      supportedSubmitMethods: ['get', 'post', 'put', 'patch', 'delete'],
+      validatorUrl: null,
     },
-    customSiteTitle: 'AETZ API Documentation',
+    customSiteTitle: 'AETZ API - Документация',
     customfavIcon: 'https://aetz-client.vercel.app/favicon.ico',
     customJs: [
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
