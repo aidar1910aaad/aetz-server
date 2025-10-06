@@ -16,7 +16,7 @@ export interface CellMaterial {
     type: 'switch' | 'rza' | 'counter' | 'sr' | 'tsn' | 'tn' | 'pu' | 'disconnector' | 'busbar' | 'busbridge';
 }
 export interface CellConfig {
-    type: '0.4kv' | '10kv' | '20kv' | 'rza' | 'pu' | 'disconnector' | 'busbar' | 'busbridge' | 'switch' | 'tn' | 'tsn';
+    type: '0.4kv' | '10kv' | '20kv' | 'rza' | 'pu' | 'disconnector' | 'busbar' | 'busbridge' | 'switch' | 'tn' | 'tsn' | 'input' | 'section_switch' | 'outgoing';
     materials: {
         switch?: CellMaterial;
         rza?: CellMaterial;

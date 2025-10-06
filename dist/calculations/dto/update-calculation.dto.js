@@ -67,7 +67,7 @@ __decorate([
                 ndsPercentage: 12
             },
             cellConfig: {
-                type: "0.4kv",
+                type: "input",
                 materials: {
                     switch: {
                         id: 1,

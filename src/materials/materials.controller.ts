@@ -5,6 +5,7 @@ import { MaterialsService } from './materials.service';
 import { Material } from './entities/material.entity';
 import { CreateMaterialDto } from './dto/create-material.dto';
 import { UpdateMaterialDto } from './dto/update-material.dto';
+import { MaterialHistoryFilterDto } from './dto/material-history-filter.dto';
 import { Query } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -58,9 +59,55 @@ findAll(
     return this.materialsService.update(id, dto);
   }
 
+  @Get('history')
+  @ApiOperation({ 
+    summary: 'Получить историю изменений материалов с фильтрацией',
+    description: 'Получить историю изменений материалов по различным параметрам фильтрации'
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'История изменений материалов',
+    schema: {
+      type: 'object',
+      properties: {
+        data: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'number' },
+              fieldChanged: { type: 'string' },
+              oldValue: { type: 'string' },
+              newValue: { type: 'string' },
+              changedBy: { type: 'string' },
+              changedAt: { type: 'string', format: 'date-time' },
+              material: {
+                type: 'object',
+                properties: {
+                  id: { type: 'number' },
+                  name: { type: 'string' },
+                  code: { type: 'string' },
+                  unit: { type: 'string' },
+                  price: { type: 'number' },
+                  category: { type: 'object' }
+                }
+              }
+            }
+          }
+        },
+        total: { type: 'number' },
+        limit: { type: 'number' },
+        offset: { type: 'number' }
+      }
+    }
+  })
+  getHistoryWithFilters(@Query() filters: MaterialHistoryFilterDto) {
+    return this.materialsService.getHistoryWithFilters(filters);
+  }
+
   @Get(':id/history')
-  @ApiOperation({ summary: 'Получить историю изменений материала' })
-  @ApiResponse({ status: 200, description: 'История изменений' })
+  @ApiOperation({ summary: 'Получить историю изменений конкретного материала' })
+  @ApiResponse({ status: 200, description: 'История изменений материала' })
   getHistory(@Param('id', ParseIntPipe) id: number) {
     return this.materialsService.getHistory(id);
   }

@@ -117,11 +117,11 @@ class CreateCellConfigDto {
 exports.CreateCellConfigDto = CreateCellConfigDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
-        enum: ['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn'],
-        description: 'Тип ячейки: 0.4кВ, 10кВ, 20кВ, РЗА, ПУ, разъединитель, шина, шинный мост, выключатель, ТН или ТСН',
+        enum: ['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn', 'input', 'section_switch', 'outgoing'],
+        description: 'Тип ячейки: 0.4кВ, 10кВ, 20кВ, РЗА, ПУ, разъединитель, шина, шинный мост, выключатель, ТН, ТСН, ввод, секционный выключатель или отходящая',
         example: '0.4kv'
     }),
-    (0, class_validator_1.IsEnum)(['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn']),
+    (0, class_validator_1.IsEnum)(['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn', 'input', 'section_switch', 'outgoing']),
     __metadata("design:type", String)
 ], CreateCellConfigDto.prototype, "type", void 0);
 __decorate([
