@@ -41,6 +41,11 @@ export class UsersService {
     if (!partialUser || Object.keys(partialUser).length === 0) {
       throw new Error('Нет данных для обновления');
     }
+
+    // Хешируем пароль, если он есть в данных обновления
+    if (partialUser.password) {
+      partialUser.password = await bcrypt.hash(partialUser.password, 10);
+    }
   
     await this.userRepository.update(id, partialUser);
     const updated = await this.findById(id);

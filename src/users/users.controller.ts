@@ -185,7 +185,7 @@ export class UsersController {
   @Patch(':id')
   @ApiOperation({ 
     summary: 'Обновить пользователя',
-    description: 'Обновляет информацию о пользователе. Доступно только для администраторов.'
+    description: 'Обновляет информацию о пользователе, включая пароль и роль. Пароль автоматически хешируется. Доступно только для администраторов.'
   })
   @ApiParam({ name: 'id', type: Number, description: 'ID пользователя' })
   @ApiResponse({ 
