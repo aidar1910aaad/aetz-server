@@ -15,6 +15,9 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 
 @ApiTags('Пользователи')
 @Controller('users')
@@ -79,6 +82,40 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
+  @ApiBearerAuth('access-token')
+  @UseGuards(JwtAuthGuard)
+  @Get('profile/me')
+  @ApiOperation({ 
+    summary: 'Получить свой профиль',
+    description: 'Возвращает информацию о текущем авторизованном пользователе.'
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Профиль получен',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'number', example: 1 },
+        username: { type: 'string', example: 'john_doe' },
+        firstName: { type: 'string', example: 'John' },
+        lastName: { type: 'string', example: 'Doe' },
+        email: { type: 'string', example: 'john@example.com' },
+        phone: { type: 'string', example: '+77001234567' },
+        position: { type: 'string', example: 'ПТО инженер' },
+        country: { type: 'string', example: 'Казахстан' },
+        city: { type: 'string', example: 'Астана' },
+        postalCode: { type: 'string', example: '010000' },
+        role: { type: 'string', enum: ['admin', 'pto', 'manager'], example: 'pto' },
+        createdAt: { type: 'string', format: 'date-time' }
+      }
+    }
+  })
+  @ApiResponse({ status: 401, description: 'Не авторизован' })
+  getProfile(@CurrentUser() user: JwtPayload) {
+    return this.usersService.findById(user.id);
+  }
+
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'pto')
   @Get(':id')
@@ -108,6 +145,41 @@ export class UsersController {
     return this.usersService.findById(+id);
   }
 
+  @ApiBearerAuth('access-token')
+  @UseGuards(JwtAuthGuard)
+  @Patch('profile/me')
+  @ApiOperation({ 
+    summary: 'Обновить свой профиль',
+    description: 'Позволяет пользователю редактировать свои профильные данные. Нельзя изменить роль или username.'
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Профиль успешно обновлен',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'number', example: 1 },
+        username: { type: 'string', example: 'john_doe' },
+        firstName: { type: 'string', example: 'John' },
+        lastName: { type: 'string', example: 'Doe' },
+        email: { type: 'string', example: 'john@example.com' },
+        phone: { type: 'string', example: '+77001234567' },
+        position: { type: 'string', example: 'ПТО инженер' },
+        country: { type: 'string', example: 'Казахстан' },
+        city: { type: 'string', example: 'Астана' },
+        postalCode: { type: 'string', example: '010000' },
+        role: { type: 'string', enum: ['admin', 'pto', 'manager'], example: 'pto' },
+        createdAt: { type: 'string', format: 'date-time' }
+      }
+    }
+  })
+  @ApiResponse({ status: 400, description: 'Некорректные данные' })
+  @ApiResponse({ status: 401, description: 'Не авторизован' })
+  updateProfile(@CurrentUser() user: JwtPayload, @Body() updateDto: UpdateProfileDto) {
+    return this.usersService.updateProfile(user.id, updateDto);
+  }
+
+  @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @Patch(':id')

@@ -53,4 +53,21 @@ export class UsersService {
   async remove(id: number): Promise<void> {
     await this.userRepository.delete(id);
   }
+
+  async updateProfile(userId: number, updateData: Partial<User>): Promise<User> {
+    // Если есть пароль в данных, хешируем его
+    if (updateData.password) {
+      updateData.password = await bcrypt.hash(updateData.password, 10);
+    }
+
+    // Убираем поля, которые нельзя обновлять через профиль
+    const { role, ...allowedData } = updateData as any;
+
+    await this.userRepository.update(userId, allowedData);
+    const updated = await this.findById(userId);
+    if (!updated) {
+      throw new Error('User not found after update');
+    }
+    return updated;
+  }
 }
