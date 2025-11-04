@@ -53,7 +53,7 @@ export class UsersController {
   }
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin', 'pto')
+  @Roles('admin', 'pto', 'manager')
   @Get()
   @ApiOperation({ 
     summary: 'Получить список всех пользователей',
@@ -117,7 +117,7 @@ export class UsersController {
 
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin', 'pto')
+  @Roles('admin', 'pto', 'manager')
   @Get(':id')
   @ApiOperation({ 
     summary: 'Получить пользователя по ID',

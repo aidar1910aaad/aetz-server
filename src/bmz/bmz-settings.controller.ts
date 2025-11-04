@@ -16,7 +16,7 @@ export class BmzSettingsController {
   constructor(private readonly bmzSettingsService: BmzSettingsService) {}
 
   @Get()
-  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @Roles(UserRole.ADMIN, UserRole.PTO, UserRole.MANAGER)
   @ApiOperation({ summary: 'Получить настройки БМЗ' })
   @ApiResponse({
     status: 200,
@@ -36,7 +36,7 @@ export class BmzSettingsController {
   }
 
   @Put()
-  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @Roles(UserRole.ADMIN, UserRole.PTO, UserRole.MANAGER)
   @ApiOperation({ summary: 'Обновить настройки БМЗ' })
   @ApiResponse({
     status: 200,
