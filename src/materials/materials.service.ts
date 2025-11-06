@@ -194,12 +194,80 @@ export class MaterialsService {
     });
   }
 
-  async getRecentHistory(): Promise<MaterialHistory[]> {
-    return this.historyRepo.find({
-      relations: ['material', 'material.category'],
-      order: { changedAt: 'DESC' },
-      take: 10,
-    });
+  async getRecentHistory(query: {
+    page?: number;
+    limit?: number;
+    materialId?: number;
+    fieldChanged?: string;
+    changedBy?: string;
+    dateFrom?: string;
+    dateTo?: string;
+    search?: string;
+  }): Promise<{ data: MaterialHistory[]; total: number }> {
+    const {
+      page = 1,
+      limit = 50,
+      materialId,
+      fieldChanged,
+      changedBy,
+      dateFrom,
+      dateTo,
+      search,
+    } = query;
+
+    const queryBuilder = this.historyRepo.createQueryBuilder('history')
+      .leftJoinAndSelect('history.material', 'material')
+      .leftJoinAndSelect('material.category', 'category')
+      .orderBy('history.changedAt', 'DESC');
+
+    // Фильтр по ID материала
+    if (materialId) {
+      queryBuilder.andWhere('material.id = :materialId', { materialId });
+    }
+
+    // Фильтр по измененному полю
+    if (fieldChanged) {
+      queryBuilder.andWhere('history.fieldChanged = :fieldChanged', { fieldChanged });
+    }
+
+    // Фильтр по пользователю (регистронезависимый поиск)
+    if (changedBy) {
+      queryBuilder.andWhere('LOWER(history.changedBy) LIKE LOWER(:changedBy)', { 
+        changedBy: `%${changedBy}%` 
+      });
+    }
+
+    // Фильтр по дате начала
+    if (dateFrom) {
+      const fromDate = new Date(dateFrom);
+      fromDate.setHours(0, 0, 0, 0); // Устанавливаем начало дня
+      queryBuilder.andWhere('history.changedAt >= :dateFrom', { 
+        dateFrom: fromDate
+      });
+    }
+
+    // Фильтр по дате конца
+    if (dateTo) {
+      const dateToEnd = new Date(dateTo);
+      dateToEnd.setHours(23, 59, 59, 999); // Устанавливаем конец дня
+      queryBuilder.andWhere('history.changedAt <= :dateTo', { dateTo: dateToEnd });
+    }
+
+    // Поиск по названию материала или коду (регистронезависимый)
+    if (search) {
+      queryBuilder.andWhere(
+        '(LOWER(material.name) LIKE LOWER(:search) OR LOWER(material.code) LIKE LOWER(:search))',
+        { search: `%${search}%` }
+      );
+    }
+
+    // Пагинация
+    const skip = (page - 1) * limit;
+    queryBuilder.skip(skip).take(limit);
+
+    const [data, total] = await queryBuilder.getManyAndCount();
+
+    return { data, total };
   }
 
   async delete(id: number): Promise<void> {

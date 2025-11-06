@@ -7,7 +7,7 @@ import { CreateMaterialDto } from './dto/create-material.dto';
 import { UpdateMaterialDto } from './dto/update-material.dto';
 import { Query } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 
 @ApiTags('Materials')
 @ApiBearerAuth('access-token')
@@ -127,40 +127,72 @@ export class MaterialsController {
 
   @Get('history')
   @ApiOperation({ 
-    summary: 'Получить последние 10 изменений материалов',
-    description: 'Возвращает последние 10 изменений материалов в системе'
+    summary: 'Получить историю изменений материалов с фильтрацией',
+    description: 'Возвращает историю изменений материалов с возможностью фильтрации по материалу, полю, пользователю, дате и поиска. Поддерживает пагинацию.'
   })
   @ApiResponse({ 
     status: 200, 
-    description: 'Последние 10 изменений материалов',
+    description: 'История изменений материалов с пагинацией',
     schema: {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          id: { type: 'number' },
-          fieldChanged: { type: 'string' },
-          oldValue: { type: 'string' },
-          newValue: { type: 'string' },
-          changedBy: { type: 'string' },
-          changedAt: { type: 'string', format: 'date-time' },
-          material: {
+      type: 'object',
+      properties: {
+        data: {
+          type: 'array',
+          items: {
             type: 'object',
             properties: {
               id: { type: 'number' },
-              name: { type: 'string' },
-              code: { type: 'string' },
-              unit: { type: 'string' },
-              price: { type: 'number' },
-              category: { type: 'object' }
+              fieldChanged: { type: 'string' },
+              oldValue: { type: 'string' },
+              newValue: { type: 'string' },
+              changedBy: { type: 'string' },
+              changedAt: { type: 'string', format: 'date-time' },
+              material: {
+                type: 'object',
+                properties: {
+                  id: { type: 'number' },
+                  name: { type: 'string' },
+                  code: { type: 'string' },
+                  unit: { type: 'string' },
+                  price: { type: 'number' },
+                  category: { type: 'object' }
+                }
+              }
             }
           }
-        }
+        },
+        total: { type: 'number', description: 'Общее количество записей' }
       }
     }
   })
-  getRecentHistory() {
-    return this.materialsService.getRecentHistory();
+  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Номер страницы (по умолчанию: 1)' })
+  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Количество записей на странице (по умолчанию: 50)' })
+  @ApiQuery({ name: 'materialId', required: false, type: Number, description: 'Фильтр по ID материала' })
+  @ApiQuery({ name: 'fieldChanged', required: false, type: String, description: 'Фильтр по измененному полю (name, price, category, unit)' })
+  @ApiQuery({ name: 'changedBy', required: false, type: String, description: 'Фильтр по имени пользователя (частичное совпадение)' })
+  @ApiQuery({ name: 'dateFrom', required: false, type: String, description: 'Фильтр по дате начала (формат: YYYY-MM-DD или ISO)' })
+  @ApiQuery({ name: 'dateTo', required: false, type: String, description: 'Фильтр по дате конца (формат: YYYY-MM-DD или ISO)' })
+  @ApiQuery({ name: 'search', required: false, type: String, description: 'Поиск по названию или коду материала' })
+  getRecentHistory(
+    @Query('page') page?: number,
+    @Query('limit') limit?: number,
+    @Query('materialId') materialId?: number,
+    @Query('fieldChanged') fieldChanged?: string,
+    @Query('changedBy') changedBy?: string,
+    @Query('dateFrom') dateFrom?: string,
+    @Query('dateTo') dateTo?: string,
+    @Query('search') search?: string,
+  ) {
+    return this.materialsService.getRecentHistory({
+      page: page ? +page : undefined,
+      limit: limit ? +limit : undefined,
+      materialId: materialId ? +materialId : undefined,
+      fieldChanged,
+      changedBy,
+      dateFrom,
+      dateTo,
+      search,
+    });
   }
 
   @Get(':id')
