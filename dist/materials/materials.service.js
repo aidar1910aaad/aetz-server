@@ -52,12 +52,11 @@ let MaterialsService = class MaterialsService {
         }
     }
     convertToKzt(amount, currency, settings) {
-        const fromRate = this.getRateByCurrency(settings, currency);
-        const kztRate = this.getRateByCurrency(settings, 'KZT');
-        if (!fromRate || !kztRate) {
+        const rate = this.getRateByCurrency(settings, currency);
+        if (!rate) {
             return amount;
         }
-        return (amount / fromRate) * kztRate;
+        return amount * rate;
     }
     async enrichMaterialWithCurrentPrice(material) {
         const settings = await this.currencySettingsService.getSettings();

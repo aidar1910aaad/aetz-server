@@ -40,14 +40,13 @@ export class CurrencySettingsService {
     }
 
     private convertToKzt(priceInCurrency: number, currency: string, settings: CurrencySettings): number {
-        const sourceRate = this.getRateByCurrency(settings, currency);
-        const kztRate = this.getRateByCurrency(settings, 'KZT');
+        const rate = this.getRateByCurrency(settings, currency);
 
-        if (!sourceRate || !kztRate) {
+        if (!rate) {
             return priceInCurrency;
         }
 
-        return Number(((priceInCurrency / sourceRate) * kztRate).toFixed(2));
+        return Number((priceInCurrency * rate).toFixed(2));
     }
 
     private async recalculateMaterialsPriceInKzt(settings: CurrencySettings): Promise<void> {

@@ -50,14 +50,13 @@ export class MaterialsService {
   }
 
   private convertToKzt(amount: number, currency: string, settings: any): number {
-    const fromRate = this.getRateByCurrency(settings, currency);
-    const kztRate = this.getRateByCurrency(settings, 'KZT');
+    const rate = this.getRateByCurrency(settings, currency);
 
-    if (!fromRate || !kztRate) {
+    if (!rate) {
       return amount;
     }
 
-    return (amount / fromRate) * kztRate;
+    return amount * rate;
   }
 
   private async enrichMaterialWithCurrentPrice(material: Material): Promise<Material & { currentPriceKzt: number }> {

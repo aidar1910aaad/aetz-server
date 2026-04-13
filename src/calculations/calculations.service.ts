@@ -51,11 +51,10 @@ export class CalculationsService {
 
   private getMaterialCurrentPriceKzt(material: Material, settings: any): number {
     const priceInCurrency = this.toNumber(material.priceInCurrency ?? material.price ?? 0);
-    const sourceRate = this.getRateByCurrency(settings, material.currency || 'KZT');
-    const kztRate = this.getRateByCurrency(settings, 'KZT');
+    const rate = this.getRateByCurrency(settings, material.currency || 'KZT');
 
-    if (!sourceRate || !kztRate) return priceInCurrency;
-    return Number(((priceInCurrency / sourceRate) * kztRate).toFixed(2));
+    if (!rate) return priceInCurrency;
+    return Number((priceInCurrency * rate).toFixed(2));
   }
 
   // 🔄 Вспомогательная функция для обновления цен в cellConfig

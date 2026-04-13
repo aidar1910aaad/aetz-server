@@ -47,12 +47,11 @@ let CurrencySettingsService = class CurrencySettingsService {
         }
     }
     convertToKzt(priceInCurrency, currency, settings) {
-        const sourceRate = this.getRateByCurrency(settings, currency);
-        const kztRate = this.getRateByCurrency(settings, 'KZT');
-        if (!sourceRate || !kztRate) {
+        const rate = this.getRateByCurrency(settings, currency);
+        if (!rate) {
             return priceInCurrency;
         }
-        return Number(((priceInCurrency / sourceRate) * kztRate).toFixed(2));
+        return Number((priceInCurrency * rate).toFixed(2));
     }
     async recalculateMaterialsPriceInKzt(settings) {
         const materials = await this.materialRepo.find();

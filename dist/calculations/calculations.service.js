@@ -52,11 +52,10 @@ let CalculationsService = class CalculationsService {
     }
     getMaterialCurrentPriceKzt(material, settings) {
         const priceInCurrency = this.toNumber(material.priceInCurrency ?? material.price ?? 0);
-        const sourceRate = this.getRateByCurrency(settings, material.currency || 'KZT');
-        const kztRate = this.getRateByCurrency(settings, 'KZT');
-        if (!sourceRate || !kztRate)
+        const rate = this.getRateByCurrency(settings, material.currency || 'KZT');
+        if (!rate)
             return priceInCurrency;
-        return Number(((priceInCurrency / sourceRate) * kztRate).toFixed(2));
+        return Number((priceInCurrency * rate).toFixed(2));
     }
     updateCellConfigPrices(cellConfig, materialsMap) {
         if (!cellConfig || !cellConfig.materials) {
