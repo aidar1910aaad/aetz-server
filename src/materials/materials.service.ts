@@ -7,6 +7,7 @@ import { UpdateMaterialDto } from './dto/update-material.dto';
 import { MaterialHistory } from './entities/material-history.entity';
 import { Category } from '../categories/entities/category.entity';
 import { FindOptionsWhere, ILike } from 'typeorm';
+import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
 
 @Injectable()
 export class MaterialsService {
@@ -16,9 +17,82 @@ export class MaterialsService {
 
     @InjectRepository(MaterialHistory)
     private readonly historyRepo: Repository<MaterialHistory>,
+    private readonly currencySettingsService: CurrencySettingsService,
   ) { }
 
-  async create(dto: CreateMaterialDto): Promise<Material> {
+  private toNumber(value: unknown): number {
+    if (typeof value === 'number') {
+      return value;
+    }
+
+    if (typeof value === 'string') {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    return 0;
+  }
+
+  private getRateByCurrency(settings: any, currency: string): number {
+    const normalized = (currency || 'KZT').toUpperCase();
+
+    switch (normalized) {
+      case 'USD':
+        return this.toNumber(settings.usdRate) || 1;
+      case 'EUR':
+        return this.toNumber(settings.eurRate) || 1;
+      case 'RUB':
+        return this.toNumber(settings.rubRate) || 1;
+      case 'KZT':
+      default:
+        return this.toNumber(settings.kztRate) || 1;
+    }
+  }
+
+  private convertToKzt(amount: number, currency: string, settings: any): number {
+    const fromRate = this.getRateByCurrency(settings, currency);
+    const kztRate = this.getRateByCurrency(settings, 'KZT');
+
+    if (!fromRate || !kztRate) {
+      return amount;
+    }
+
+    return (amount / fromRate) * kztRate;
+  }
+
+  private async enrichMaterialWithCurrentPrice(material: Material): Promise<Material & { currentPriceKzt: number }> {
+    const settings = await this.currencySettingsService.getSettings();
+    const currentPriceKzt = Number(
+      this.convertToKzt(
+        this.toNumber(material.priceInCurrency ?? material.price),
+        material.currency || 'KZT',
+        settings,
+      ).toFixed(2),
+    );
+
+    material.price = currentPriceKzt;
+
+    return Object.assign(material, { currentPriceKzt });
+  }
+
+  private async enrichMaterialsWithCurrentPrices(materials: Material[]): Promise<Array<Material & { currentPriceKzt: number }>> {
+    const settings = await this.currencySettingsService.getSettings();
+
+    return materials.map((material) => {
+      const currentPriceKzt = Number(
+        this.convertToKzt(
+          this.toNumber(material.priceInCurrency ?? material.price),
+          material.currency || 'KZT',
+          settings,
+        ).toFixed(2),
+      );
+
+      material.price = currentPriceKzt;
+      return Object.assign(material, { currentPriceKzt });
+    });
+  }
+
+  async create(dto: CreateMaterialDto): Promise<Material & { currentPriceKzt: number }> {
     let category: Category | undefined;
 
     if (dto.categoryId) {
@@ -31,10 +105,20 @@ export class MaterialsService {
       category = found;
     }
 
+    const settings = await this.currencySettingsService.getSettings();
+    const currency = (dto.currency || 'KZT').toUpperCase();
+    const priceInCurrency = dto.priceInCurrency ?? dto.price ?? 0;
+    const rateAtCreation = this.getRateByCurrency(settings, currency);
+    const priceKztAtCreation = Number(this.convertToKzt(priceInCurrency, currency, settings).toFixed(2));
+
     const material = new Material();
     material.name = dto.name;
     material.unit = dto.unit;
-    material.price = dto.price ?? 0;
+    material.currency = currency;
+    material.priceInCurrency = priceInCurrency;
+    material.rateAtCreation = rateAtCreation;
+    material.priceKztAtCreation = priceKztAtCreation;
+    material.price = priceKztAtCreation;
     material.code = dto.code || String(Date.now());
     if (category) {
       material.category = category;
@@ -42,7 +126,7 @@ export class MaterialsService {
 
     const saved = await this.materialRepo.save(material);
     console.log('✅ СОХРАНЕНО:', saved);
-    return saved;
+    return this.enrichMaterialWithCurrentPrice(saved);
   }
 
 
@@ -53,7 +137,7 @@ export class MaterialsService {
     sort?: 'name' | 'price' | 'code';
     order?: 'ASC' | 'DESC';
     categoryId?: number;
-  }): Promise<{ data: Material[]; total: number }> {
+  }): Promise<{ data: Array<Material & { currentPriceKzt: number }>; total: number }> {
     const {
       page = 1,
       limit = 50,
@@ -82,23 +166,26 @@ export class MaterialsService {
       skip: (page - 1) * limit,
     });
 
-    return { data, total };
+    const enrichedData = await this.enrichMaterialsWithCurrentPrices(data);
+
+    return { data: enrichedData, total };
   }
 
-  async findOne(id: number): Promise<Material> {
+  async findOne(id: number): Promise<Material & { currentPriceKzt: number }> {
     const material = await this.materialRepo.findOne({
       where: { id },
       relations: ['category'],
     });
 
     if (!material) throw new NotFoundException('Материал не найден');
-    return material;
+    return this.enrichMaterialWithCurrentPrice(material);
   }
 
-  async createMany(dtos: CreateMaterialDto[]): Promise<Material[]> {
+  async createMany(dtos: CreateMaterialDto[]): Promise<Array<Material & { currentPriceKzt: number }>> {
     const results: Material[] = [];
     const batchSize = 100; // Размер пакета для вставки
     let currentBatch: Material[] = [];
+    const settings = await this.currencySettingsService.getSettings();
 
     for (const dto of dtos) {
       let category: Category | undefined;
@@ -112,7 +199,20 @@ export class MaterialsService {
       const material = new Material();
       material.name = dto.name || 'Без названия';
       material.unit = dto.unit || 'шт';
-      material.price = typeof dto.price === 'number' && !isNaN(dto.price) ? dto.price : 0;
+      const currency = (dto.currency || 'KZT').toUpperCase();
+      const priceInCurrency = typeof dto.priceInCurrency === 'number'
+        ? dto.priceInCurrency
+        : typeof dto.price === 'number' && !isNaN(dto.price)
+          ? dto.price
+          : 0;
+      const rateAtCreation = this.getRateByCurrency(settings, currency);
+      const priceKztAtCreation = Number(this.convertToKzt(priceInCurrency, currency, settings).toFixed(2));
+
+      material.currency = currency;
+      material.priceInCurrency = priceInCurrency;
+      material.rateAtCreation = rateAtCreation;
+      material.priceKztAtCreation = priceKztAtCreation;
+      material.price = priceKztAtCreation;
       material.code = dto.code ? String(dto.code) : String(Date.now());
       if (category) {
         material.category = category;
@@ -136,13 +236,14 @@ export class MaterialsService {
       console.log(`✅ Сохранен последний пакет из ${savedBatch.length} материалов`);
     }
 
-    return results;
+    return this.enrichMaterialsWithCurrentPrices(results);
   }
 
-  async update(id: number, dto: UpdateMaterialDto): Promise<Material> {
+  async update(id: number, dto: UpdateMaterialDto): Promise<Material & { currentPriceKzt: number }> {
     const material = await this.findOne(id);
+    const settings = await this.currencySettingsService.getSettings();
 
-    const fieldsToCheck: (keyof UpdateMaterialDto)[] = ['name', 'unit', 'price'];
+    const fieldsToCheck: (keyof UpdateMaterialDto)[] = ['name', 'unit'];
 
     for (const field of fieldsToCheck) {
       if (
@@ -159,6 +260,39 @@ export class MaterialsService {
         material[field] = dto[field];
       }
     }
+
+    if (dto.currency !== undefined && dto.currency.toUpperCase() !== material.currency) {
+      await this.historyRepo.save({
+        material,
+        fieldChanged: 'currency',
+        oldValue: material.currency,
+        newValue: dto.currency.toUpperCase(),
+        changedBy: dto.changedBy || 'Неизвестный пользователь',
+      });
+      material.currency = dto.currency.toUpperCase();
+    }
+
+    if (dto.priceInCurrency !== undefined && String(dto.priceInCurrency) !== String(material.priceInCurrency)) {
+      await this.historyRepo.save({
+        material,
+        fieldChanged: 'priceInCurrency',
+        oldValue: String(material.priceInCurrency),
+        newValue: String(dto.priceInCurrency),
+        changedBy: dto.changedBy || 'Неизвестный пользователь',
+      });
+      material.priceInCurrency = dto.priceInCurrency;
+    } else if (dto.price !== undefined && String(dto.price) !== String(material.priceInCurrency)) {
+      await this.historyRepo.save({
+        material,
+        fieldChanged: 'priceInCurrency',
+        oldValue: String(material.priceInCurrency),
+        newValue: String(dto.price),
+        changedBy: dto.changedBy || 'Неизвестный пользователь',
+      });
+      material.priceInCurrency = dto.price;
+    }
+
+    material.price = Number(this.convertToKzt(material.priceInCurrency, material.currency, settings).toFixed(2));
 
     // Обновление категории
     if (dto.categoryId) {
@@ -183,7 +317,8 @@ export class MaterialsService {
       }
     }
 
-    return this.materialRepo.save(material);
+    const saved = await this.materialRepo.save(material);
+    return this.enrichMaterialWithCurrentPrice(saved);
   }
 
   async getHistory(id: number): Promise<MaterialHistory[]> {

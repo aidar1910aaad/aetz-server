@@ -6,11 +6,16 @@ import { CreateCalculationDto } from './dto/create-calculation.dto';
 import { CreateCalculationGroupDto } from './dto/create-calculation-group.dto';
 import { UpdateCalculationDto } from './dto/update-calculation.dto';
 import { UpdateCalculationGroupDto } from './dto/update-calculation-group.dto';
+import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
 export declare class CalculationsService {
     private readonly groupRepo;
     private readonly calcRepo;
     private readonly materialRepo;
-    constructor(groupRepo: Repository<CalculationGroup>, calcRepo: Repository<Calculation>, materialRepo: Repository<Material>);
+    private readonly currencySettingsService;
+    constructor(groupRepo: Repository<CalculationGroup>, calcRepo: Repository<Calculation>, materialRepo: Repository<Material>, currencySettingsService: CurrencySettingsService);
+    private toNumber;
+    private getRateByCurrency;
+    private getMaterialCurrentPriceKzt;
     private updateCellConfigPrices;
     createGroup(dto: CreateCalculationGroupDto): Promise<CalculationGroup>;
     getAllGroups(): Promise<CalculationGroup[]>;

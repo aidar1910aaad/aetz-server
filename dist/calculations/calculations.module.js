@@ -14,12 +14,14 @@ const calculations_controller_1 = require("./calculations.controller");
 const calculation_group_entity_1 = require("./entities/calculation-group.entity");
 const calculation_entity_1 = require("./entities/calculation.entity");
 const material_entity_1 = require("../materials/entities/material.entity");
+const currency_settings_module_1 = require("../currency-settings/currency-settings.module");
 let CalculationsModule = class CalculationsModule {
 };
 exports.CalculationsModule = CalculationsModule;
 exports.CalculationsModule = CalculationsModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            currency_settings_module_1.CurrencySettingsModule,
             typeorm_1.TypeOrmModule.forFeature([
                 calculation_group_entity_1.CalculationGroup,
                 calculation_entity_1.Calculation,

@@ -4,9 +4,10 @@ import { MaterialsService } from './materials.service';
 import { MaterialsController } from './materials.controller';
 import { Material } from './entities/material.entity';
 import { MaterialHistory } from './entities/material-history.entity';
+import { CurrencySettingsModule } from '../currency-settings/currency-settings.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Material, MaterialHistory])],
+  imports: [TypeOrmModule.forFeature([Material, MaterialHistory]), CurrencySettingsModule],
   controllers: [MaterialsController],
   providers: [MaterialsService],
 })

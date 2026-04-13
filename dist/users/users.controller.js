@@ -21,6 +21,8 @@ const roles_decorator_1 = require("../common/decorators/roles.decorator");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const roles_guard_1 = require("../common/guards/roles.guard");
 const update_user_dto_1 = require("./dto/update-user.dto");
+const update_profile_dto_1 = require("./dto/update-profile.dto");
+const current_user_decorator_1 = require("../auth/decorators/current-user.decorator");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -31,8 +33,14 @@ let UsersController = class UsersController {
     findAll() {
         return this.usersService.findAll();
     }
+    getProfile(user) {
+        return this.usersService.findById(user.id);
+    }
     findOne(id) {
         return this.usersService.findById(+id);
+    }
+    updateProfile(user, updateDto) {
+        return this.usersService.updateProfile(user.id, updateDto);
     }
     update(id, updateDto) {
         return this.usersService.update(+id, updateDto);
@@ -75,7 +83,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiBearerAuth)('access-token'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)('admin', 'pto'),
+    (0, roles_decorator_1.Roles)('admin', 'pto', 'manager'),
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить список всех пользователей',
@@ -105,8 +113,44 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAll", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('profile/me'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Получить свой профиль',
+        description: 'Возвращает информацию о текущем авторизованном пользователе.'
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Профиль получен',
+        schema: {
+            type: 'object',
+            properties: {
+                id: { type: 'number', example: 1 },
+                username: { type: 'string', example: 'john_doe' },
+                firstName: { type: 'string', example: 'John' },
+                lastName: { type: 'string', example: 'Doe' },
+                email: { type: 'string', example: 'john@example.com' },
+                phone: { type: 'string', example: '+77001234567' },
+                position: { type: 'string', example: 'ПТО инженер' },
+                country: { type: 'string', example: 'Казахстан' },
+                city: { type: 'string', example: 'Астана' },
+                postalCode: { type: 'string', example: '010000' },
+                role: { type: 'string', enum: ['admin', 'pto', 'manager'], example: 'pto' },
+                createdAt: { type: 'string', format: 'date-time' }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
+    __param(0, (0, current_user_decorator_1.CurrentUser)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "getProfile", null);
+__decorate([
+    (0, swagger_1.ApiBearerAuth)('access-token'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
-    (0, roles_decorator_1.Roles)('admin', 'pto'),
+    (0, roles_decorator_1.Roles)('admin', 'pto', 'manager'),
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить пользователя по ID',
@@ -136,12 +180,50 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findOne", null);
 __decorate([
+    (0, swagger_1.ApiBearerAuth)('access-token'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Patch)('profile/me'),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Обновить свой профиль',
+        description: 'Позволяет пользователю редактировать свои профильные данные. Нельзя изменить роль или username.'
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: 200,
+        description: 'Профиль успешно обновлен',
+        schema: {
+            type: 'object',
+            properties: {
+                id: { type: 'number', example: 1 },
+                username: { type: 'string', example: 'john_doe' },
+                firstName: { type: 'string', example: 'John' },
+                lastName: { type: 'string', example: 'Doe' },
+                email: { type: 'string', example: 'john@example.com' },
+                phone: { type: 'string', example: '+77001234567' },
+                position: { type: 'string', example: 'ПТО инженер' },
+                country: { type: 'string', example: 'Казахстан' },
+                city: { type: 'string', example: 'Астана' },
+                postalCode: { type: 'string', example: '010000' },
+                role: { type: 'string', enum: ['admin', 'pto', 'manager'], example: 'pto' },
+                createdAt: { type: 'string', format: 'date-time' }
+            }
+        }
+    }),
+    (0, swagger_1.ApiResponse)({ status: 400, description: 'Некорректные данные' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
+    __param(0, (0, current_user_decorator_1.CurrentUser)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, update_profile_dto_1.UpdateProfileDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "updateProfile", null);
+__decorate([
+    (0, swagger_1.ApiBearerAuth)('access-token'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)('admin'),
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Обновить пользователя',
-        description: 'Обновляет информацию о пользователе. Доступно только для администраторов.'
+        description: 'Обновляет информацию о пользователе, включая пароль и роль. Пароль автоматически хешируется. Доступно только для администраторов.'
     }),
     (0, swagger_1.ApiParam)({ name: 'id', type: Number, description: 'ID пользователя' }),
     (0, swagger_1.ApiResponse)({

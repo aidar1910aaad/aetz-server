@@ -15,6 +15,7 @@ const swagger_1 = require("@nestjs/swagger");
 class CreateMaterialDto {
 }
 exports.CreateMaterialDto = CreateMaterialDto;
+CreateMaterialDto.ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR'];
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Вакуумный выключатель AV-24 1250A',
@@ -34,11 +35,32 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1610000,
-        description: 'Цена без НДС',
+        description: 'Устаревшее поле для совместимости (цена в KZT)',
     }),
+    (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateMaterialDto.prototype, "price", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        example: 'RUB',
+        description: 'Валюта цены материала',
+        enum: CreateMaterialDto.ALLOWED_CURRENCIES,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(CreateMaterialDto.ALLOWED_CURRENCIES),
+    __metadata("design:type", String)
+], CreateMaterialDto.prototype, "currency", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        example: 35000,
+        description: 'Стоимость материала в выбранной валюте',
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateMaterialDto.prototype, "priceInCurrency", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '10000009398' }),
     (0, class_validator_1.IsOptional)(),

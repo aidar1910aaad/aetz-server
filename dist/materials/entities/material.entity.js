@@ -36,6 +36,22 @@ __decorate([
     __metadata("design:type", Number)
 ], Material.prototype, "price", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ default: 'KZT' }),
+    __metadata("design:type", String)
+], Material.prototype, "currency", void 0);
+__decorate([
+    (0, typeorm_1.Column)('decimal', { precision: 12, scale: 2, default: 0 }),
+    __metadata("design:type", Number)
+], Material.prototype, "priceInCurrency", void 0);
+__decorate([
+    (0, typeorm_1.Column)('decimal', { precision: 12, scale: 6, default: 1 }),
+    __metadata("design:type", Number)
+], Material.prototype, "rateAtCreation", void 0);
+__decorate([
+    (0, typeorm_1.Column)('decimal', { precision: 12, scale: 2, default: 0 }),
+    __metadata("design:type", Number)
+], Material.prototype, "priceKztAtCreation", void 0);
+__decorate([
     (0, typeorm_1.ManyToOne)(() => category_entity_1.Category, (category) => category.materials, { eager: true }),
     __metadata("design:type", category_entity_1.Category)
 ], Material.prototype, "category", void 0);

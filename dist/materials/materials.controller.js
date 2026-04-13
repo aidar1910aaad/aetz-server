@@ -33,8 +33,17 @@ let MaterialsController = class MaterialsController {
     findAll(page, limit, search, sort, order, categoryId) {
         return this.materialsService.findAll({ page, limit, search, sort, order, categoryId });
     }
-    getRecentHistory() {
-        return this.materialsService.getRecentHistory();
+    getRecentHistory(page, limit, materialId, fieldChanged, changedBy, dateFrom, dateTo, search) {
+        return this.materialsService.getRecentHistory({
+            page: page ? +page : undefined,
+            limit: limit ? +limit : undefined,
+            materialId: materialId ? +materialId : undefined,
+            fieldChanged,
+            changedBy,
+            dateFrom,
+            dateTo,
+            search,
+        });
     }
     findOne(id) {
         return this.materialsService.findOne(id);
@@ -166,40 +175,62 @@ __decorate([
 __decorate([
     (0, common_1.Get)('history'),
     (0, swagger_1.ApiOperation)({
-        summary: 'Получить последние 10 изменений материалов',
-        description: 'Возвращает последние 10 изменений материалов в системе'
+        summary: 'Получить историю изменений материалов с фильтрацией',
+        description: 'Возвращает историю изменений материалов с возможностью фильтрации по материалу, полю, пользователю, дате и поиска. Поддерживает пагинацию.'
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
-        description: 'Последние 10 изменений материалов',
+        description: 'История изменений материалов с пагинацией',
         schema: {
-            type: 'array',
-            items: {
-                type: 'object',
-                properties: {
-                    id: { type: 'number' },
-                    fieldChanged: { type: 'string' },
-                    oldValue: { type: 'string' },
-                    newValue: { type: 'string' },
-                    changedBy: { type: 'string' },
-                    changedAt: { type: 'string', format: 'date-time' },
-                    material: {
+            type: 'object',
+            properties: {
+                data: {
+                    type: 'array',
+                    items: {
                         type: 'object',
                         properties: {
                             id: { type: 'number' },
-                            name: { type: 'string' },
-                            code: { type: 'string' },
-                            unit: { type: 'string' },
-                            price: { type: 'number' },
-                            category: { type: 'object' }
+                            fieldChanged: { type: 'string' },
+                            oldValue: { type: 'string' },
+                            newValue: { type: 'string' },
+                            changedBy: { type: 'string' },
+                            changedAt: { type: 'string', format: 'date-time' },
+                            material: {
+                                type: 'object',
+                                properties: {
+                                    id: { type: 'number' },
+                                    name: { type: 'string' },
+                                    code: { type: 'string' },
+                                    unit: { type: 'string' },
+                                    price: { type: 'number' },
+                                    category: { type: 'object' }
+                                }
+                            }
                         }
                     }
-                }
+                },
+                total: { type: 'number', description: 'Общее количество записей' }
             }
         }
     }),
+    (0, swagger_1.ApiQuery)({ name: 'page', required: false, type: Number, description: 'Номер страницы (по умолчанию: 1)' }),
+    (0, swagger_1.ApiQuery)({ name: 'limit', required: false, type: Number, description: 'Количество записей на странице (по умолчанию: 50)' }),
+    (0, swagger_1.ApiQuery)({ name: 'materialId', required: false, type: Number, description: 'Фильтр по ID материала' }),
+    (0, swagger_1.ApiQuery)({ name: 'fieldChanged', required: false, type: String, description: 'Фильтр по измененному полю (name, price, category, unit)' }),
+    (0, swagger_1.ApiQuery)({ name: 'changedBy', required: false, type: String, description: 'Фильтр по имени пользователя (частичное совпадение)' }),
+    (0, swagger_1.ApiQuery)({ name: 'dateFrom', required: false, type: String, description: 'Фильтр по дате начала (формат: YYYY-MM-DD или ISO)' }),
+    (0, swagger_1.ApiQuery)({ name: 'dateTo', required: false, type: String, description: 'Фильтр по дате конца (формат: YYYY-MM-DD или ISO)' }),
+    (0, swagger_1.ApiQuery)({ name: 'search', required: false, type: String, description: 'Поиск по названию или коду материала' }),
+    __param(0, (0, common_2.Query)('page')),
+    __param(1, (0, common_2.Query)('limit')),
+    __param(2, (0, common_2.Query)('materialId')),
+    __param(3, (0, common_2.Query)('fieldChanged')),
+    __param(4, (0, common_2.Query)('changedBy')),
+    __param(5, (0, common_2.Query)('dateFrom')),
+    __param(6, (0, common_2.Query)('dateTo')),
+    __param(7, (0, common_2.Query)('search')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Number, Number, Number, String, String, String, String, String]),
     __metadata("design:returntype", void 0)
 ], MaterialsController.prototype, "getRecentHistory", null);
 __decorate([

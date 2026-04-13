@@ -45,6 +45,9 @@ let UsersService = class UsersService {
         if (!partialUser || Object.keys(partialUser).length === 0) {
             throw new Error('Нет данных для обновления');
         }
+        if (partialUser.password) {
+            partialUser.password = await bcrypt.hash(partialUser.password, 10);
+        }
         await this.userRepository.update(id, partialUser);
         const updated = await this.findById(id);
         if (!updated) {
@@ -54,6 +57,18 @@ let UsersService = class UsersService {
     }
     async remove(id) {
         await this.userRepository.delete(id);
+    }
+    async updateProfile(userId, updateData) {
+        if (updateData.password) {
+            updateData.password = await bcrypt.hash(updateData.password, 10);
+        }
+        const { role, ...allowedData } = updateData;
+        await this.userRepository.update(userId, allowedData);
+        const updated = await this.findById(userId);
+        if (!updated) {
+            throw new Error('User not found after update');
+        }
+        return updated;
     }
 };
 exports.UsersService = UsersService;

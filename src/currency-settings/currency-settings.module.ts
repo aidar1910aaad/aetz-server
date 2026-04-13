@@ -3,9 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CurrencySettingsController } from './currency-settings.controller';
 import { CurrencySettingsService } from './currency-settings.service';
 import { CurrencySettings } from './entities/currency-settings.entity';
+import { Material } from '../materials/entities/material.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([CurrencySettings])],
+    imports: [TypeOrmModule.forFeature([CurrencySettings, Material])],
     controllers: [CurrencySettingsController],
     providers: [CurrencySettingsService],
     exports: [CurrencySettingsService],

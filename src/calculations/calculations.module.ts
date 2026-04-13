@@ -5,9 +5,11 @@ import { CalculationsController } from './calculations.controller';
 import { CalculationGroup } from './entities/calculation-group.entity';
 import { Calculation } from './entities/calculation.entity';
 import { Material } from '../materials/entities/material.entity'; // 👈 уже есть
+import { CurrencySettingsModule } from '../currency-settings/currency-settings.module';
 
 @Module({
   imports: [
+    CurrencySettingsModule,
     TypeOrmModule.forFeature([
       CalculationGroup,
       Calculation,

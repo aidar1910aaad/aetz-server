@@ -20,11 +20,43 @@ const slugify_1 = require("slugify");
 const material_entity_1 = require("../materials/entities/material.entity");
 const calculation_group_entity_1 = require("./entities/calculation-group.entity");
 const calculation_entity_1 = require("./entities/calculation.entity");
+const currency_settings_service_1 = require("../currency-settings/currency-settings.service");
 let CalculationsService = class CalculationsService {
-    constructor(groupRepo, calcRepo, materialRepo) {
+    constructor(groupRepo, calcRepo, materialRepo, currencySettingsService) {
         this.groupRepo = groupRepo;
         this.calcRepo = calcRepo;
         this.materialRepo = materialRepo;
+        this.currencySettingsService = currencySettingsService;
+    }
+    toNumber(value) {
+        if (typeof value === 'number')
+            return value;
+        if (typeof value === 'string') {
+            const parsed = Number(value);
+            return Number.isFinite(parsed) ? parsed : 0;
+        }
+        return 0;
+    }
+    getRateByCurrency(settings, currency) {
+        switch ((currency || 'KZT').toUpperCase()) {
+            case 'USD':
+                return this.toNumber(settings.usdRate) || 1;
+            case 'EUR':
+                return this.toNumber(settings.eurRate) || 1;
+            case 'RUB':
+                return this.toNumber(settings.rubRate) || 1;
+            case 'KZT':
+            default:
+                return this.toNumber(settings.kztRate) || 1;
+        }
+    }
+    getMaterialCurrentPriceKzt(material, settings) {
+        const priceInCurrency = this.toNumber(material.priceInCurrency ?? material.price ?? 0);
+        const sourceRate = this.getRateByCurrency(settings, material.currency || 'KZT');
+        const kztRate = this.getRateByCurrency(settings, 'KZT');
+        if (!sourceRate || !kztRate)
+            return priceInCurrency;
+        return Number(((priceInCurrency / sourceRate) * kztRate).toFixed(2));
     }
     updateCellConfigPrices(cellConfig, materialsMap) {
         if (!cellConfig || !cellConfig.materials) {
@@ -112,8 +144,11 @@ let CalculationsService = class CalculationsService {
         });
         if (!calc)
             throw new common_1.NotFoundException('Калькуляция не найдена');
-        const freshMaterials = await this.materialRepo.find();
-        const materialsMap = new Map(freshMaterials.map((m) => [m.id, m.price]));
+        const [freshMaterials, settings] = await Promise.all([
+            this.materialRepo.find(),
+            this.currencySettingsService.getSettings(),
+        ]);
+        const materialsMap = new Map(freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)]));
         if (!calc.data || !Array.isArray(calc.data.categories)) {
             calc.data = { categories: [] };
             return calc;
@@ -156,8 +191,11 @@ let CalculationsService = class CalculationsService {
         if (dto.data)
             calc.data = dto.data;
         const updatedCalc = await this.calcRepo.save(calc);
-        const freshMaterials = await this.materialRepo.find();
-        const materialsMap = new Map(freshMaterials.map((m) => [m.id, m.price]));
+        const [freshMaterials, settings] = await Promise.all([
+            this.materialRepo.find(),
+            this.currencySettingsService.getSettings(),
+        ]);
+        const materialsMap = new Map(freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)]));
         if (updatedCalc.data && Array.isArray(updatedCalc.data.categories)) {
             const updatedCategories = updatedCalc.data.categories.map((cat) => ({
                 ...cat,
@@ -245,6 +283,7 @@ exports.CalculationsService = CalculationsService = __decorate([
     __param(2, (0, typeorm_1.InjectRepository)(material_entity_1.Material)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository,
-        typeorm_2.Repository])
+        typeorm_2.Repository,
+        currency_settings_service_1.CurrencySettingsService])
 ], CalculationsService);
 //# sourceMappingURL=calculations.service.js.map

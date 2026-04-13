@@ -15,6 +15,7 @@ const swagger_1 = require("@nestjs/swagger");
 class UpdateMaterialDto {
 }
 exports.UpdateMaterialDto = UpdateMaterialDto;
+UpdateMaterialDto.ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR'];
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ example: 'Новый материал' }),
     (0, class_validator_1.IsOptional)(),
@@ -33,6 +34,26 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], UpdateMaterialDto.prototype, "price", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        example: 'RUB',
+        description: 'Валюта цены материала',
+        enum: UpdateMaterialDto.ALLOWED_CURRENCIES,
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(UpdateMaterialDto.ALLOWED_CURRENCIES),
+    __metadata("design:type", String)
+], UpdateMaterialDto.prototype, "currency", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)({
+        example: 35000,
+        description: 'Стоимость материала в выбранной валюте',
+    }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpdateMaterialDto.prototype, "priceInCurrency", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ example: 1 }),
     (0, class_validator_1.IsOptional)(),

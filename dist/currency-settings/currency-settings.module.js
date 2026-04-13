@@ -12,12 +12,13 @@ const typeorm_1 = require("@nestjs/typeorm");
 const currency_settings_controller_1 = require("./currency-settings.controller");
 const currency_settings_service_1 = require("./currency-settings.service");
 const currency_settings_entity_1 = require("./entities/currency-settings.entity");
+const material_entity_1 = require("../materials/entities/material.entity");
 let CurrencySettingsModule = class CurrencySettingsModule {
 };
 exports.CurrencySettingsModule = CurrencySettingsModule;
 exports.CurrencySettingsModule = CurrencySettingsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([currency_settings_entity_1.CurrencySettings])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([currency_settings_entity_1.CurrencySettings, material_entity_1.Material])],
         controllers: [currency_settings_controller_1.CurrencySettingsController],
         providers: [currency_settings_service_1.CurrencySettingsService],
         exports: [currency_settings_service_1.CurrencySettingsService],

@@ -10,4 +10,5 @@ export declare class UsersService {
     findAll(): Promise<User[]>;
     update(id: number, partialUser: Partial<User>): Promise<User>;
     remove(id: number): Promise<void>;
+    updateProfile(userId: number, updateData: Partial<User>): Promise<User>;
 }

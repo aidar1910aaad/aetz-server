@@ -5,15 +5,26 @@ import { UpdateMaterialDto } from './dto/update-material.dto';
 export declare class MaterialsController {
     private readonly materialsService;
     constructor(materialsService: MaterialsService);
-    create(dto: CreateMaterialDto): Promise<Material>;
+    create(dto: CreateMaterialDto): Promise<Material & {
+        currentPriceKzt: number;
+    }>;
     createMany(dtos: CreateMaterialDto[]): Promise<Material[]>;
     findAll(page?: number, limit?: number, search?: string, sort?: 'name' | 'price' | 'code', order?: 'ASC' | 'DESC', categoryId?: number): Promise<{
-        data: Material[];
+        data: Array<Material & {
+            currentPriceKzt: number;
+        }>;
         total: number;
     }>;
-    getRecentHistory(): Promise<import("./entities/material-history.entity").MaterialHistory[]>;
-    findOne(id: number): Promise<Material>;
-    update(id: number, dto: UpdateMaterialDto): Promise<Material>;
+    getRecentHistory(page?: number, limit?: number, materialId?: number, fieldChanged?: string, changedBy?: string, dateFrom?: string, dateTo?: string, search?: string): Promise<{
+        data: import("./entities/material-history.entity").MaterialHistory[];
+        total: number;
+    }>;
+    findOne(id: number): Promise<Material & {
+        currentPriceKzt: number;
+    }>;
+    update(id: number, dto: UpdateMaterialDto): Promise<Material & {
+        currentPriceKzt: number;
+    }>;
     getHistory(id: number): Promise<import("./entities/material-history.entity").MaterialHistory[]>;
     delete(id: number): Promise<void>;
 }

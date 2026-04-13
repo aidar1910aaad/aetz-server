@@ -17,10 +17,54 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const currency_settings_entity_1 = require("./entities/currency-settings.entity");
+const material_entity_1 = require("../materials/entities/material.entity");
 let CurrencySettingsService = class CurrencySettingsService {
-    constructor(currencySettingsRepo) {
+    constructor(currencySettingsRepo, materialRepo) {
         this.currencySettingsRepo = currencySettingsRepo;
+        this.materialRepo = materialRepo;
         this.initializeSettings();
+    }
+    toNumber(value) {
+        if (typeof value === 'number')
+            return value;
+        if (typeof value === 'string') {
+            const parsed = Number(value);
+            return Number.isFinite(parsed) ? parsed : 0;
+        }
+        return 0;
+    }
+    getRateByCurrency(settings, currency) {
+        switch ((currency || 'KZT').toUpperCase()) {
+            case 'USD':
+                return this.toNumber(settings.usdRate) || 1;
+            case 'EUR':
+                return this.toNumber(settings.eurRate) || 1;
+            case 'RUB':
+                return this.toNumber(settings.rubRate) || 1;
+            case 'KZT':
+            default:
+                return this.toNumber(settings.kztRate) || 1;
+        }
+    }
+    convertToKzt(priceInCurrency, currency, settings) {
+        const sourceRate = this.getRateByCurrency(settings, currency);
+        const kztRate = this.getRateByCurrency(settings, 'KZT');
+        if (!sourceRate || !kztRate) {
+            return priceInCurrency;
+        }
+        return Number(((priceInCurrency / sourceRate) * kztRate).toFixed(2));
+    }
+    async recalculateMaterialsPriceInKzt(settings) {
+        const materials = await this.materialRepo.find();
+        if (!materials.length) {
+            return;
+        }
+        const updatedMaterials = materials.map((material) => {
+            const priceInCurrency = this.toNumber(material.priceInCurrency ?? material.price);
+            material.price = this.convertToKzt(priceInCurrency, material.currency || 'KZT', settings);
+            return material;
+        });
+        await this.materialRepo.save(updatedMaterials);
     }
     async initializeSettings() {
         const count = await this.currencySettingsRepo.count();
@@ -52,18 +96,26 @@ let CurrencySettingsService = class CurrencySettingsService {
         if (!settings) {
             throw new Error('Настройки валют не найдены');
         }
+        const rateFields = ['usdRate', 'eurRate', 'rubRate', 'kztRate'];
+        const hasRateChanges = rateFields.some((field) => updateData[field] !== undefined);
         Object.keys(updateData).forEach(key => {
             if (updateData[key] !== undefined) {
                 settings[key] = updateData[key];
             }
         });
-        return this.currencySettingsRepo.save(settings);
+        const savedSettings = await this.currencySettingsRepo.save(settings);
+        if (hasRateChanges) {
+            await this.recalculateMaterialsPriceInKzt(savedSettings);
+        }
+        return savedSettings;
     }
 };
 exports.CurrencySettingsService = CurrencySettingsService;
 exports.CurrencySettingsService = CurrencySettingsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(currency_settings_entity_1.CurrencySettings)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(material_entity_1.Material)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], CurrencySettingsService);
 //# sourceMappingURL=currency-settings.service.js.map

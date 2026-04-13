@@ -10,6 +10,7 @@ import { CreateCalculationDto } from './dto/create-calculation.dto';
 import { CreateCalculationGroupDto } from './dto/create-calculation-group.dto';
 import { UpdateCalculationDto } from './dto/update-calculation.dto';
 import { UpdateCalculationGroupDto } from './dto/update-calculation-group.dto';
+import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
 
 @Injectable()
 export class CalculationsService {
@@ -22,7 +23,40 @@ export class CalculationsService {
 
     @InjectRepository(Material)
     private readonly materialRepo: Repository<Material>, // 👈 обязательно
+    private readonly currencySettingsService: CurrencySettingsService,
   ) { }
+
+  private toNumber(value: unknown): number {
+    if (typeof value === 'number') return value;
+    if (typeof value === 'string') {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+    return 0;
+  }
+
+  private getRateByCurrency(settings: any, currency: string): number {
+    switch ((currency || 'KZT').toUpperCase()) {
+      case 'USD':
+        return this.toNumber(settings.usdRate) || 1;
+      case 'EUR':
+        return this.toNumber(settings.eurRate) || 1;
+      case 'RUB':
+        return this.toNumber(settings.rubRate) || 1;
+      case 'KZT':
+      default:
+        return this.toNumber(settings.kztRate) || 1;
+    }
+  }
+
+  private getMaterialCurrentPriceKzt(material: Material, settings: any): number {
+    const priceInCurrency = this.toNumber(material.priceInCurrency ?? material.price ?? 0);
+    const sourceRate = this.getRateByCurrency(settings, material.currency || 'KZT');
+    const kztRate = this.getRateByCurrency(settings, 'KZT');
+
+    if (!sourceRate || !kztRate) return priceInCurrency;
+    return Number(((priceInCurrency / sourceRate) * kztRate).toFixed(2));
+  }
 
   // 🔄 Вспомогательная функция для обновления цен в cellConfig
   private updateCellConfigPrices(cellConfig: any, materialsMap: Map<number, number>) {
@@ -136,8 +170,11 @@ export class CalculationsService {
     if (!calc) throw new NotFoundException('Калькуляция не найдена');
 
     // 🔄 Загружаем актуальные цены
-    const freshMaterials = await this.materialRepo.find();
-    const materialsMap = new Map(freshMaterials.map((m) => [m.id, m.price]));
+    const [freshMaterials, settings] = await Promise.all([
+      this.materialRepo.find(),
+      this.currencySettingsService.getSettings(),
+    ]);
+    const materialsMap = new Map(freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)]));
 
     // 🛡 Защита от отсутствия data или categories
     if (!calc.data || !Array.isArray(calc.data.categories)) {
@@ -197,8 +234,11 @@ export class CalculationsService {
     const updatedCalc = await this.calcRepo.save(calc);
 
     // Загружаем актуальные цены материалов
-    const freshMaterials = await this.materialRepo.find();
-    const materialsMap = new Map(freshMaterials.map((m) => [m.id, m.price]));
+    const [freshMaterials, settings] = await Promise.all([
+      this.materialRepo.find(),
+      this.currencySettingsService.getSettings(),
+    ]);
+    const materialsMap = new Map(freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)]));
 
     // Обновляем цены в данных калькуляции
     if (updatedCalc.data && Array.isArray(updatedCalc.data.categories)) {

@@ -36,7 +36,7 @@ let BmzSettingsController = class BmzSettingsController {
 exports.BmzSettingsController = BmzSettingsController;
 __decorate([
     (0, common_1.Get)(),
-    (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO),
+    (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Получить настройки БМЗ' }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -57,7 +57,7 @@ __decorate([
 ], BmzSettingsController.prototype, "getSettings", null);
 __decorate([
     (0, common_1.Put)(),
-    (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO),
+    (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
     (0, swagger_1.ApiOperation)({ summary: 'Обновить настройки БМЗ' }),
     (0, swagger_1.ApiResponse)({
         status: 200,

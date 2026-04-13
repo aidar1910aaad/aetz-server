@@ -5,6 +5,10 @@ export declare class Material {
     code: string;
     unit: string;
     price: number;
+    currency: string;
+    priceInCurrency: number;
+    rateAtCreation: number;
+    priceKztAtCreation: number;
     category: Category;
     createdAt: Date;
     updatedAt: Date;
