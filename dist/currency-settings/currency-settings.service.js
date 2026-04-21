@@ -18,10 +18,12 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const currency_settings_entity_1 = require("./entities/currency-settings.entity");
 const material_entity_1 = require("../materials/entities/material.entity");
+const calculation_entity_1 = require("../calculations/entities/calculation.entity");
 let CurrencySettingsService = class CurrencySettingsService {
-    constructor(currencySettingsRepo, materialRepo) {
+    constructor(currencySettingsRepo, materialRepo, calculationRepo) {
         this.currencySettingsRepo = currencySettingsRepo;
         this.materialRepo = materialRepo;
+        this.calculationRepo = calculationRepo;
         this.initializeSettings();
     }
     toNumber(value) {
@@ -41,6 +43,8 @@ let CurrencySettingsService = class CurrencySettingsService {
                 return this.toNumber(settings.eurRate) || 1;
             case 'RUB':
                 return this.toNumber(settings.rubRate) || 1;
+            case 'CNY':
+                return this.toNumber(settings.cnyRate) || 1;
             case 'KZT':
             default:
                 return this.toNumber(settings.kztRate) || 1;
@@ -65,6 +69,72 @@ let CurrencySettingsService = class CurrencySettingsService {
         });
         await this.materialRepo.save(updatedMaterials);
     }
+    updateCalculationDataByMaterials(data, pricesByMaterialId) {
+        if (!data || typeof data !== 'object') {
+            return data;
+        }
+        const nextData = { ...data };
+        if (Array.isArray(nextData.categories)) {
+            nextData.categories = nextData.categories.map((category) => {
+                if (!Array.isArray(category?.items)) {
+                    return category;
+                }
+                return {
+                    ...category,
+                    items: category.items.map((item) => {
+                        if (item?.id && pricesByMaterialId.has(item.id)) {
+                            return { ...item, price: pricesByMaterialId.get(item.id) };
+                        }
+                        return item;
+                    }),
+                };
+            });
+        }
+        if (nextData.cellConfig?.materials && typeof nextData.cellConfig.materials === 'object') {
+            const materials = { ...nextData.cellConfig.materials };
+            Object.keys(materials).forEach((key) => {
+                const value = materials[key];
+                if (Array.isArray(value)) {
+                    materials[key] = value.map((item) => {
+                        if (item?.id && pricesByMaterialId.has(item.id)) {
+                            return { ...item, price: pricesByMaterialId.get(item.id) };
+                        }
+                        return item;
+                    });
+                    return;
+                }
+                if (value?.id && pricesByMaterialId.has(value.id)) {
+                    materials[key] = { ...value, price: pricesByMaterialId.get(value.id) };
+                }
+            });
+            nextData.cellConfig = {
+                ...nextData.cellConfig,
+                materials,
+            };
+        }
+        return nextData;
+    }
+    async syncCalculationsWithCurrentMaterialPrices() {
+        const [materials, calculations] = await Promise.all([
+            this.materialRepo.find(),
+            this.calculationRepo.find(),
+        ]);
+        if (!materials.length || !calculations.length) {
+            return;
+        }
+        const pricesByMaterialId = new Map(materials.map((material) => [material.id, this.toNumber(material.price)]));
+        const updatedCalculations = [];
+        calculations.forEach((calculation) => {
+            const updatedData = this.updateCalculationDataByMaterials(calculation.data, pricesByMaterialId);
+            if (JSON.stringify(updatedData) !== JSON.stringify(calculation.data)) {
+                calculation.data = updatedData;
+                updatedCalculations.push(calculation);
+            }
+        });
+        if (updatedCalculations.length > 0) {
+            await this.calculationRepo.save(updatedCalculations);
+        }
+    }
     async initializeSettings() {
         const count = await this.currencySettingsRepo.count();
         if (count === 0) {
@@ -73,6 +143,7 @@ let CurrencySettingsService = class CurrencySettingsService {
             mockSettings.eurRate = 1.08;
             mockSettings.rubRate = 92.5;
             mockSettings.kztRate = 450;
+            mockSettings.cnyRate = 62.3;
             mockSettings.defaultCurrency = 'USD';
             await this.currencySettingsRepo.save(mockSettings);
         }
@@ -95,7 +166,7 @@ let CurrencySettingsService = class CurrencySettingsService {
         if (!settings) {
             throw new Error('Настройки валют не найдены');
         }
-        const rateFields = ['usdRate', 'eurRate', 'rubRate', 'kztRate'];
+        const rateFields = ['usdRate', 'eurRate', 'rubRate', 'kztRate', 'cnyRate'];
         const hasRateChanges = rateFields.some((field) => updateData[field] !== undefined);
         Object.keys(updateData).forEach(key => {
             if (updateData[key] !== undefined) {
@@ -105,6 +176,7 @@ let CurrencySettingsService = class CurrencySettingsService {
         const savedSettings = await this.currencySettingsRepo.save(settings);
         if (hasRateChanges) {
             await this.recalculateMaterialsPriceInKzt(savedSettings);
+            await this.syncCalculationsWithCurrentMaterialPrices();
         }
         return savedSettings;
     }
@@ -114,7 +186,9 @@ exports.CurrencySettingsService = CurrencySettingsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(currency_settings_entity_1.CurrencySettings)),
     __param(1, (0, typeorm_1.InjectRepository)(material_entity_1.Material)),
+    __param(2, (0, typeorm_1.InjectRepository)(calculation_entity_1.Calculation)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         typeorm_2.Repository])
 ], CurrencySettingsService);
 //# sourceMappingURL=currency-settings.service.js.map

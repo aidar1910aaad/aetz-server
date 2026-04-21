@@ -4,9 +4,10 @@ import { CurrencySettingsController } from './currency-settings.controller';
 import { CurrencySettingsService } from './currency-settings.service';
 import { CurrencySettings } from './entities/currency-settings.entity';
 import { Material } from '../materials/entities/material.entity';
+import { Calculation } from '../calculations/entities/calculation.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([CurrencySettings, Material])],
+    imports: [TypeOrmModule.forFeature([CurrencySettings, Material, Calculation])],
     controllers: [CurrencySettingsController],
     providers: [CurrencySettingsService],
     exports: [CurrencySettingsService],

@@ -41,6 +41,11 @@ __decorate([
     __metadata("design:type", Number)
 ], CurrencySettings.prototype, "kztRate", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 62.3, description: 'Курс китайского юаня (CNY)' }),
+    (0, typeorm_1.Column)('decimal', { precision: 10, scale: 2, default: 62.3 }),
+    __metadata("design:type", Number)
+], CurrencySettings.prototype, "cnyRate", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ example: 'USD', description: 'Базовая валюта по умолчанию' }),
     (0, typeorm_1.Column)({ default: 'USD' }),
     __metadata("design:type", String)

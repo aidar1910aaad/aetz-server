@@ -44,6 +44,13 @@ __decorate([
     __metadata("design:type", Number)
 ], UpdateCurrencySettingsDto.prototype, "kztRate", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 62.3, description: 'Курс китайского юаня (CNY)', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], UpdateCurrencySettingsDto.prototype, "cnyRate", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ example: 'USD', description: 'Базовая валюта по умолчанию', required: false }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

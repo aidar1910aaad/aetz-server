@@ -5,9 +5,10 @@ import { MaterialsController } from './materials.controller';
 import { Material } from './entities/material.entity';
 import { MaterialHistory } from './entities/material-history.entity';
 import { CurrencySettingsModule } from '../currency-settings/currency-settings.module';
+import { Calculation } from '../calculations/entities/calculation.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Material, MaterialHistory]), CurrencySettingsModule],
+  imports: [TypeOrmModule.forFeature([Material, MaterialHistory, Calculation]), CurrencySettingsModule],
   controllers: [MaterialsController],
   providers: [MaterialsService],
 })

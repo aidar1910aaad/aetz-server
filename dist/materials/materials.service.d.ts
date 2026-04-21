@@ -4,16 +4,20 @@ import { CreateMaterialDto } from './dto/create-material.dto';
 import { UpdateMaterialDto } from './dto/update-material.dto';
 import { MaterialHistory } from './entities/material-history.entity';
 import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
+import { Calculation } from '../calculations/entities/calculation.entity';
 export declare class MaterialsService {
     private readonly materialRepo;
     private readonly historyRepo;
+    private readonly calculationRepo;
     private readonly currencySettingsService;
-    constructor(materialRepo: Repository<Material>, historyRepo: Repository<MaterialHistory>, currencySettingsService: CurrencySettingsService);
+    constructor(materialRepo: Repository<Material>, historyRepo: Repository<MaterialHistory>, calculationRepo: Repository<Calculation>, currencySettingsService: CurrencySettingsService);
     private toNumber;
     private getRateByCurrency;
     private convertToKzt;
     private enrichMaterialWithCurrentPrice;
     private enrichMaterialsWithCurrentPrices;
+    private updateCalculationDataPriceByMaterialId;
+    private syncMaterialPriceInCalculations;
     create(dto: CreateMaterialDto): Promise<Material & {
         currentPriceKzt: number;
     }>;

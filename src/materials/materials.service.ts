@@ -8,6 +8,7 @@ import { MaterialHistory } from './entities/material-history.entity';
 import { Category } from '../categories/entities/category.entity';
 import { FindOptionsWhere, ILike } from 'typeorm';
 import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
+import { Calculation } from '../calculations/entities/calculation.entity';
 
 @Injectable()
 export class MaterialsService {
@@ -17,6 +18,8 @@ export class MaterialsService {
 
     @InjectRepository(MaterialHistory)
     private readonly historyRepo: Repository<MaterialHistory>,
+    @InjectRepository(Calculation)
+    private readonly calculationRepo: Repository<Calculation>,
     private readonly currencySettingsService: CurrencySettingsService,
   ) { }
 
@@ -43,6 +46,8 @@ export class MaterialsService {
         return this.toNumber(settings.eurRate) || 1;
       case 'RUB':
         return this.toNumber(settings.rubRate) || 1;
+      case 'CNY':
+        return this.toNumber(settings.cnyRate) || 1;
       case 'KZT':
       default:
         return this.toNumber(settings.kztRate) || 1;
@@ -89,6 +94,74 @@ export class MaterialsService {
       material.price = currentPriceKzt;
       return Object.assign(material, { currentPriceKzt });
     });
+  }
+
+  private updateCalculationDataPriceByMaterialId(data: any, materialId: number, newPrice: number): any {
+    if (!data || typeof data !== 'object') {
+      return data;
+    }
+
+    const nextData = { ...data };
+
+    if (Array.isArray(nextData.categories)) {
+      nextData.categories = nextData.categories.map((category) => {
+        if (!Array.isArray(category?.items)) {
+          return category;
+        }
+
+        return {
+          ...category,
+          items: category.items.map((item) => {
+            if (item?.id === materialId) {
+              return { ...item, price: newPrice };
+            }
+            return item;
+          }),
+        };
+      });
+    }
+
+    if (nextData.cellConfig?.materials && typeof nextData.cellConfig.materials === 'object') {
+      const materials = { ...nextData.cellConfig.materials };
+      Object.keys(materials).forEach((key) => {
+        const value = materials[key];
+        if (Array.isArray(value)) {
+          materials[key] = value.map((item) => (item?.id === materialId ? { ...item, price: newPrice } : item));
+          return;
+        }
+
+        if (value?.id === materialId) {
+          materials[key] = { ...value, price: newPrice };
+        }
+      });
+
+      nextData.cellConfig = {
+        ...nextData.cellConfig,
+        materials,
+      };
+    }
+
+    return nextData;
+  }
+
+  private async syncMaterialPriceInCalculations(materialId: number, priceKzt: number): Promise<void> {
+    const calculations = await this.calculationRepo.find();
+    if (!calculations.length) {
+      return;
+    }
+
+    const updates: Calculation[] = [];
+    for (const calc of calculations) {
+      const updatedData = this.updateCalculationDataPriceByMaterialId(calc.data, materialId, priceKzt);
+      if (JSON.stringify(updatedData) !== JSON.stringify(calc.data)) {
+        calc.data = updatedData;
+        updates.push(calc);
+      }
+    }
+
+    if (updates.length > 0) {
+      await this.calculationRepo.save(updates);
+    }
   }
 
   async create(dto: CreateMaterialDto): Promise<Material & { currentPriceKzt: number }> {
@@ -317,6 +390,7 @@ export class MaterialsService {
     }
 
     const saved = await this.materialRepo.save(material);
+    await this.syncMaterialPriceInCalculations(saved.id, this.toNumber(saved.price));
     return this.enrichMaterialWithCurrentPrice(saved);
   }
 

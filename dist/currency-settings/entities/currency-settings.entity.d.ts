@@ -4,6 +4,7 @@ export declare class CurrencySettings {
     eurRate: number;
     rubRate: number;
     kztRate: number;
+    cnyRate: number;
     defaultCurrency: string;
     hourlyWage: number;
     vatRate: number;

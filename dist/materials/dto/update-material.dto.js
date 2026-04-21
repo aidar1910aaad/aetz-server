@@ -15,7 +15,7 @@ const swagger_1 = require("@nestjs/swagger");
 class UpdateMaterialDto {
 }
 exports.UpdateMaterialDto = UpdateMaterialDto;
-UpdateMaterialDto.ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR'];
+UpdateMaterialDto.ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR', 'CNY'];
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({ example: 'Новый материал' }),
     (0, class_validator_1.IsOptional)(),

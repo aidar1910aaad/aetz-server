@@ -21,10 +21,12 @@ const material_history_entity_1 = require("./entities/material-history.entity");
 const category_entity_1 = require("../categories/entities/category.entity");
 const typeorm_3 = require("typeorm");
 const currency_settings_service_1 = require("../currency-settings/currency-settings.service");
+const calculation_entity_1 = require("../calculations/entities/calculation.entity");
 let MaterialsService = class MaterialsService {
-    constructor(materialRepo, historyRepo, currencySettingsService) {
+    constructor(materialRepo, historyRepo, calculationRepo, currencySettingsService) {
         this.materialRepo = materialRepo;
         this.historyRepo = historyRepo;
+        this.calculationRepo = calculationRepo;
         this.currencySettingsService = currencySettingsService;
     }
     toNumber(value) {
@@ -46,6 +48,8 @@ let MaterialsService = class MaterialsService {
                 return this.toNumber(settings.eurRate) || 1;
             case 'RUB':
                 return this.toNumber(settings.rubRate) || 1;
+            case 'CNY':
+                return this.toNumber(settings.cnyRate) || 1;
             case 'KZT':
             default:
                 return this.toNumber(settings.kztRate) || 1;
@@ -71,6 +75,63 @@ let MaterialsService = class MaterialsService {
             material.price = currentPriceKzt;
             return Object.assign(material, { currentPriceKzt });
         });
+    }
+    updateCalculationDataPriceByMaterialId(data, materialId, newPrice) {
+        if (!data || typeof data !== 'object') {
+            return data;
+        }
+        const nextData = { ...data };
+        if (Array.isArray(nextData.categories)) {
+            nextData.categories = nextData.categories.map((category) => {
+                if (!Array.isArray(category?.items)) {
+                    return category;
+                }
+                return {
+                    ...category,
+                    items: category.items.map((item) => {
+                        if (item?.id === materialId) {
+                            return { ...item, price: newPrice };
+                        }
+                        return item;
+                    }),
+                };
+            });
+        }
+        if (nextData.cellConfig?.materials && typeof nextData.cellConfig.materials === 'object') {
+            const materials = { ...nextData.cellConfig.materials };
+            Object.keys(materials).forEach((key) => {
+                const value = materials[key];
+                if (Array.isArray(value)) {
+                    materials[key] = value.map((item) => (item?.id === materialId ? { ...item, price: newPrice } : item));
+                    return;
+                }
+                if (value?.id === materialId) {
+                    materials[key] = { ...value, price: newPrice };
+                }
+            });
+            nextData.cellConfig = {
+                ...nextData.cellConfig,
+                materials,
+            };
+        }
+        return nextData;
+    }
+    async syncMaterialPriceInCalculations(materialId, priceKzt) {
+        const calculations = await this.calculationRepo.find();
+        if (!calculations.length) {
+            return;
+        }
+        const updates = [];
+        for (const calc of calculations) {
+            const updatedData = this.updateCalculationDataPriceByMaterialId(calc.data, materialId, priceKzt);
+            if (JSON.stringify(updatedData) !== JSON.stringify(calc.data)) {
+                calc.data = updatedData;
+                updates.push(calc);
+            }
+        }
+        if (updates.length > 0) {
+            await this.calculationRepo.save(updates);
+        }
     }
     async create(dto) {
         let category;
@@ -246,6 +307,7 @@ let MaterialsService = class MaterialsService {
             }
         }
         const saved = await this.materialRepo.save(material);
+        await this.syncMaterialPriceInCalculations(saved.id, this.toNumber(saved.price));
         return this.enrichMaterialWithCurrentPrice(saved);
     }
     async getHistory(id) {
@@ -305,7 +367,9 @@ exports.MaterialsService = MaterialsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(material_entity_1.Material)),
     __param(1, (0, typeorm_1.InjectRepository)(material_history_entity_1.MaterialHistory)),
+    __param(2, (0, typeorm_1.InjectRepository)(calculation_entity_1.Calculation)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         typeorm_2.Repository,
         currency_settings_service_1.CurrencySettingsService])
 ], MaterialsService);

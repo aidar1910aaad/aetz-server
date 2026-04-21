@@ -23,6 +23,10 @@ export class CurrencySettings {
     @Column('decimal', { precision: 10, scale: 2, default: 450 })
     kztRate: number;
 
+    @ApiProperty({ example: 62.3, description: 'Курс китайского юаня (CNY)' })
+    @Column('decimal', { precision: 10, scale: 2, default: 62.3 })
+    cnyRate: number;
+
     @ApiProperty({ example: 'USD', description: 'Базовая валюта по умолчанию' })
     @Column({ default: 'USD' })
     defaultCurrency: string;

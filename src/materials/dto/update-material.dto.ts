@@ -2,7 +2,7 @@ import { IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateMaterialDto {
-  private static readonly ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR'] as const;
+  private static readonly ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR', 'CNY'] as const;
 
   @ApiPropertyOptional({ example: 'Новый материал' })
   @IsOptional()

@@ -15,7 +15,7 @@ const swagger_1 = require("@nestjs/swagger");
 class CreateMaterialDto {
 }
 exports.CreateMaterialDto = CreateMaterialDto;
-CreateMaterialDto.ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR'];
+CreateMaterialDto.ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR', 'CNY'];
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Вакуумный выключатель AV-24 1250A',

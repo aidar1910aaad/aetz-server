@@ -26,6 +26,12 @@ export class UpdateCurrencySettingsDto {
     @Min(0)
     kztRate?: number;
 
+    @ApiProperty({ example: 62.3, description: 'Курс китайского юаня (CNY)', required: false })
+    @IsOptional()
+    @IsNumber()
+    @Min(0)
+    cnyRate?: number;
+
     @ApiProperty({ example: 'USD', description: 'Базовая валюта по умолчанию', required: false })
     @IsOptional()
     @IsString()

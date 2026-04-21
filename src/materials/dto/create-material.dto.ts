@@ -2,7 +2,7 @@ import { IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateMaterialDto {
-  private static readonly ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR'] as const;
+  private static readonly ALLOWED_CURRENCIES = ['KZT', 'RUB', 'USD', 'EUR', 'CNY'] as const;
 
   @ApiProperty({
     example: 'Вакуумный выключатель AV-24 1250A',

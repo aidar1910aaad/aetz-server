@@ -3,6 +3,7 @@ export declare class UpdateCurrencySettingsDto {
     eurRate?: number;
     rubRate?: number;
     kztRate?: number;
+    cnyRate?: number;
     defaultCurrency?: string;
     hourlyWage?: number;
     vatRate?: number;
