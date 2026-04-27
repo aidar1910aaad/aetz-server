@@ -26,6 +26,7 @@ const roles_decorator_1 = require("../common/decorators/roles.decorator");
 const user_entity_1 = require("../users/entities/user.entity");
 const calculation_entity_1 = require("./entities/calculation.entity");
 const calculation_group_entity_1 = require("./entities/calculation-group.entity");
+const current_user_decorator_1 = require("../auth/decorators/current-user.decorator");
 let CalculationsController = class CalculationsController {
     constructor(calculationsService) {
         this.calculationsService = calculationsService;
@@ -40,8 +41,8 @@ let CalculationsController = class CalculationsController {
         console.log('DTO keys:', Object.keys(dto));
         return this.calculationsService.updateGroup(slug, dto);
     }
-    createCalculation(dto) {
-        return this.calculationsService.createCalculation(dto);
+    createCalculation(dto, user) {
+        return this.calculationsService.createCalculation(dto, user?.username);
     }
     createGroup(dto) {
         return this.calculationsService.createGroup(dto);
@@ -60,11 +61,11 @@ let CalculationsController = class CalculationsController {
     getGroupCalculations(slug) {
         return this.calculationsService.getCalculationsByGroupSlug(slug);
     }
-    updateCalculation(groupSlug, calcSlug, dto) {
-        return this.calculationsService.updateCalculation(groupSlug, calcSlug, dto);
+    updateCalculation(groupSlug, calcSlug, dto, user) {
+        return this.calculationsService.updateCalculation(groupSlug, calcSlug, dto, user?.username);
     }
-    deleteCalculation(groupSlug, calcSlug) {
-        return this.calculationsService.deleteCalculation(groupSlug, calcSlug);
+    deleteCalculation(groupSlug, calcSlug, user) {
+        return this.calculationsService.deleteCalculation(groupSlug, calcSlug, user?.username);
     }
 };
 exports.CalculationsController = CalculationsController;
@@ -125,8 +126,9 @@ __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Создать калькуляцию в группе' }),
     (0, swagger_1.ApiResponse)({ status: 201, type: calculation_entity_1.Calculation }),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_calculation_dto_1.CreateCalculationDto]),
+    __metadata("design:paramtypes", [create_calculation_dto_1.CreateCalculationDto, Object]),
     __metadata("design:returntype", void 0)
 ], CalculationsController.prototype, "createCalculation", null);
 __decorate([
@@ -212,8 +214,9 @@ __decorate([
     __param(0, (0, common_1.Param)('groupSlug')),
     __param(1, (0, common_1.Param)('calcSlug')),
     __param(2, (0, common_1.Body)()),
+    __param(3, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, update_calculation_dto_1.UpdateCalculationDto]),
+    __metadata("design:paramtypes", [String, String, update_calculation_dto_1.UpdateCalculationDto, Object]),
     __metadata("design:returntype", void 0)
 ], CalculationsController.prototype, "updateCalculation", null);
 __decorate([
@@ -230,8 +233,9 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Калькуляция не найдена' }),
     __param(0, (0, common_1.Param)('groupSlug')),
     __param(1, (0, common_1.Param)('calcSlug')),
+    __param(2, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", void 0)
 ], CalculationsController.prototype, "deleteCalculation", null);
 exports.CalculationsController = CalculationsController = __decorate([

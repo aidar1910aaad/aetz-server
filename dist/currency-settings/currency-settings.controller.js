@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var CurrencySettingsController_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CurrencySettingsController = void 0;
 const common_1 = require("@nestjs/common");
@@ -23,23 +24,27 @@ const user_entity_1 = require("../users/entities/user.entity");
 const swagger_1 = require("@nestjs/swagger");
 const update_currency_settings_dto_1 = require("./dto/update-currency-settings.dto");
 const public_decorator_1 = require("../common/decorators/public.decorator");
-let CurrencySettingsController = class CurrencySettingsController {
+const current_user_decorator_1 = require("../auth/decorators/current-user.decorator");
+let CurrencySettingsController = CurrencySettingsController_1 = class CurrencySettingsController {
     constructor(currencySettingsService) {
         this.currencySettingsService = currencySettingsService;
+        this.logger = new common_1.Logger(CurrencySettingsController_1.name);
     }
     async getSettings() {
         try {
             return await this.currencySettingsService.getSettings();
         }
         catch (error) {
+            this.logger.error('Ошибка при получении настроек валют', error?.stack || String(error));
             throw new common_1.HttpException(error.message || 'Ошибка при получении настроек валют', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    async updateSettings(updateData) {
+    async updateSettings(updateData, user) {
         try {
-            return await this.currencySettingsService.updateSettings(updateData);
+            return await this.currencySettingsService.updateSettings(updateData, user?.username);
         }
         catch (error) {
+            this.logger.error('Ошибка при обновлении настроек валют', error?.stack || String(error));
             throw new common_1.HttpException(error.message || 'Ошибка при обновлении настроек валют', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -77,11 +82,12 @@ __decorate([
         description: 'Доступ запрещен. Требуются права администратора или PTO'
     }),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_currency_settings_dto_1.UpdateCurrencySettingsDto]),
+    __metadata("design:paramtypes", [update_currency_settings_dto_1.UpdateCurrencySettingsDto, Object]),
     __metadata("design:returntype", Promise)
 ], CurrencySettingsController.prototype, "updateSettings", null);
-exports.CurrencySettingsController = CurrencySettingsController = __decorate([
+exports.CurrencySettingsController = CurrencySettingsController = CurrencySettingsController_1 = __decorate([
     (0, swagger_1.ApiTags)('currency-settings'),
     (0, swagger_1.ApiBearerAuth)('access-token'),
     (0, common_1.Controller)('currency-settings'),

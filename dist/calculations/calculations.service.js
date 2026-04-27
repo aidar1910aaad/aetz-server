@@ -21,12 +21,14 @@ const material_entity_1 = require("../materials/entities/material.entity");
 const calculation_group_entity_1 = require("./entities/calculation-group.entity");
 const calculation_entity_1 = require("./entities/calculation.entity");
 const currency_settings_service_1 = require("../currency-settings/currency-settings.service");
+const audit_logs_service_1 = require("../audit-logs/audit-logs.service");
 let CalculationsService = class CalculationsService {
-    constructor(groupRepo, calcRepo, materialRepo, currencySettingsService) {
+    constructor(groupRepo, calcRepo, materialRepo, currencySettingsService, auditLogsService) {
         this.groupRepo = groupRepo;
         this.calcRepo = calcRepo;
         this.materialRepo = materialRepo;
         this.currencySettingsService = currencySettingsService;
+        this.auditLogsService = auditLogsService;
     }
     toNumber(value) {
         if (typeof value === 'number')
@@ -113,7 +115,7 @@ let CalculationsService = class CalculationsService {
             throw new common_1.NotFoundException('Группа не найдена');
         return group;
     }
-    async createCalculation(dto) {
+    async createCalculation(dto, changedBy) {
         const group = await this.groupRepo.findOne({ where: { id: dto.groupId } });
         if (!group)
             throw new common_1.NotFoundException('Группа не найдена');
@@ -123,7 +125,16 @@ let CalculationsService = class CalculationsService {
             data: dto.data,
             group,
         });
-        return this.calcRepo.save(calc);
+        const saved = await this.calcRepo.save(calc);
+        await this.auditLogsService.log({
+            entityType: 'calculation',
+            entityId: saved.id,
+            action: 'CREATE',
+            fieldChanged: 'entity',
+            newValue: `Создана калькуляция "${saved.name}" (${saved.slug})`,
+            changedBy: changedBy || 'Неизвестный пользователь',
+        });
+        return saved;
     }
     async getCalculationsByGroupSlug(slug) {
         const group = await this.getGroupBySlug(slug);
@@ -172,7 +183,7 @@ let CalculationsService = class CalculationsService {
         }
         return calc;
     }
-    async updateCalculation(groupSlug, calcSlug, dto) {
+    async updateCalculation(groupSlug, calcSlug, dto, changedBy) {
         const group = await this.getGroupBySlug(groupSlug);
         const calc = await this.calcRepo.findOne({
             where: {
@@ -183,6 +194,11 @@ let CalculationsService = class CalculationsService {
         });
         if (!calc)
             throw new common_1.NotFoundException('Калькуляция не найдена');
+        const previousState = {
+            name: calc.name,
+            slug: calc.slug,
+            data: calc.data,
+        };
         if (dto.name)
             calc.name = dto.name;
         if (dto.slug)
@@ -215,15 +231,35 @@ let CalculationsService = class CalculationsService {
         if (updatedCalc.data && updatedCalc.data.cellConfig) {
             updatedCalc.data.cellConfig = this.updateCellConfigPrices(updatedCalc.data.cellConfig, materialsMap);
         }
+        await this.auditLogsService.log({
+            entityType: 'calculation',
+            entityId: updatedCalc.id,
+            action: 'UPDATE',
+            oldValue: previousState,
+            newValue: {
+                name: updatedCalc.name,
+                slug: updatedCalc.slug,
+                data: updatedCalc.data,
+            },
+            changedBy: changedBy || 'Неизвестный пользователь',
+        });
         return updatedCalc;
     }
-    async deleteCalculation(groupSlug, calcSlug) {
+    async deleteCalculation(groupSlug, calcSlug, changedBy) {
         const group = await this.getGroupBySlug(groupSlug);
         const calc = await this.calcRepo.findOne({
             where: { slug: calcSlug, group: { id: group.id } },
         });
         if (!calc)
             throw new common_1.NotFoundException('Калькуляция не найдена');
+        await this.auditLogsService.log({
+            entityType: 'calculation',
+            entityId: calc.id,
+            action: 'DELETE',
+            fieldChanged: 'entity',
+            oldValue: `Удалена калькуляция "${calc.name}" (${calc.slug})`,
+            changedBy: changedBy || 'Неизвестный пользователь',
+        });
         await this.calcRepo.remove(calc);
     }
     async deleteGroupById(id) {
@@ -283,6 +319,7 @@ exports.CalculationsService = CalculationsService = __decorate([
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository,
-        currency_settings_service_1.CurrencySettingsService])
+        currency_settings_service_1.CurrencySettingsService,
+        audit_logs_service_1.AuditLogsService])
 ], CalculationsService);
 //# sourceMappingURL=calculations.service.js.map

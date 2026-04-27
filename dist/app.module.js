@@ -40,6 +40,10 @@ const switchgear_config_entity_1 = require("./switchgear/entities/switchgear-con
 const material_history_entity_1 = require("./materials/entities/material-history.entity");
 const bids_module_1 = require("./bids/bids.module");
 const bid_entity_1 = require("./bids/entities/bid.entity");
+const audit_log_entity_1 = require("./audit-logs/entities/audit-log.entity");
+const audit_logs_module_1 = require("./audit-logs/audit-logs.module");
+const work_prices_settings_entity_1 = require("./work-prices-settings/entities/work-prices-settings.entity");
+const work_prices_settings_module_1 = require("./work-prices-settings/work-prices-settings.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -69,6 +73,8 @@ exports.AppModule = AppModule = __decorate([
                     switchgear_config_entity_1.SwitchgearConfig,
                     material_history_entity_1.MaterialHistory,
                     bid_entity_1.Bid,
+                    audit_log_entity_1.AuditLog,
+                    work_prices_settings_entity_1.WorkPricesSettings,
                 ],
                 migrations: [__dirname + '/migrations/*{.ts,.js}'],
                 migrationsRun: true,
@@ -106,6 +112,8 @@ exports.AppModule = AppModule = __decorate([
             bmz_module_1.BmzModule,
             switchgear_module_1.SwitchgearModule,
             bids_module_1.BidsModule,
+            audit_logs_module_1.AuditLogsModule,
+            work_prices_settings_module_1.WorkPricesSettingsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [

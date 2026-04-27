@@ -27,6 +27,8 @@ import { Roles } from '../common/decorators/roles.decorator';
 import { UserRole } from '../users/entities/user.entity';
 import { Calculation } from './entities/calculation.entity';
 import { CalculationGroup } from './entities/calculation-group.entity';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 
 @ApiTags('Расчеты')
 @ApiBearerAuth('access-token')
@@ -96,8 +98,8 @@ export class CalculationsController {
   @Roles(UserRole.ADMIN, UserRole.PTO)
   @ApiOperation({ summary: 'Создать калькуляцию в группе' })
   @ApiResponse({ status: 201, type: Calculation })
-  createCalculation(@Body() dto: CreateCalculationDto) {
-    return this.calculationsService.createCalculation(dto);
+  createCalculation(@Body() dto: CreateCalculationDto, @CurrentUser() user: JwtPayload) {
+    return this.calculationsService.createCalculation(dto, user?.username);
   }
 
   // ✅ Создание группы
@@ -186,8 +188,9 @@ export class CalculationsController {
     @Param('groupSlug') groupSlug: string,
     @Param('calcSlug') calcSlug: string,
     @Body() dto: UpdateCalculationDto,
+    @CurrentUser() user: JwtPayload,
   ) {
-    return this.calculationsService.updateCalculation(groupSlug, calcSlug, dto);
+    return this.calculationsService.updateCalculation(groupSlug, calcSlug, dto, user?.username);
   }
 
   // Удалить калькуляцию
@@ -205,7 +208,8 @@ export class CalculationsController {
   deleteCalculation(
     @Param('groupSlug') groupSlug: string,
     @Param('calcSlug') calcSlug: string,
+    @CurrentUser() user: JwtPayload,
   ) {
-    return this.calculationsService.deleteCalculation(groupSlug, calcSlug);
+    return this.calculationsService.deleteCalculation(groupSlug, calcSlug, user?.username);
   }
 }

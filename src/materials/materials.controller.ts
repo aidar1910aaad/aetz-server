@@ -8,6 +8,8 @@ import { UpdateMaterialDto } from './dto/update-material.dto';
 import { Query } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 
 @ApiTags('Materials')
 @ApiBearerAuth('access-token')
@@ -46,8 +48,8 @@ export class MaterialsController {
   })
   @ApiResponse({ status: 400, description: 'Некорректные данные' })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
-  create(@Body() dto: CreateMaterialDto) {
-    return this.materialsService.create(dto);
+  create(@Body() dto: CreateMaterialDto, @CurrentUser() user: JwtPayload) {
+    return this.materialsService.create(dto, user?.username);
   }
 
   @Post('bulk')
@@ -74,8 +76,8 @@ export class MaterialsController {
   })
   @ApiResponse({ status: 400, description: 'Некорректные данные' })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
-  createMany(@Body() dtos: CreateMaterialDto[]): Promise<Material[]> {
-    return this.materialsService.createMany(dtos);
+  createMany(@Body() dtos: CreateMaterialDto[], @CurrentUser() user: JwtPayload): Promise<Material[]> {
+    return this.materialsService.createMany(dtos, user?.username);
   }
 
   @Get()
@@ -259,8 +261,8 @@ export class MaterialsController {
   @ApiResponse({ status: 404, description: 'Материал не найден' })
   @ApiResponse({ status: 400, description: 'Некорректные данные' })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
-  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateMaterialDto) {
-    return this.materialsService.update(id, dto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateMaterialDto, @CurrentUser() user: JwtPayload) {
+    return this.materialsService.update(id, dto, user?.username);
   }
 
   @Get(':id/history')
@@ -317,7 +319,7 @@ export class MaterialsController {
   @ApiResponse({ status: 404, description: 'Материал не найден' })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
   @ApiResponse({ status: 403, description: 'Недостаточно прав для удаления' })
-  delete(@Param('id', ParseIntPipe) id: number) {
-    return this.materialsService.delete(id);
+  delete(@Param('id', ParseIntPipe) id: number, @CurrentUser() user: JwtPayload) {
+    return this.materialsService.delete(id, user?.username);
   }
 }

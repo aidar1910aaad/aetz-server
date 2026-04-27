@@ -15,12 +15,13 @@ const material_entity_1 = require("./entities/material.entity");
 const material_history_entity_1 = require("./entities/material-history.entity");
 const currency_settings_module_1 = require("../currency-settings/currency-settings.module");
 const calculation_entity_1 = require("../calculations/entities/calculation.entity");
+const audit_logs_module_1 = require("../audit-logs/audit-logs.module");
 let MaterialsModule = class MaterialsModule {
 };
 exports.MaterialsModule = MaterialsModule;
 exports.MaterialsModule = MaterialsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([material_entity_1.Material, material_history_entity_1.MaterialHistory, calculation_entity_1.Calculation]), currency_settings_module_1.CurrencySettingsModule],
+        imports: [typeorm_1.TypeOrmModule.forFeature([material_entity_1.Material, material_history_entity_1.MaterialHistory, calculation_entity_1.Calculation]), currency_settings_module_1.CurrencySettingsModule, audit_logs_module_1.AuditLogsModule],
         controllers: [materials_controller_1.MaterialsController],
         providers: [materials_service_1.MaterialsService],
     })

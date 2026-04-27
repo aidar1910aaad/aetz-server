@@ -32,6 +32,10 @@ import { SwitchgearConfig } from './switchgear/entities/switchgear-config.entity
 import { MaterialHistory } from './materials/entities/material-history.entity';
 import { BidsModule } from './bids/bids.module';
 import { Bid } from './bids/entities/bid.entity';
+import { AuditLog } from './audit-logs/entities/audit-log.entity';
+import { AuditLogsModule } from './audit-logs/audit-logs.module';
+import { WorkPricesSettings } from './work-prices-settings/entities/work-prices-settings.entity';
+import { WorkPricesSettingsModule } from './work-prices-settings/work-prices-settings.module';
 
 @Module({
   imports: [
@@ -58,6 +62,8 @@ import { Bid } from './bids/entities/bid.entity';
         SwitchgearConfig,
         MaterialHistory,
         Bid,
+        AuditLog,
+        WorkPricesSettings,
       ],
       migrations: [__dirname + '/migrations/*{.ts,.js}'],
       migrationsRun: true,
@@ -95,6 +101,8 @@ import { Bid } from './bids/entities/bid.entity';
     BmzModule,
     SwitchgearModule,
     BidsModule,
+    AuditLogsModule,
+    WorkPricesSettingsModule,
   ],
   controllers: [AppController],
   providers: [

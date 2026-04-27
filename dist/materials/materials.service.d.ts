@@ -5,12 +5,15 @@ import { UpdateMaterialDto } from './dto/update-material.dto';
 import { MaterialHistory } from './entities/material-history.entity';
 import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
 import { Calculation } from '../calculations/entities/calculation.entity';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
 export declare class MaterialsService {
     private readonly materialRepo;
     private readonly historyRepo;
     private readonly calculationRepo;
     private readonly currencySettingsService;
-    constructor(materialRepo: Repository<Material>, historyRepo: Repository<MaterialHistory>, calculationRepo: Repository<Calculation>, currencySettingsService: CurrencySettingsService);
+    private readonly auditLogsService;
+    constructor(materialRepo: Repository<Material>, historyRepo: Repository<MaterialHistory>, calculationRepo: Repository<Calculation>, currencySettingsService: CurrencySettingsService, auditLogsService: AuditLogsService);
+    private logAudit;
     private toNumber;
     private getRateByCurrency;
     private convertToKzt;
@@ -18,7 +21,7 @@ export declare class MaterialsService {
     private enrichMaterialsWithCurrentPrices;
     private updateCalculationDataPriceByMaterialId;
     private syncMaterialPriceInCalculations;
-    create(dto: CreateMaterialDto): Promise<Material & {
+    create(dto: CreateMaterialDto, changedBy?: string): Promise<Material & {
         currentPriceKzt: number;
     }>;
     findAll(query: {
@@ -37,10 +40,10 @@ export declare class MaterialsService {
     findOne(id: number): Promise<Material & {
         currentPriceKzt: number;
     }>;
-    createMany(dtos: CreateMaterialDto[]): Promise<Array<Material & {
+    createMany(dtos: CreateMaterialDto[], changedBy?: string): Promise<Array<Material & {
         currentPriceKzt: number;
     }>>;
-    update(id: number, dto: UpdateMaterialDto): Promise<Material & {
+    update(id: number, dto: UpdateMaterialDto, changedBy?: string): Promise<Material & {
         currentPriceKzt: number;
     }>;
     getHistory(id: number): Promise<MaterialHistory[]>;
@@ -57,5 +60,5 @@ export declare class MaterialsService {
         data: MaterialHistory[];
         total: number;
     }>;
-    delete(id: number): Promise<void>;
+    delete(id: number, changedBy?: string): Promise<void>;
 }

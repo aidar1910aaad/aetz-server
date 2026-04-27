@@ -6,10 +6,12 @@ import { CalculationGroup } from './entities/calculation-group.entity';
 import { Calculation } from './entities/calculation.entity';
 import { Material } from '../materials/entities/material.entity'; // 👈 уже есть
 import { CurrencySettingsModule } from '../currency-settings/currency-settings.module';
+import { AuditLogsModule } from '../audit-logs/audit-logs.module';
 
 @Module({
   imports: [
     CurrencySettingsModule,
+    AuditLogsModule,
     TypeOrmModule.forFeature([
       CalculationGroup,
       Calculation,

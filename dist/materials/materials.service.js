@@ -19,15 +19,27 @@ const typeorm_2 = require("typeorm");
 const material_entity_1 = require("./entities/material.entity");
 const material_history_entity_1 = require("./entities/material-history.entity");
 const category_entity_1 = require("../categories/entities/category.entity");
-const typeorm_3 = require("typeorm");
 const currency_settings_service_1 = require("../currency-settings/currency-settings.service");
 const calculation_entity_1 = require("../calculations/entities/calculation.entity");
+const audit_logs_service_1 = require("../audit-logs/audit-logs.service");
 let MaterialsService = class MaterialsService {
-    constructor(materialRepo, historyRepo, calculationRepo, currencySettingsService) {
+    constructor(materialRepo, historyRepo, calculationRepo, currencySettingsService, auditLogsService) {
         this.materialRepo = materialRepo;
         this.historyRepo = historyRepo;
         this.calculationRepo = calculationRepo;
         this.currencySettingsService = currencySettingsService;
+        this.auditLogsService = auditLogsService;
+    }
+    async logAudit(entry) {
+        await this.auditLogsService.log({
+            entityType: 'material',
+            entityId: entry.entityId,
+            action: entry.action,
+            fieldChanged: entry.fieldChanged,
+            oldValue: entry.oldValue,
+            newValue: entry.newValue,
+            changedBy: entry.changedBy,
+        });
     }
     toNumber(value) {
         if (typeof value === 'number') {
@@ -133,7 +145,7 @@ let MaterialsService = class MaterialsService {
             await this.calculationRepo.save(updates);
         }
     }
-    async create(dto) {
+    async create(dto, changedBy) {
         let category;
         if (dto.categoryId) {
             const found = await this.materialRepo.manager.findOneBy(category_entity_1.Category, { id: dto.categoryId });
@@ -161,25 +173,50 @@ let MaterialsService = class MaterialsService {
         }
         const saved = await this.materialRepo.save(material);
         console.log('✅ СОХРАНЕНО:', saved);
+        await this.logAudit({
+            entityId: saved.id,
+            action: 'CREATE',
+            fieldChanged: 'entity',
+            newValue: `Создан материал "${saved.name}" (${saved.code || 'без кода'})`,
+            changedBy: changedBy || 'Неизвестный пользователь',
+        });
         return this.enrichMaterialWithCurrentPrice(saved);
     }
     async findAll(query) {
         const { page = 1, limit = 50, search, sort = 'name', order = 'ASC', categoryId, } = query;
-        const where = [];
-        if (search) {
-            where.push({ name: (0, typeorm_3.ILike)(`%${search}%`) });
-            where.push({ code: (0, typeorm_3.ILike)(`%${search}%`) });
+        const queryBuilder = this.materialRepo
+            .createQueryBuilder('material')
+            .leftJoinAndSelect('material.category', 'category')
+            .orderBy(`material.${sort}`, order)
+            .skip((page - 1) * limit)
+            .take(limit);
+        if (search?.trim()) {
+            const normalizedTerms = search
+                .toLowerCase()
+                .trim()
+                .split(/\s+/)
+                .map((term) => term.trim())
+                .filter(Boolean);
+            const normalizedMaterialExpr = `
+        LOWER(
+          regexp_replace(
+            CONCAT_WS(' ', COALESCE(material.name, ''), COALESCE(material.code, '')),
+            '[^0-9A-Za-zА-Яа-яЁё]+',
+            ' ',
+            'g'
+          )
+        )
+      `;
+            normalizedTerms.forEach((term, index) => {
+                queryBuilder.andWhere(`${normalizedMaterialExpr} LIKE :searchTerm${index}`, {
+                    [`searchTerm${index}`]: `%${term}%`,
+                });
+            });
         }
         if (categoryId) {
-            where.push({ category: { id: categoryId } });
+            queryBuilder.andWhere('category.id = :categoryId', { categoryId });
         }
-        const [data, total] = await this.materialRepo.findAndCount({
-            where: where.length > 0 ? where : undefined,
-            relations: ['category'],
-            order: { [sort]: order },
-            take: limit,
-            skip: (page - 1) * limit,
-        });
+        const [data, total] = await queryBuilder.getManyAndCount();
         const enrichedData = await this.enrichMaterialsWithCurrentPrices(data);
         return { data: enrichedData, total };
     }
@@ -192,7 +229,7 @@ let MaterialsService = class MaterialsService {
             throw new common_1.NotFoundException('Материал не найден');
         return this.enrichMaterialWithCurrentPrice(material);
     }
-    async createMany(dtos) {
+    async createMany(dtos, changedBy) {
         const results = [];
         const batchSize = 100;
         let currentBatch = [];
@@ -238,9 +275,18 @@ let MaterialsService = class MaterialsService {
             results.push(...savedBatch);
             console.log(`✅ Сохранен последний пакет из ${savedBatch.length} материалов`);
         }
+        for (const saved of results) {
+            await this.logAudit({
+                entityId: saved.id,
+                action: 'CREATE',
+                fieldChanged: 'entity',
+                newValue: `Создан материал "${saved.name}" (${saved.code || 'без кода'})`,
+                changedBy: changedBy || 'Неизвестный пользователь',
+            });
+        }
         return this.enrichMaterialsWithCurrentPrices(results);
     }
-    async update(id, dto) {
+    async update(id, dto, changedBy) {
         const material = await this.findOne(id);
         const settings = await this.currencySettingsService.getSettings();
         const fieldsToCheck = ['name', 'unit'];
@@ -252,7 +298,15 @@ let MaterialsService = class MaterialsService {
                     fieldChanged: field,
                     oldValue: String(material[field]),
                     newValue: String(dto[field]),
-                    changedBy: dto.changedBy || 'Неизвестный пользователь',
+                    changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
+                });
+                await this.logAudit({
+                    entityId: material.id,
+                    action: 'UPDATE',
+                    fieldChanged: String(field),
+                    oldValue: material[field],
+                    newValue: dto[field],
+                    changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
                 });
                 material[field] = dto[field];
             }
@@ -263,7 +317,15 @@ let MaterialsService = class MaterialsService {
                 fieldChanged: 'currency',
                 oldValue: material.currency,
                 newValue: dto.currency.toUpperCase(),
-                changedBy: dto.changedBy || 'Неизвестный пользователь',
+                changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
+            });
+            await this.logAudit({
+                entityId: material.id,
+                action: 'UPDATE',
+                fieldChanged: 'currency',
+                oldValue: material.currency,
+                newValue: dto.currency.toUpperCase(),
+                changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
             });
             material.currency = dto.currency.toUpperCase();
         }
@@ -273,7 +335,15 @@ let MaterialsService = class MaterialsService {
                 fieldChanged: 'priceInCurrency',
                 oldValue: String(material.priceInCurrency),
                 newValue: String(dto.priceInCurrency),
-                changedBy: dto.changedBy || 'Неизвестный пользователь',
+                changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
+            });
+            await this.logAudit({
+                entityId: material.id,
+                action: 'UPDATE',
+                fieldChanged: 'priceInCurrency',
+                oldValue: material.priceInCurrency,
+                newValue: dto.priceInCurrency,
+                changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
             });
             material.priceInCurrency = dto.priceInCurrency;
         }
@@ -283,7 +353,15 @@ let MaterialsService = class MaterialsService {
                 fieldChanged: 'priceInCurrency',
                 oldValue: String(material.priceInCurrency),
                 newValue: String(dto.price),
-                changedBy: dto.changedBy || 'Неизвестный пользователь',
+                changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
+            });
+            await this.logAudit({
+                entityId: material.id,
+                action: 'UPDATE',
+                fieldChanged: 'priceInCurrency',
+                oldValue: material.priceInCurrency,
+                newValue: dto.price,
+                changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
             });
             material.priceInCurrency = dto.price;
         }
@@ -301,7 +379,15 @@ let MaterialsService = class MaterialsService {
                     fieldChanged: 'category',
                     oldValue: material.category?.name ?? 'не указана',
                     newValue: newCategory.name,
-                    changedBy: dto.changedBy || 'Неизвестный пользователь',
+                    changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
+                });
+                await this.logAudit({
+                    entityId: material.id,
+                    action: 'UPDATE',
+                    fieldChanged: 'category',
+                    oldValue: material.category?.name ?? null,
+                    newValue: newCategory.name,
+                    changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
                 });
                 material.category = newCategory;
             }
@@ -354,11 +440,18 @@ let MaterialsService = class MaterialsService {
         const [data, total] = await queryBuilder.getManyAndCount();
         return { data, total };
     }
-    async delete(id) {
+    async delete(id, changedBy) {
         const material = await this.materialRepo.findOne({ where: { id } });
         if (!material) {
             throw new common_1.NotFoundException(`Материал с ID ${id} не найден`);
         }
+        await this.logAudit({
+            entityId: material.id,
+            action: 'DELETE',
+            fieldChanged: 'entity',
+            oldValue: `Удален материал "${material.name}" (${material.code || 'без кода'})`,
+            changedBy: changedBy || 'Неизвестный пользователь',
+        });
         await this.materialRepo.remove(material);
     }
 };
@@ -371,6 +464,7 @@ exports.MaterialsService = MaterialsService = __decorate([
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository,
-        currency_settings_service_1.CurrencySettingsService])
+        currency_settings_service_1.CurrencySettingsService,
+        audit_logs_service_1.AuditLogsService])
 ], MaterialsService);
 //# sourceMappingURL=materials.service.js.map

@@ -20,15 +20,16 @@ const update_material_dto_1 = require("./dto/update-material.dto");
 const common_2 = require("@nestjs/common");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const swagger_1 = require("@nestjs/swagger");
+const current_user_decorator_1 = require("../auth/decorators/current-user.decorator");
 let MaterialsController = class MaterialsController {
     constructor(materialsService) {
         this.materialsService = materialsService;
     }
-    create(dto) {
-        return this.materialsService.create(dto);
+    create(dto, user) {
+        return this.materialsService.create(dto, user?.username);
     }
-    createMany(dtos) {
-        return this.materialsService.createMany(dtos);
+    createMany(dtos, user) {
+        return this.materialsService.createMany(dtos, user?.username);
     }
     findAll(page, limit, search, sort, order, categoryId) {
         return this.materialsService.findAll({ page, limit, search, sort, order, categoryId });
@@ -48,14 +49,14 @@ let MaterialsController = class MaterialsController {
     findOne(id) {
         return this.materialsService.findOne(id);
     }
-    update(id, dto) {
-        return this.materialsService.update(id, dto);
+    update(id, dto, user) {
+        return this.materialsService.update(id, dto, user?.username);
     }
     getHistory(id) {
         return this.materialsService.getHistory(id);
     }
-    delete(id) {
-        return this.materialsService.delete(id);
+    delete(id, user) {
+        return this.materialsService.delete(id, user?.username);
     }
 };
 exports.MaterialsController = MaterialsController;
@@ -91,8 +92,9 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Некорректные данные' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_material_dto_1.CreateMaterialDto]),
+    __metadata("design:paramtypes", [create_material_dto_1.CreateMaterialDto, Object]),
     __metadata("design:returntype", void 0)
 ], MaterialsController.prototype, "create", null);
 __decorate([
@@ -121,8 +123,9 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Некорректные данные' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Array]),
+    __metadata("design:paramtypes", [Array, Object]),
     __metadata("design:returntype", Promise)
 ], MaterialsController.prototype, "createMany", null);
 __decorate([
@@ -302,8 +305,9 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_material_dto_1.UpdateMaterialDto]),
+    __metadata("design:paramtypes", [Number, update_material_dto_1.UpdateMaterialDto, Object]),
     __metadata("design:returntype", void 0)
 ], MaterialsController.prototype, "update", null);
 __decorate([
@@ -364,8 +368,9 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
     (0, swagger_1.ApiResponse)({ status: 403, description: 'Недостаточно прав для удаления' }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, current_user_decorator_1.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
 ], MaterialsController.prototype, "delete", null);
 exports.MaterialsController = MaterialsController = __decorate([

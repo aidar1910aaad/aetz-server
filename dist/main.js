@@ -7,6 +7,16 @@ const swagger_1 = require("@nestjs/swagger");
 const bodyParser = require("body-parser");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    const requestLogger = new common_1.Logger('HTTP');
+    app.use((req, res, next) => {
+        const startedAt = Date.now();
+        requestLogger.log(`START ${req.method} ${req.originalUrl} - ${req.ip || 'unknown-ip'}`);
+        res.on('finish', () => {
+            const durationMs = Date.now() - startedAt;
+            requestLogger.log(`${req.method} ${req.originalUrl} ${res.statusCode} - ${durationMs}ms - ${req.ip || 'unknown-ip'}`);
+        });
+        next();
+    });
     app.use(bodyParser.json({ limit: '20mb' }));
     app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
     app.enableCors({

@@ -1,11 +1,26 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const requestLogger = new Logger('HTTP');
+
+  app.use((req, res, next) => {
+    const startedAt = Date.now();
+    requestLogger.log(`START ${req.method} ${req.originalUrl} - ${req.ip || 'unknown-ip'}`);
+
+    res.on('finish', () => {
+      const durationMs = Date.now() - startedAt;
+      requestLogger.log(
+        `${req.method} ${req.originalUrl} ${res.statusCode} - ${durationMs}ms - ${req.ip || 'unknown-ip'}`,
+      );
+    });
+
+    next();
+  });
 
   // 📦 Увеличить лимит размера тела запроса
   app.use(bodyParser.json({ limit: '20mb' }));

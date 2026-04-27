@@ -11,6 +11,7 @@ import { CreateCalculationGroupDto } from './dto/create-calculation-group.dto';
 import { UpdateCalculationDto } from './dto/update-calculation.dto';
 import { UpdateCalculationGroupDto } from './dto/update-calculation-group.dto';
 import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
 
 @Injectable()
 export class CalculationsService {
@@ -24,6 +25,7 @@ export class CalculationsService {
     @InjectRepository(Material)
     private readonly materialRepo: Repository<Material>, // 👈 обязательно
     private readonly currencySettingsService: CurrencySettingsService,
+    private readonly auditLogsService: AuditLogsService,
   ) { }
 
   private toNumber(value: unknown): number {
@@ -128,7 +130,7 @@ export class CalculationsService {
   }
 
   // ✅ Создание калькуляции
-  async createCalculation(dto: CreateCalculationDto): Promise<Calculation> {
+  async createCalculation(dto: CreateCalculationDto, changedBy?: string): Promise<Calculation> {
     const group = await this.groupRepo.findOne({ where: { id: dto.groupId } });
     if (!group) throw new NotFoundException('Группа не найдена');
 
@@ -139,7 +141,16 @@ export class CalculationsService {
       group,
     });
 
-    return this.calcRepo.save(calc);
+    const saved = await this.calcRepo.save(calc);
+    await this.auditLogsService.log({
+      entityType: 'calculation',
+      entityId: saved.id,
+      action: 'CREATE',
+      fieldChanged: 'entity',
+      newValue: `Создана калькуляция "${saved.name}" (${saved.slug})`,
+      changedBy: changedBy || 'Неизвестный пользователь',
+    });
+    return saved;
   }
 
   // ✅ Получить все калькуляции группы
@@ -211,6 +222,7 @@ export class CalculationsService {
     groupSlug: string,
     calcSlug: string,
     dto: UpdateCalculationDto,
+    changedBy?: string,
   ): Promise<Calculation> {
     const group = await this.getGroupBySlug(groupSlug);
 
@@ -223,6 +235,12 @@ export class CalculationsService {
     });
 
     if (!calc) throw new NotFoundException('Калькуляция не найдена');
+
+    const previousState = {
+      name: calc.name,
+      slug: calc.slug,
+      data: calc.data,
+    };
 
     // Обновляем только те поля, которые были переданы
     if (dto.name) calc.name = dto.name;
@@ -263,16 +281,37 @@ export class CalculationsService {
       updatedCalc.data.cellConfig = this.updateCellConfigPrices(updatedCalc.data.cellConfig, materialsMap);
     }
 
+    await this.auditLogsService.log({
+      entityType: 'calculation',
+      entityId: updatedCalc.id,
+      action: 'UPDATE',
+      oldValue: previousState,
+      newValue: {
+        name: updatedCalc.name,
+        slug: updatedCalc.slug,
+        data: updatedCalc.data,
+      },
+      changedBy: changedBy || 'Неизвестный пользователь',
+    });
+
     return updatedCalc;
   }
 
   // Удаление калькуляции по groupSlug и calcSlug
-  async deleteCalculation(groupSlug: string, calcSlug: string): Promise<void> {
+  async deleteCalculation(groupSlug: string, calcSlug: string, changedBy?: string): Promise<void> {
     const group = await this.getGroupBySlug(groupSlug);
     const calc = await this.calcRepo.findOne({
       where: { slug: calcSlug, group: { id: group.id } },
     });
     if (!calc) throw new NotFoundException('Калькуляция не найдена');
+    await this.auditLogsService.log({
+      entityType: 'calculation',
+      entityId: calc.id,
+      action: 'DELETE',
+      fieldChanged: 'entity',
+      oldValue: `Удалена калькуляция "${calc.name}" (${calc.slug})`,
+      changedBy: changedBy || 'Неизвестный пользователь',
+    });
     await this.calcRepo.remove(calc);
   }
 

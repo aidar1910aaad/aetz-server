@@ -11,6 +11,7 @@ import { Calculation } from './calculations/entities/calculation.entity';
 import { Transformer } from './transformers/entities/transformer.entity';
 import { BmzSettings } from './bmz/entities/bmz-settings.entity';
 import { SwitchgearConfig } from './switchgear/entities/switchgear-config.entity';
+import { AuditLog } from './audit-logs/entities/audit-log.entity';
 
 export const AppDataSource = new DataSource({
     type: 'postgres',
@@ -32,6 +33,7 @@ export const AppDataSource = new DataSource({
         Transformer,
         BmzSettings,
         SwitchgearConfig
+        ,AuditLog
     ],
     migrations: [__dirname + '/migrations/*{.ts,.js}'],
     synchronize: false,

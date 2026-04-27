@@ -14,6 +14,7 @@ const calculation_entity_1 = require("./calculations/entities/calculation.entity
 const transformer_entity_1 = require("./transformers/entities/transformer.entity");
 const bmz_settings_entity_1 = require("./bmz/entities/bmz-settings.entity");
 const switchgear_config_entity_1 = require("./switchgear/entities/switchgear-config.entity");
+const audit_log_entity_1 = require("./audit-logs/entities/audit-log.entity");
 exports.AppDataSource = new typeorm_1.DataSource({
     type: 'postgres',
     host: process.env.DB_HOST || 'ep-spring-sun-a1m8k0rq-pooler.ap-southeast-1.aws.neon.tech',
@@ -33,7 +34,8 @@ exports.AppDataSource = new typeorm_1.DataSource({
         calculation_entity_1.Calculation,
         transformer_entity_1.Transformer,
         bmz_settings_entity_1.BmzSettings,
-        switchgear_config_entity_1.SwitchgearConfig
+        switchgear_config_entity_1.SwitchgearConfig,
+        audit_log_entity_1.AuditLog
     ],
     migrations: [__dirname + '/migrations/*{.ts,.js}'],
     synchronize: false,

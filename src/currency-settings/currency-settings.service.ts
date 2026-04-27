@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CurrencySettings } from './entities/currency-settings.entity';
 import { UpdateCurrencySettingsDto } from './dto/update-currency-settings.dto';
 import { Material } from '../materials/entities/material.entity';
 import { Calculation } from '../calculations/entities/calculation.entity';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
 
 @Injectable()
 export class CurrencySettingsService {
+    private readonly logger = new Logger(CurrencySettingsService.name);
+
     constructor(
         @InjectRepository(CurrencySettings)
         private readonly currencySettingsRepo: Repository<CurrencySettings>,
@@ -15,6 +18,7 @@ export class CurrencySettingsService {
         private readonly materialRepo: Repository<Material>,
         @InjectRepository(Calculation)
         private readonly calculationRepo: Repository<Calculation>,
+        private readonly auditLogsService: AuditLogsService,
     ) {
         this.initializeSettings();
     }
@@ -54,19 +58,45 @@ export class CurrencySettingsService {
         return Number((priceInCurrency * rate).toFixed(2));
     }
 
-    private async recalculateMaterialsPriceInKzt(settings: CurrencySettings): Promise<void> {
+    private async recalculateMaterialsPriceInKzt(settings: CurrencySettings, affectedCurrencies: string[]): Promise<Map<number, number>> {
+        this.logger.log('Recalculate materials in KZT: start');
+        const normalizedCurrencies = affectedCurrencies.map((currency) => currency.toUpperCase());
         const materials = await this.materialRepo.find();
-        if (!materials.length) {
-            return;
+        const targetMaterials = materials.filter((material) =>
+            normalizedCurrencies.includes((material.currency || 'KZT').toUpperCase()),
+        );
+
+        this.logger.log(`Recalculate materials in KZT: affected currencies [${normalizedCurrencies.join(', ')}]`);
+
+        if (!targetMaterials.length) {
+            this.logger.log('Recalculate materials in KZT: no materials for affected currencies');
+            return new Map<number, number>();
         }
 
-        const updatedMaterials = materials.map((material) => {
+        if (!materials.length) {
+            this.logger.log('Recalculate materials in KZT: no materials');
+            return new Map<number, number>();
+        }
+
+        const changedPricesByMaterialId = new Map<number, number>();
+        const updatedMaterials = targetMaterials.map((material) => {
             const priceInCurrency = this.toNumber(material.priceInCurrency ?? material.price);
-            material.price = this.convertToKzt(priceInCurrency, material.currency || 'KZT', settings);
+            const nextPrice = this.convertToKzt(priceInCurrency, material.currency || 'KZT', settings);
+            if (this.toNumber(material.price) !== nextPrice) {
+                changedPricesByMaterialId.set(material.id, nextPrice);
+            }
+            material.price = nextPrice;
             return material;
         });
 
-        await this.materialRepo.save(updatedMaterials);
+        const batchSize = 200;
+        for (let i = 0; i < updatedMaterials.length; i += batchSize) {
+            const batch = updatedMaterials.slice(i, i + batchSize);
+            await this.materialRepo.save(batch);
+            this.logger.log(`Recalculate materials in KZT: saved ${Math.min(i + batch.length, updatedMaterials.length)}/${updatedMaterials.length}`);
+        }
+        this.logger.log(`Recalculate materials in KZT: done (${updatedMaterials.length} materials, ${changedPricesByMaterialId.size} changed)`);
+        return changedPricesByMaterialId;
     }
 
     private updateCalculationDataByMaterials(data: any, pricesByMaterialId: Map<number, number>): any {
@@ -122,19 +152,19 @@ export class CurrencySettingsService {
         return nextData;
     }
 
-    private async syncCalculationsWithCurrentMaterialPrices(): Promise<void> {
-        const [materials, calculations] = await Promise.all([
-            this.materialRepo.find(),
-            this.calculationRepo.find(),
-        ]);
-
-        if (!materials.length || !calculations.length) {
+    private async syncCalculationsWithCurrentMaterialPrices(pricesByMaterialId: Map<number, number>): Promise<void> {
+        this.logger.log('Sync calculations with material prices: start');
+        if (pricesByMaterialId.size === 0) {
+            this.logger.log('Sync calculations: skipped (no changed material prices)');
             return;
         }
 
-        const pricesByMaterialId = new Map<number, number>(
-            materials.map((material) => [material.id, this.toNumber(material.price)]),
-        );
+        const calculations = await this.calculationRepo.find();
+
+        if (!calculations.length) {
+            this.logger.log('Sync calculations: skipped (no calculations)');
+            return;
+        }
 
         const updatedCalculations: Calculation[] = [];
         calculations.forEach((calculation) => {
@@ -148,6 +178,7 @@ export class CurrencySettingsService {
         if (updatedCalculations.length > 0) {
             await this.calculationRepo.save(updatedCalculations);
         }
+        this.logger.log(`Sync calculations with material prices: done (${updatedCalculations.length}/${calculations.length} updated)`);
     }
 
     private async initializeSettings() {
@@ -178,7 +209,9 @@ export class CurrencySettingsService {
         return settings;
     }
 
-    async updateSettings(updateData: UpdateCurrencySettingsDto) {
+    async updateSettings(updateData: UpdateCurrencySettingsDto, changedBy?: string) {
+        const updateStartedAt = Date.now();
+        this.logger.log(`Update currency settings: start by ${changedBy || 'unknown'}`);
         const settings = await this.currencySettingsRepo.findOne({
             where: {},
             order: { id: 'DESC' }
@@ -189,21 +222,75 @@ export class CurrencySettingsService {
         }
 
         const rateFields: Array<keyof UpdateCurrencySettingsDto> = ['usdRate', 'eurRate', 'rubRate', 'kztRate', 'cnyRate'];
-        const hasRateChanges = rateFields.some((field) => updateData[field] !== undefined);
+        const rateFieldToCurrency: Partial<Record<keyof UpdateCurrencySettingsDto, string>> = {
+            usdRate: 'USD',
+            eurRate: 'EUR',
+            rubRate: 'RUB',
+            kztRate: 'KZT',
+            cnyRate: 'CNY',
+        };
 
-        // Обновляем только те поля, которые были переданы
+        const changedEntries: Array<{ key: string; oldValue: unknown; newValue: unknown }> = [];
+        const isSameValue = (oldValue: unknown, newValue: unknown): boolean => {
+            const oldNum = this.toNumber(oldValue);
+            const newNum = this.toNumber(newValue);
+            const isOldNumeric = typeof oldValue === 'number' || (typeof oldValue === 'string' && oldValue.trim() !== '' && !Number.isNaN(Number(oldValue)));
+            const isNewNumeric = typeof newValue === 'number' || (typeof newValue === 'string' && newValue.trim() !== '' && !Number.isNaN(Number(newValue)));
+            if (isOldNumeric && isNewNumeric) {
+                return oldNum === newNum;
+            }
+
+            return String(oldValue ?? '') === String(newValue ?? '');
+        };
+
+        // Обновляем только реально изменившиеся поля
         Object.keys(updateData).forEach(key => {
             if (updateData[key] !== undefined) {
+                if (isSameValue(settings[key], updateData[key])) {
+                    return;
+                }
+                changedEntries.push({
+                    key,
+                    oldValue: settings[key],
+                    newValue: updateData[key],
+                });
                 settings[key] = updateData[key];
             }
         });
 
-        const savedSettings = await this.currencySettingsRepo.save(settings);
+        const changedRateFields = changedEntries
+            .filter((entry) => rateFields.includes(entry.key as keyof UpdateCurrencySettingsDto))
+            .filter((entry) => this.toNumber(entry.oldValue) !== this.toNumber(entry.newValue))
+            .map((entry) => entry.key as keyof UpdateCurrencySettingsDto);
+        const hasRateChanges = changedRateFields.length > 0;
+        const affectedCurrencies = changedRateFields
+            .map((field) => rateFieldToCurrency[field])
+            .filter((value): value is string => Boolean(value));
+
+        const savedSettings = changedEntries.length > 0
+            ? await this.currencySettingsRepo.save(settings)
+            : settings;
+        this.logger.log(`Update currency settings: saved. Rate changes: ${hasRateChanges ? 'yes' : 'no'}`);
 
         if (hasRateChanges) {
-            await this.recalculateMaterialsPriceInKzt(savedSettings);
-            await this.syncCalculationsWithCurrentMaterialPrices();
+            const changedPricesByMaterialId = await this.recalculateMaterialsPriceInKzt(savedSettings, affectedCurrencies);
+            await this.syncCalculationsWithCurrentMaterialPrices(changedPricesByMaterialId);
         }
+
+        for (const entry of changedEntries) {
+            await this.auditLogsService.log({
+                entityType: 'currency_settings',
+                entityId: savedSettings.id,
+                action: 'UPDATE',
+                fieldChanged: entry.key,
+                oldValue: entry.oldValue,
+                newValue: entry.newValue,
+                changedBy: changedBy || 'Неизвестный пользователь',
+            });
+        }
+
+        const elapsedMs = Date.now() - updateStartedAt;
+        this.logger.log(`Update currency settings: done in ${elapsedMs}ms (${changedEntries.length} changed fields)`);
 
         return savedSettings;
     }
