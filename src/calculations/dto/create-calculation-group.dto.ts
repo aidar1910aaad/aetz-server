@@ -3,9 +3,9 @@ import { IsString, IsOptional, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCalculationGroupDto {
-  @ApiProperty({ 
+  @ApiProperty({
     example: 'Камера КСО А12-10',
-    description: 'Название группы (slug будет сгенерирован автоматически)'
+    description: 'Название группы (slug будет сгенерирован автоматически)',
   })
   @IsString()
   name: string;

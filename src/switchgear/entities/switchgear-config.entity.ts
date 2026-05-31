@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('switchgear_configs')
@@ -49,7 +55,7 @@ export class SwitchgearConfig {
     example: [
       { name: 'Ввод', quantity: 2 },
       { name: 'СВ', quantity: 1 },
-      { name: 'ОТХ', quantity: 10 }
+      { name: 'ОТХ', quantity: 10 },
     ],
     description: 'Список ячеек с их количеством',
   })
@@ -72,4 +78,4 @@ export class SwitchgearConfig {
   })
   @UpdateDateColumn()
   updatedAt: Date;
-} 
+}

@@ -35,7 +35,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         example: 10,
         description: 'Тип вольтажа (например: 10, 20, 35 и т.д.)',
-        required: false
+        required: false,
     }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", Number)

@@ -24,7 +24,7 @@ exports.BmzOption = BmzOption;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
-        description: 'Уникальный идентификатор'
+        description: 'Уникальный идентификатор',
     }),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -32,7 +32,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Освещение',
-        description: 'Название опции'
+        description: 'Название опции',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -41,18 +41,18 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'perSquareMeter',
         description: 'Тип расчета цены: perSquareMeter - за м², perHalfSquareMeter - за 0.5 м², fixed - фиксированная цена',
-        enum: OptionType
+        enum: OptionType,
     }),
     (0, typeorm_1.Column)({
         type: 'enum',
-        enum: OptionType
+        enum: OptionType,
     }),
     __metadata("design:type", String)
 ], BmzOption.prototype, "type", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 2500,
-        description: 'Цена за квадратный метр (если тип perSquareMeter или perHalfSquareMeter)'
+        description: 'Цена за квадратный метр (если тип perSquareMeter или perHalfSquareMeter)',
     }),
     (0, typeorm_1.Column)('decimal', { precision: 10, scale: 2, nullable: true }),
     __metadata("design:type", Number)
@@ -60,7 +60,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 10000,
-        description: 'Фиксированная цена (если тип fixed)'
+        description: 'Фиксированная цена (если тип fixed)',
     }),
     (0, typeorm_1.Column)('decimal', { precision: 10, scale: 2, nullable: true }),
     __metadata("design:type", Number)
@@ -68,7 +68,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Освещение помещения',
-        description: 'Описание опции'
+        description: 'Описание опции',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -76,7 +76,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: true,
-        description: 'Активна ли опция'
+        description: 'Активна ли опция',
     }),
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
@@ -84,7 +84,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '2024-03-20T10:00:00Z',
-        description: 'Дата создания записи'
+        description: 'Дата создания записи',
     }),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
@@ -92,7 +92,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '2024-03-20T10:00:00Z',
-        description: 'Дата последнего обновления записи'
+        description: 'Дата последнего обновления записи',
     }),
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)

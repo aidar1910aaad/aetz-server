@@ -13,14 +13,28 @@ const bids_controller_1 = require("./bids.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const bid_entity_1 = require("./entities/bid.entity");
 const users_module_1 = require("../users/users.module");
+const material_entity_1 = require("../materials/entities/material.entity");
+const transformer_entity_1 = require("../transformers/entities/transformer.entity");
+const calculation_entity_1 = require("../calculations/entities/calculation.entity");
+const currency_settings_module_1 = require("../currency-settings/currency-settings.module");
+const work_prices_settings_module_1 = require("../work-prices-settings/work-prices-settings.module");
+const bmz_settings_module_1 = require("../bmz/bmz-settings.module");
+const bid_reprice_service_1 = require("./services/bid-reprice.service");
+const bid_price_sources_service_1 = require("./services/bid-price-sources.service");
 let BidsModule = class BidsModule {
 };
 exports.BidsModule = BidsModule;
 exports.BidsModule = BidsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([bid_entity_1.Bid]), users_module_1.UsersModule],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([bid_entity_1.Bid, material_entity_1.Material, transformer_entity_1.Transformer, calculation_entity_1.Calculation]),
+            users_module_1.UsersModule,
+            currency_settings_module_1.CurrencySettingsModule,
+            work_prices_settings_module_1.WorkPricesSettingsModule,
+            bmz_settings_module_1.BmzSettingsModule,
+        ],
         controllers: [bids_controller_1.BidsController],
-        providers: [bids_service_1.BidsService],
+        providers: [bids_service_1.BidsService, bid_reprice_service_1.BidRepriceService, bid_price_sources_service_1.BidPriceSourcesService],
     })
 ], BidsModule);
 //# sourceMappingURL=bids.module.js.map

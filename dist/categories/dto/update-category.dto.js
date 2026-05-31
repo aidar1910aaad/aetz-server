@@ -19,7 +19,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'Новое название категории',
         description: 'Новое название категории (должно быть уникальным)',
-        maxLength: 100
+        maxLength: 100,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -31,7 +31,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'NEW_CODE',
         description: 'Новый уникальный код категории',
-        maxLength: 10
+        maxLength: 10,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -43,7 +43,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'Обновленное описание категории',
         description: 'Новое описание категории',
-        maxLength: 500
+        maxLength: 500,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

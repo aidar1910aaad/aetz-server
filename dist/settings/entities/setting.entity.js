@@ -44,8 +44,8 @@ __decorate([
             additionalEquipment: [],
             sr: [],
             tsn: [],
-            tn: []
-        }
+            tn: [],
+        },
     }),
     (0, typeorm_1.Column)('jsonb'),
     __metadata("design:type", Object)

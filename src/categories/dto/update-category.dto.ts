@@ -2,10 +2,10 @@ import { IsOptional, IsString, IsNotEmpty, MaxLength } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateCategoryDto {
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     example: 'Новое название категории',
     description: 'Новое название категории (должно быть уникальным)',
-    maxLength: 100
+    maxLength: 100,
   })
   @IsOptional()
   @IsString()
@@ -13,10 +13,10 @@ export class UpdateCategoryDto {
   @MaxLength(100)
   name?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     example: 'NEW_CODE',
     description: 'Новый уникальный код категории',
-    maxLength: 10
+    maxLength: 10,
   })
   @IsOptional()
   @IsString()
@@ -24,10 +24,10 @@ export class UpdateCategoryDto {
   @MaxLength(10)
   code?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     example: 'Обновленное описание категории',
     description: 'Новое описание категории',
-    maxLength: 500
+    maxLength: 500,
   })
   @IsOptional()
   @IsString()

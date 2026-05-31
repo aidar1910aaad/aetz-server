@@ -179,7 +179,7 @@ let CurrencySettingsService = CurrencySettingsService_1 = class CurrencySettings
     async getSettings() {
         const settings = await this.currencySettingsRepo.findOne({
             where: {},
-            order: { id: 'DESC' }
+            order: { id: 'DESC' },
         });
         if (!settings) {
             throw new Error('Настройки валют не найдены');
@@ -191,12 +191,18 @@ let CurrencySettingsService = CurrencySettingsService_1 = class CurrencySettings
         this.logger.log(`Update currency settings: start by ${changedBy || 'unknown'}`);
         const settings = await this.currencySettingsRepo.findOne({
             where: {},
-            order: { id: 'DESC' }
+            order: { id: 'DESC' },
         });
         if (!settings) {
             throw new Error('Настройки валют не найдены');
         }
-        const rateFields = ['usdRate', 'eurRate', 'rubRate', 'kztRate', 'cnyRate'];
+        const rateFields = [
+            'usdRate',
+            'eurRate',
+            'rubRate',
+            'kztRate',
+            'cnyRate',
+        ];
         const rateFieldToCurrency = {
             usdRate: 'USD',
             eurRate: 'EUR',
@@ -208,14 +214,16 @@ let CurrencySettingsService = CurrencySettingsService_1 = class CurrencySettings
         const isSameValue = (oldValue, newValue) => {
             const oldNum = this.toNumber(oldValue);
             const newNum = this.toNumber(newValue);
-            const isOldNumeric = typeof oldValue === 'number' || (typeof oldValue === 'string' && oldValue.trim() !== '' && !Number.isNaN(Number(oldValue)));
-            const isNewNumeric = typeof newValue === 'number' || (typeof newValue === 'string' && newValue.trim() !== '' && !Number.isNaN(Number(newValue)));
+            const isOldNumeric = typeof oldValue === 'number' ||
+                (typeof oldValue === 'string' && oldValue.trim() !== '' && !Number.isNaN(Number(oldValue)));
+            const isNewNumeric = typeof newValue === 'number' ||
+                (typeof newValue === 'string' && newValue.trim() !== '' && !Number.isNaN(Number(newValue)));
             if (isOldNumeric && isNewNumeric) {
                 return oldNum === newNum;
             }
             return String(oldValue ?? '') === String(newValue ?? '');
         };
-        Object.keys(updateData).forEach(key => {
+        Object.keys(updateData).forEach((key) => {
             if (updateData[key] !== undefined) {
                 if (isSameValue(settings[key], updateData[key])) {
                     return;
@@ -236,9 +244,7 @@ let CurrencySettingsService = CurrencySettingsService_1 = class CurrencySettings
         const affectedCurrencies = changedRateFields
             .map((field) => rateFieldToCurrency[field])
             .filter((value) => Boolean(value));
-        const savedSettings = changedEntries.length > 0
-            ? await this.currencySettingsRepo.save(settings)
-            : settings;
+        const savedSettings = changedEntries.length > 0 ? await this.currencySettingsRepo.save(settings) : settings;
         this.logger.log(`Update currency settings: saved. Rate changes: ${hasRateChanges ? 'yes' : 'no'}`);
         if (hasRateChanges) {
             const changedPricesByMaterialId = await this.recalculateMaterialsPriceInKzt(savedSettings, affectedCurrencies);

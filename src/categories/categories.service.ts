@@ -12,8 +12,8 @@ export class CategoriesService {
     @InjectRepository(Category)
     private readonly categoryRepo: Repository<Category>,
     @InjectRepository(Material)
-    private readonly materialRepo: Repository<Material>,
-  ) { }
+    private readonly materialRepo: Repository<Material>
+  ) {}
 
   async create(dto: CreateCategoryDto) {
     // Проверяем, что ID указан
@@ -94,7 +94,7 @@ export class CategoriesService {
       .createQueryBuilder()
       .delete()
       .from(Material)
-      .where("categoryId IN (:...ids)", { ids })
+      .where('categoryId IN (:...ids)', { ids })
       .execute();
 
     // Затем удаляем сами категории
@@ -102,7 +102,7 @@ export class CategoriesService {
       .createQueryBuilder()
       .delete()
       .from(Category)
-      .where("id IN (:...ids)", { ids })
+      .where('id IN (:...ids)', { ids })
       .execute();
 
     return result;

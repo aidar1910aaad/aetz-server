@@ -97,7 +97,7 @@ export class TransformersController {
   @ApiResponse({ status: 200, type: Transformer })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateTransformerDto: UpdateTransformerDto,
+    @Body() updateTransformerDto: UpdateTransformerDto
   ) {
     return this.transformersService.update(id, updateTransformerDto);
   }
@@ -110,4 +110,4 @@ export class TransformersController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.transformersService.remove(id);
   }
-} 
+}

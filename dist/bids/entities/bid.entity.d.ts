@@ -13,5 +13,4 @@ export declare class Bid {
     userId: number;
     createdAt: Date;
     updatedAt: Date;
-    generateBidNumber(): void;
 }

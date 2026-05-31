@@ -24,7 +24,7 @@ exports.BmzEquipment = BmzEquipment;
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Уникальный идентификатор',
-        example: 1
+        example: 1,
     }),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -32,7 +32,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Название оборудования',
-        example: 'Утепление стен'
+        example: 'Утепление стен',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -44,12 +44,12 @@ __decorate([
 - perHalfSquareMeter: цена за полквадратного метра (требуется pricePerSquareMeter)
 - fixed: фиксированная цена (требуется fixedPrice)`,
         enum: EquipmentPriceType,
-        example: EquipmentPriceType.PER_SQUARE_METER
+        example: EquipmentPriceType.PER_SQUARE_METER,
     }),
     (0, typeorm_1.Column)({
         type: 'enum',
         enum: EquipmentPriceType,
-        default: EquipmentPriceType.PER_SQUARE_METER
+        default: EquipmentPriceType.PER_SQUARE_METER,
     }),
     __metadata("design:type", String)
 ], BmzEquipment.prototype, "priceType", void 0);
@@ -57,7 +57,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Цена за квадратный метр. Обязательно для типов perSquareMeter и perHalfSquareMeter',
         example: 1000,
-        required: false
+        required: false,
     }),
     (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2, nullable: true }),
     __metadata("design:type", Number)
@@ -66,7 +66,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Фиксированная цена. Обязательно для типа fixed',
         example: 5000,
-        required: false
+        required: false,
     }),
     (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2, nullable: true }),
     __metadata("design:type", Number)
@@ -74,7 +74,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Описание оборудования',
-        example: 'Дополнительное утепление стен'
+        example: 'Дополнительное утепление стен',
     }),
     (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", String)
@@ -82,21 +82,21 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Активен ли элемент',
-        example: true
+        example: true,
     }),
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
 ], BmzEquipment.prototype, "isActive", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        description: 'Дата создания'
+        description: 'Дата создания',
     }),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], BmzEquipment.prototype, "createdAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        description: 'Дата обновления'
+        description: 'Дата обновления',
     }),
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)

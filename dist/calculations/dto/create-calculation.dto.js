@@ -19,7 +19,7 @@ exports.CreateItemDto = CreateItemDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
-        description: 'ID материала из справочника материалов'
+        description: 'ID материала из справочника материалов',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -27,7 +27,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Кабель ВВГнг-LS 3x2.5',
-        description: 'Наименование материала'
+        description: 'Наименование материала',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -35,7 +35,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'м',
-        description: 'Единица измерения (шт, м, кг и т.д.)'
+        description: 'Единица измерения (шт, м, кг и т.д.)',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -43,7 +43,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1000,
-        description: 'Цена за единицу измерения'
+        description: 'Цена за единицу измерения',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -51,7 +51,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
-        description: 'Количество материала'
+        description: 'Количество материала',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -62,7 +62,7 @@ exports.CreateCategoryDto = CreateCategoryDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Кабельная продукция',
-        description: 'Название категории материалов'
+        description: 'Название категории материалов',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -70,7 +70,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         type: [CreateItemDto],
-        description: 'Список материалов в категории'
+        description: 'Список материалов в категории',
     }),
     (0, class_validator_1.ValidateNested)({ each: true }),
     (0, class_transformer_1.Type)(() => CreateItemDto),
@@ -82,7 +82,7 @@ exports.CreateCellMaterialDto = CreateCellMaterialDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
-        description: 'ID оборудования из справочника'
+        description: 'ID оборудования из справочника',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -90,7 +90,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Выключатель ВА57-35',
-        description: 'Наименование оборудования'
+        description: 'Наименование оборудования',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -98,18 +98,40 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 50000,
-        description: 'Цена оборудования'
+        description: 'Цена оборудования',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateCellMaterialDto.prototype, "price", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        enum: ['switch', 'rza', 'counter', 'sr', 'tsn', 'tn', 'pu', 'disconnector', 'busbar', 'busbridge'],
+        enum: [
+            'switch',
+            'rza',
+            'counter',
+            'sr',
+            'tsn',
+            'tn',
+            'pu',
+            'disconnector',
+            'busbar',
+            'busbridge',
+        ],
         description: 'Тип оборудования: выключатель, РЗА, счетчик, СР, ТСН, ТН, ПУ, разъединитель, шина или шинный мост',
-        example: 'switch'
+        example: 'switch',
     }),
-    (0, class_validator_1.IsEnum)(['switch', 'rza', 'counter', 'sr', 'tsn', 'tn', 'pu', 'disconnector', 'busbar', 'busbridge']),
+    (0, class_validator_1.IsEnum)([
+        'switch',
+        'rza',
+        'counter',
+        'sr',
+        'tsn',
+        'tn',
+        'pu',
+        'disconnector',
+        'busbar',
+        'busbridge',
+    ]),
     __metadata("design:type", String)
 ], CreateCellMaterialDto.prototype, "type", void 0);
 class CreateCellConfigDto {
@@ -117,11 +139,47 @@ class CreateCellConfigDto {
 exports.CreateCellConfigDto = CreateCellConfigDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
-        enum: ['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn', 'input', 'section_switch', 'outgoing'],
-        description: 'Тип ячейки: 0.4кВ, 10кВ, 20кВ, РЗА, ПУ, разъединитель, шина, шинный мост, выключатель, ТН, ТСН, ввод, секционный выключатель или отходящая',
-        example: '0.4kv'
+        enum: [
+            '0.4kv',
+            '10kv',
+            '20kv',
+            'rza',
+            'pu',
+            'disconnector',
+            'busbar',
+            'busbridge',
+            'switch',
+            'tn',
+            'tsn',
+            'input',
+            'section_switch',
+            'outgoing',
+            'bha_input',
+            'bha_transformer',
+            'bha_outgoing',
+        ],
+        description: 'Тип ячейки: 0.4кВ, 10кВ, 20кВ, РЗА, ПУ, разъединитель, шина, шинный мост, выключатель, ТН, ТСН, ввод, секционный выключатель, отходящая или BHA',
+        example: '0.4kv',
     }),
-    (0, class_validator_1.IsEnum)(['0.4kv', '10kv', '20kv', 'rza', 'pu', 'disconnector', 'busbar', 'busbridge', 'switch', 'tn', 'tsn', 'input', 'section_switch', 'outgoing']),
+    (0, class_validator_1.IsEnum)([
+        '0.4kv',
+        '10kv',
+        '20kv',
+        'rza',
+        'pu',
+        'disconnector',
+        'busbar',
+        'busbridge',
+        'switch',
+        'tn',
+        'tsn',
+        'input',
+        'section_switch',
+        'outgoing',
+        'bha_input',
+        'bha_transformer',
+        'bha_outgoing',
+    ]),
     __metadata("design:type", String)
 ], CreateCellConfigDto.prototype, "type", void 0);
 __decorate([
@@ -136,25 +194,25 @@ __decorate([
             tn: { id: 6, name: 'ТН Трансформатор', price: 40000, type: 'tn' },
             tt: [
                 { id: 7, name: 'ТТ Трансформатор тока', price: 15000, type: 'switch' },
-                { id: 8, name: 'ТТ Трансформатор тока 2', price: 18000, type: 'switch' }
+                { id: 8, name: 'ТТ Трансформатор тока 2', price: 18000, type: 'switch' },
             ],
             pu: [
                 { id: 9, name: 'ПУ Прибор учета', price: 12000, type: 'counter' },
-                { id: 10, name: 'ПУ Прибор учета 2', price: 14000, type: 'counter' }
+                { id: 10, name: 'ПУ Прибор учета 2', price: 14000, type: 'counter' },
             ],
             disconnector: [
                 { id: 11, name: 'Разъединитель РЛНД', price: 25000, type: 'disconnector' },
-                { id: 12, name: 'Разъединитель РЛНД 2', price: 28000, type: 'disconnector' }
+                { id: 12, name: 'Разъединитель РЛНД 2', price: 28000, type: 'disconnector' },
             ],
             busbar: [
                 { id: 13, name: 'Шина медная 60x6', price: 8000, type: 'busbar' },
-                { id: 14, name: 'Шина медная 80x8', price: 10000, type: 'busbar' }
+                { id: 14, name: 'Шина медная 80x8', price: 10000, type: 'busbar' },
             ],
             busbridge: [
                 { id: 15, name: 'Шинный мост 60x6', price: 12000, type: 'busbridge' },
-                { id: 16, name: 'Шинный мост 80x8', price: 15000, type: 'busbridge' }
-            ]
-        }
+                { id: 16, name: 'Шинный мост 80x8', price: 15000, type: 'busbridge' },
+            ],
+        },
     }),
     (0, class_validator_1.IsObject)(),
     __metadata("design:type", Object)
@@ -165,7 +223,7 @@ exports.CreateCalculationSettingsDto = CreateCalculationSettingsDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
-        description: 'Количество часов на производство'
+        description: 'Количество часов на производство',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -173,7 +231,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 2000,
-        description: 'Часовая ставка (тенге)'
+        description: 'Часовая ставка (тенге)',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -181,7 +239,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 10,
-        description: 'Процент общепроизводственных расходов'
+        description: 'Процент общепроизводственных расходов',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -189,7 +247,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 15,
-        description: 'Процент административных расходов'
+        description: 'Процент административных расходов',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -197,7 +255,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 10,
-        description: 'Процент плановых накоплений'
+        description: 'Процент плановых накоплений',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -205,7 +263,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 12,
-        description: 'Ставка НДС в процентах'
+        description: 'Ставка НДС в процентах',
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -216,7 +274,7 @@ exports.CreateCalculationDataDto = CreateCalculationDataDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         type: [CreateCategoryDto],
-        description: 'Список категорий с материалами'
+        description: 'Список категорий с материалами',
     }),
     (0, class_validator_1.ValidateNested)({ each: true }),
     (0, class_transformer_1.Type)(() => CreateCategoryDto),
@@ -225,7 +283,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         type: CreateCalculationSettingsDto,
-        description: 'Настройки расчета (часы, ставки, проценты)'
+        description: 'Настройки расчета (часы, ставки, проценты)',
     }),
     (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => CreateCalculationSettingsDto),
@@ -234,7 +292,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         type: CreateCellConfigDto,
-        description: 'Конфигурация ячейки (тип и оборудование)'
+        description: 'Конфигурация ячейки (тип и оборудование)',
     }),
     (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => CreateCellConfigDto),
@@ -246,7 +304,7 @@ exports.CreateCalculationDto = CreateCalculationDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Камера КСО А12-10 900×1000',
-        description: 'Название калькуляции'
+        description: 'Название калькуляции',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -254,7 +312,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '900x1000',
-        description: 'Уникальный идентификатор калькуляции (slug)'
+        description: 'Уникальный идентификатор калькуляции (slug)',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -262,7 +320,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
-        description: 'ID группы калькуляций'
+        description: 'ID группы калькуляций',
     }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -271,7 +329,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         type: CreateCalculationDataDto,
-        description: 'Данные калькуляции (категории, настройки, конфигурация ячейки)'
+        description: 'Данные калькуляции (категории, настройки, конфигурация ячейки)',
     }),
     (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => CreateCalculationDataDto),

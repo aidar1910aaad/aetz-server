@@ -83,13 +83,13 @@ let CategoriesService = class CategoriesService {
             .createQueryBuilder()
             .delete()
             .from(material_entity_1.Material)
-            .where("categoryId IN (:...ids)", { ids })
+            .where('categoryId IN (:...ids)', { ids })
             .execute();
         const result = await this.categoryRepo
             .createQueryBuilder()
             .delete()
             .from(category_entity_1.Category)
-            .where("id IN (:...ids)", { ids })
+            .where('id IN (:...ids)', { ids })
             .execute();
         return result;
     }

@@ -52,7 +52,7 @@ export class AuditLogsService {
 
   constructor(
     @InjectRepository(AuditLog)
-    private readonly auditRepo: Repository<AuditLog>,
+    private readonly auditRepo: Repository<AuditLog>
   ) {}
 
   private toText(value: unknown): string | null {
@@ -68,7 +68,8 @@ export class AuditLogsService {
   async log(payload: LogPayload): Promise<void> {
     const row = new AuditLog();
     row.entityType = payload.entityType;
-    row.entityId = payload.entityId !== undefined && payload.entityId !== null ? String(payload.entityId) : null;
+    row.entityId =
+      payload.entityId !== undefined && payload.entityId !== null ? String(payload.entityId) : null;
     row.action = payload.action;
     row.fieldChanged = payload.fieldChanged ?? null;
     row.oldValue = this.toText(payload.oldValue);
@@ -83,26 +84,44 @@ export class AuditLogsService {
     entityType?: string;
     action?: string;
     changedBy?: string;
-  }): Promise<{ data: Array<AuditLog & { entityTypeRu: string; actionRu: string; fieldChangedRu: string; changedAtAlmaty: string }>; total: number }> {
+  }): Promise<{
+    data: Array<
+      AuditLog & {
+        entityTypeRu: string;
+        actionRu: string;
+        fieldChangedRu: string;
+        changedAtAlmaty: string;
+      }
+    >;
+    total: number;
+  }> {
     const page = query.page || 1;
     const limit = query.limit || 50;
     const qb = this.auditRepo.createQueryBuilder('audit').orderBy('audit.changedAt', 'DESC');
 
-    if (query.entityType) qb.andWhere('LOWER(audit.entityType) = LOWER(:entityType)', { entityType: query.entityType });
+    if (query.entityType)
+      qb.andWhere('LOWER(audit.entityType) = LOWER(:entityType)', { entityType: query.entityType });
     if (query.action) qb.andWhere('LOWER(audit.action) = LOWER(:action)', { action: query.action });
-    if (query.changedBy) qb.andWhere('LOWER(audit.changedBy) LIKE LOWER(:changedBy)', { changedBy: `%${query.changedBy}%` });
+    if (query.changedBy)
+      qb.andWhere('LOWER(audit.changedBy) LIKE LOWER(:changedBy)', {
+        changedBy: `%${query.changedBy}%`,
+      });
 
     qb.skip((page - 1) * limit).take(limit);
     const [data, total] = await qb.getManyAndCount();
     const dataWithLabels = data.map((item) => {
       // Поправка для корректного отображения времени в Алматы.
       // Иначе фронт получает время с отставанием.
-      const correctedDate = new Date(item.changedAt.getTime() + AuditLogsService.ALMATY_LEGACY_OFFSET_MS);
+      const correctedDate = new Date(
+        item.changedAt.getTime() + AuditLogsService.ALMATY_LEGACY_OFFSET_MS
+      );
       return {
         ...item,
         entityTypeRu: this.entityTypeLabelsRu[item.entityType] || item.entityType,
         actionRu: this.actionLabelsRu[item.action] || item.action,
-        fieldChangedRu: item.fieldChanged ? (this.fieldLabelsRu[item.fieldChanged] || item.fieldChanged) : '—',
+        fieldChangedRu: item.fieldChanged
+          ? this.fieldLabelsRu[item.fieldChanged] || item.fieldChanged
+          : '—',
         changedAtAlmaty: new Intl.DateTimeFormat('ru-RU', {
           timeZone: 'Asia/Almaty',
           year: 'numeric',

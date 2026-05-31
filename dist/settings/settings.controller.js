@@ -41,20 +41,20 @@ __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить текущие настройки',
-        description: 'Возвращает единственную запись настроек из базы данных'
+        description: 'Возвращает единственную запись настроек из базы данных',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Возвращает текущие настройки',
-        type: setting_entity_1.Setting
+        type: setting_entity_1.Setting,
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Требуется авторизация'
+        description: 'Требуется авторизация',
     }),
     (0, swagger_1.ApiResponse)({
         status: 404,
-        description: 'Настройки не найдены'
+        description: 'Настройки не найдены',
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -65,20 +65,20 @@ __decorate([
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN),
     (0, swagger_1.ApiOperation)({
         summary: 'Создать начальные настройки',
-        description: 'Создает первую запись настроек. Этот метод можно использовать только один раз при первой инициализации.'
+        description: 'Создает первую запись настроек. Этот метод можно использовать только один раз при первой инициализации.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 201,
         description: 'Настройки успешно созданы',
-        type: setting_entity_1.Setting
+        type: setting_entity_1.Setting,
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Требуется авторизация'
+        description: 'Требуется авторизация',
     }),
     (0, swagger_1.ApiResponse)({
         status: 403,
-        description: 'Доступ запрещен. Требуются права администратора'
+        description: 'Доступ запрещен. Требуются права администратора',
     }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -90,24 +90,24 @@ __decorate([
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO),
     (0, swagger_1.ApiOperation)({
         summary: 'Обновить текущие настройки',
-        description: 'Обновляет существующие настройки. Можно отправить только те секции, которые нужно обновить. Остальные останутся без изменений.'
+        description: 'Обновляет существующие настройки. Можно отправить только те секции, которые нужно обновить. Остальные останутся без изменений.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Настройки успешно обновлены',
-        type: setting_entity_1.Setting
+        type: setting_entity_1.Setting,
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Требуется авторизация'
+        description: 'Требуется авторизация',
     }),
     (0, swagger_1.ApiResponse)({
         status: 403,
-        description: 'Доступ запрещен. Требуются права администратора или PTO'
+        description: 'Доступ запрещен. Требуются права администратора или PTO',
     }),
     (0, swagger_1.ApiResponse)({
         status: 404,
-        description: 'Настройки не найдены'
+        description: 'Настройки не найдены',
     }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

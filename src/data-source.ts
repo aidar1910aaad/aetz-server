@@ -14,30 +14,30 @@ import { SwitchgearConfig } from './switchgear/entities/switchgear-config.entity
 import { AuditLog } from './audit-logs/entities/audit-log.entity';
 
 export const AppDataSource = new DataSource({
-    type: 'postgres',
-    host: process.env.DB_HOST || 'ep-spring-sun-a1m8k0rq-pooler.ap-southeast-1.aws.neon.tech',
-    port: parseInt(process.env.DB_PORT || '5432', 10),
-    username: process.env.DB_USERNAME || 'neondb_owner',
-    password: process.env.DB_PASSWORD || 'npg_oceiQT3vR2JX',
-    database: process.env.DB_NAME || 'neondb',
-    entities: [
-        Setting,
-        User,
-        Category,
-        Material,
-        MaterialHistory,
-        CurrencySettings,
-        Bid,
-        CalculationGroup,
-        Calculation,
-        Transformer,
-        BmzSettings,
-        SwitchgearConfig
-        ,AuditLog
-    ],
-    migrations: [__dirname + '/migrations/*{.ts,.js}'],
-    synchronize: false,
-    ssl: {
-        rejectUnauthorized: false
-    }
-}); 
+  type: 'postgres',
+  host: process.env.DB_HOST || 'ep-spring-sun-a1m8k0rq-pooler.ap-southeast-1.aws.neon.tech',
+  port: parseInt(process.env.DB_PORT || '5432', 10),
+  username: process.env.DB_USERNAME || 'neondb_owner',
+  password: process.env.DB_PASSWORD || 'npg_oceiQT3vR2JX',
+  database: process.env.DB_NAME || 'neondb',
+  entities: [
+    Setting,
+    User,
+    Category,
+    Material,
+    MaterialHistory,
+    CurrencySettings,
+    Bid,
+    CalculationGroup,
+    Calculation,
+    Transformer,
+    BmzSettings,
+    SwitchgearConfig,
+    AuditLog,
+  ],
+  migrations: [__dirname + '/migrations/*{.ts,.js}'],
+  synchronize: false,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});

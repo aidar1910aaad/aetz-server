@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BmzSettings } from './entities/bmz-settings.entity';
+import { BmzAreaPrice } from './entities/bmz-area-price.entity';
+import { BmzEquipment } from './entities/bmz-equipment.entity';
+import { BmzWallThickness } from './entities/bmz-wall-thickness.entity';
 import { BmzSettingsService } from './bmz-settings.service';
 import { BmzSettingsController } from './bmz-settings.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BmzSettings])],
+  imports: [TypeOrmModule.forFeature([BmzSettings, BmzAreaPrice, BmzEquipment, BmzWallThickness])],
   controllers: [BmzSettingsController],
   providers: [BmzSettingsService],
-  exports: [BmzSettingsService]
+  exports: [BmzSettingsService],
 })
-export class BmzSettingsModule {} 
+export class BmzSettingsModule {}

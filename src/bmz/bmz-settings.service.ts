@@ -20,7 +20,7 @@ export class BmzSettingsService {
     @InjectRepository(BmzEquipment)
     private readonly equipmentRepository: Repository<BmzEquipment>,
     @InjectRepository(BmzWallThickness)
-    private readonly wallThicknessRepository: Repository<BmzWallThickness>,
+    private readonly wallThicknessRepository: Repository<BmzWallThickness>
   ) {
     this.initializeSettings();
   }
@@ -47,11 +47,17 @@ export class BmzSettingsService {
 
   async updateSettings(updateSettingsDto: UpdateBmzSettingsDto): Promise<BmzSettings> {
     const settings = await this.getSettings();
-    
+
     // Проверяем корректность диапазонов цен
     for (const range of updateSettingsDto.areaPriceRanges) {
+      range.minHeight = range.minHeight ?? 0;
+      range.maxHeight = range.maxHeight ?? 999999;
+
       if (range.minArea > range.maxArea) {
         throw new Error('Минимальная площадь не может быть больше максимальной');
+      }
+      if (range.minHeight > range.maxHeight) {
+        throw new Error('Минимальная высота не может быть больше максимальной');
       }
       if (range.minWallThickness > range.maxWallThickness) {
         throw new Error('Минимальная толщина стен не может быть больше максимальной');
@@ -63,8 +69,11 @@ export class BmzSettingsService {
       if (equipment.priceType === 'fixed' && !equipment.fixedPrice) {
         throw new Error('Для фиксированной цены необходимо указать fixedPrice');
       }
-      if ((equipment.priceType === 'perSquareMeter' || equipment.priceType === 'perHalfSquareMeter') && 
-          !equipment.pricePerSquareMeter) {
+      if (
+        (equipment.priceType === 'perSquareMeter' ||
+          equipment.priceType === 'perHalfSquareMeter') &&
+        !equipment.pricePerSquareMeter
+      ) {
         throw new Error('Для цены за квадратный метр необходимо указать pricePerSquareMeter');
       }
     }
@@ -77,22 +86,22 @@ export class BmzSettingsService {
     const [areaPrices, equipment, wallThicknesses] = await Promise.all([
       this.areaPriceRepository.find({
         where: { isActive: true },
-        order: { minArea: 'ASC' }
+        order: { minArea: 'ASC' },
       }),
       this.equipmentRepository.find({
         where: { isActive: true },
-        order: { name: 'ASC' }
+        order: { name: 'ASC' },
       }),
       this.wallThicknessRepository.find({
         where: { isActive: true },
-        order: { minThickness: 'ASC' }
-      })
+        order: { minThickness: 'ASC' },
+      }),
     ]);
 
     return {
       areaPrices,
       equipment,
-      wallThicknesses
+      wallThicknesses,
     };
   }
 
@@ -106,7 +115,7 @@ export class BmzSettingsService {
     const areaPrice = new BmzAreaPrice();
     Object.assign(areaPrice, {
       ...data,
-      isActive: true
+      isActive: true,
     });
     return this.areaPriceRepository.save(areaPrice);
   }
@@ -131,16 +140,18 @@ export class BmzSettingsService {
       throw new Error('Для фиксированной цены необходимо указать fixedPrice');
     }
 
-    if ((data.priceType === EquipmentPriceType.PER_SQUARE_METER || 
-         data.priceType === EquipmentPriceType.PER_HALF_SQUARE_METER) && 
-        !data.pricePerSquareMeter) {
+    if (
+      (data.priceType === EquipmentPriceType.PER_SQUARE_METER ||
+        data.priceType === EquipmentPriceType.PER_HALF_SQUARE_METER) &&
+      !data.pricePerSquareMeter
+    ) {
       throw new Error('Для цены за квадратный метр необходимо указать pricePerSquareMeter');
     }
 
     const equipment = new BmzEquipment();
     Object.assign(equipment, {
       ...data,
-      isActive: true
+      isActive: true,
     });
     return this.equipmentRepository.save(equipment);
   }
@@ -177,4 +188,4 @@ export class BmzSettingsService {
     wallThickness.isActive = false;
     await this.wallThicknessRepository.save(wallThickness);
   }
-} 
+}

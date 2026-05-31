@@ -1,8 +1,8 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateAuditLogsTable1718000000001 implements MigrationInterface {
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             CREATE TABLE "audit_logs" (
                 "id" SERIAL NOT NULL,
                 "entityType" character varying NOT NULL,
@@ -16,9 +16,9 @@ export class CreateAuditLogsTable1718000000001 implements MigrationInterface {
                 CONSTRAINT "PK_audit_logs" PRIMARY KEY ("id")
             )
         `);
-    }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`DROP TABLE "audit_logs"`);
-    }
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`DROP TABLE "audit_logs"`);
+  }
 }

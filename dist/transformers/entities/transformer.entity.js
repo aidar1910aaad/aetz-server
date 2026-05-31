@@ -18,7 +18,7 @@ exports.Transformer = Transformer;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
-        description: 'Уникальный идентификатор'
+        description: 'Уникальный идентификатор',
     }),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'ТСЛ-1250/20',
-        description: 'Модель трансформатора'
+        description: 'Модель трансформатора',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -34,7 +34,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '20',
-        description: 'Номинальное напряжение'
+        description: 'Номинальное напряжение',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -42,7 +42,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'ТСЛ',
-        description: 'Тип трансформатора'
+        description: 'Тип трансформатора',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -50,7 +50,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1250,
-        description: 'Мощность трансформатора'
+        description: 'Мощность трансформатора',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
@@ -58,7 +58,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Alageum',
-        description: 'Производитель'
+        description: 'Производитель',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -66,7 +66,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 6996275,
-        description: 'Цена трансформатора'
+        description: 'Цена трансформатора',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
@@ -74,7 +74,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '2024-03-20T10:00:00Z',
-        description: 'Дата создания записи'
+        description: 'Дата создания записи',
     }),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
@@ -82,7 +82,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '2024-03-20T10:00:00Z',
-        description: 'Дата последнего обновления записи'
+        description: 'Дата последнего обновления записи',
     }),
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)

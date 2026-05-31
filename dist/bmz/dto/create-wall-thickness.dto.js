@@ -18,7 +18,7 @@ exports.CreateWallThicknessDto = CreateWallThicknessDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 0,
-        description: 'Минимальная толщина стены (мм)'
+        description: 'Минимальная толщина стены (мм)',
     }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
@@ -27,7 +27,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 80,
-        description: 'Максимальная толщина стены (мм)'
+        description: 'Максимальная толщина стены (мм)',
     }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
@@ -36,7 +36,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 2000,
-        description: 'Дополнительная цена за квадратный метр'
+        description: 'Дополнительная цена за квадратный метр',
     }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsPositive)(),

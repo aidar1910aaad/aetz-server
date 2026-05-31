@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    private readonly userRepository: Repository<User>
   ) {}
 
   async create(dto: CreateUserDto): Promise<User> {
@@ -25,13 +25,11 @@ export class UsersService {
     const user = await this.userRepository.findOne({ where: { username } });
     return user ?? undefined;
   }
-  
+
   async findById(id: number): Promise<User | undefined> {
     const user = await this.userRepository.findOne({ where: { id } });
     return user ?? undefined;
   }
-  
-  
 
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
@@ -46,7 +44,7 @@ export class UsersService {
     if (partialUser.password) {
       partialUser.password = await bcrypt.hash(partialUser.password, 10);
     }
-  
+
     await this.userRepository.update(id, partialUser);
     const updated = await this.findById(id);
     if (!updated) {

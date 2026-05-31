@@ -18,7 +18,7 @@ exports.BmzSettings = BmzSettings;
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Уникальный идентификатор настроек',
-        example: 1
+        example: 1,
     }),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Базовая цена за квадратный метр',
-        example: 2000
+        example: 2000,
     }),
     (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
     __metadata("design:type", Number)
@@ -39,18 +39,22 @@ __decorate([
             {
                 minArea: 0,
                 maxArea: 50,
+                minHeight: 0,
+                maxHeight: 2700,
                 minWallThickness: 0,
                 maxWallThickness: 50,
-                pricePerSquareMeter: 25000
+                pricePerSquareMeter: 25000,
             },
             {
                 minArea: 50,
                 maxArea: 100,
+                minHeight: 0,
+                maxHeight: 2700,
                 minWallThickness: 0,
                 maxWallThickness: 50,
-                pricePerSquareMeter: 23000
-            }
-        ]
+                pricePerSquareMeter: 23000,
+            },
+        ],
     }),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     __metadata("design:type", Array)
@@ -64,15 +68,15 @@ __decorate([
                 name: 'Утепление стен',
                 priceType: 'perSquareMeter',
                 pricePerSquareMeter: 1000,
-                description: 'Дополнительное утепление стен'
+                description: 'Дополнительное утепление стен',
             },
             {
                 name: 'Вентиляция',
                 priceType: 'fixed',
                 fixedPrice: 5000,
-                description: 'Система вентиляции'
-            }
-        ]
+                description: 'Система вентиляции',
+            },
+        ],
     }),
     (0, typeorm_1.Column)('jsonb', { default: [] }),
     __metadata("design:type", Array)
@@ -80,21 +84,21 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Активны ли настройки',
-        example: true
+        example: true,
     }),
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
 ], BmzSettings.prototype, "isActive", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        description: 'Дата создания'
+        description: 'Дата создания',
     }),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], BmzSettings.prototype, "createdAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        description: 'Дата обновления'
+        description: 'Дата обновления',
     }),
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)

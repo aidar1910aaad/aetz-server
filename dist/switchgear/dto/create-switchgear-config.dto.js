@@ -95,7 +95,7 @@ __decorate([
         example: [
             { name: 'Ввод', quantity: 2 },
             { name: 'СВ', quantity: 1 },
-            { name: 'ОТХ', quantity: 10 }
+            { name: 'ОТХ', quantity: 10 },
         ],
     }),
     (0, class_validator_1.IsArray)(),

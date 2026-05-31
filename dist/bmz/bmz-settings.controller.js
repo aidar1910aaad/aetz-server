@@ -41,15 +41,15 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Настройки успешно получены',
-        type: bmz_settings_entity_1.BmzSettings
+        type: bmz_settings_entity_1.BmzSettings,
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Не авторизован'
+        description: 'Не авторизован',
     }),
     (0, swagger_1.ApiResponse)({
         status: 403,
-        description: 'Нет доступа'
+        description: 'Нет доступа',
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -62,19 +62,19 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Настройки успешно обновлены',
-        type: bmz_settings_entity_1.BmzSettings
+        type: bmz_settings_entity_1.BmzSettings,
     }),
     (0, swagger_1.ApiResponse)({
         status: 400,
-        description: 'Неверные данные'
+        description: 'Неверные данные',
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Не авторизован'
+        description: 'Не авторизован',
     }),
     (0, swagger_1.ApiResponse)({
         status: 403,
-        description: 'Нет доступа'
+        description: 'Нет доступа',
     }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

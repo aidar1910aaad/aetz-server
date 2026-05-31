@@ -20,4 +20,4 @@ export class CreateSwitchgearConfigs1710000000000 implements MigrationInterface 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`DROP TABLE switchgear_configs;`);
   }
-} 
+}

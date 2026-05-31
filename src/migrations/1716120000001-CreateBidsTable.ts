@@ -1,8 +1,8 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class CreateBidsTable1716120000001 implements MigrationInterface {
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             CREATE TABLE "bids" (
                 "id" SERIAL NOT NULL,
                 "bidNumber" character varying NOT NULL,
@@ -21,17 +21,17 @@ export class CreateBidsTable1716120000001 implements MigrationInterface {
             )
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             ALTER TABLE "bids" 
             ADD CONSTRAINT "FK_bids_userId" 
             FOREIGN KEY ("userId") 
             REFERENCES "users"("id") 
             ON DELETE SET NULL ON UPDATE NO ACTION
         `);
-    }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "bids" DROP CONSTRAINT "FK_bids_userId"`);
-        await queryRunner.query(`DROP TABLE "bids"`);
-    }
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`ALTER TABLE "bids" DROP CONSTRAINT "FK_bids_userId"`);
+    await queryRunner.query(`DROP TABLE "bids"`);
+  }
 }

@@ -15,7 +15,7 @@ async function bootstrap() {
     res.on('finish', () => {
       const durationMs = Date.now() - startedAt;
       requestLogger.log(
-        `${req.method} ${req.originalUrl} ${res.statusCode} - ${durationMs}ms - ${req.ip || 'unknown-ip'}`,
+        `${req.method} ${req.originalUrl} ${res.statusCode} - ${durationMs}ms - ${req.ip || 'unknown-ip'}`
       );
     });
 
@@ -28,7 +28,12 @@ async function bootstrap() {
 
   // ✅ CORS
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'https://aetz-client.vercel.app'],
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:4000',
+      'https://aetz-client.vercel.app',
+    ],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: [
       'Content-Type',
@@ -37,26 +42,29 @@ async function bootstrap() {
       'Origin',
       'X-Requested-With',
       'Access-Control-Request-Method',
-      'Access-Control-Request-Headers'
+      'Access-Control-Request-Headers',
     ],
     exposedHeaders: ['Content-Range', 'X-Content-Range'],
     credentials: true,
     maxAge: 3600,
     preflightContinue: false,
-    optionsSuccessStatus: 204
+    optionsSuccessStatus: 204,
   });
 
   // Включаем валидацию
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true,
-    whitelist: true,
-    forbidNonWhitelisted: false,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: false,
+    })
+  );
 
   // 📚 Swagger
   const config = new DocumentBuilder()
     .setTitle('AETZ API')
-    .setDescription(`
+    .setDescription(
+      `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
         <h2 style="color: #2563eb; margin-bottom: 20px;">🏢 AETZ API - Система управления электротехническими проектами</h2>
         <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
@@ -128,7 +136,8 @@ async function bootstrap() {
           </div>
         </div>
       </div>
-    `)
+    `
+    )
     .setVersion('1.0.0')
     .setContact('AETZ Team', 'https://aetz-client.vercel.app', 'support@aetz.com')
     .setLicense('MIT', 'https://opensource.org/licenses/MIT')
@@ -152,7 +161,7 @@ async function bootstrap() {
         description: 'Введите JWT токен в формате: Bearer <token>',
         in: 'header',
       },
-      'access-token',
+      'access-token'
     )
     .build();
 
@@ -164,7 +173,7 @@ async function bootstrap() {
       filter: true,
       showRequestDuration: true,
       syntaxHighlight: {
-        theme: 'agate'
+        theme: 'agate',
       },
       tryItOutEnabled: true,
       requestInterceptor: (req) => {

@@ -31,7 +31,7 @@ exports.AuthModule = AuthModule = __decorate([
                     secret: configService.get('JWT_SECRET'),
                     signOptions: {
                         expiresIn: configService.get('JWT_EXPIRES_IN', '24h'),
-                        algorithm: 'HS256'
+                        algorithm: 'HS256',
                     },
                 }),
             }),

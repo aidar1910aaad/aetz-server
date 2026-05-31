@@ -25,4 +25,4 @@ export class UpdateTransformerPrice1710123456789 implements MigrationInterface {
       ALTER COLUMN price TYPE decimal(10,2)
     `);
   }
-} 
+}

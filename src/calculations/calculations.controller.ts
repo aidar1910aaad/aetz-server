@@ -14,13 +14,7 @@ import { CreateCalculationDto } from './dto/create-calculation.dto';
 import { CreateCalculationGroupDto } from './dto/create-calculation-group.dto';
 import { UpdateCalculationDto } from './dto/update-calculation.dto';
 import { UpdateCalculationGroupDto } from './dto/update-calculation-group.dto';
-import {
-  ApiTags,
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-} from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -39,12 +33,12 @@ export class CalculationsController {
 
   // ✅ Получение всех групп
   @Get('groups')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Получить список всех групп расчетов',
-    description: 'Возвращает список всех групп расчетов с их метаданными и настройками.'
+    description: 'Возвращает список всех групп расчетов с их метаданными и настройками.',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Список групп расчетов получен',
     type: [CalculationGroup],
     schema: {
@@ -57,10 +51,10 @@ export class CalculationsController {
           slug: { type: 'string', example: 'electrical-calculations' },
           description: { type: 'string', example: 'Расчеты для электротехнических проектов' },
           createdAt: { type: 'string', format: 'date-time' },
-          updatedAt: { type: 'string', format: 'date-time' }
-        }
-      }
-    }
+          updatedAt: { type: 'string', format: 'date-time' },
+        },
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
   getAllGroups() {
@@ -82,10 +76,7 @@ export class CalculationsController {
     description: 'Группа успешно обновлена',
   })
   @ApiResponse({ status: 404, description: 'Группа не найдена' })
-  updateGroup(
-    @Param('slug') slug: string,
-    @Body() dto: UpdateCalculationGroupDto,
-  ) {
+  updateGroup(@Param('slug') slug: string, @Body() dto: UpdateCalculationGroupDto) {
     console.log('=== ОБНОВЛЕНИЕ ГРУППЫ ===');
     console.log('Slug:', slug);
     console.log('DTO:', JSON.stringify(dto, null, 2));
@@ -144,10 +135,7 @@ export class CalculationsController {
   })
   @ApiParam({ name: 'calcSlug', type: String })
   @ApiResponse({ status: 200, type: Calculation })
-  getOne(
-    @Param('groupSlug') groupSlug: string,
-    @Param('calcSlug') calcSlug: string,
-  ) {
+  getOne(@Param('groupSlug') groupSlug: string, @Param('calcSlug') calcSlug: string) {
     return this.calculationsService.getCalculation(groupSlug, calcSlug);
   }
 
@@ -181,14 +169,13 @@ export class CalculationsController {
   @ApiResponse({
     status: 200,
     type: Calculation,
-    description:
-      'Возвращает обновленную калькуляцию с актуальными ценами материалов',
+    description: 'Возвращает обновленную калькуляцию с актуальными ценами материалов',
   })
   updateCalculation(
     @Param('groupSlug') groupSlug: string,
     @Param('calcSlug') calcSlug: string,
     @Body() dto: UpdateCalculationDto,
-    @CurrentUser() user: JwtPayload,
+    @CurrentUser() user: JwtPayload
   ) {
     return this.calculationsService.updateCalculation(groupSlug, calcSlug, dto, user?.username);
   }
@@ -208,7 +195,7 @@ export class CalculationsController {
   deleteCalculation(
     @Param('groupSlug') groupSlug: string,
     @Param('calcSlug') calcSlug: string,
-    @CurrentUser() user: JwtPayload,
+    @CurrentUser() user: JwtPayload
   ) {
     return this.calculationsService.deleteCalculation(groupSlug, calcSlug, user?.username);
   }

@@ -38,31 +38,31 @@ let SettingsService = class SettingsService {
                 additionalEquipment: [],
                 sr: [],
                 tsn: [],
-                tn: []
+                tn: [],
             };
             await this.settingRepo.save(defaultSettings);
         }
     }
     async create(dto) {
         const allCategoryIds = [
-            ...(dto.settings.rusn || []).map(s => s.categoryId),
-            ...(dto.settings.bmz || []).map(s => s.categoryId),
-            ...(dto.settings.runn || []).map(s => s.categoryId),
-            ...(dto.settings.work || []).map(s => s.categoryId),
-            ...(dto.settings.transformer || []).map(s => s.categoryId),
-            ...(dto.settings.additionalEquipment || []).map(s => s.categoryId),
-            ...(dto.settings.sr || []).map(s => s.categoryId),
-            ...(dto.settings.tsn || []).map(s => s.categoryId),
-            ...(dto.settings.tn || []).map(s => s.categoryId)
+            ...(dto.settings.rusn || []).map((s) => s.categoryId),
+            ...(dto.settings.bmz || []).map((s) => s.categoryId),
+            ...(dto.settings.runn || []).map((s) => s.categoryId),
+            ...(dto.settings.work || []).map((s) => s.categoryId),
+            ...(dto.settings.transformer || []).map((s) => s.categoryId),
+            ...(dto.settings.additionalEquipment || []).map((s) => s.categoryId),
+            ...(dto.settings.sr || []).map((s) => s.categoryId),
+            ...(dto.settings.tsn || []).map((s) => s.categoryId),
+            ...(dto.settings.tn || []).map((s) => s.categoryId),
         ];
         const uniqueCategoryIds = [...new Set(allCategoryIds)];
         if (uniqueCategoryIds.length > 0) {
             const categories = await this.categoryRepo.find({
-                where: { id: (0, typeorm_3.In)(uniqueCategoryIds) }
+                where: { id: (0, typeorm_3.In)(uniqueCategoryIds) },
             });
             if (categories.length !== uniqueCategoryIds.length) {
-                const foundIds = categories.map(c => c.id);
-                const missingIds = uniqueCategoryIds.filter(id => !foundIds.includes(id));
+                const foundIds = categories.map((c) => c.id);
+                const missingIds = uniqueCategoryIds.filter((id) => !foundIds.includes(id));
                 throw new common_1.NotFoundException(`Категории с ID ${missingIds.join(', ')} не найдены`);
             }
         }
@@ -73,7 +73,7 @@ let SettingsService = class SettingsService {
     async getSettings() {
         const setting = await this.settingRepo.findOne({
             where: {},
-            order: { createdAt: 'DESC' }
+            order: { createdAt: 'DESC' },
         });
         if (!setting) {
             throw new common_1.NotFoundException('Настройки не найдены');
@@ -83,24 +83,24 @@ let SettingsService = class SettingsService {
     async update(dto) {
         const setting = await this.getSettings();
         const allCategoryIds = [
-            ...(dto.settings.rusn || []).map(s => s.categoryId),
-            ...(dto.settings.bmz || []).map(s => s.categoryId),
-            ...(dto.settings.runn || []).map(s => s.categoryId),
-            ...(dto.settings.work || []).map(s => s.categoryId),
-            ...(dto.settings.transformer || []).map(s => s.categoryId),
-            ...(dto.settings.additionalEquipment || []).map(s => s.categoryId),
-            ...(dto.settings.sr || []).map(s => s.categoryId),
-            ...(dto.settings.tsn || []).map(s => s.categoryId),
-            ...(dto.settings.tn || []).map(s => s.categoryId)
+            ...(dto.settings.rusn || []).map((s) => s.categoryId),
+            ...(dto.settings.bmz || []).map((s) => s.categoryId),
+            ...(dto.settings.runn || []).map((s) => s.categoryId),
+            ...(dto.settings.work || []).map((s) => s.categoryId),
+            ...(dto.settings.transformer || []).map((s) => s.categoryId),
+            ...(dto.settings.additionalEquipment || []).map((s) => s.categoryId),
+            ...(dto.settings.sr || []).map((s) => s.categoryId),
+            ...(dto.settings.tsn || []).map((s) => s.categoryId),
+            ...(dto.settings.tn || []).map((s) => s.categoryId),
         ];
         const uniqueCategoryIds = [...new Set(allCategoryIds)];
         if (uniqueCategoryIds.length > 0) {
             const categories = await this.categoryRepo.find({
-                where: { id: (0, typeorm_3.In)(uniqueCategoryIds) }
+                where: { id: (0, typeorm_3.In)(uniqueCategoryIds) },
             });
             if (categories.length !== uniqueCategoryIds.length) {
-                const foundIds = categories.map(c => c.id);
-                const missingIds = uniqueCategoryIds.filter(id => !foundIds.includes(id));
+                const foundIds = categories.map((c) => c.id);
+                const missingIds = uniqueCategoryIds.filter((id) => !foundIds.includes(id));
                 throw new common_1.NotFoundException(`Категории с ID ${missingIds.join(', ')} не найдены`);
             }
         }
@@ -137,7 +137,7 @@ let SettingsService = class SettingsService {
             additionalEquipment: [],
             sr: [],
             tsn: [],
-            tn: []
+            tn: [],
         };
         return this.settingRepo.save(setting);
     }

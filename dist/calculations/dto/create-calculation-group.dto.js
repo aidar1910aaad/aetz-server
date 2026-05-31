@@ -18,7 +18,7 @@ exports.CreateCalculationGroupDto = CreateCalculationGroupDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'Камера КСО А12-10',
-        description: 'Название группы (slug будет сгенерирован автоматически)'
+        description: 'Название группы (slug будет сгенерирован автоматически)',
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

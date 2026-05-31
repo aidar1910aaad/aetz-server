@@ -8,7 +8,7 @@ import { DEFAULT_WORK_PRICES } from './work-prices-defaults';
 export class WorkPricesSettingsService {
   constructor(
     @InjectRepository(WorkPricesSettings)
-    private readonly repo: Repository<WorkPricesSettings>,
+    private readonly repo: Repository<WorkPricesSettings>
   ) {
     this.initializeSettings();
   }

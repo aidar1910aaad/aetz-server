@@ -19,6 +19,9 @@ export declare class CalculationsService {
     private getRateByCurrency;
     private getMaterialCurrentPriceKzt;
     private updateCellConfigPrices;
+    private applyCurrentCalculationSettings;
+    private patchCalculationData;
+    private buildMaterialsMapWithSettings;
     createGroup(dto: CreateCalculationGroupDto): Promise<CalculationGroup>;
     getAllGroups(): Promise<CalculationGroup[]>;
     getGroupBySlug(slug: string): Promise<CalculationGroup>;

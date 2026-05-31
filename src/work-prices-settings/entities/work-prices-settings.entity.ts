@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('work_prices_settings')
 export class WorkPricesSettings {
@@ -7,7 +13,11 @@ export class WorkPricesSettings {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({ description: 'Цены работ и коэффициенты', type: 'object', additionalProperties: true })
+  @ApiProperty({
+    description: 'Цены работ и коэффициенты',
+    type: 'object',
+    additionalProperties: true,
+  })
   @Column('jsonb', { default: {} })
   settings: Record<string, number>;
 

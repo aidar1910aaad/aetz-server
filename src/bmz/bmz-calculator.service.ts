@@ -13,7 +13,7 @@ export class BmzCalculatorService {
     @InjectRepository(BmzWallThickness)
     private readonly wallThicknessRepository: Repository<BmzWallThickness>,
     @InjectRepository(BmzEquipment)
-    private readonly equipmentRepository: Repository<BmzEquipment>,
+    private readonly equipmentRepository: Repository<BmzEquipment>
   ) {}
 
   async calculatePrice(params: {
@@ -26,8 +26,8 @@ export class BmzCalculatorService {
       where: {
         isActive: true,
         minArea: LessThanOrEqual(params.area),
-        maxArea: MoreThanOrEqual(params.area)
-      }
+        maxArea: MoreThanOrEqual(params.area),
+      },
     });
 
     if (!areaPrice) {
@@ -39,8 +39,8 @@ export class BmzCalculatorService {
       where: {
         isActive: true,
         minThickness: LessThanOrEqual(params.wallThickness),
-        maxThickness: MoreThanOrEqual(params.wallThickness)
-      }
+        maxThickness: MoreThanOrEqual(params.wallThickness),
+      },
     });
 
     if (!wallThickness) {
@@ -51,8 +51,8 @@ export class BmzCalculatorService {
     const equipment = await this.equipmentRepository.find({
       where: {
         id: In(params.selectedEquipment),
-        isActive: true
-      }
+        isActive: true,
+      },
     });
 
     if (equipment.length !== params.selectedEquipment.length) {
@@ -66,7 +66,7 @@ export class BmzCalculatorService {
     const wallThicknessPrice = wallThickness.pricePerSquareMeter * params.area;
 
     // Рассчитываем цену оборудования
-    const equipmentDetails = equipment.map(eq => {
+    const equipmentDetails = equipment.map((eq) => {
       let price = 0;
       let description = '';
 
@@ -88,18 +88,19 @@ export class BmzCalculatorService {
       return {
         name: eq.name,
         price,
-        description
+        description,
       };
     });
 
     // Рассчитываем общую цену
-    const totalPrice = basePrice + wallThicknessPrice + equipmentDetails.reduce((sum, eq) => sum + eq.price, 0);
+    const totalPrice =
+      basePrice + wallThicknessPrice + equipmentDetails.reduce((sum, eq) => sum + eq.price, 0);
 
     return {
       basePrice,
       wallThicknessPrice,
       equipment: equipmentDetails,
-      totalPrice
+      totalPrice,
     };
   }
-} 
+}

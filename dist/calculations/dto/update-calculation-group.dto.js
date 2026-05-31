@@ -18,7 +18,7 @@ exports.UpdateCalculationGroupDto = UpdateCalculationGroupDto;
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'Камера КСО А12-10 (обновленное название)',
-        description: 'Новое название группы (slug будет сгенерирован автоматически)'
+        description: 'Новое название группы (slug будет сгенерирован автоматически)',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

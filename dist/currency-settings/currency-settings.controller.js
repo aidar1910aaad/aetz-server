@@ -57,11 +57,11 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Возвращает текущие настройки',
-        type: currency_settings_entity_1.CurrencySettings
+        type: currency_settings_entity_1.CurrencySettings,
     }),
     (0, swagger_1.ApiResponse)({
         status: 500,
-        description: 'Внутренняя ошибка сервера'
+        description: 'Внутренняя ошибка сервера',
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -75,11 +75,11 @@ __decorate([
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Настройки успешно обновлены',
-        type: currency_settings_entity_1.CurrencySettings
+        type: currency_settings_entity_1.CurrencySettings,
     }),
     (0, swagger_1.ApiResponse)({
         status: 403,
-        description: 'Доступ запрещен. Требуются права администратора или PTO'
+        description: 'Доступ запрещен. Требуются права администратора или PTO',
     }),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, current_user_decorator_1.CurrentUser)()),

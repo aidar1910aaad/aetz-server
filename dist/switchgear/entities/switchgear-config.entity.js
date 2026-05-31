@@ -68,7 +68,7 @@ __decorate([
         example: [
             { name: 'Ввод', quantity: 2 },
             { name: 'СВ', quantity: 1 },
-            { name: 'ОТХ', quantity: 10 }
+            { name: 'ОТХ', quantity: 10 },
         ],
         description: 'Список ячеек с их количеством',
     }),

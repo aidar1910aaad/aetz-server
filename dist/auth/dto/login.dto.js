@@ -20,7 +20,7 @@ __decorate([
         description: 'Имя пользователя',
         example: 'admin',
         minLength: 3,
-        maxLength: 50
+        maxLength: 50,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -31,7 +31,7 @@ __decorate([
         description: 'Пароль пользователя',
         example: 'admin123',
         minLength: 6,
-        maxLength: 50
+        maxLength: 50,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),

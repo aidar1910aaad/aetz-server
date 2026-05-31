@@ -20,7 +20,12 @@ async function bootstrap() {
     app.use(bodyParser.json({ limit: '20mb' }));
     app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
     app.enableCors({
-        origin: ['http://localhost:3000', 'http://localhost:3001', 'https://aetz-client.vercel.app'],
+        origin: [
+            'http://localhost:3000',
+            'http://localhost:3001',
+            'http://localhost:4000',
+            'https://aetz-client.vercel.app',
+        ],
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         allowedHeaders: [
             'Content-Type',
@@ -29,13 +34,13 @@ async function bootstrap() {
             'Origin',
             'X-Requested-With',
             'Access-Control-Request-Method',
-            'Access-Control-Request-Headers'
+            'Access-Control-Request-Headers',
         ],
         exposedHeaders: ['Content-Range', 'X-Content-Range'],
         credentials: true,
         maxAge: 3600,
         preflightContinue: false,
-        optionsSuccessStatus: 204
+        optionsSuccessStatus: 204,
     });
     app.useGlobalPipes(new common_1.ValidationPipe({
         transform: true,
@@ -148,7 +153,7 @@ async function bootstrap() {
             filter: true,
             showRequestDuration: true,
             syntaxHighlight: {
-                theme: 'agate'
+                theme: 'agate',
             },
             tryItOutEnabled: true,
             requestInterceptor: (req) => {

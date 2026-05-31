@@ -59,7 +59,7 @@ __decorate([
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO),
     (0, swagger_1.ApiOperation)({
         summary: 'Создать категорию',
-        description: 'Создает новую категорию материалов. Требуются права администратора или PTO.'
+        description: 'Создает новую категорию материалов. Требуются права администратора или PTO.',
     }),
     (0, swagger_1.ApiBody)({
         type: create_category_dto_1.CreateCategoryDto,
@@ -69,45 +69,45 @@ __decorate([
                 value: {
                     id: 1,
                     name: 'Электрооборудование',
-                    description: 'Категория для электрооборудования'
-                }
+                    description: 'Категория для электрооборудования',
+                },
             },
             multiple: {
                 value: [
                     {
                         id: 1,
                         name: 'Электрооборудование',
-                        description: 'Категория для электрооборудования'
+                        description: 'Категория для электрооборудования',
                     },
                     {
                         id: 2,
                         name: 'Кабельная продукция',
-                        description: 'Категория для кабельной продукции'
-                    }
-                ]
-            }
-        }
+                        description: 'Категория для кабельной продукции',
+                    },
+                ],
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({
         status: 201,
         description: 'Категория успешно создана',
-        type: category_entity_1.Category
+        type: category_entity_1.Category,
     }),
     (0, swagger_1.ApiResponse)({
         status: 400,
-        description: 'Неверные входные данные'
+        description: 'Неверные входные данные',
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Не авторизован'
+        description: 'Не авторизован',
     }),
     (0, swagger_1.ApiResponse)({
         status: 403,
-        description: 'Нет прав доступа'
+        description: 'Нет прав доступа',
     }),
     (0, swagger_1.ApiResponse)({
         status: 409,
-        description: 'Категория с таким ID уже существует'
+        description: 'Категория с таким ID уже существует',
     }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -118,16 +118,16 @@ __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить все категории',
-        description: 'Возвращает список всех категорий материалов'
+        description: 'Возвращает список всех категорий материалов',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Список категорий успешно получен',
-        type: [category_entity_1.Category]
+        type: [category_entity_1.Category],
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Не авторизован'
+        description: 'Не авторизован',
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -137,26 +137,26 @@ __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить категорию по ID',
-        description: 'Возвращает категорию по её уникальному идентификатору'
+        description: 'Возвращает категорию по её уникальному идентификатору',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: Number,
         description: 'ID категории',
-        example: 1
+        example: 1,
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Категория успешно найдена',
-        type: category_entity_1.Category
+        type: category_entity_1.Category,
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Не авторизован'
+        description: 'Не авторизован',
     }),
     (0, swagger_1.ApiResponse)({
         status: 404,
-        description: 'Категория не найдена'
+        description: 'Категория не найдена',
     }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
@@ -168,13 +168,13 @@ __decorate([
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO),
     (0, swagger_1.ApiOperation)({
         summary: 'Обновить категорию',
-        description: 'Обновляет существующую категорию. Требуются права администратора или PTO.'
+        description: 'Обновляет существующую категорию. Требуются права администратора или PTO.',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: Number,
         description: 'ID категории',
-        example: 1
+        example: 1,
     }),
     (0, swagger_1.ApiBody)({
         type: update_category_dto_1.UpdateCategoryDto,
@@ -182,36 +182,36 @@ __decorate([
         examples: {
             updateName: {
                 value: {
-                    name: 'Новое название категории'
-                }
+                    name: 'Новое название категории',
+                },
             },
             updateCode: {
                 value: {
-                    code: 'NEW_CODE'
-                }
-            }
-        }
+                    code: 'NEW_CODE',
+                },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Категория успешно обновлена',
-        type: category_entity_1.Category
+        type: category_entity_1.Category,
     }),
     (0, swagger_1.ApiResponse)({
         status: 400,
-        description: 'Неверные входные данные'
+        description: 'Неверные входные данные',
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Не авторизован'
+        description: 'Не авторизован',
     }),
     (0, swagger_1.ApiResponse)({
         status: 403,
-        description: 'Нет прав доступа'
+        description: 'Нет прав доступа',
     }),
     (0, swagger_1.ApiResponse)({
         status: 404,
-        description: 'Категория не найдена'
+        description: 'Категория не найдена',
     }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
@@ -224,29 +224,29 @@ __decorate([
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN),
     (0, swagger_1.ApiOperation)({
         summary: 'Удалить категорию',
-        description: 'Удаляет категорию и все связанные с ней материалы. Требуются права администратора.'
+        description: 'Удаляет категорию и все связанные с ней материалы. Требуются права администратора.',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: Number,
         description: 'ID категории',
-        example: 1
+        example: 1,
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
-        description: 'Категория успешно удалена'
+        description: 'Категория успешно удалена',
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Не авторизован'
+        description: 'Не авторизован',
     }),
     (0, swagger_1.ApiResponse)({
         status: 403,
-        description: 'Нет прав доступа'
+        description: 'Нет прав доступа',
     }),
     (0, swagger_1.ApiResponse)({
         status: 404,
-        description: 'Категория не найдена'
+        description: 'Категория не найдена',
     }),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),

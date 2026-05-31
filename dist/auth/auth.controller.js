@@ -32,7 +32,7 @@ __decorate([
     (0, common_1.Post)('login'),
     (0, swagger_1.ApiOperation)({
         summary: 'Вход в систему',
-        description: 'Аутентификация пользователя и получение JWT токена'
+        description: 'Аутентификация пользователя и получение JWT токена',
     }),
     (0, swagger_1.ApiBody)({
         type: login_dto_1.LoginDto,
@@ -41,11 +41,11 @@ __decorate([
             admin: {
                 value: {
                     username: 'aidarr',
-                    password: 'yerlal'
+                    password: 'yerlal',
                 },
-                summary: 'Пример входа администратора'
-            }
-        }
+                summary: 'Пример входа администратора',
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -56,28 +56,28 @@ __decorate([
                 access_token: {
                     type: 'string',
                     description: 'JWT токен для авторизации',
-                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
                 },
                 user: {
                     type: 'object',
                     properties: {
                         id: {
                             type: 'number',
-                            example: 1
+                            example: 1,
                         },
                         username: {
                             type: 'string',
-                            example: 'admin'
+                            example: 'admin',
                         },
                         role: {
                             type: 'string',
                             enum: ['ADMIN', 'PTO', 'USER'],
-                            example: 'ADMIN'
-                        }
-                    }
-                }
-            }
-        }
+                            example: 'ADMIN',
+                        },
+                    },
+                },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
@@ -87,14 +87,14 @@ __decorate([
             properties: {
                 statusCode: {
                     type: 'number',
-                    example: 401
+                    example: 401,
                 },
                 message: {
                     type: 'string',
-                    example: 'Неверные учетные данные'
-                }
-            }
-        }
+                    example: 'Неверные учетные данные',
+                },
+            },
+        },
     }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

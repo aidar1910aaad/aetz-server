@@ -15,11 +15,38 @@ export interface CellMaterial {
   id: number;
   name: string;
   price: number;
-  type: 'switch' | 'rza' | 'counter' | 'sr' | 'tsn' | 'tn' | 'pu' | 'disconnector' | 'busbar' | 'busbridge';
+  type:
+    | 'switch'
+    | 'rza'
+    | 'counter'
+    | 'sr'
+    | 'tsn'
+    | 'tn'
+    | 'pu'
+    | 'disconnector'
+    | 'busbar'
+    | 'busbridge';
 }
 
 export interface CellConfig {
-  type: '0.4kv' | '10kv' | '20kv' | 'rza' | 'pu' | 'disconnector' | 'busbar' | 'busbridge' | 'switch' | 'tn' | 'tsn' | 'input' | 'section_switch' | 'outgoing';
+  type:
+    | '0.4kv'
+    | '10kv'
+    | '20kv'
+    | 'rza'
+    | 'pu'
+    | 'disconnector'
+    | 'busbar'
+    | 'busbridge'
+    | 'switch'
+    | 'tn'
+    | 'tsn'
+    | 'input'
+    | 'section_switch'
+    | 'outgoing'
+    | 'bha_input'
+    | 'bha_transformer'
+    | 'bha_outgoing';
   materials: {
     switch?: CellMaterial;
     rza?: CellMaterial;
@@ -27,7 +54,7 @@ export interface CellConfig {
     sr?: CellMaterial;
     tsn?: CellMaterial;
     tn?: CellMaterial;
-    tt?: CellMaterial[]; 
+    tt?: CellMaterial[];
     pu?: CellMaterial[];
     disconnector?: CellMaterial[];
     busbar?: CellMaterial[];
@@ -48,4 +75,4 @@ export interface CalculationData {
   categories: CalculationCategory[];
   calculation: CalculationSettings;
   cellConfig?: CellConfig;
-} 
+}

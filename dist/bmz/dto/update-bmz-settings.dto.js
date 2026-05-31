@@ -28,6 +28,20 @@ __decorate([
     __metadata("design:type", Number)
 ], AreaPriceRangeDto.prototype, "maxArea", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 2700, description: 'Минимальная высота (мм)', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], AreaPriceRangeDto.prototype, "minHeight", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 3150, description: 'Максимальная высота (мм)', required: false }),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], AreaPriceRangeDto.prototype, "maxHeight", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ example: 0, description: 'Минимальная толщина стен (мм)' }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
@@ -56,7 +70,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'perSquareMeter',
         description: 'Тип цены: perSquareMeter, perHalfSquareMeter или fixed',
-        enum: ['perSquareMeter', 'perHalfSquareMeter', 'fixed']
+        enum: ['perSquareMeter', 'perHalfSquareMeter', 'fixed'],
     }),
     (0, class_validator_1.IsEnum)(['perSquareMeter', 'perHalfSquareMeter', 'fixed']),
     __metadata("design:type", String)
@@ -65,7 +79,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1000,
         description: 'Цена за квадратный метр (для типов perSquareMeter и perHalfSquareMeter)',
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
@@ -76,7 +90,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         example: 5000,
         description: 'Фиксированная цена (для типа fixed)',
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
@@ -94,7 +108,7 @@ exports.UpdateBmzSettingsDto = UpdateBmzSettingsDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 25000,
-        description: 'Базовая цена за квадратный метр'
+        description: 'Базовая цена за квадратный метр',
     }),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
@@ -103,7 +117,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Диапазоны цен по площади и толщине стен',
-        type: [AreaPriceRangeDto]
+        type: [AreaPriceRangeDto],
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -113,7 +127,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Дополнительное оборудование',
-        type: [EquipmentDto]
+        type: [EquipmentDto],
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -123,7 +137,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: true,
-        description: 'Активны ли настройки'
+        description: 'Активны ли настройки',
     }),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)

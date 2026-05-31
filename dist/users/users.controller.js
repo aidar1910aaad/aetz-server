@@ -57,7 +57,7 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Создать нового пользователя',
-        description: 'Создает нового пользователя в системе. Доступно только для администраторов и ПТО.'
+        description: 'Создает нового пользователя в системе. Доступно только для администраторов и ПТО.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 201,
@@ -68,9 +68,9 @@ __decorate([
                 id: { type: 'number', example: 1 },
                 username: { type: 'string', example: 'newuser' },
                 role: { type: 'string', enum: ['ADMIN', 'PTO', 'USER'], example: 'USER' },
-                createdAt: { type: 'string', format: 'date-time' }
-            }
-        }
+                createdAt: { type: 'string', format: 'date-time' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Некорректные данные' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -87,7 +87,7 @@ __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить список всех пользователей',
-        description: 'Возвращает список всех пользователей системы с их ролями и статусами.'
+        description: 'Возвращает список всех пользователей системы с их ролями и статусами.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -101,10 +101,10 @@ __decorate([
                     username: { type: 'string', example: 'admin' },
                     role: { type: 'string', enum: ['ADMIN', 'PTO', 'USER'], example: 'ADMIN' },
                     createdAt: { type: 'string', format: 'date-time' },
-                    updatedAt: { type: 'string', format: 'date-time' }
-                }
-            }
-        }
+                    updatedAt: { type: 'string', format: 'date-time' },
+                },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
     (0, swagger_1.ApiResponse)({ status: 403, description: 'Недостаточно прав' }),
@@ -118,7 +118,7 @@ __decorate([
     (0, common_1.Get)('profile/me'),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить свой профиль',
-        description: 'Возвращает информацию о текущем авторизованном пользователе.'
+        description: 'Возвращает информацию о текущем авторизованном пользователе.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -137,9 +137,9 @@ __decorate([
                 city: { type: 'string', example: 'Астана' },
                 postalCode: { type: 'string', example: '010000' },
                 role: { type: 'string', enum: ['admin', 'pto', 'manager'], example: 'pto' },
-                createdAt: { type: 'string', format: 'date-time' }
-            }
-        }
+                createdAt: { type: 'string', format: 'date-time' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
     __param(0, (0, current_user_decorator_1.CurrentUser)()),
@@ -154,7 +154,7 @@ __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить пользователя по ID',
-        description: 'Возвращает детальную информацию о конкретном пользователе по его ID.'
+        description: 'Возвращает детальную информацию о конкретном пользователе по его ID.',
     }),
     (0, swagger_1.ApiParam)({ name: 'id', type: Number, description: 'ID пользователя' }),
     (0, swagger_1.ApiResponse)({
@@ -167,9 +167,9 @@ __decorate([
                 username: { type: 'string', example: 'admin' },
                 role: { type: 'string', enum: ['ADMIN', 'PTO', 'USER'], example: 'ADMIN' },
                 createdAt: { type: 'string', format: 'date-time' },
-                updatedAt: { type: 'string', format: 'date-time' }
-            }
-        }
+                updatedAt: { type: 'string', format: 'date-time' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Пользователь не найден' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -185,7 +185,7 @@ __decorate([
     (0, common_1.Patch)('profile/me'),
     (0, swagger_1.ApiOperation)({
         summary: 'Обновить свой профиль',
-        description: 'Позволяет пользователю редактировать свои профильные данные. Нельзя изменить роль или username.'
+        description: 'Позволяет пользователю редактировать свои профильные данные. Нельзя изменить роль или username.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -204,9 +204,9 @@ __decorate([
                 city: { type: 'string', example: 'Астана' },
                 postalCode: { type: 'string', example: '010000' },
                 role: { type: 'string', enum: ['admin', 'pto', 'manager'], example: 'pto' },
-                createdAt: { type: 'string', format: 'date-time' }
-            }
-        }
+                createdAt: { type: 'string', format: 'date-time' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Некорректные данные' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -223,7 +223,7 @@ __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Обновить пользователя',
-        description: 'Обновляет информацию о пользователе, включая пароль и роль. Пароль автоматически хешируется. Доступно только для администраторов.'
+        description: 'Обновляет информацию о пользователе, включая пароль и роль. Пароль автоматически хешируется. Доступно только для администраторов.',
     }),
     (0, swagger_1.ApiParam)({ name: 'id', type: Number, description: 'ID пользователя' }),
     (0, swagger_1.ApiResponse)({
@@ -235,9 +235,9 @@ __decorate([
                 id: { type: 'number', example: 1 },
                 username: { type: 'string', example: 'updateduser' },
                 role: { type: 'string', enum: ['ADMIN', 'PTO', 'USER'], example: 'USER' },
-                updatedAt: { type: 'string', format: 'date-time' }
-            }
-        }
+                updatedAt: { type: 'string', format: 'date-time' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Пользователь не найден' }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Некорректные данные' }),
@@ -255,7 +255,7 @@ __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Удалить пользователя',
-        description: 'Безвозвратно удаляет пользователя из системы. Доступно только для администраторов.'
+        description: 'Безвозвратно удаляет пользователя из системы. Доступно только для администраторов.',
     }),
     (0, swagger_1.ApiParam)({ name: 'id', type: Number, description: 'ID пользователя' }),
     (0, swagger_1.ApiResponse)({
@@ -264,9 +264,9 @@ __decorate([
         schema: {
             type: 'object',
             properties: {
-                message: { type: 'string', example: 'Пользователь успешно удален' }
-            }
-        }
+                message: { type: 'string', example: 'Пользователь успешно удален' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Пользователь не найден' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),

@@ -19,7 +19,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
         description: 'Уникальный идентификатор категории',
-        minimum: 1
+        minimum: 1,
     }),
     (0, class_validator_1.IsInt)(),
     (0, class_validator_1.Min)(1),
@@ -30,7 +30,7 @@ __decorate([
         example: 'Электрооборудование',
         description: 'Название категории (должно быть уникальным)',
         minLength: 1,
-        maxLength: 100
+        maxLength: 100,
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -40,7 +40,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'Категория для электрооборудования и комплектующих',
         description: 'Подробное описание категории',
-        maxLength: 500
+        maxLength: 500,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -50,7 +50,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'ELEC',
         description: 'Уникальный код категории (генерируется автоматически, если не указан)',
-        maxLength: 10
+        maxLength: 10,
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),

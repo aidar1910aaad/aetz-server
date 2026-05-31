@@ -20,7 +20,7 @@ exports.UpdateCalculationDto = UpdateCalculationDto;
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'Камера КСО А12-10 900×1000',
-        description: 'Новое название калькуляции. Если не указано, останется прежним'
+        description: 'Новое название калькуляции. Если не указано, останется прежним',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -29,7 +29,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: '900x1000',
-        description: 'Новый уникальный идентификатор калькуляции (slug). Если не указан, останется прежним'
+        description: 'Новый уникальный идентификатор калькуляции (slug). Если не указан, останется прежним',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -46,17 +46,17 @@ __decorate([
         example: {
             categories: [
                 {
-                    name: "Кабельная продукция",
+                    name: 'Кабельная продукция',
                     items: [
                         {
                             id: 1,
-                            name: "Кабель ВВГнг-LS 3x2.5",
-                            unit: "м",
+                            name: 'Кабель ВВГнг-LS 3x2.5',
+                            unit: 'м',
                             price: 1000,
-                            quantity: 2
-                        }
-                    ]
-                }
+                            quantity: 2,
+                        },
+                    ],
+                },
             ],
             calculation: {
                 manufacturingHours: 1,
@@ -64,40 +64,40 @@ __decorate([
                 overheadPercentage: 10,
                 adminPercentage: 15,
                 plannedProfitPercentage: 10,
-                ndsPercentage: 12
+                ndsPercentage: 12,
             },
             cellConfig: {
-                type: "input",
+                type: 'input',
                 materials: {
                     switch: {
                         id: 1,
-                        name: "Выключатель ВА57-35",
+                        name: 'Выключатель ВА57-35',
                         price: 50000,
-                        type: "switch"
+                        type: 'switch',
                     },
                     tt: [
                         { id: 7, name: 'ТТ Трансформатор тока', price: 15000, type: 'switch' },
-                        { id: 8, name: 'ТТ Трансформатор тока 2', price: 18000, type: 'switch' }
+                        { id: 8, name: 'ТТ Трансформатор тока 2', price: 18000, type: 'switch' },
                     ],
                     pu: [
                         { id: 9, name: 'ПУ Прибор учета', price: 12000, type: 'counter' },
-                        { id: 10, name: 'ПУ Прибор учета 2', price: 14000, type: 'counter' }
+                        { id: 10, name: 'ПУ Прибор учета 2', price: 14000, type: 'counter' },
                     ],
                     disconnector: [
                         { id: 11, name: 'Разъединитель РЛНД', price: 25000, type: 'disconnector' },
-                        { id: 12, name: 'Разъединитель РЛНД 2', price: 28000, type: 'disconnector' }
+                        { id: 12, name: 'Разъединитель РЛНД 2', price: 28000, type: 'disconnector' },
                     ],
                     busbar: [
                         { id: 13, name: 'Шина медная 60x6', price: 8000, type: 'busbar' },
-                        { id: 14, name: 'Шина медная 80x8', price: 10000, type: 'busbar' }
+                        { id: 14, name: 'Шина медная 80x8', price: 10000, type: 'busbar' },
                     ],
                     busbridge: [
                         { id: 15, name: 'Шинный мост 60x6', price: 12000, type: 'busbridge' },
-                        { id: 16, name: 'Шинный мост 80x8', price: 15000, type: 'busbridge' }
-                    ]
-                }
-            }
-        }
+                        { id: 16, name: 'Шинный мост 80x8', price: 15000, type: 'busbridge' },
+                    ],
+                },
+            },
+        },
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.ValidateNested)(),

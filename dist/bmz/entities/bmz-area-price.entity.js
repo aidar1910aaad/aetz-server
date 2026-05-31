@@ -18,7 +18,7 @@ exports.BmzAreaPrice = BmzAreaPrice;
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Уникальный идентификатор',
-        example: 1
+        example: 1,
     }),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Минимальная площадь (м²)',
-        example: 0
+        example: 0,
     }),
     (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
     __metadata("design:type", Number)
@@ -34,7 +34,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Максимальная площадь (м²)',
-        example: 100
+        example: 100,
     }),
     (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
     __metadata("design:type", Number)
@@ -42,7 +42,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Минимальная толщина стен (мм)',
-        example: 0
+        example: 0,
     }),
     (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
     __metadata("design:type", Number)
@@ -50,7 +50,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Максимальная толщина стен (мм)',
-        example: 80
+        example: 80,
     }),
     (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
     __metadata("design:type", Number)
@@ -58,7 +58,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Базовая цена за квадратный метр',
-        example: 2000
+        example: 2000,
     }),
     (0, typeorm_1.Column)({ type: 'decimal', precision: 10, scale: 2 }),
     __metadata("design:type", Number)
@@ -66,21 +66,21 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Активен ли элемент',
-        example: true
+        example: true,
     }),
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
 ], BmzAreaPrice.prototype, "isActive", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        description: 'Дата создания'
+        description: 'Дата создания',
     }),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], BmzAreaPrice.prototype, "createdAt", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        description: 'Дата обновления'
+        description: 'Дата обновления',
     }),
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)

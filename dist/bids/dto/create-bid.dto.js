@@ -41,7 +41,7 @@ exports.CreateBidDto = CreateBidDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'БКТП',
-        description: 'Тип заявки'
+        description: 'Тип заявки',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -50,7 +50,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '2025-09-17',
-        description: 'Дата заявки'
+        description: 'Дата заявки',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -59,7 +59,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'фывафыва',
-        description: 'Название клиента'
+        description: 'Название клиента',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -68,7 +68,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'укфыва',
-        description: 'Номер задачи'
+        description: 'Номер задачи',
     }),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -77,7 +77,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 52899246.5920094,
-        description: 'Общая сумма заявки'
+        description: 'Общая сумма заявки',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
@@ -86,7 +86,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Информация о пользователе',
-        type: UserDto
+        type: UserDto,
     }),
     (0, class_validator_1.IsObject)(),
     (0, class_validator_1.IsNotEmpty)(),
@@ -95,52 +95,22 @@ __decorate([
 ], CreateBidDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        description: 'Все данные заявки (гибкая структура)',
+        description: 'Данные заявки. Рекомендуемый v2 формат: data.config + data.snapshot + data.pricingMeta + data.repriceDiff',
         example: {
-            bmz: {
-                buildingType: 'bmz',
-                length: 5000,
-                width: 6000,
-                height: 3000,
-                thickness: 100,
-                total: 1500000
+            config: {
+                bmz: { buildingType: 'bmz', length: 5000, width: 6000, height: 3000, thickness: 100 },
+                transformer: { selected: { id: 1, model: 'ТСЛ-1250/20', price: 19026000 } },
             },
-            transformer: {
-                selected: { id: 1, model: 'ТСЛ-1250/20', price: 19026000 },
-                total: 19026000
+            snapshot: {
+                bmz: { total: 1500000 },
+                transformer: { total: 19026000 },
+                totals: { grandTotal: 20526000 },
             },
-            rusn: {
-                cellConfigs: [
-                    { type: '0.4kv', materials: { switch: { id: 1, name: 'Выключатель', price: 50000 } } }
-                ],
-                busbarSummary: { total: 100000 },
-                total: 150000
-            },
-            runn: {
-                cellSummaries: [
-                    { type: '10kv', quantity: 2, total: 500000 }
-                ],
-                total: 9088368.92
-            },
-            additionalEquipment: {
-                selected: { id: 1, name: 'Вентиляция' },
-                equipmentList: [
-                    { id: 1, name: 'Вентиляция', price: 50000 },
-                    { id: 2, name: 'Утепление', price: 30000 }
-                ],
-                total: 80000
-            },
-            works: {
-                selected: { id: 1, name: 'Монтаж' },
-                worksList: [
-                    { id: 1, name: 'Монтаж БМЗ', price: 500000 },
-                    { id: 2, name: 'Монтаж трансформатора', price: 300000 }
-                ],
-                total: 1865410
-            }
+            pricingMeta: { recalculatedAt: '2026-05-05T12:00:00.000Z' },
+            repriceDiff: { previousGrandTotal: 20000000, newGrandTotal: 20526000, delta: 526000 },
         },
         type: 'object',
-        additionalProperties: true
+        additionalProperties: true,
     }),
     (0, class_validator_1.IsObject)(),
     (0, class_validator_1.IsNotEmpty)(),

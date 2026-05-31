@@ -2,9 +2,9 @@ import { IsString, IsOptional, IsNumber } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateCalculationGroupDto {
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     example: 'Камера КСО А12-10 (обновленное название)',
-    description: 'Новое название группы (slug будет сгенерирован автоматически)'
+    description: 'Новое название группы (slug будет сгенерирован автоматически)',
   })
   @IsOptional()
   @IsString()
@@ -17,4 +17,4 @@ export class UpdateCalculationGroupDto {
   @IsOptional()
   @IsNumber()
   voltageType?: number;
-} 
+}

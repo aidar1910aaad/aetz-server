@@ -49,8 +49,13 @@ let BmzSettingsService = class BmzSettingsService {
     async updateSettings(updateSettingsDto) {
         const settings = await this.getSettings();
         for (const range of updateSettingsDto.areaPriceRanges) {
+            range.minHeight = range.minHeight ?? 0;
+            range.maxHeight = range.maxHeight ?? 999999;
             if (range.minArea > range.maxArea) {
                 throw new Error('Минимальная площадь не может быть больше максимальной');
+            }
+            if (range.minHeight > range.maxHeight) {
+                throw new Error('Минимальная высота не может быть больше максимальной');
             }
             if (range.minWallThickness > range.maxWallThickness) {
                 throw new Error('Минимальная толщина стен не может быть больше максимальной');
@@ -60,7 +65,8 @@ let BmzSettingsService = class BmzSettingsService {
             if (equipment.priceType === 'fixed' && !equipment.fixedPrice) {
                 throw new Error('Для фиксированной цены необходимо указать fixedPrice');
             }
-            if ((equipment.priceType === 'perSquareMeter' || equipment.priceType === 'perHalfSquareMeter') &&
+            if ((equipment.priceType === 'perSquareMeter' ||
+                equipment.priceType === 'perHalfSquareMeter') &&
                 !equipment.pricePerSquareMeter) {
                 throw new Error('Для цены за квадратный метр необходимо указать pricePerSquareMeter');
             }
@@ -72,28 +78,28 @@ let BmzSettingsService = class BmzSettingsService {
         const [areaPrices, equipment, wallThicknesses] = await Promise.all([
             this.areaPriceRepository.find({
                 where: { isActive: true },
-                order: { minArea: 'ASC' }
+                order: { minArea: 'ASC' },
             }),
             this.equipmentRepository.find({
                 where: { isActive: true },
-                order: { name: 'ASC' }
+                order: { name: 'ASC' },
             }),
             this.wallThicknessRepository.find({
                 where: { isActive: true },
-                order: { minThickness: 'ASC' }
-            })
+                order: { minThickness: 'ASC' },
+            }),
         ]);
         return {
             areaPrices,
             equipment,
-            wallThicknesses
+            wallThicknesses,
         };
     }
     async createAreaPrice(data) {
         const areaPrice = new bmz_area_price_entity_1.BmzAreaPrice();
         Object.assign(areaPrice, {
             ...data,
-            isActive: true
+            isActive: true,
         });
         return this.areaPriceRepository.save(areaPrice);
     }
@@ -117,7 +123,7 @@ let BmzSettingsService = class BmzSettingsService {
         const equipment = new bmz_equipment_entity_1.BmzEquipment();
         Object.assign(equipment, {
             ...data,
-            isActive: true
+            isActive: true,
         });
         return this.equipmentRepository.save(equipment);
     }

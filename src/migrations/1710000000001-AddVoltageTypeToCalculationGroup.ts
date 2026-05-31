@@ -14,4 +14,4 @@ export class AddVoltageTypeToCalculationGroup1710000000001 implements MigrationI
       DROP COLUMN "voltageType";
     `);
   }
-} 
+}

@@ -42,9 +42,11 @@ export class UpdateProfileDto {
   @IsString()
   postalCode?: string;
 
-  @ApiPropertyOptional({ example: 'newpassword123', description: 'Новый пароль (минимум 6 символов)' })
+  @ApiPropertyOptional({
+    example: 'newpassword123',
+    description: 'Новый пароль (минимум 6 символов)',
+  })
   @IsOptional()
   @MinLength(6)
   password?: string;
 }
-

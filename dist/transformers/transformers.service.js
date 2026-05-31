@@ -26,7 +26,7 @@ let TransformersService = class TransformersService {
         return this.transformerRepository.save(transformer);
     }
     async createMany(createTransformersDto) {
-        const transformers = createTransformersDto.transformers.map(dto => this.transformerRepository.create(dto));
+        const transformers = createTransformersDto.transformers.map((dto) => this.transformerRepository.create(dto));
         return this.transformerRepository.save(transformers);
     }
     async findAll() {

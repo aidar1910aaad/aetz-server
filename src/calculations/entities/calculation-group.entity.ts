@@ -16,10 +16,10 @@ export class CalculationGroup {
   @Column({ unique: true })
   slug: string;
 
-  @ApiProperty({ 
-    example: 10, 
+  @ApiProperty({
+    example: 10,
     description: 'Тип вольтажа (например: 10, 20, 35 и т.д.)',
-    required: false 
+    required: false,
   })
   @Column({ nullable: true })
   voltageType?: number;

@@ -20,7 +20,7 @@ function ApiAuthResponses() {
 function ApiOperationWithDescription(summary, description) {
     return (0, common_1.applyDecorators)((0, swagger_1.ApiOperation)({
         summary,
-        description
+        description,
     }));
 }
 function ApiCreateOperation(entityName) {

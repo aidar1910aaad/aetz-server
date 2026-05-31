@@ -1,5 +1,13 @@
 import {
-  Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards,
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
@@ -24,15 +32,15 @@ import { Category } from './entities/category.entity';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('categories')
 export class CategoriesController {
-  constructor(private readonly categoriesService: CategoriesService) { }
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   @Post()
   @Roles(UserRole.ADMIN, UserRole.PTO)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Создать категорию',
-    description: 'Создает новую категорию материалов. Требуются права администратора или PTO.'
+    description: 'Создает новую категорию материалов. Требуются права администратора или PTO.',
   })
-  @ApiBody({ 
+  @ApiBody({
     type: CreateCategoryDto,
     description: 'Данные для создания категории',
     examples: {
@@ -40,45 +48,45 @@ export class CategoriesController {
         value: {
           id: 1,
           name: 'Электрооборудование',
-          description: 'Категория для электрооборудования'
-        }
+          description: 'Категория для электрооборудования',
+        },
       },
       multiple: {
         value: [
           {
             id: 1,
             name: 'Электрооборудование',
-            description: 'Категория для электрооборудования'
+            description: 'Категория для электрооборудования',
           },
           {
             id: 2,
             name: 'Кабельная продукция',
-            description: 'Категория для кабельной продукции'
-          }
-        ]
-      }
-    }
+            description: 'Категория для кабельной продукции',
+          },
+        ],
+      },
+    },
   })
-  @ApiResponse({ 
-    status: 201, 
+  @ApiResponse({
+    status: 201,
     description: 'Категория успешно создана',
-    type: Category
+    type: Category,
   })
-  @ApiResponse({ 
-    status: 400, 
-    description: 'Неверные входные данные'
+  @ApiResponse({
+    status: 400,
+    description: 'Неверные входные данные',
   })
-  @ApiResponse({ 
-    status: 401, 
-    description: 'Не авторизован'
+  @ApiResponse({
+    status: 401,
+    description: 'Не авторизован',
   })
-  @ApiResponse({ 
-    status: 403, 
-    description: 'Нет прав доступа'
+  @ApiResponse({
+    status: 403,
+    description: 'Нет прав доступа',
   })
-  @ApiResponse({ 
-    status: 409, 
-    description: 'Категория с таким ID уже существует'
+  @ApiResponse({
+    status: 409,
+    description: 'Категория с таким ID уже существует',
   })
   create(@Body() dto: CreateCategoryDto | CreateCategoryDto[]) {
     if (Array.isArray(dto)) {
@@ -88,46 +96,46 @@ export class CategoriesController {
   }
 
   @Get()
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Получить все категории',
-    description: 'Возвращает список всех категорий материалов'
+    description: 'Возвращает список всех категорий материалов',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Список категорий успешно получен',
-    type: [Category]
+    type: [Category],
   })
-  @ApiResponse({ 
-    status: 401, 
-    description: 'Не авторизован'
+  @ApiResponse({
+    status: 401,
+    description: 'Не авторизован',
   })
   findAll() {
     return this.categoriesService.findAll();
   }
 
   @Get(':id')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Получить категорию по ID',
-    description: 'Возвращает категорию по её уникальному идентификатору'
+    description: 'Возвращает категорию по её уникальному идентификатору',
   })
-  @ApiParam({ 
-    name: 'id', 
+  @ApiParam({
+    name: 'id',
     type: Number,
     description: 'ID категории',
-    example: 1
+    example: 1,
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Категория успешно найдена',
-    type: Category
+    type: Category,
   })
-  @ApiResponse({ 
-    status: 401, 
-    description: 'Не авторизован'
+  @ApiResponse({
+    status: 401,
+    description: 'Не авторизован',
   })
-  @ApiResponse({ 
-    status: 404, 
-    description: 'Категория не найдена'
+  @ApiResponse({
+    status: 404,
+    description: 'Категория не найдена',
   })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.findOne(id);
@@ -135,87 +143,85 @@ export class CategoriesController {
 
   @Patch(':id')
   @Roles(UserRole.ADMIN, UserRole.PTO)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Обновить категорию',
-    description: 'Обновляет существующую категорию. Требуются права администратора или PTO.'
+    description: 'Обновляет существующую категорию. Требуются права администратора или PTO.',
   })
-  @ApiParam({ 
-    name: 'id', 
+  @ApiParam({
+    name: 'id',
     type: Number,
     description: 'ID категории',
-    example: 1
+    example: 1,
   })
-  @ApiBody({ 
+  @ApiBody({
     type: UpdateCategoryDto,
     description: 'Данные для обновления категории',
     examples: {
       updateName: {
         value: {
-          name: 'Новое название категории'
-        }
+          name: 'Новое название категории',
+        },
       },
       updateCode: {
         value: {
-          code: 'NEW_CODE'
-        }
-      }
-    }
+          code: 'NEW_CODE',
+        },
+      },
+    },
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Категория успешно обновлена',
-    type: Category
+    type: Category,
   })
-  @ApiResponse({ 
-    status: 400, 
-    description: 'Неверные входные данные'
+  @ApiResponse({
+    status: 400,
+    description: 'Неверные входные данные',
   })
-  @ApiResponse({ 
-    status: 401, 
-    description: 'Не авторизован'
+  @ApiResponse({
+    status: 401,
+    description: 'Не авторизован',
   })
-  @ApiResponse({ 
-    status: 403, 
-    description: 'Нет прав доступа'
+  @ApiResponse({
+    status: 403,
+    description: 'Нет прав доступа',
   })
-  @ApiResponse({ 
-    status: 404, 
-    description: 'Категория не найдена'
+  @ApiResponse({
+    status: 404,
+    description: 'Категория не найдена',
   })
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateCategoryDto: UpdateCategoryDto,
-  ) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
     return this.categoriesService.update(id, updateCategoryDto);
   }
 
   @Delete(':id')
   @Roles(UserRole.ADMIN)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Удалить категорию',
-    description: 'Удаляет категорию и все связанные с ней материалы. Требуются права администратора.'
+    description:
+      'Удаляет категорию и все связанные с ней материалы. Требуются права администратора.',
   })
-  @ApiParam({ 
-    name: 'id', 
+  @ApiParam({
+    name: 'id',
     type: Number,
     description: 'ID категории',
-    example: 1
+    example: 1,
   })
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Категория успешно удалена'
+  @ApiResponse({
+    status: 200,
+    description: 'Категория успешно удалена',
   })
-  @ApiResponse({ 
-    status: 401, 
-    description: 'Не авторизован'
+  @ApiResponse({
+    status: 401,
+    description: 'Не авторизован',
   })
-  @ApiResponse({ 
-    status: 403, 
-    description: 'Нет прав доступа'
+  @ApiResponse({
+    status: 403,
+    description: 'Нет прав доступа',
   })
-  @ApiResponse({ 
-    status: 404, 
-    description: 'Категория не найдена'
+  @ApiResponse({
+    status: 404,
+    description: 'Категория не найдена',
   })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.categoriesService.remove(id);

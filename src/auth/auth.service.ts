@@ -7,7 +7,7 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService,
+    private jwtService: JwtService
   ) {}
 
   async validateUser(username: string, pass: string) {
@@ -29,15 +29,15 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Неверный пароль');
     }
-  
+
     const { password: _, ...safeUser } = user;
-  
-    const payload = { 
+
+    const payload = {
       sub: user.id,
       username: user.username,
-      role: user.role // Используем существующее поле role
+      role: user.role, // Используем существующее поле role
     };
-  
+
     return {
       access_token: this.jwtService.sign(payload),
       user: safeUser,

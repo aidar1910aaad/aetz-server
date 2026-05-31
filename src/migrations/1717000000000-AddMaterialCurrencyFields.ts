@@ -1,8 +1,8 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddMaterialCurrencyFields1717000000000 implements MigrationInterface {
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             ALTER TABLE "material"
             ADD COLUMN "currency" character varying NOT NULL DEFAULT 'KZT',
             ADD COLUMN "priceInCurrency" numeric(12,2) NOT NULL DEFAULT 0,
@@ -10,7 +10,7 @@ export class AddMaterialCurrencyFields1717000000000 implements MigrationInterfac
             ADD COLUMN "priceKztAtCreation" numeric(12,2) NOT NULL DEFAULT 0
         `);
 
-        await queryRunner.query(`
+    await queryRunner.query(`
             UPDATE "material"
             SET
                 "currency" = 'KZT',
@@ -18,15 +18,15 @@ export class AddMaterialCurrencyFields1717000000000 implements MigrationInterfac
                 "rateAtCreation" = 1,
                 "priceKztAtCreation" = COALESCE("price", 0)
         `);
-    }
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`
             ALTER TABLE "material"
             DROP COLUMN "priceKztAtCreation",
             DROP COLUMN "rateAtCreation",
             DROP COLUMN "priceInCurrency",
             DROP COLUMN "currency"
         `);
-    }
+  }
 }

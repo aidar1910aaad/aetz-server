@@ -64,7 +64,7 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Создание нового материала',
-        description: 'Создает новый материал в системе с указанными параметрами. Материал будет доступен для использования в расчетах и заявках.'
+        description: 'Создает новый материал в системе с указанными параметрами. Материал будет доступен для использования в расчетах и заявках.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 201,
@@ -81,13 +81,13 @@ __decorate([
                     type: 'object',
                     properties: {
                         id: { type: 'number', example: 1 },
-                        name: { type: 'string', example: 'Выключатели' }
-                    }
+                        name: { type: 'string', example: 'Выключатели' },
+                    },
                 },
                 createdAt: { type: 'string', format: 'date-time' },
-                updatedAt: { type: 'string', format: 'date-time' }
-            }
-        }
+                updatedAt: { type: 'string', format: 'date-time' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Некорректные данные' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -101,7 +101,7 @@ __decorate([
     (0, common_1.Post)('bulk'),
     (0, swagger_1.ApiOperation)({
         summary: 'Массовый импорт материалов',
-        description: 'Импортирует массив материалов в систему. Полезно для загрузки большого количества материалов из файлов или других систем.'
+        description: 'Импортирует массив материалов в систему. Полезно для загрузки большого количества материалов из файлов или других систем.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 201,
@@ -115,10 +115,10 @@ __decorate([
                     name: { type: 'string', example: 'Вакуумный выключатель AV-24 1250A' },
                     code: { type: 'string', example: '10000009398' },
                     unit: { type: 'string', example: 'шт' },
-                    price: { type: 'number', example: 1610000 }
-                }
-            }
-        }
+                    price: { type: 'number', example: 1610000 },
+                },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Некорректные данные' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -132,7 +132,7 @@ __decorate([
     (0, common_1.Get)(),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить список материалов с фильтрацией',
-        description: 'Возвращает список всех материалов с возможностью фильтрации, сортировки и пагинации. Поддерживает поиск по названию и коду материала.'
+        description: 'Возвращает список всех материалов с возможностью фильтрации, сортировки и пагинации. Поддерживает поиск по названию и коду материала.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -154,15 +154,15 @@ __decorate([
                                 type: 'object',
                                 properties: {
                                     id: { type: 'number', example: 1 },
-                                    name: { type: 'string', example: 'Выключатели' }
-                                }
-                            }
-                        }
-                    }
+                                    name: { type: 'string', example: 'Выключатели' },
+                                },
+                            },
+                        },
+                    },
                 },
-                total: { type: 'number', example: 150 }
-            }
-        }
+                total: { type: 'number', example: 150 },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
     __param(0, (0, common_2.Query)('page')),
@@ -179,7 +179,7 @@ __decorate([
     (0, common_1.Get)('history'),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить историю изменений материалов с фильтрацией',
-        description: 'Возвращает историю изменений материалов с возможностью фильтрации по материалу, полю, пользователю, дате и поиска. Поддерживает пагинацию.'
+        description: 'Возвращает историю изменений материалов с возможностью фильтрации по материалу, полю, пользователю, дате и поиска. Поддерживает пагинацию.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -206,24 +206,64 @@ __decorate([
                                     code: { type: 'string' },
                                     unit: { type: 'string' },
                                     price: { type: 'number' },
-                                    category: { type: 'object' }
-                                }
-                            }
-                        }
-                    }
+                                    category: { type: 'object' },
+                                },
+                            },
+                        },
+                    },
                 },
-                total: { type: 'number', description: 'Общее количество записей' }
-            }
-        }
+                total: { type: 'number', description: 'Общее количество записей' },
+            },
+        },
     }),
-    (0, swagger_1.ApiQuery)({ name: 'page', required: false, type: Number, description: 'Номер страницы (по умолчанию: 1)' }),
-    (0, swagger_1.ApiQuery)({ name: 'limit', required: false, type: Number, description: 'Количество записей на странице (по умолчанию: 50)' }),
-    (0, swagger_1.ApiQuery)({ name: 'materialId', required: false, type: Number, description: 'Фильтр по ID материала' }),
-    (0, swagger_1.ApiQuery)({ name: 'fieldChanged', required: false, type: String, description: 'Фильтр по измененному полю (name, price, category, unit)' }),
-    (0, swagger_1.ApiQuery)({ name: 'changedBy', required: false, type: String, description: 'Фильтр по имени пользователя (частичное совпадение)' }),
-    (0, swagger_1.ApiQuery)({ name: 'dateFrom', required: false, type: String, description: 'Фильтр по дате начала (формат: YYYY-MM-DD или ISO)' }),
-    (0, swagger_1.ApiQuery)({ name: 'dateTo', required: false, type: String, description: 'Фильтр по дате конца (формат: YYYY-MM-DD или ISO)' }),
-    (0, swagger_1.ApiQuery)({ name: 'search', required: false, type: String, description: 'Поиск по названию или коду материала' }),
+    (0, swagger_1.ApiQuery)({
+        name: 'page',
+        required: false,
+        type: Number,
+        description: 'Номер страницы (по умолчанию: 1)',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'limit',
+        required: false,
+        type: Number,
+        description: 'Количество записей на странице (по умолчанию: 50)',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'materialId',
+        required: false,
+        type: Number,
+        description: 'Фильтр по ID материала',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'fieldChanged',
+        required: false,
+        type: String,
+        description: 'Фильтр по измененному полю (name, price, category, unit)',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'changedBy',
+        required: false,
+        type: String,
+        description: 'Фильтр по имени пользователя (частичное совпадение)',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'dateFrom',
+        required: false,
+        type: String,
+        description: 'Фильтр по дате начала (формат: YYYY-MM-DD или ISO)',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'dateTo',
+        required: false,
+        type: String,
+        description: 'Фильтр по дате конца (формат: YYYY-MM-DD или ISO)',
+    }),
+    (0, swagger_1.ApiQuery)({
+        name: 'search',
+        required: false,
+        type: String,
+        description: 'Поиск по названию или коду материала',
+    }),
     __param(0, (0, common_2.Query)('page')),
     __param(1, (0, common_2.Query)('limit')),
     __param(2, (0, common_2.Query)('materialId')),
@@ -240,7 +280,7 @@ __decorate([
     (0, common_1.Get)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить материал по ID',
-        description: 'Возвращает детальную информацию о конкретном материале по его уникальному идентификатору.'
+        description: 'Возвращает детальную информацию о конкретном материале по его уникальному идентификатору.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -257,13 +297,13 @@ __decorate([
                     type: 'object',
                     properties: {
                         id: { type: 'number', example: 1 },
-                        name: { type: 'string', example: 'Выключатели' }
-                    }
+                        name: { type: 'string', example: 'Выключатели' },
+                    },
                 },
                 createdAt: { type: 'string', format: 'date-time' },
-                updatedAt: { type: 'string', format: 'date-time' }
-            }
-        }
+                updatedAt: { type: 'string', format: 'date-time' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Материал не найден' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -276,7 +316,7 @@ __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Обновить материал',
-        description: 'Обновляет существующий материал и автоматически сохраняет историю всех изменений для аудита.'
+        description: 'Обновляет существующий материал и автоматически сохраняет историю всех изменений для аудита.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -293,12 +333,12 @@ __decorate([
                     type: 'object',
                     properties: {
                         id: { type: 'number', example: 1 },
-                        name: { type: 'string', example: 'Выключатели' }
-                    }
+                        name: { type: 'string', example: 'Выключатели' },
+                    },
                 },
-                updatedAt: { type: 'string', format: 'date-time' }
-            }
-        }
+                updatedAt: { type: 'string', format: 'date-time' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Материал не найден' }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Некорректные данные' }),
@@ -314,7 +354,7 @@ __decorate([
     (0, common_1.Get)(':id/history'),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить историю изменений конкретного материала',
-        description: 'Возвращает полную историю всех изменений конкретного материала, включая информацию о том, кто и когда вносил изменения.'
+        description: 'Возвращает полную историю всех изменений конкретного материала, включая информацию о том, кто и когда вносил изменения.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -334,12 +374,12 @@ __decorate([
                         type: 'object',
                         properties: {
                             id: { type: 'number', example: 1 },
-                            name: { type: 'string', example: 'Вакуумный выключатель AV-24 1250A' }
-                        }
-                    }
-                }
-            }
-        }
+                            name: { type: 'string', example: 'Вакуумный выключатель AV-24 1250A' },
+                        },
+                    },
+                },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Материал не найден' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -352,7 +392,7 @@ __decorate([
     (0, common_1.Delete)(':id'),
     (0, swagger_1.ApiOperation)({
         summary: 'Удалить материал',
-        description: 'Безвозвратно удаляет материал из системы. Внимание: данная операция необратима!'
+        description: 'Безвозвратно удаляет материал из системы. Внимание: данная операция необратима!',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -360,9 +400,9 @@ __decorate([
         schema: {
             type: 'object',
             properties: {
-                message: { type: 'string', example: 'Материал успешно удален' }
-            }
-        }
+                message: { type: 'string', example: 'Материал успешно удален' },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Материал не найден' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),

@@ -35,12 +35,12 @@ exports.AppDataSource = new typeorm_1.DataSource({
         transformer_entity_1.Transformer,
         bmz_settings_entity_1.BmzSettings,
         switchgear_config_entity_1.SwitchgearConfig,
-        audit_log_entity_1.AuditLog
+        audit_log_entity_1.AuditLog,
     ],
     migrations: [__dirname + '/migrations/*{.ts,.js}'],
     synchronize: false,
     ssl: {
-        rejectUnauthorized: false
-    }
+        rejectUnauthorized: false,
+    },
 });
 //# sourceMappingURL=data-source.js.map

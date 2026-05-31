@@ -62,7 +62,7 @@ export class SwitchgearController {
   findAll(
     @Query('type') type?: string,
     @Query('amperage') amperage?: number,
-    @Query('group') group?: string,
+    @Query('group') group?: string
   ) {
     return this.switchgearService.findAll({ type, amperage, group });
   }
@@ -92,7 +92,7 @@ export class SwitchgearController {
   @ApiResponse({ status: 404, description: 'Конфигурация не найдена' })
   update(
     @Param('id', ParseIntPipe) id: number,
-    @Body() updateSwitchgearConfigDto: CreateSwitchgearConfigDto,
+    @Body() updateSwitchgearConfigDto: CreateSwitchgearConfigDto
   ) {
     return this.switchgearService.update(id, updateSwitchgearConfigDto);
   }

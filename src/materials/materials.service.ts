@@ -21,8 +21,8 @@ export class MaterialsService {
     @InjectRepository(Calculation)
     private readonly calculationRepo: Repository<Calculation>,
     private readonly currencySettingsService: CurrencySettingsService,
-    private readonly auditLogsService: AuditLogsService,
-  ) { }
+    private readonly auditLogsService: AuditLogsService
+  ) {}
 
   private async logAudit(entry: {
     entityId?: string | number;
@@ -84,14 +84,16 @@ export class MaterialsService {
     return amount * rate;
   }
 
-  private async enrichMaterialWithCurrentPrice(material: Material): Promise<Material & { currentPriceKzt: number }> {
+  private async enrichMaterialWithCurrentPrice(
+    material: Material
+  ): Promise<Material & { currentPriceKzt: number }> {
     const settings = await this.currencySettingsService.getSettings();
     const currentPriceKzt = Number(
       this.convertToKzt(
         this.toNumber(material.priceInCurrency ?? material.price),
         material.currency || 'KZT',
-        settings,
-      ).toFixed(2),
+        settings
+      ).toFixed(2)
     );
 
     material.price = currentPriceKzt;
@@ -99,7 +101,9 @@ export class MaterialsService {
     return Object.assign(material, { currentPriceKzt });
   }
 
-  private async enrichMaterialsWithCurrentPrices(materials: Material[]): Promise<Array<Material & { currentPriceKzt: number }>> {
+  private async enrichMaterialsWithCurrentPrices(
+    materials: Material[]
+  ): Promise<Array<Material & { currentPriceKzt: number }>> {
     const settings = await this.currencySettingsService.getSettings();
 
     return materials.map((material) => {
@@ -107,8 +111,8 @@ export class MaterialsService {
         this.convertToKzt(
           this.toNumber(material.priceInCurrency ?? material.price),
           material.currency || 'KZT',
-          settings,
-        ).toFixed(2),
+          settings
+        ).toFixed(2)
       );
 
       material.price = currentPriceKzt;
@@ -116,7 +120,11 @@ export class MaterialsService {
     });
   }
 
-  private updateCalculationDataPriceByMaterialId(data: any, materialId: number, newPrice: number): any {
+  private updateCalculationDataPriceByMaterialId(
+    data: any,
+    materialId: number,
+    newPrice: number
+  ): any {
     if (!data || typeof data !== 'object') {
       return data;
     }
@@ -146,7 +154,9 @@ export class MaterialsService {
       Object.keys(materials).forEach((key) => {
         const value = materials[key];
         if (Array.isArray(value)) {
-          materials[key] = value.map((item) => (item?.id === materialId ? { ...item, price: newPrice } : item));
+          materials[key] = value.map((item) =>
+            item?.id === materialId ? { ...item, price: newPrice } : item
+          );
           return;
         }
 
@@ -164,7 +174,10 @@ export class MaterialsService {
     return nextData;
   }
 
-  private async syncMaterialPriceInCalculations(materialId: number, priceKzt: number): Promise<void> {
+  private async syncMaterialPriceInCalculations(
+    materialId: number,
+    priceKzt: number
+  ): Promise<void> {
     const calculations = await this.calculationRepo.find();
     if (!calculations.length) {
       return;
@@ -172,7 +185,11 @@ export class MaterialsService {
 
     const updates: Calculation[] = [];
     for (const calc of calculations) {
-      const updatedData = this.updateCalculationDataPriceByMaterialId(calc.data, materialId, priceKzt);
+      const updatedData = this.updateCalculationDataPriceByMaterialId(
+        calc.data,
+        materialId,
+        priceKzt
+      );
       if (JSON.stringify(updatedData) !== JSON.stringify(calc.data)) {
         calc.data = updatedData;
         updates.push(calc);
@@ -184,7 +201,10 @@ export class MaterialsService {
     }
   }
 
-  async create(dto: CreateMaterialDto, changedBy?: string): Promise<Material & { currentPriceKzt: number }> {
+  async create(
+    dto: CreateMaterialDto,
+    changedBy?: string
+  ): Promise<Material & { currentPriceKzt: number }> {
     let category: Category | undefined;
 
     if (dto.categoryId) {
@@ -201,7 +221,9 @@ export class MaterialsService {
     const currency = (dto.currency || 'KZT').toUpperCase();
     const priceInCurrency = dto.priceInCurrency ?? dto.price ?? 0;
     const rateAtCreation = this.getRateByCurrency(settings, currency);
-    const priceKztAtCreation = Number(this.convertToKzt(priceInCurrency, currency, settings).toFixed(2));
+    const priceKztAtCreation = Number(
+      this.convertToKzt(priceInCurrency, currency, settings).toFixed(2)
+    );
 
     const material = new Material();
     material.name = dto.name;
@@ -228,7 +250,6 @@ export class MaterialsService {
     return this.enrichMaterialWithCurrentPrice(saved);
   }
 
-
   async findAll(query: {
     page?: number;
     limit?: number;
@@ -237,14 +258,7 @@ export class MaterialsService {
     order?: 'ASC' | 'DESC';
     categoryId?: number;
   }): Promise<{ data: Array<Material & { currentPriceKzt: number }>; total: number }> {
-    const {
-      page = 1,
-      limit = 50,
-      search,
-      sort = 'name',
-      order = 'ASC',
-      categoryId,
-    } = query;
+    const { page = 1, limit = 50, search, sort = 'name', order = 'ASC', categoryId } = query;
 
     const queryBuilder = this.materialRepo
       .createQueryBuilder('material')
@@ -302,7 +316,10 @@ export class MaterialsService {
     return this.enrichMaterialWithCurrentPrice(material);
   }
 
-  async createMany(dtos: CreateMaterialDto[], changedBy?: string): Promise<Array<Material & { currentPriceKzt: number }>> {
+  async createMany(
+    dtos: CreateMaterialDto[],
+    changedBy?: string
+  ): Promise<Array<Material & { currentPriceKzt: number }>> {
     const results: Material[] = [];
     const batchSize = 100; // Размер пакета для вставки
     let currentBatch: Material[] = [];
@@ -321,13 +338,16 @@ export class MaterialsService {
       material.name = dto.name || 'Без названия';
       material.unit = dto.unit || 'шт';
       const currency = (dto.currency || 'KZT').toUpperCase();
-      const priceInCurrency = typeof dto.priceInCurrency === 'number'
-        ? dto.priceInCurrency
-        : typeof dto.price === 'number' && !isNaN(dto.price)
-          ? dto.price
-          : 0;
+      const priceInCurrency =
+        typeof dto.priceInCurrency === 'number'
+          ? dto.priceInCurrency
+          : typeof dto.price === 'number' && !isNaN(dto.price)
+            ? dto.price
+            : 0;
       const rateAtCreation = this.getRateByCurrency(settings, currency);
-      const priceKztAtCreation = Number(this.convertToKzt(priceInCurrency, currency, settings).toFixed(2));
+      const priceKztAtCreation = Number(
+        this.convertToKzt(priceInCurrency, currency, settings).toFixed(2)
+      );
 
       material.currency = currency;
       material.priceInCurrency = priceInCurrency;
@@ -370,17 +390,18 @@ export class MaterialsService {
     return this.enrichMaterialsWithCurrentPrices(results);
   }
 
-  async update(id: number, dto: UpdateMaterialDto, changedBy?: string): Promise<Material & { currentPriceKzt: number }> {
+  async update(
+    id: number,
+    dto: UpdateMaterialDto,
+    changedBy?: string
+  ): Promise<Material & { currentPriceKzt: number }> {
     const material = await this.findOne(id);
     const settings = await this.currencySettingsService.getSettings();
 
     const fieldsToCheck: (keyof UpdateMaterialDto)[] = ['name', 'unit'];
 
     for (const field of fieldsToCheck) {
-      if (
-        dto[field] !== undefined &&
-        String(dto[field]) !== String(material[field])
-      ) {
+      if (dto[field] !== undefined && String(dto[field]) !== String(material[field])) {
         await this.historyRepo.save({
           material,
           fieldChanged: field,
@@ -419,7 +440,10 @@ export class MaterialsService {
       material.currency = dto.currency.toUpperCase();
     }
 
-    if (dto.priceInCurrency !== undefined && String(dto.priceInCurrency) !== String(material.priceInCurrency)) {
+    if (
+      dto.priceInCurrency !== undefined &&
+      String(dto.priceInCurrency) !== String(material.priceInCurrency)
+    ) {
       await this.historyRepo.save({
         material,
         fieldChanged: 'priceInCurrency',
@@ -455,7 +479,9 @@ export class MaterialsService {
       material.priceInCurrency = dto.price;
     }
 
-    material.price = Number(this.convertToKzt(material.priceInCurrency, material.currency, settings).toFixed(2));
+    material.price = Number(
+      this.convertToKzt(material.priceInCurrency, material.currency, settings).toFixed(2)
+    );
 
     // Обновление категории
     if (dto.categoryId) {
@@ -496,7 +522,7 @@ export class MaterialsService {
   async getHistory(id: number): Promise<MaterialHistory[]> {
     return this.historyRepo.find({
       where: { material: { id } }, // 👈 сравнение по ID
-      relations: ['material'],     // если нужно подгрузить сам материал
+      relations: ['material'], // если нужно подгрузить сам материал
       order: { changedAt: 'DESC' },
     });
   }
@@ -522,7 +548,8 @@ export class MaterialsService {
       search,
     } = query;
 
-    const queryBuilder = this.historyRepo.createQueryBuilder('history')
+    const queryBuilder = this.historyRepo
+      .createQueryBuilder('history')
       .leftJoinAndSelect('history.material', 'material')
       .leftJoinAndSelect('material.category', 'category')
       .orderBy('history.changedAt', 'DESC');
@@ -539,8 +566,8 @@ export class MaterialsService {
 
     // Фильтр по пользователю (регистронезависимый поиск)
     if (changedBy) {
-      queryBuilder.andWhere('LOWER(history.changedBy) LIKE LOWER(:changedBy)', { 
-        changedBy: `%${changedBy}%` 
+      queryBuilder.andWhere('LOWER(history.changedBy) LIKE LOWER(:changedBy)', {
+        changedBy: `%${changedBy}%`,
       });
     }
 
@@ -548,8 +575,8 @@ export class MaterialsService {
     if (dateFrom) {
       const fromDate = new Date(dateFrom);
       fromDate.setHours(0, 0, 0, 0); // Устанавливаем начало дня
-      queryBuilder.andWhere('history.changedAt >= :dateFrom', { 
-        dateFrom: fromDate
+      queryBuilder.andWhere('history.changedAt >= :dateFrom', {
+        dateFrom: fromDate,
       });
     }
 
@@ -593,5 +620,4 @@ export class MaterialsService {
     });
     await this.materialRepo.remove(material);
   }
-
 }

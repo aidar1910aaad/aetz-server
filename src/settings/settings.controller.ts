@@ -13,77 +13,79 @@ import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagg
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('settings')
 export class SettingsController {
-    constructor(private readonly settingsService: SettingsService) { }
+  constructor(private readonly settingsService: SettingsService) {}
 
-    @Get()
-    @ApiOperation({
-        summary: 'Получить текущие настройки',
-        description: 'Возвращает единственную запись настроек из базы данных'
-    })
-    @ApiResponse({
-        status: 200,
-        description: 'Возвращает текущие настройки',
-        type: Setting
-    })
-    @ApiResponse({
-        status: 401,
-        description: 'Требуется авторизация'
-    })
-    @ApiResponse({
-        status: 404,
-        description: 'Настройки не найдены'
-    })
-    async getSettings() {
-        return this.settingsService.getSettings();
-    }
+  @Get()
+  @ApiOperation({
+    summary: 'Получить текущие настройки',
+    description: 'Возвращает единственную запись настроек из базы данных',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Возвращает текущие настройки',
+    type: Setting,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Требуется авторизация',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Настройки не найдены',
+  })
+  async getSettings() {
+    return this.settingsService.getSettings();
+  }
 
-    @Post()
-    @Roles(UserRole.ADMIN)
-    @ApiOperation({
-        summary: 'Создать начальные настройки',
-        description: 'Создает первую запись настроек. Этот метод можно использовать только один раз при первой инициализации.'
-    })
-    @ApiResponse({
-        status: 201,
-        description: 'Настройки успешно созданы',
-        type: Setting
-    })
-    @ApiResponse({
-        status: 401,
-        description: 'Требуется авторизация'
-    })
-    @ApiResponse({
-        status: 403,
-        description: 'Доступ запрещен. Требуются права администратора'
-    })
-    async create(@Body() createSettingDto: CreateSettingDto) {
-        return this.settingsService.create(createSettingDto);
-    }
+  @Post()
+  @Roles(UserRole.ADMIN)
+  @ApiOperation({
+    summary: 'Создать начальные настройки',
+    description:
+      'Создает первую запись настроек. Этот метод можно использовать только один раз при первой инициализации.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Настройки успешно созданы',
+    type: Setting,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Требуется авторизация',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Доступ запрещен. Требуются права администратора',
+  })
+  async create(@Body() createSettingDto: CreateSettingDto) {
+    return this.settingsService.create(createSettingDto);
+  }
 
-    @Put()
-    @Roles(UserRole.ADMIN, UserRole.PTO)
-    @ApiOperation({
-        summary: 'Обновить текущие настройки',
-        description: 'Обновляет существующие настройки. Можно отправить только те секции, которые нужно обновить. Остальные останутся без изменений.'
-    })
-    @ApiResponse({
-        status: 200,
-        description: 'Настройки успешно обновлены',
-        type: Setting
-    })
-    @ApiResponse({
-        status: 401,
-        description: 'Требуется авторизация'
-    })
-    @ApiResponse({
-        status: 403,
-        description: 'Доступ запрещен. Требуются права администратора или PTO'
-    })
-    @ApiResponse({
-        status: 404,
-        description: 'Настройки не найдены'
-    })
-    async update(@Body() updateSettingDto: CreateSettingDto) {
-        return this.settingsService.update(updateSettingDto);
-    }
-} 
+  @Put()
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({
+    summary: 'Обновить текущие настройки',
+    description:
+      'Обновляет существующие настройки. Можно отправить только те секции, которые нужно обновить. Остальные останутся без изменений.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Настройки успешно обновлены',
+    type: Setting,
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Требуется авторизация',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Доступ запрещен. Требуются права администратора или PTO',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Настройки не найдены',
+  })
+  async update(@Body() updateSettingDto: CreateSettingDto) {
+    return this.settingsService.update(updateSettingDto);
+  }
+}

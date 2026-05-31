@@ -17,6 +17,8 @@ const common_1 = require("@nestjs/common");
 const bids_service_1 = require("./bids.service");
 const create_bid_dto_1 = require("./dto/create-bid.dto");
 const update_bid_dto_1 = require("./dto/update-bid.dto");
+const clone_reprice_bid_dto_1 = require("./dto/clone-reprice-bid.dto");
+const calculate_bid_dto_1 = require("./dto/calculate-bid.dto");
 const swagger_1 = require("@nestjs/swagger");
 const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
 const roles_guard_1 = require("../auth/guards/roles.guard");
@@ -29,6 +31,9 @@ let BidsController = class BidsController {
     }
     create(createBidDto) {
         return this.bidsService.create(createBidDto);
+    }
+    calculateDraft(dto) {
+        return this.bidsService.calculateDraft(dto);
     }
     findAll(userId) {
         if (userId) {
@@ -45,6 +50,12 @@ let BidsController = class BidsController {
     update(id, updateBidDto) {
         return this.bidsService.update(id, updateBidDto);
     }
+    cloneReprice(id, dto) {
+        if (process.env.ENABLE_BID_CLONE_REPRICE === 'false') {
+            throw new common_1.NotFoundException('Маршрут clone-reprice временно отключен');
+        }
+        return this.bidsService.cloneWithReprice(id, dto);
+    }
     remove(id) {
         return this.bidsService.remove(id);
     }
@@ -55,7 +66,7 @@ __decorate([
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
     (0, swagger_1.ApiOperation)({
         summary: 'Создать новую заявку',
-        description: 'Доступно для: Администратор, ПТО, Менеджер. Создает заявку с автоматической генерацией номера.'
+        description: 'Доступно для: Администратор, ПТО, Менеджер. Создает заявку с автоматической генерацией номера.',
     }),
     (0, swagger_1.ApiBody)({
         type: create_bid_dto_1.CreateBidDto,
@@ -73,7 +84,7 @@ __decorate([
                         id: 4,
                         username: 'aidarr',
                         firstName: 'Айдар',
-                        lastName: 'Айдарович'
+                        lastName: 'Айдарович',
                     },
                     data: {
                         bmz: {
@@ -82,45 +93,46 @@ __decorate([
                             width: 6000,
                             height: 3000,
                             thickness: 100,
-                            total: 1500000
+                            total: 1500000,
                         },
                         transformer: {
                             selected: { id: 1, model: 'ТСЛ-1250/20', price: 19026000 },
-                            total: 19026000
+                            total: 19026000,
                         },
                         rusn: {
                             cellConfigs: [
-                                { type: '0.4kv', materials: { switch: { id: 1, name: 'Выключатель', price: 50000 } } }
+                                {
+                                    type: '0.4kv',
+                                    materials: { switch: { id: 1, name: 'Выключатель', price: 50000 } },
+                                },
                             ],
                             busbarSummary: { total: 100000 },
-                            total: 150000
+                            total: 150000,
                         },
                         runn: {
-                            cellSummaries: [
-                                { type: '10kv', quantity: 2, total: 500000 }
-                            ],
-                            total: 9088368.92
+                            cellSummaries: [{ type: '10kv', quantity: 2, total: 500000 }],
+                            total: 9088368.92,
                         },
                         additionalEquipment: {
                             selected: { id: 1, name: 'Вентиляция' },
                             equipmentList: [
                                 { id: 1, name: 'Вентиляция', price: 50000 },
-                                { id: 2, name: 'Утепление', price: 30000 }
+                                { id: 2, name: 'Утепление', price: 30000 },
                             ],
-                            total: 80000
+                            total: 80000,
                         },
                         works: {
                             selected: { id: 1, name: 'Монтаж' },
                             worksList: [
                                 { id: 1, name: 'Монтаж БМЗ', price: 500000 },
-                                { id: 2, name: 'Монтаж трансформатора', price: 300000 }
+                                { id: 2, name: 'Монтаж трансформатора', price: 300000 },
                             ],
-                            total: 1865410
-                        }
-                    }
-                }
-            }
-        }
+                            total: 1865410,
+                        },
+                    },
+                },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({
         status: 201,
@@ -129,7 +141,7 @@ __decorate([
         schema: {
             example: {
                 id: 1,
-                bidNumber: 'BID-2024-001',
+                bidNumber: 'AETZ – 2026 – 1',
                 type: 'БКТП',
                 date: '2025-09-17',
                 client: 'фывафыва',
@@ -142,47 +154,48 @@ __decorate([
                         width: 6000,
                         height: 3000,
                         thickness: 100,
-                        total: 1500000
+                        total: 1500000,
                     },
                     transformer: {
                         selected: { id: 1, model: 'ТСЛ-1250/20', price: 19026000 },
-                        total: 19026000
+                        total: 19026000,
                     },
                     rusn: {
                         cellConfigs: [
-                            { type: '0.4kv', materials: { switch: { id: 1, name: 'Выключатель', price: 50000 } } }
+                            {
+                                type: '0.4kv',
+                                materials: { switch: { id: 1, name: 'Выключатель', price: 50000 } },
+                            },
                         ],
                         busbarSummary: { total: 100000 },
-                        total: 150000
+                        total: 150000,
                     },
                     runn: {
-                        cellSummaries: [
-                            { type: '10kv', quantity: 2, total: 500000 }
-                        ],
-                        total: 9088368.92
+                        cellSummaries: [{ type: '10kv', quantity: 2, total: 500000 }],
+                        total: 9088368.92,
                     },
                     additionalEquipment: {
                         selected: { id: 1, name: 'Вентиляция' },
                         equipmentList: [
                             { id: 1, name: 'Вентиляция', price: 50000 },
-                            { id: 2, name: 'Утепление', price: 30000 }
+                            { id: 2, name: 'Утепление', price: 30000 },
                         ],
-                        total: 80000
+                        total: 80000,
                     },
                     works: {
                         selected: { id: 1, name: 'Монтаж' },
                         worksList: [
                             { id: 1, name: 'Монтаж БМЗ', price: 500000 },
-                            { id: 2, name: 'Монтаж трансформатора', price: 300000 }
+                            { id: 2, name: 'Монтаж трансформатора', price: 300000 },
                         ],
-                        total: 1865410
-                    }
+                        total: 1865410,
+                    },
                 },
                 user: { id: 4, username: 'aidarr', firstName: 'Айдар', lastName: 'Айдарович' },
                 createdAt: '2024-09-17T10:00:00Z',
-                updatedAt: '2024-09-17T10:00:00Z'
-            }
-        }
+                updatedAt: '2024-09-17T10:00:00Z',
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Неверные данные' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -193,22 +206,40 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BidsController.prototype, "create", null);
 __decorate([
+    (0, common_1.Post)('calculate'),
+    (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Онлайн пересчет черновика заявки',
+        description: 'Возвращает актуальные расчеты для текущей конфигурации без сохранения заявки в БД',
+    }),
+    (0, swagger_1.ApiBody)({ type: calculate_bid_dto_1.CalculateBidDto }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Черновик заявки успешно пересчитан',
+        type: calculate_bid_dto_1.CalculateBidResponseDto,
+    }),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [calculate_bid_dto_1.CalculateBidDto]),
+    __metadata("design:returntype", void 0)
+], BidsController.prototype, "calculateDraft", null);
+__decorate([
     (0, common_1.Get)(),
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить все заявки',
-        description: 'Доступно для: Администратор, ПТО, Менеджер. Можно фильтровать по пользователю.'
+        description: 'Доступно для: Администратор, ПТО, Менеджер. Можно фильтровать по пользователю.',
     }),
     (0, swagger_1.ApiQuery)({
         name: 'userId',
         required: false,
         description: 'Фильтр по ID пользователя',
-        example: 4
+        example: 4,
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Список заявок',
-        type: [bid_entity_1.Bid]
+        type: [bid_entity_1.Bid],
     }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
     (0, swagger_1.ApiResponse)({ status: 403, description: 'Недостаточно прав' }),
@@ -222,18 +253,18 @@ __decorate([
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить заявку по ID',
-        description: 'Доступно для: Администратор, ПТО, Менеджер'
+        description: 'Доступно для: Администратор, ПТО, Менеджер',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: 'number',
         description: 'ID заявки',
-        example: 1
+        example: 1,
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Заявка найдена',
-        type: bid_entity_1.Bid
+        type: bid_entity_1.Bid,
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Заявка не найдена' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -248,18 +279,18 @@ __decorate([
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить заявку по номеру',
-        description: 'Доступно для: Администратор, ПТО, Менеджер'
+        description: 'Доступно для: Администратор, ПТО, Менеджер',
     }),
     (0, swagger_1.ApiParam)({
         name: 'bidNumber',
         type: 'string',
         description: 'Номер заявки',
-        example: 'BID-2024-001'
+        example: 'AETZ – 2026 – 1',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Заявка найдена',
-        type: bid_entity_1.Bid
+        type: bid_entity_1.Bid,
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Заявка не найдена' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
@@ -274,13 +305,13 @@ __decorate([
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
     (0, swagger_1.ApiOperation)({
         summary: 'Обновить заявку',
-        description: 'Доступно для: Администратор, ПТО, Менеджер. Можно обновить любые поля частично.'
+        description: 'Доступно для: Администратор, ПТО, Менеджер. Можно обновить любые поля частично.',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: 'number',
         description: 'ID заявки',
-        example: 1
+        example: 1,
     }),
     (0, swagger_1.ApiBody)({
         type: update_bid_dto_1.UpdateBidDto,
@@ -289,8 +320,8 @@ __decorate([
             'Обновление клиента': {
                 summary: 'Обновить только клиента',
                 value: {
-                    client: 'Новое название клиента'
-                }
+                    client: 'Новое название клиента',
+                },
             },
             'Обновление данных': {
                 summary: 'Обновить данные заявки',
@@ -302,17 +333,17 @@ __decorate([
                             width: 7000,
                             height: 3500,
                             thickness: 120,
-                            total: 2000000
-                        }
-                    }
-                }
-            }
-        }
+                            total: 2000000,
+                        },
+                    },
+                },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
         description: 'Заявка успешно обновлена',
-        type: bid_entity_1.Bid
+        type: bid_entity_1.Bid,
     }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Заявка не найдена' }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Неверные данные' }),
@@ -325,18 +356,43 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BidsController.prototype, "update", null);
 __decorate([
+    (0, common_1.Post)(':id/clone-reprice'),
+    (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
+    (0, swagger_1.ApiOperation)({
+        summary: 'Создать новую заявку из существующей с пересчетом по актуальным ценам',
+        description: 'Клонирует исходную заявку и пересчитывает цены/итоги на сервере',
+    }),
+    (0, swagger_1.ApiParam)({
+        name: 'id',
+        type: 'number',
+        description: 'ID исходной заявки',
+        example: 1,
+    }),
+    (0, swagger_1.ApiBody)({ type: clone_reprice_bid_dto_1.CloneRepriceBidDto }),
+    (0, swagger_1.ApiResponse)({
+        status: 201,
+        description: 'Новая заявка после пересчета успешно создана',
+        type: clone_reprice_bid_dto_1.CloneRepriceBidResponseDto,
+    }),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, clone_reprice_bid_dto_1.CloneRepriceBidDto]),
+    __metadata("design:returntype", void 0)
+], BidsController.prototype, "cloneReprice", null);
+__decorate([
     (0, common_1.Delete)(':id'),
     (0, roles_decorator_1.Roles)(user_entity_1.UserRole.ADMIN, user_entity_1.UserRole.PTO, user_entity_1.UserRole.MANAGER),
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     (0, swagger_1.ApiOperation)({
         summary: 'Удалить заявку',
-        description: 'Доступно для: Администратор, ПТО, Менеджер'
+        description: 'Доступно для: Администратор, ПТО, Менеджер',
     }),
     (0, swagger_1.ApiParam)({
         name: 'id',
         type: 'number',
         description: 'ID заявки',
-        example: 1
+        example: 1,
     }),
     (0, swagger_1.ApiResponse)({ status: 204, description: 'Заявка успешно удалена' }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Заявка не найдена' }),

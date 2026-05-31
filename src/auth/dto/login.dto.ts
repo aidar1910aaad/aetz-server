@@ -6,7 +6,7 @@ export class LoginDto {
     description: 'Имя пользователя',
     example: 'admin',
     minLength: 3,
-    maxLength: 50
+    maxLength: 50,
   })
   @IsString()
   @IsNotEmpty()
@@ -16,7 +16,7 @@ export class LoginDto {
     description: 'Пароль пользователя',
     example: 'admin123',
     minLength: 6,
-    maxLength: 50
+    maxLength: 50,
   })
   @IsString()
   @IsNotEmpty()

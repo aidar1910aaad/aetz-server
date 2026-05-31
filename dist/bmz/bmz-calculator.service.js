@@ -30,8 +30,8 @@ let BmzCalculatorService = class BmzCalculatorService {
             where: {
                 isActive: true,
                 minArea: (0, typeorm_2.LessThanOrEqual)(params.area),
-                maxArea: (0, typeorm_2.MoreThanOrEqual)(params.area)
-            }
+                maxArea: (0, typeorm_2.MoreThanOrEqual)(params.area),
+            },
         });
         if (!areaPrice) {
             throw new common_1.NotFoundException('Не найдена цена для указанной площади');
@@ -40,8 +40,8 @@ let BmzCalculatorService = class BmzCalculatorService {
             where: {
                 isActive: true,
                 minThickness: (0, typeorm_2.LessThanOrEqual)(params.wallThickness),
-                maxThickness: (0, typeorm_2.MoreThanOrEqual)(params.wallThickness)
-            }
+                maxThickness: (0, typeorm_2.MoreThanOrEqual)(params.wallThickness),
+            },
         });
         if (!wallThickness) {
             throw new common_1.NotFoundException('Не найдена цена для указанной толщины стен');
@@ -49,15 +49,15 @@ let BmzCalculatorService = class BmzCalculatorService {
         const equipment = await this.equipmentRepository.find({
             where: {
                 id: (0, typeorm_2.In)(params.selectedEquipment),
-                isActive: true
-            }
+                isActive: true,
+            },
         });
         if (equipment.length !== params.selectedEquipment.length) {
             throw new common_1.NotFoundException('Не все выбранное оборудование найдено');
         }
         const basePrice = areaPrice.basePricePerSquareMeter * params.area;
         const wallThicknessPrice = wallThickness.pricePerSquareMeter * params.area;
-        const equipmentDetails = equipment.map(eq => {
+        const equipmentDetails = equipment.map((eq) => {
             let price = 0;
             let description = '';
             switch (eq.priceType) {
@@ -77,7 +77,7 @@ let BmzCalculatorService = class BmzCalculatorService {
             return {
                 name: eq.name,
                 price,
-                description
+                description,
             };
         });
         const totalPrice = basePrice + wallThicknessPrice + equipmentDetails.reduce((sum, eq) => sum + eq.price, 0);
@@ -85,7 +85,7 @@ let BmzCalculatorService = class BmzCalculatorService {
             basePrice,
             wallThicknessPrice,
             equipment: equipmentDetails,
-            totalPrice
+            totalPrice,
         };
     }
 };

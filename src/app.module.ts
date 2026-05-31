@@ -85,7 +85,7 @@ import { WorkPricesSettingsModule } from './work-prices-settings/work-prices-set
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: process.env.JWT_SECRET || 'supersecretkey',
-      signOptions: { 
+      signOptions: {
         expiresIn: process.env.JWT_EXPIRES_IN || '36000s',
         algorithm: 'HS256',
       },

@@ -18,7 +18,7 @@ exports.UpdateBidDto = UpdateBidDto;
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'БКТП',
-        description: 'Тип заявки'
+        description: 'Тип заявки',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -27,7 +27,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: '2025-09-17',
-        description: 'Дата заявки'
+        description: 'Дата заявки',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -36,7 +36,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'фывафыва',
-        description: 'Название клиента'
+        description: 'Название клиента',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -45,7 +45,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'укфыва',
-        description: 'Номер задачи'
+        description: 'Номер задачи',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -54,7 +54,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 52899246.5920094,
-        description: 'Общая сумма заявки'
+        description: 'Общая сумма заявки',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
@@ -62,7 +62,7 @@ __decorate([
 ], UpdateBidDto.prototype, "totalAmount", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
-        description: 'Информация о пользователе'
+        description: 'Информация о пользователе',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsObject)(),
@@ -70,15 +70,15 @@ __decorate([
 ], UpdateBidDto.prototype, "user", void 0);
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
-        description: 'Все данные заявки (гибкая структура)',
+        description: 'Данные заявки. Рекомендуемый v2 формат: data.config + data.snapshot + data.pricingMeta + data.repriceDiff',
         example: {
             bmz: { buildingType: 'bmz', length: 5000, width: 6000 },
             transformer: { selected: {}, total: 19026000 },
             rusn: { cellConfigs: [], total: 0 },
             runn: { cellSummaries: [], total: 0 },
             additionalEquipment: { selected: {}, equipmentList: [], total: 0 },
-            works: { selected: {}, worksList: [], total: 0 }
-        }
+            works: { selected: {}, worksList: [], total: 0 },
+        },
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsObject)(),

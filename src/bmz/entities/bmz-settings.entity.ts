@@ -1,18 +1,24 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('bmz_settings')
 export class BmzSettings {
   @ApiProperty({
     description: 'Уникальный идентификатор настроек',
-    example: 1
+    example: 1,
   })
   @PrimaryGeneratedColumn()
   id: number;
 
   @ApiProperty({
     description: 'Базовая цена за квадратный метр',
-    example: 2000
+    example: 2000,
   })
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   basePricePerSquareMeter: number;
@@ -24,23 +30,29 @@ export class BmzSettings {
       {
         minArea: 0,
         maxArea: 50,
+        minHeight: 0,
+        maxHeight: 2700,
         minWallThickness: 0,
         maxWallThickness: 50,
-        pricePerSquareMeter: 25000
+        pricePerSquareMeter: 25000,
       },
       {
         minArea: 50,
         maxArea: 100,
+        minHeight: 0,
+        maxHeight: 2700,
         minWallThickness: 0,
         maxWallThickness: 50,
-        pricePerSquareMeter: 23000
-      }
-    ]
+        pricePerSquareMeter: 23000,
+      },
+    ],
   })
   @Column('jsonb', { default: [] })
   areaPriceRanges: Array<{
     minArea: number;
     maxArea: number;
+    minHeight: number;
+    maxHeight: number;
     minWallThickness: number;
     maxWallThickness: number;
     pricePerSquareMeter: number;
@@ -54,15 +66,15 @@ export class BmzSettings {
         name: 'Утепление стен',
         priceType: 'perSquareMeter',
         pricePerSquareMeter: 1000,
-        description: 'Дополнительное утепление стен'
+        description: 'Дополнительное утепление стен',
       },
       {
         name: 'Вентиляция',
         priceType: 'fixed',
         fixedPrice: 5000,
-        description: 'Система вентиляции'
-      }
-    ]
+        description: 'Система вентиляции',
+      },
+    ],
   })
   @Column('jsonb', { default: [] })
   equipment: Array<{
@@ -75,20 +87,20 @@ export class BmzSettings {
 
   @ApiProperty({
     description: 'Активны ли настройки',
-    example: true
+    example: true,
   })
   @Column({ default: true })
   isActive: boolean;
 
   @ApiProperty({
-    description: 'Дата создания'
+    description: 'Дата создания',
   })
   @CreateDateColumn()
   createdAt: Date;
 
   @ApiProperty({
-    description: 'Дата обновления'
+    description: 'Дата обновления',
   })
   @UpdateDateColumn()
   updatedAt: Date;
-} 
+}

@@ -17,35 +17,35 @@ exports.CreateAreaPriceDto = CreateAreaPriceDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Минимальная площадь (м²)',
-        example: 0
+        example: 0,
     }),
     __metadata("design:type", Number)
 ], CreateAreaPriceDto.prototype, "minArea", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Максимальная площадь (м²)',
-        example: 100
+        example: 100,
     }),
     __metadata("design:type", Number)
 ], CreateAreaPriceDto.prototype, "maxArea", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Минимальная толщина стен (мм)',
-        example: 0
+        example: 0,
     }),
     __metadata("design:type", Number)
 ], CreateAreaPriceDto.prototype, "minWallThickness", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Максимальная толщина стен (мм)',
-        example: 80
+        example: 80,
     }),
     __metadata("design:type", Number)
 ], CreateAreaPriceDto.prototype, "maxWallThickness", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Базовая цена за квадратный метр',
-        example: 2000
+        example: 2000,
     }),
     __metadata("design:type", Number)
 ], CreateAreaPriceDto.prototype, "basePricePerSquareMeter", void 0);

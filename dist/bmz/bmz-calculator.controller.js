@@ -30,7 +30,7 @@ __decorate([
     (0, common_1.Post)('calculate'),
     (0, swagger_1.ApiOperation)({
         summary: 'Рассчитать стоимость БМЗ',
-        description: 'Рассчитывает стоимость БМЗ на основе площади, толщины стен и выбранного оборудования'
+        description: 'Рассчитывает стоимость БМЗ на основе площади, толщины стен и выбранного оборудования',
     }),
     (0, swagger_1.ApiBody)({
         schema: {
@@ -39,24 +39,24 @@ __decorate([
                 area: {
                     type: 'number',
                     description: 'Площадь помещения в квадратных метрах',
-                    example: 100
+                    example: 100,
                 },
                 wallThickness: {
                     type: 'number',
                     description: 'Толщина стен в миллиметрах',
-                    example: 50
+                    example: 50,
                 },
                 selectedEquipment: {
                     type: 'array',
                     items: {
-                        type: 'number'
+                        type: 'number',
                     },
                     description: 'Массив ID выбранного оборудования',
-                    example: [1, 2, 3]
-                }
+                    example: [1, 2, 3],
+                },
             },
-            required: ['area', 'wallThickness', 'selectedEquipment']
-        }
+            required: ['area', 'wallThickness', 'selectedEquipment'],
+        },
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -66,11 +66,11 @@ __decorate([
             properties: {
                 basePrice: {
                     type: 'number',
-                    description: 'Базовая стоимость за площадь'
+                    description: 'Базовая стоимость за площадь',
                 },
                 wallThicknessPrice: {
                     type: 'number',
-                    description: 'Стоимость за толщину стен'
+                    description: 'Стоимость за толщину стен',
                 },
                 equipment: {
                     type: 'array',
@@ -79,33 +79,33 @@ __decorate([
                         properties: {
                             name: {
                                 type: 'string',
-                                description: 'Название оборудования'
+                                description: 'Название оборудования',
                             },
                             price: {
                                 type: 'number',
-                                description: 'Стоимость оборудования'
+                                description: 'Стоимость оборудования',
                             },
                             description: {
                                 type: 'string',
-                                description: 'Описание расчета стоимости'
-                            }
-                        }
-                    }
+                                description: 'Описание расчета стоимости',
+                            },
+                        },
+                    },
                 },
                 totalPrice: {
                     type: 'number',
-                    description: 'Общая стоимость'
-                }
-            }
-        }
+                    description: 'Общая стоимость',
+                },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({
         status: 400,
-        description: 'Неверные входные данные'
+        description: 'Неверные входные данные',
     }),
     (0, swagger_1.ApiResponse)({
         status: 401,
-        description: 'Не авторизован'
+        description: 'Не авторизован',
     }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

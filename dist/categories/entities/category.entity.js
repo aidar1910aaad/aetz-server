@@ -20,7 +20,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
         description: 'Уникальный идентификатор категории',
-        minimum: 1
+        minimum: 1,
     }),
     (0, typeorm_1.PrimaryColumn)(),
     __metadata("design:type", Number)
@@ -30,7 +30,7 @@ __decorate([
         example: 'Электрооборудование',
         description: 'Название категории (уникальное)',
         minLength: 1,
-        maxLength: 100
+        maxLength: 100,
     }),
     (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
@@ -39,7 +39,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         example: 'ELEC',
         description: 'Уникальный код категории',
-        maxLength: 10
+        maxLength: 10,
     }),
     (0, typeorm_1.Column)({ unique: true, nullable: true }),
     __metadata("design:type", String)
@@ -48,7 +48,7 @@ __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         example: 'Категория для электрооборудования и комплектующих',
         description: 'Подробное описание категории',
-        maxLength: 500
+        maxLength: 500,
     }),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
@@ -56,7 +56,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiPropertyOptional)({
         type: () => [material_entity_1.Material],
-        description: 'Список материалов в данной категории'
+        description: 'Список материалов в данной категории',
     }),
     (0, typeorm_1.OneToMany)(() => material_entity_1.Material, (material) => material.category),
     __metadata("design:type", Array)

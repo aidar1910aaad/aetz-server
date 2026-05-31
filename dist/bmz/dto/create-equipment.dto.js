@@ -18,7 +18,7 @@ exports.CreateEquipmentDto = CreateEquipmentDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Название оборудования',
-        example: 'Утепление стен'
+        example: 'Утепление стен',
     }),
     __metadata("design:type", String)
 ], CreateEquipmentDto.prototype, "name", void 0);
@@ -29,7 +29,7 @@ __decorate([
 - perHalfSquareMeter: цена за полквадратного метра (требуется pricePerSquareMeter)
 - fixed: фиксированная цена (требуется fixedPrice)`,
         enum: bmz_equipment_entity_1.EquipmentPriceType,
-        example: bmz_equipment_entity_1.EquipmentPriceType.PER_SQUARE_METER
+        example: bmz_equipment_entity_1.EquipmentPriceType.PER_SQUARE_METER,
     }),
     __metadata("design:type", String)
 ], CreateEquipmentDto.prototype, "priceType", void 0);
@@ -37,7 +37,7 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Цена за квадратный метр. Обязательно для типов perSquareMeter и perHalfSquareMeter',
         example: 1000,
-        required: false
+        required: false,
     }),
     __metadata("design:type", Number)
 ], CreateEquipmentDto.prototype, "pricePerSquareMeter", void 0);
@@ -45,14 +45,14 @@ __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Фиксированная цена. Обязательно для типа fixed',
         example: 5000,
-        required: false
+        required: false,
     }),
     __metadata("design:type", Number)
 ], CreateEquipmentDto.prototype, "fixedPrice", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         description: 'Описание оборудования',
-        example: 'Дополнительное утепление стен'
+        example: 'Дополнительное утепление стен',
     }),
     __metadata("design:type", String)
 ], CreateEquipmentDto.prototype, "description", void 0);

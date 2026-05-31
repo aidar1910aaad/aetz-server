@@ -10,4 +10,4 @@ import { SwitchgearConfig } from './entities/switchgear-config.entity';
   providers: [SwitchgearService],
   exports: [SwitchgearService],
 })
-export class SwitchgearModule {} 
+export class SwitchgearModule {}

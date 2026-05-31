@@ -2,27 +2,27 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNumber, Min, IsPositive } from 'class-validator';
 
 export class CreateWallThicknessDto {
-  @ApiProperty({ 
+  @ApiProperty({
     example: 0,
-    description: 'Минимальная толщина стены (мм)'
+    description: 'Минимальная толщина стены (мм)',
   })
   @IsNumber()
   @Min(0)
   minThickness: number;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: 80,
-    description: 'Максимальная толщина стены (мм)'
+    description: 'Максимальная толщина стены (мм)',
   })
   @IsNumber()
   @Min(0)
   maxThickness: number;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: 2000,
-    description: 'Дополнительная цена за квадратный метр'
+    description: 'Дополнительная цена за квадратный метр',
   })
   @IsNumber()
   @IsPositive()
   pricePerSquareMeter: number;
-} 
+}

@@ -74,11 +74,11 @@ export class CreateSwitchgearConfigDto {
     example: [
       { name: 'Ввод', quantity: 2 },
       { name: 'СВ', quantity: 1 },
-      { name: 'ОТХ', quantity: 10 }
+      { name: 'ОТХ', quantity: 10 },
     ],
   })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CellDto)
   cells: CellDto[];
-} 
+}

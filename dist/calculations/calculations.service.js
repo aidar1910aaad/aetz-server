@@ -47,6 +47,8 @@ let CalculationsService = class CalculationsService {
                 return this.toNumber(settings.eurRate) || 1;
             case 'RUB':
                 return this.toNumber(settings.rubRate) || 1;
+            case 'CNY':
+                return this.toNumber(settings.cnyRate) || 1;
             case 'KZT':
             default:
                 return this.toNumber(settings.kztRate) || 1;
@@ -65,7 +67,7 @@ let CalculationsService = class CalculationsService {
         }
         const updatedMaterials = { ...cellConfig.materials };
         const singleMaterialTypes = ['switch', 'rza', 'counter', 'sr', 'tsn', 'tn'];
-        singleMaterialTypes.forEach(type => {
+        singleMaterialTypes.forEach((type) => {
             if (updatedMaterials[type] && updatedMaterials[type].id) {
                 const freshPrice = materialsMap.get(updatedMaterials[type].id);
                 if (freshPrice !== undefined) {
@@ -77,7 +79,7 @@ let CalculationsService = class CalculationsService {
             }
         });
         const arrayMaterialTypes = ['tt', 'pu', 'disconnector', 'busbar', 'busbridge'];
-        arrayMaterialTypes.forEach(type => {
+        arrayMaterialTypes.forEach((type) => {
             if (Array.isArray(updatedMaterials[type])) {
                 updatedMaterials[type] = updatedMaterials[type].map((material) => {
                     if (material && material.id) {
@@ -96,6 +98,56 @@ let CalculationsService = class CalculationsService {
         return {
             ...cellConfig,
             materials: updatedMaterials,
+        };
+    }
+    applyCurrentCalculationSettings(calculation, settings) {
+        const current = calculation || {};
+        return {
+            ...current,
+            manufacturingHours: this.toNumber(current.manufacturingHours) || 4,
+            hourlyRate: this.toNumber(settings.hourlyWage) || 2000,
+            overheadPercentage: this.toNumber(settings.productionExpenses) || 10,
+            adminPercentage: this.toNumber(settings.administrativeExpenses) || 15,
+            plannedProfitPercentage: this.toNumber(settings.plannedSavings) || 10,
+            ndsPercentage: this.toNumber(settings.vatRate) || 12,
+        };
+    }
+    patchCalculationData(data, materialsMap, settings) {
+        if (!data)
+            return data;
+        const patchedData = { ...data };
+        if (Array.isArray(patchedData.categories)) {
+            patchedData.categories = patchedData.categories.map((cat) => ({
+                ...cat,
+                items: Array.isArray(cat.items)
+                    ? cat.items.map((item) => {
+                        if (!item.id)
+                            return item;
+                        const freshPrice = materialsMap.get(item.id);
+                        return {
+                            ...item,
+                            price: freshPrice ?? item.price,
+                        };
+                    })
+                    : [],
+            }));
+        }
+        if (patchedData.calculation) {
+            patchedData.calculation = this.applyCurrentCalculationSettings(patchedData.calculation, settings);
+        }
+        if (patchedData.cellConfig) {
+            patchedData.cellConfig = this.updateCellConfigPrices(patchedData.cellConfig, materialsMap);
+        }
+        return patchedData;
+    }
+    async buildMaterialsMapWithSettings() {
+        const [freshMaterials, settings] = await Promise.all([
+            this.materialRepo.find(),
+            this.currencySettingsService.getSettings(),
+        ]);
+        return {
+            settings,
+            materialsMap: new Map(freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)])),
         };
     }
     async createGroup(dto) {
@@ -138,10 +190,15 @@ let CalculationsService = class CalculationsService {
     }
     async getCalculationsByGroupSlug(slug) {
         const group = await this.getGroupBySlug(slug);
-        return this.calcRepo.find({
+        const calculations = await this.calcRepo.find({
             where: { group: { id: group.id } },
             order: { name: 'ASC' },
         });
+        const { materialsMap, settings } = await this.buildMaterialsMapWithSettings();
+        return calculations.map((calc) => ({
+            ...calc,
+            data: this.patchCalculationData(calc.data, materialsMap, settings),
+        }));
     }
     async getCalculation(groupSlug, calcSlug) {
         const group = await this.getGroupBySlug(groupSlug);
@@ -154,33 +211,12 @@ let CalculationsService = class CalculationsService {
         });
         if (!calc)
             throw new common_1.NotFoundException('Калькуляция не найдена');
-        const [freshMaterials, settings] = await Promise.all([
-            this.materialRepo.find(),
-            this.currencySettingsService.getSettings(),
-        ]);
-        const materialsMap = new Map(freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)]));
+        const { materialsMap, settings } = await this.buildMaterialsMapWithSettings();
         if (!calc.data || !Array.isArray(calc.data.categories)) {
             calc.data = { categories: [] };
             return calc;
         }
-        const updatedCategories = calc.data.categories.map((cat) => ({
-            ...cat,
-            items: Array.isArray(cat.items)
-                ? cat.items.map((item) => {
-                    if (!item.id)
-                        return item;
-                    const freshPrice = materialsMap.get(item.id);
-                    return {
-                        ...item,
-                        price: freshPrice ?? item.price,
-                    };
-                })
-                : [],
-        }));
-        calc.data.categories = updatedCategories;
-        if (calc.data.cellConfig) {
-            calc.data.cellConfig = this.updateCellConfigPrices(calc.data.cellConfig, materialsMap);
-        }
+        calc.data = this.patchCalculationData(calc.data, materialsMap, settings);
         return calc;
     }
     async updateCalculation(groupSlug, calcSlug, dto, changedBy) {
@@ -206,31 +242,8 @@ let CalculationsService = class CalculationsService {
         if (dto.data)
             calc.data = dto.data;
         const updatedCalc = await this.calcRepo.save(calc);
-        const [freshMaterials, settings] = await Promise.all([
-            this.materialRepo.find(),
-            this.currencySettingsService.getSettings(),
-        ]);
-        const materialsMap = new Map(freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)]));
-        if (updatedCalc.data && Array.isArray(updatedCalc.data.categories)) {
-            const updatedCategories = updatedCalc.data.categories.map((cat) => ({
-                ...cat,
-                items: Array.isArray(cat.items)
-                    ? cat.items.map((item) => {
-                        if (!item.id)
-                            return item;
-                        const freshPrice = materialsMap.get(item.id);
-                        return {
-                            ...item,
-                            price: freshPrice ?? item.price,
-                        };
-                    })
-                    : [],
-            }));
-            updatedCalc.data.categories = updatedCategories;
-        }
-        if (updatedCalc.data && updatedCalc.data.cellConfig) {
-            updatedCalc.data.cellConfig = this.updateCellConfigPrices(updatedCalc.data.cellConfig, materialsMap);
-        }
+        const { materialsMap, settings } = await this.buildMaterialsMapWithSettings();
+        updatedCalc.data = this.patchCalculationData(updatedCalc.data, materialsMap, settings);
         await this.auditLogsService.log({
             entityType: 'calculation',
             entityId: updatedCalc.id,
@@ -266,10 +279,10 @@ let CalculationsService = class CalculationsService {
         console.log('=== УДАЛЕНИЕ ГРУППЫ ПО ID ===');
         console.log('Запрошенный ID:', id, 'тип:', typeof id);
         const allGroups = await this.groupRepo.find();
-        console.log('Все группы в базе:', allGroups.map(g => `ID:${g.id}, slug:[${g.slug}]`));
+        console.log('Все группы в базе:', allGroups.map((g) => `ID:${g.id}, slug:[${g.slug}]`));
         const group = await this.groupRepo.findOne({
             where: { id },
-            relations: ['calculations']
+            relations: ['calculations'],
         });
         console.log('Результат поиска по ID:', group ? `найдена - id=${group.id}, slug=[${group.slug}]` : 'НЕ НАЙДЕНА');
         if (!group) {
@@ -291,7 +304,7 @@ let CalculationsService = class CalculationsService {
         console.log('=== СЕРВИС: ОБНОВЛЕНИЕ ГРУППЫ ===');
         console.log('Ищем группу по slug:', slug);
         const allGroups = await this.groupRepo.find();
-        console.log('Все группы в базе:', allGroups.map(g => `slug:[${g.slug}], id:${g.id}`));
+        console.log('Все группы в базе:', allGroups.map((g) => `slug:[${g.slug}], id:${g.id}`));
         const group = await this.getGroupBySlug(slug);
         console.log('Найдена группа:', group ? `id=${group.id}, slug=[${group.slug}]` : 'НЕ НАЙДЕНА');
         if (dto.name) {
@@ -305,7 +318,7 @@ let CalculationsService = class CalculationsService {
         console.log('Обновленные данные:', {
             name: group.name,
             slug: group.slug,
-            voltageType: group.voltageType
+            voltageType: group.voltageType,
         });
         return this.groupRepo.save(group);
     }

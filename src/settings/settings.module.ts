@@ -6,8 +6,8 @@ import { Setting } from './entities/setting.entity';
 import { Category } from '../categories/entities/category.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Setting, Category])],
-    controllers: [SettingsController],
-    providers: [SettingsService],
+  imports: [TypeOrmModule.forFeature([Setting, Category])],
+  controllers: [SettingsController],
+  providers: [SettingsService],
 })
-export class SettingsModule { } 
+export class SettingsModule {}

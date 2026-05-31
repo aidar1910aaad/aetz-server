@@ -73,7 +73,7 @@ __decorate([
     (0, common_1.Get)('groups'),
     (0, swagger_1.ApiOperation)({
         summary: 'Получить список всех групп расчетов',
-        description: 'Возвращает список всех групп расчетов с их метаданными и настройками.'
+        description: 'Возвращает список всех групп расчетов с их метаданными и настройками.',
     }),
     (0, swagger_1.ApiResponse)({
         status: 200,
@@ -89,10 +89,10 @@ __decorate([
                     slug: { type: 'string', example: 'electrical-calculations' },
                     description: { type: 'string', example: 'Расчеты для электротехнических проектов' },
                     createdAt: { type: 'string', format: 'date-time' },
-                    updatedAt: { type: 'string', format: 'date-time' }
-                }
-            }
-        }
+                    updatedAt: { type: 'string', format: 'date-time' },
+                },
+            },
+        },
     }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Не авторизован' }),
     __metadata("design:type", Function),

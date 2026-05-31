@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  Param,
-  Patch,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Post, Body, Get, Param, Patch, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
@@ -28,12 +19,13 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'pto')
   @Post()
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Создать нового пользователя',
-    description: 'Создает нового пользователя в системе. Доступно только для администраторов и ПТО.'
+    description:
+      'Создает нового пользователя в системе. Доступно только для администраторов и ПТО.',
   })
-  @ApiResponse({ 
-    status: 201, 
+  @ApiResponse({
+    status: 201,
     description: 'Пользователь успешно создан',
     schema: {
       type: 'object',
@@ -41,9 +33,9 @@ export class UsersController {
         id: { type: 'number', example: 1 },
         username: { type: 'string', example: 'newuser' },
         role: { type: 'string', enum: ['ADMIN', 'PTO', 'USER'], example: 'USER' },
-        createdAt: { type: 'string', format: 'date-time' }
-      }
-    }
+        createdAt: { type: 'string', format: 'date-time' },
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Некорректные данные' })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
@@ -55,12 +47,12 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'pto', 'manager')
   @Get()
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Получить список всех пользователей',
-    description: 'Возвращает список всех пользователей системы с их ролями и статусами.'
+    description: 'Возвращает список всех пользователей системы с их ролями и статусами.',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Список пользователей получен',
     schema: {
       type: 'array',
@@ -71,10 +63,10 @@ export class UsersController {
           username: { type: 'string', example: 'admin' },
           role: { type: 'string', enum: ['ADMIN', 'PTO', 'USER'], example: 'ADMIN' },
           createdAt: { type: 'string', format: 'date-time' },
-          updatedAt: { type: 'string', format: 'date-time' }
-        }
-      }
-    }
+          updatedAt: { type: 'string', format: 'date-time' },
+        },
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
   @ApiResponse({ status: 403, description: 'Недостаточно прав' })
@@ -85,12 +77,12 @@ export class UsersController {
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Get('profile/me')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Получить свой профиль',
-    description: 'Возвращает информацию о текущем авторизованном пользователе.'
+    description: 'Возвращает информацию о текущем авторизованном пользователе.',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Профиль получен',
     schema: {
       type: 'object',
@@ -106,9 +98,9 @@ export class UsersController {
         city: { type: 'string', example: 'Астана' },
         postalCode: { type: 'string', example: '010000' },
         role: { type: 'string', enum: ['admin', 'pto', 'manager'], example: 'pto' },
-        createdAt: { type: 'string', format: 'date-time' }
-      }
-    }
+        createdAt: { type: 'string', format: 'date-time' },
+      },
+    },
   })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
   getProfile(@CurrentUser() user: JwtPayload) {
@@ -119,13 +111,13 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin', 'pto', 'manager')
   @Get(':id')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Получить пользователя по ID',
-    description: 'Возвращает детальную информацию о конкретном пользователе по его ID.'
+    description: 'Возвращает детальную информацию о конкретном пользователе по его ID.',
   })
   @ApiParam({ name: 'id', type: Number, description: 'ID пользователя' })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Пользователь найден',
     schema: {
       type: 'object',
@@ -134,9 +126,9 @@ export class UsersController {
         username: { type: 'string', example: 'admin' },
         role: { type: 'string', enum: ['ADMIN', 'PTO', 'USER'], example: 'ADMIN' },
         createdAt: { type: 'string', format: 'date-time' },
-        updatedAt: { type: 'string', format: 'date-time' }
-      }
-    }
+        updatedAt: { type: 'string', format: 'date-time' },
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Пользователь не найден' })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
@@ -148,12 +140,13 @@ export class UsersController {
   @ApiBearerAuth('access-token')
   @UseGuards(JwtAuthGuard)
   @Patch('profile/me')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Обновить свой профиль',
-    description: 'Позволяет пользователю редактировать свои профильные данные. Нельзя изменить роль или username.'
+    description:
+      'Позволяет пользователю редактировать свои профильные данные. Нельзя изменить роль или username.',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Профиль успешно обновлен',
     schema: {
       type: 'object',
@@ -169,9 +162,9 @@ export class UsersController {
         city: { type: 'string', example: 'Астана' },
         postalCode: { type: 'string', example: '010000' },
         role: { type: 'string', enum: ['admin', 'pto', 'manager'], example: 'pto' },
-        createdAt: { type: 'string', format: 'date-time' }
-      }
-    }
+        createdAt: { type: 'string', format: 'date-time' },
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Некорректные данные' })
   @ApiResponse({ status: 401, description: 'Не авторизован' })
@@ -183,13 +176,14 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @Patch(':id')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Обновить пользователя',
-    description: 'Обновляет информацию о пользователе, включая пароль и роль. Пароль автоматически хешируется. Доступно только для администраторов.'
+    description:
+      'Обновляет информацию о пользователе, включая пароль и роль. Пароль автоматически хешируется. Доступно только для администраторов.',
   })
   @ApiParam({ name: 'id', type: Number, description: 'ID пользователя' })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Пользователь успешно обновлен',
     schema: {
       type: 'object',
@@ -197,9 +191,9 @@ export class UsersController {
         id: { type: 'number', example: 1 },
         username: { type: 'string', example: 'updateduser' },
         role: { type: 'string', enum: ['ADMIN', 'PTO', 'USER'], example: 'USER' },
-        updatedAt: { type: 'string', format: 'date-time' }
-      }
-    }
+        updatedAt: { type: 'string', format: 'date-time' },
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Пользователь не найден' })
   @ApiResponse({ status: 400, description: 'Некорректные данные' })
@@ -208,25 +202,25 @@ export class UsersController {
   update(@Param('id') id: string, @Body() updateDto: UpdateUserDto) {
     return this.usersService.update(+id, updateDto);
   }
-  
 
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles('admin')
   @Delete(':id')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Удалить пользователя',
-    description: 'Безвозвратно удаляет пользователя из системы. Доступно только для администраторов.'
+    description:
+      'Безвозвратно удаляет пользователя из системы. Доступно только для администраторов.',
   })
   @ApiParam({ name: 'id', type: Number, description: 'ID пользователя' })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Пользователь успешно удален',
     schema: {
       type: 'object',
       properties: {
-        message: { type: 'string', example: 'Пользователь успешно удален' }
-      }
-    }
+        message: { type: 'string', example: 'Пользователь успешно удален' },
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Пользователь не найден' })
   @ApiResponse({ status: 401, description: 'Не авторизован' })

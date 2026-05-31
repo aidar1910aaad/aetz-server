@@ -21,15 +21,15 @@ export class BmzSettingsController {
   @ApiResponse({
     status: 200,
     description: 'Настройки успешно получены',
-    type: BmzSettings
+    type: BmzSettings,
   })
   @ApiResponse({
     status: 401,
-    description: 'Не авторизован'
+    description: 'Не авторизован',
   })
   @ApiResponse({
     status: 403,
-    description: 'Нет доступа'
+    description: 'Нет доступа',
   })
   async getSettings(): Promise<BmzSettings> {
     return this.bmzSettingsService.getSettings();
@@ -41,23 +41,21 @@ export class BmzSettingsController {
   @ApiResponse({
     status: 200,
     description: 'Настройки успешно обновлены',
-    type: BmzSettings
+    type: BmzSettings,
   })
   @ApiResponse({
     status: 400,
-    description: 'Неверные данные'
+    description: 'Неверные данные',
   })
   @ApiResponse({
     status: 401,
-    description: 'Не авторизован'
+    description: 'Не авторизован',
   })
   @ApiResponse({
     status: 403,
-    description: 'Нет доступа'
+    description: 'Нет доступа',
   })
-  async updateSettings(
-    @Body() updateSettingsDto: UpdateBmzSettingsDto
-  ): Promise<BmzSettings> {
+  async updateSettings(@Body() updateSettingsDto: UpdateBmzSettingsDto): Promise<BmzSettings> {
     return this.bmzSettingsService.updateSettings(updateSettingsDto);
   }
-} 
+}

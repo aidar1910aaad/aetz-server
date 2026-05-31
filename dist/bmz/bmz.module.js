@@ -22,9 +22,7 @@ let BmzModule = class BmzModule {
 exports.BmzModule = BmzModule;
 exports.BmzModule = BmzModule = __decorate([
     (0, common_1.Module)({
-        imports: [
-            typeorm_1.TypeOrmModule.forFeature([bmz_settings_entity_1.BmzSettings, bmz_area_price_entity_1.BmzAreaPrice, bmz_equipment_entity_1.BmzEquipment, bmz_wall_thickness_entity_1.BmzWallThickness]),
-        ],
+        imports: [typeorm_1.TypeOrmModule.forFeature([bmz_settings_entity_1.BmzSettings, bmz_area_price_entity_1.BmzAreaPrice, bmz_equipment_entity_1.BmzEquipment, bmz_wall_thickness_entity_1.BmzWallThickness])],
         controllers: [bmz_settings_controller_1.BmzSettingsController, bmz_calculator_controller_1.BmzCalculatorController],
         providers: [bmz_settings_service_1.BmzSettingsService, bmz_calculator_service_1.BmzCalculatorService],
         exports: [bmz_settings_service_1.BmzSettingsService, bmz_calculator_service_1.BmzCalculatorService],

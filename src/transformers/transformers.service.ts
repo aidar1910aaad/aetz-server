@@ -10,7 +10,7 @@ import { CreateTransformersDto } from './dto/create-transformers.dto';
 export class TransformersService {
   constructor(
     @InjectRepository(Transformer)
-    private readonly transformerRepository: Repository<Transformer>,
+    private readonly transformerRepository: Repository<Transformer>
   ) {}
 
   async create(createTransformerDto: CreateTransformerDto): Promise<Transformer> {
@@ -19,7 +19,7 @@ export class TransformersService {
   }
 
   async createMany(createTransformersDto: CreateTransformersDto): Promise<Transformer[]> {
-    const transformers = createTransformersDto.transformers.map(dto => 
+    const transformers = createTransformersDto.transformers.map((dto) =>
       this.transformerRepository.create(dto)
     );
     return this.transformerRepository.save(transformers);
@@ -78,4 +78,4 @@ export class TransformersService {
       },
     });
   }
-} 
+}

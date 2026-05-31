@@ -21,7 +21,11 @@ let MaterialsModule = class MaterialsModule {
 exports.MaterialsModule = MaterialsModule;
 exports.MaterialsModule = MaterialsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([material_entity_1.Material, material_history_entity_1.MaterialHistory, calculation_entity_1.Calculation]), currency_settings_module_1.CurrencySettingsModule, audit_logs_module_1.AuditLogsModule],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([material_entity_1.Material, material_history_entity_1.MaterialHistory, calculation_entity_1.Calculation]),
+            currency_settings_module_1.CurrencySettingsModule,
+            audit_logs_module_1.AuditLogsModule,
+        ],
         controllers: [materials_controller_1.MaterialsController],
         providers: [materials_service_1.MaterialsService],
     })

@@ -11,9 +11,10 @@ export class BmzCalculatorController {
   constructor(private readonly calculatorService: BmzCalculatorService) {}
 
   @Post('calculate')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Рассчитать стоимость БМЗ',
-    description: 'Рассчитывает стоимость БМЗ на основе площади, толщины стен и выбранного оборудования'
+    description:
+      'Рассчитывает стоимость БМЗ на основе площади, толщины стен и выбранного оборудования',
   })
   @ApiBody({
     schema: {
@@ -22,38 +23,38 @@ export class BmzCalculatorController {
         area: {
           type: 'number',
           description: 'Площадь помещения в квадратных метрах',
-          example: 100
+          example: 100,
         },
         wallThickness: {
           type: 'number',
           description: 'Толщина стен в миллиметрах',
-          example: 50
+          example: 50,
         },
         selectedEquipment: {
           type: 'array',
           items: {
-            type: 'number'
+            type: 'number',
           },
           description: 'Массив ID выбранного оборудования',
-          example: [1, 2, 3]
-        }
+          example: [1, 2, 3],
+        },
       },
-      required: ['area', 'wallThickness', 'selectedEquipment']
-    }
+      required: ['area', 'wallThickness', 'selectedEquipment'],
+    },
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Возвращает расчет стоимости БМЗ',
     schema: {
       type: 'object',
       properties: {
         basePrice: {
           type: 'number',
-          description: 'Базовая стоимость за площадь'
+          description: 'Базовая стоимость за площадь',
         },
         wallThicknessPrice: {
           type: 'number',
-          description: 'Стоимость за толщину стен'
+          description: 'Стоимость за толщину стен',
         },
         equipment: {
           type: 'array',
@@ -62,41 +63,37 @@ export class BmzCalculatorController {
             properties: {
               name: {
                 type: 'string',
-                description: 'Название оборудования'
+                description: 'Название оборудования',
               },
               price: {
                 type: 'number',
-                description: 'Стоимость оборудования'
+                description: 'Стоимость оборудования',
               },
               description: {
                 type: 'string',
-                description: 'Описание расчета стоимости'
-              }
-            }
-          }
+                description: 'Описание расчета стоимости',
+              },
+            },
+          },
         },
         totalPrice: {
           type: 'number',
-          description: 'Общая стоимость'
-        }
-      }
-    }
+          description: 'Общая стоимость',
+        },
+      },
+    },
   })
-  @ApiResponse({ 
-    status: 400, 
-    description: 'Неверные входные данные'
+  @ApiResponse({
+    status: 400,
+    description: 'Неверные входные данные',
   })
-  @ApiResponse({ 
-    status: 401, 
-    description: 'Не авторизован'
+  @ApiResponse({
+    status: 401,
+    description: 'Не авторизован',
   })
   async calculatePrice(
-    @Body() params: {
-      area: number;
-      wallThickness: number;
-      selectedEquipment: number[];
-    }
+    @Body() params: { area: number; wallThickness: number; selectedEquipment: number[] }
   ) {
     return this.calculatorService.calculatePrice(params);
   }
-} 
+}

@@ -1,78 +1,85 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 
 export enum OptionType {
   PER_SQUARE_METER = 'perSquareMeter',
   PER_HALF_SQUARE_METER = 'perHalfSquareMeter',
-  FIXED = 'fixed'
+  FIXED = 'fixed',
 }
 
 @Entity()
 export class BmzOption {
-  @ApiProperty({ 
-    example: 1, 
-    description: 'Уникальный идентификатор' 
+  @ApiProperty({
+    example: 1,
+    description: 'Уникальный идентификатор',
   })
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: 'Освещение',
-    description: 'Название опции'
+    description: 'Название опции',
   })
   @Column()
   name: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: 'perSquareMeter',
-    description: 'Тип расчета цены: perSquareMeter - за м², perHalfSquareMeter - за 0.5 м², fixed - фиксированная цена',
-    enum: OptionType
+    description:
+      'Тип расчета цены: perSquareMeter - за м², perHalfSquareMeter - за 0.5 м², fixed - фиксированная цена',
+    enum: OptionType,
   })
   @Column({
     type: 'enum',
-    enum: OptionType
+    enum: OptionType,
   })
   type: OptionType;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: 2500,
-    description: 'Цена за квадратный метр (если тип perSquareMeter или perHalfSquareMeter)'
+    description: 'Цена за квадратный метр (если тип perSquareMeter или perHalfSquareMeter)',
   })
   @Column('decimal', { precision: 10, scale: 2, nullable: true })
   pricePerSquareMeter: number;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: 10000,
-    description: 'Фиксированная цена (если тип fixed)'
+    description: 'Фиксированная цена (если тип fixed)',
   })
   @Column('decimal', { precision: 10, scale: 2, nullable: true })
   fixedPrice: number;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: 'Освещение помещения',
-    description: 'Описание опции'
+    description: 'Описание опции',
   })
   @Column()
   description: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: true,
-    description: 'Активна ли опция'
+    description: 'Активна ли опция',
   })
   @Column({ default: true })
   isActive: boolean;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: '2024-03-20T10:00:00Z',
-    description: 'Дата создания записи'
+    description: 'Дата создания записи',
   })
   @CreateDateColumn()
   createdAt: Date;
 
-  @ApiProperty({ 
+  @ApiProperty({
     example: '2024-03-20T10:00:00Z',
-    description: 'Дата последнего обновления записи'
+    description: 'Дата последнего обновления записи',
   })
   @UpdateDateColumn()
   updatedAt: Date;
-} 
+}

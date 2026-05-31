@@ -11,4 +11,4 @@ import { Material } from '../materials/entities/material.entity';
   providers: [CategoriesService],
   exports: [CategoriesService], // 👈 если нужно из других модулей
 })
-export class CategoriesModule { }
+export class CategoriesModule {}

@@ -114,7 +114,7 @@ let MaterialsService = class MaterialsService {
             Object.keys(materials).forEach((key) => {
                 const value = materials[key];
                 if (Array.isArray(value)) {
-                    materials[key] = value.map((item) => (item?.id === materialId ? { ...item, price: newPrice } : item));
+                    materials[key] = value.map((item) => item?.id === materialId ? { ...item, price: newPrice } : item);
                     return;
                 }
                 if (value?.id === materialId) {
@@ -183,7 +183,7 @@ let MaterialsService = class MaterialsService {
         return this.enrichMaterialWithCurrentPrice(saved);
     }
     async findAll(query) {
-        const { page = 1, limit = 50, search, sort = 'name', order = 'ASC', categoryId, } = query;
+        const { page = 1, limit = 50, search, sort = 'name', order = 'ASC', categoryId } = query;
         const queryBuilder = this.materialRepo
             .createQueryBuilder('material')
             .leftJoinAndSelect('material.category', 'category')
@@ -291,8 +291,7 @@ let MaterialsService = class MaterialsService {
         const settings = await this.currencySettingsService.getSettings();
         const fieldsToCheck = ['name', 'unit'];
         for (const field of fieldsToCheck) {
-            if (dto[field] !== undefined &&
-                String(dto[field]) !== String(material[field])) {
+            if (dto[field] !== undefined && String(dto[field]) !== String(material[field])) {
                 await this.historyRepo.save({
                     material,
                     fieldChanged: field,
@@ -329,7 +328,8 @@ let MaterialsService = class MaterialsService {
             });
             material.currency = dto.currency.toUpperCase();
         }
-        if (dto.priceInCurrency !== undefined && String(dto.priceInCurrency) !== String(material.priceInCurrency)) {
+        if (dto.priceInCurrency !== undefined &&
+            String(dto.priceInCurrency) !== String(material.priceInCurrency)) {
             await this.historyRepo.save({
                 material,
                 fieldChanged: 'priceInCurrency',
@@ -405,7 +405,8 @@ let MaterialsService = class MaterialsService {
     }
     async getRecentHistory(query) {
         const { page = 1, limit = 50, materialId, fieldChanged, changedBy, dateFrom, dateTo, search, } = query;
-        const queryBuilder = this.historyRepo.createQueryBuilder('history')
+        const queryBuilder = this.historyRepo
+            .createQueryBuilder('history')
             .leftJoinAndSelect('history.material', 'material')
             .leftJoinAndSelect('material.category', 'category')
             .orderBy('history.changedAt', 'DESC');
@@ -417,14 +418,14 @@ let MaterialsService = class MaterialsService {
         }
         if (changedBy) {
             queryBuilder.andWhere('LOWER(history.changedBy) LIKE LOWER(:changedBy)', {
-                changedBy: `%${changedBy}%`
+                changedBy: `%${changedBy}%`,
             });
         }
         if (dateFrom) {
             const fromDate = new Date(dateFrom);
             fromDate.setHours(0, 0, 0, 0);
             queryBuilder.andWhere('history.changedAt >= :dateFrom', {
-                dateFrom: fromDate
+                dateFrom: fromDate,
             });
         }
         if (dateTo) {

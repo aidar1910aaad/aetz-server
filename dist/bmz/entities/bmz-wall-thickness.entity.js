@@ -18,7 +18,7 @@ exports.BmzWallThickness = BmzWallThickness;
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 1,
-        description: 'Уникальный идентификатор'
+        description: 'Уникальный идентификатор',
     }),
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 0,
-        description: 'Минимальная толщина стены (мм)'
+        description: 'Минимальная толщина стены (мм)',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
@@ -34,7 +34,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 80,
-        description: 'Максимальная толщина стены (мм)'
+        description: 'Максимальная толщина стены (мм)',
     }),
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
@@ -42,7 +42,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: 2000,
-        description: 'Дополнительная цена за квадратный метр'
+        description: 'Дополнительная цена за квадратный метр',
     }),
     (0, typeorm_1.Column)('decimal', { precision: 10, scale: 2 }),
     __metadata("design:type", Number)
@@ -50,7 +50,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: true,
-        description: 'Активна ли настройка'
+        description: 'Активна ли настройка',
     }),
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
@@ -58,7 +58,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '2024-03-20T10:00:00Z',
-        description: 'Дата создания записи'
+        description: 'Дата создания записи',
     }),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
@@ -66,7 +66,7 @@ __decorate([
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '2024-03-20T10:00:00Z',
-        description: 'Дата последнего обновления записи'
+        description: 'Дата последнего обновления записи',
     }),
     (0, typeorm_1.UpdateDateColumn)(),
     __metadata("design:type", Date)

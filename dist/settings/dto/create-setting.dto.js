@@ -21,7 +21,7 @@ __decorate([
         example: 1,
         description: 'ID категории из базы данных',
         type: Number,
-        required: true
+        required: true,
     }),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
@@ -31,7 +31,7 @@ __decorate([
         example: 'switch',
         description: 'Тип настройки (может быть любая строка)',
         type: String,
-        required: true
+        required: true,
     }),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -42,7 +42,7 @@ __decorate([
         description: 'Видимость настройки в интерфейсе',
         type: Boolean,
         default: true,
-        required: true
+        required: true,
     }),
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
@@ -69,10 +69,10 @@ __decorate([
             {
                 categoryId: 1,
                 type: 'switch',
-                isVisible: true
-            }
+                isVisible: true,
+            },
         ],
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -88,10 +88,10 @@ __decorate([
             {
                 categoryId: 2,
                 type: 'counter',
-                isVisible: true
-            }
+                isVisible: true,
+            },
         ],
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -107,10 +107,10 @@ __decorate([
             {
                 categoryId: 3,
                 type: 'rza',
-                isVisible: true
-            }
+                isVisible: true,
+            },
         ],
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -126,10 +126,10 @@ __decorate([
             {
                 categoryId: 4,
                 type: 'transformer',
-                isVisible: true
-            }
+                isVisible: true,
+            },
         ],
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -145,10 +145,10 @@ __decorate([
             {
                 categoryId: 5,
                 type: 'counter',
-                isVisible: true
-            }
+                isVisible: true,
+            },
         ],
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -164,10 +164,10 @@ __decorate([
             {
                 categoryId: 6,
                 type: 'rza',
-                isVisible: true
-            }
+                isVisible: true,
+            },
         ],
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -183,10 +183,10 @@ __decorate([
             {
                 categoryId: 7,
                 type: 'switch',
-                isVisible: true
-            }
+                isVisible: true,
+            },
         ],
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -202,10 +202,10 @@ __decorate([
             {
                 categoryId: 8,
                 type: 'counter',
-                isVisible: true
-            }
+                isVisible: true,
+            },
         ],
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -221,10 +221,10 @@ __decorate([
             {
                 categoryId: 9,
                 type: 'transformer',
-                isVisible: true
-            }
+                isVisible: true,
+            },
         ],
-        required: false
+        required: false,
     }),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.ValidateNested)({ each: true }),
@@ -244,18 +244,18 @@ __decorate([
                 {
                     categoryId: 1,
                     type: 'switch',
-                    isVisible: true
-                }
+                    isVisible: true,
+                },
             ],
             bmz: [
                 {
                     categoryId: 2,
                     type: 'counter',
-                    isVisible: true
-                }
-            ]
+                    isVisible: true,
+                },
+            ],
         },
-        required: true
+        required: true,
     }),
     (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => EquipmentSettingsDto),

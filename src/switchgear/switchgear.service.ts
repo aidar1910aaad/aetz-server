@@ -8,7 +8,7 @@ import { CreateSwitchgearConfigDto } from './dto/create-switchgear-config.dto';
 export class SwitchgearService {
   constructor(
     @InjectRepository(SwitchgearConfig)
-    private readonly switchgearRepository: Repository<SwitchgearConfig>,
+    private readonly switchgearRepository: Repository<SwitchgearConfig>
   ) {}
 
   async create(createSwitchgearConfigDto: CreateSwitchgearConfigDto): Promise<SwitchgearConfig> {
@@ -16,9 +16,13 @@ export class SwitchgearService {
     return this.switchgearRepository.save(config);
   }
 
-  async findAll(query: { type?: string; amperage?: number; group?: string }): Promise<SwitchgearConfig[]> {
+  async findAll(query: {
+    type?: string;
+    amperage?: number;
+    group?: string;
+  }): Promise<SwitchgearConfig[]> {
     const qb = this.switchgearRepository.createQueryBuilder('config');
-    
+
     if (query.type) {
       qb.andWhere('config.type = :type', { type: query.type });
     }
@@ -40,7 +44,10 @@ export class SwitchgearService {
     return config;
   }
 
-  async update(id: number, updateSwitchgearConfigDto: CreateSwitchgearConfigDto): Promise<SwitchgearConfig> {
+  async update(
+    id: number,
+    updateSwitchgearConfigDto: CreateSwitchgearConfigDto
+  ): Promise<SwitchgearConfig> {
     const config = await this.findOne(id);
     Object.assign(config, updateSwitchgearConfigDto);
     return this.switchgearRepository.save(config);
@@ -52,4 +59,4 @@ export class SwitchgearService {
       throw new NotFoundException(`Конфигурация с ID ${id} не найдена`);
     }
   }
-} 
+}

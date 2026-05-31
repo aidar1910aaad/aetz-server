@@ -8,9 +8,9 @@ import { Calculation } from '../calculations/entities/calculation.entity';
 import { AuditLogsModule } from '../audit-logs/audit-logs.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([CurrencySettings, Material, Calculation]), AuditLogsModule],
-    controllers: [CurrencySettingsController],
-    providers: [CurrencySettingsService],
-    exports: [CurrencySettingsService],
+  imports: [TypeOrmModule.forFeature([CurrencySettings, Material, Calculation]), AuditLogsModule],
+  controllers: [CurrencySettingsController],
+  providers: [CurrencySettingsService],
+  exports: [CurrencySettingsService],
 })
-export class CurrencySettingsModule { } 
+export class CurrencySettingsModule {}

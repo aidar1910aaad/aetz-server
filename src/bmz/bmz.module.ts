@@ -10,11 +10,9 @@ import { BmzEquipment } from './entities/bmz-equipment.entity';
 import { BmzWallThickness } from './entities/bmz-wall-thickness.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([BmzSettings, BmzAreaPrice, BmzEquipment, BmzWallThickness]),
-  ],
+  imports: [TypeOrmModule.forFeature([BmzSettings, BmzAreaPrice, BmzEquipment, BmzWallThickness])],
   controllers: [BmzSettingsController, BmzCalculatorController],
   providers: [BmzSettingsService, BmzCalculatorService],
   exports: [BmzSettingsService, BmzCalculatorService],
 })
-export class BmzModule {} 
+export class BmzModule {}

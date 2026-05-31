@@ -25,8 +25,8 @@ export class CalculationsService {
     @InjectRepository(Material)
     private readonly materialRepo: Repository<Material>, // 👈 обязательно
     private readonly currencySettingsService: CurrencySettingsService,
-    private readonly auditLogsService: AuditLogsService,
-  ) { }
+    private readonly auditLogsService: AuditLogsService
+  ) {}
 
   private toNumber(value: unknown): number {
     if (typeof value === 'number') return value;
@@ -45,6 +45,8 @@ export class CalculationsService {
         return this.toNumber(settings.eurRate) || 1;
       case 'RUB':
         return this.toNumber(settings.rubRate) || 1;
+      case 'CNY':
+        return this.toNumber(settings.cnyRate) || 1;
       case 'KZT':
       default:
         return this.toNumber(settings.kztRate) || 1;
@@ -69,7 +71,7 @@ export class CalculationsService {
 
     // Обновляем цены для одиночных материалов
     const singleMaterialTypes = ['switch', 'rza', 'counter', 'sr', 'tsn', 'tn'];
-    singleMaterialTypes.forEach(type => {
+    singleMaterialTypes.forEach((type) => {
       if (updatedMaterials[type] && updatedMaterials[type].id) {
         const freshPrice = materialsMap.get(updatedMaterials[type].id);
         if (freshPrice !== undefined) {
@@ -83,7 +85,7 @@ export class CalculationsService {
 
     // Обновляем цены для массивов материалов
     const arrayMaterialTypes = ['tt', 'pu', 'disconnector', 'busbar', 'busbridge'];
-    arrayMaterialTypes.forEach(type => {
+    arrayMaterialTypes.forEach((type) => {
       if (Array.isArray(updatedMaterials[type])) {
         updatedMaterials[type] = updatedMaterials[type].map((material: any) => {
           if (material && material.id) {
@@ -103,6 +105,71 @@ export class CalculationsService {
     return {
       ...cellConfig,
       materials: updatedMaterials,
+    };
+  }
+
+  private applyCurrentCalculationSettings(calculation: any, settings: any) {
+    const current = calculation || {};
+    return {
+      ...current,
+      manufacturingHours: this.toNumber(current.manufacturingHours) || 4,
+      hourlyRate: this.toNumber(settings.hourlyWage) || 2000,
+      overheadPercentage: this.toNumber(settings.productionExpenses) || 10,
+      adminPercentage: this.toNumber(settings.administrativeExpenses) || 15,
+      plannedProfitPercentage: this.toNumber(settings.plannedSavings) || 10,
+      ndsPercentage: this.toNumber(settings.vatRate) || 12,
+    };
+  }
+
+  private patchCalculationData(data: any, materialsMap: Map<number, number>, settings: any) {
+    if (!data) return data;
+
+    const patchedData = { ...data };
+
+    if (Array.isArray(patchedData.categories)) {
+      patchedData.categories = patchedData.categories.map((cat) => ({
+        ...cat,
+        items: Array.isArray(cat.items)
+          ? cat.items.map((item) => {
+              if (!item.id) return item; // ручной материал
+              const freshPrice = materialsMap.get(item.id);
+              return {
+                ...item,
+                price: freshPrice ?? item.price,
+              };
+            })
+          : [],
+      }));
+    }
+
+    if (patchedData.calculation) {
+      patchedData.calculation = this.applyCurrentCalculationSettings(
+        patchedData.calculation,
+        settings
+      );
+    }
+
+    if (patchedData.cellConfig) {
+      patchedData.cellConfig = this.updateCellConfigPrices(patchedData.cellConfig, materialsMap);
+    }
+
+    return patchedData;
+  }
+
+  private async buildMaterialsMapWithSettings(): Promise<{
+    materialsMap: Map<number, number>;
+    settings: any;
+  }> {
+    const [freshMaterials, settings] = await Promise.all([
+      this.materialRepo.find(),
+      this.currencySettingsService.getSettings(),
+    ]);
+
+    return {
+      settings,
+      materialsMap: new Map(
+        freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)])
+      ),
     };
   }
 
@@ -156,17 +223,20 @@ export class CalculationsService {
   // ✅ Получить все калькуляции группы
   async getCalculationsByGroupSlug(slug: string): Promise<Calculation[]> {
     const group = await this.getGroupBySlug(slug);
-    return this.calcRepo.find({
+    const calculations = await this.calcRepo.find({
       where: { group: { id: group.id } },
       order: { name: 'ASC' },
     });
+    const { materialsMap, settings } = await this.buildMaterialsMapWithSettings();
+
+    return calculations.map((calc) => ({
+      ...calc,
+      data: this.patchCalculationData(calc.data, materialsMap, settings),
+    }));
   }
 
   // ✅ Получить одну калькуляцию и обновить цены на лету
-  async getCalculation(
-    groupSlug: string,
-    calcSlug: string,
-  ): Promise<Calculation> {
+  async getCalculation(groupSlug: string, calcSlug: string): Promise<Calculation> {
     const group = await this.getGroupBySlug(groupSlug);
 
     const calc = await this.calcRepo.findOne({
@@ -179,12 +249,7 @@ export class CalculationsService {
 
     if (!calc) throw new NotFoundException('Калькуляция не найдена');
 
-    // 🔄 Загружаем актуальные цены
-    const [freshMaterials, settings] = await Promise.all([
-      this.materialRepo.find(),
-      this.currencySettingsService.getSettings(),
-    ]);
-    const materialsMap = new Map(freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)]));
+    const { materialsMap, settings } = await this.buildMaterialsMapWithSettings();
 
     // 🛡 Защита от отсутствия data или categories
     if (!calc.data || !Array.isArray(calc.data.categories)) {
@@ -192,27 +257,7 @@ export class CalculationsService {
       return calc;
     }
 
-    // 🔁 Обновляем цены
-    const updatedCategories = calc.data.categories.map((cat) => ({
-      ...cat,
-      items: Array.isArray(cat.items)
-        ? cat.items.map((item) => {
-          if (!item.id) return item; // ручной материал
-          const freshPrice = materialsMap.get(item.id);
-          return {
-            ...item,
-            price: freshPrice ?? item.price,
-          };
-        })
-        : [],
-    }));
-
-    calc.data.categories = updatedCategories;
-
-    // 🔄 Обновляем цены в cellConfig
-    if (calc.data.cellConfig) {
-      calc.data.cellConfig = this.updateCellConfigPrices(calc.data.cellConfig, materialsMap);
-    }
+    calc.data = this.patchCalculationData(calc.data, materialsMap, settings);
 
     return calc;
   }
@@ -222,7 +267,7 @@ export class CalculationsService {
     groupSlug: string,
     calcSlug: string,
     dto: UpdateCalculationDto,
-    changedBy?: string,
+    changedBy?: string
   ): Promise<Calculation> {
     const group = await this.getGroupBySlug(groupSlug);
 
@@ -250,36 +295,8 @@ export class CalculationsService {
     // Сохраняем обновленную калькуляцию
     const updatedCalc = await this.calcRepo.save(calc);
 
-    // Загружаем актуальные цены материалов
-    const [freshMaterials, settings] = await Promise.all([
-      this.materialRepo.find(),
-      this.currencySettingsService.getSettings(),
-    ]);
-    const materialsMap = new Map(freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)]));
-
-    // Обновляем цены в данных калькуляции
-    if (updatedCalc.data && Array.isArray(updatedCalc.data.categories)) {
-      const updatedCategories = updatedCalc.data.categories.map((cat) => ({
-        ...cat,
-        items: Array.isArray(cat.items)
-          ? cat.items.map((item) => {
-            if (!item.id) return item;
-            const freshPrice = materialsMap.get(item.id);
-            return {
-              ...item,
-              price: freshPrice ?? item.price,
-            };
-          })
-          : [],
-      }));
-
-      updatedCalc.data.categories = updatedCategories;
-    }
-
-    // 🔄 Обновляем цены в cellConfig
-    if (updatedCalc.data && updatedCalc.data.cellConfig) {
-      updatedCalc.data.cellConfig = this.updateCellConfigPrices(updatedCalc.data.cellConfig, materialsMap);
-    }
+    const { materialsMap, settings } = await this.buildMaterialsMapWithSettings();
+    updatedCalc.data = this.patchCalculationData(updatedCalc.data, materialsMap, settings);
 
     await this.auditLogsService.log({
       entityType: 'calculation',
@@ -319,31 +336,37 @@ export class CalculationsService {
   async deleteGroupById(id: number): Promise<void> {
     console.log('=== УДАЛЕНИЕ ГРУППЫ ПО ID ===');
     console.log('Запрошенный ID:', id, 'тип:', typeof id);
-    
+
     // Сначала проверим, есть ли группа с таким ID
     const allGroups = await this.groupRepo.find();
-    console.log('Все группы в базе:', allGroups.map(g => `ID:${g.id}, slug:[${g.slug}]`));
-    
-    const group = await this.groupRepo.findOne({ 
-      where: { id }, 
-      relations: ['calculations'] 
+    console.log(
+      'Все группы в базе:',
+      allGroups.map((g) => `ID:${g.id}, slug:[${g.slug}]`)
+    );
+
+    const group = await this.groupRepo.findOne({
+      where: { id },
+      relations: ['calculations'],
     });
-    
-    console.log('Результат поиска по ID:', group ? `найдена - id=${group.id}, slug=[${group.slug}]` : 'НЕ НАЙДЕНА');
-    
+
+    console.log(
+      'Результат поиска по ID:',
+      group ? `найдена - id=${group.id}, slug=[${group.slug}]` : 'НЕ НАЙДЕНА'
+    );
+
     if (!group) {
       console.log('❌ Группа не найдена, выбрасываем исключение');
       throw new NotFoundException('Группа не найдена');
     }
-    
+
     console.log('✅ Группа найдена, начинаем удаление...');
-    
+
     // Если есть связанные калькуляции — удаляем их вручную
     if (group.calculations && group.calculations.length > 0) {
       console.log(`Удаляю ${group.calculations.length} связанных калькуляций...`);
       await this.calcRepo.remove(group.calculations);
     }
-    
+
     await this.groupRepo.remove(group);
     console.log('✅ Группа успешно удалена:', group.slug);
   }
@@ -354,20 +377,20 @@ export class CalculationsService {
   }
 
   // ✅ Обновление группы
-  async updateGroup(
-    slug: string,
-    dto: UpdateCalculationGroupDto,
-  ): Promise<CalculationGroup> {
+  async updateGroup(slug: string, dto: UpdateCalculationGroupDto): Promise<CalculationGroup> {
     console.log('=== СЕРВИС: ОБНОВЛЕНИЕ ГРУППЫ ===');
     console.log('Ищем группу по slug:', slug);
-    
+
     // Проверим все группы в базе
     const allGroups = await this.groupRepo.find();
-    console.log('Все группы в базе:', allGroups.map(g => `slug:[${g.slug}], id:${g.id}`));
-    
+    console.log(
+      'Все группы в базе:',
+      allGroups.map((g) => `slug:[${g.slug}], id:${g.id}`)
+    );
+
     const group = await this.getGroupBySlug(slug);
     console.log('Найдена группа:', group ? `id=${group.id}, slug=[${group.slug}]` : 'НЕ НАЙДЕНА');
-    
+
     // Обновляем только те поля, которые были переданы
     if (dto.name) {
       group.name = dto.name;
@@ -375,18 +398,18 @@ export class CalculationsService {
       group.slug = slugify(dto.name, { lower: true, strict: true });
       console.log('Название изменено, новый slug:', group.slug);
     }
-    
+
     // Игнорируем dto.slug - slug генерируется автоматически
     if (dto.voltageType !== undefined) {
       group.voltageType = dto.voltageType;
     }
-    
-    console.log('Обновленные данные:', { 
-      name: group.name, 
-      slug: group.slug, 
-      voltageType: group.voltageType 
+
+    console.log('Обновленные данные:', {
+      name: group.name,
+      slug: group.slug,
+      voltageType: group.voltageType,
     });
-    
+
     return this.groupRepo.save(group);
   }
 }
