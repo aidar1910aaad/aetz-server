@@ -15,9 +15,7 @@ export function getBusbarPricePerKgFromMap(
 ): number {
   const isAluminum =
     material === 'Алюминий' || material?.includes('АД') || material === 'АД' || material === 'АД2';
-  const materialId = isAluminum
-    ? BUSBAR_UST_MATERIAL_IDS.aluminum
-    : BUSBAR_UST_MATERIAL_IDS.copper;
+  const materialId = isAluminum ? BUSBAR_UST_MATERIAL_IDS.aluminum : BUSBAR_UST_MATERIAL_IDS.copper;
   const fromMap = materialsMap.get(materialId);
   if (fromMap !== undefined && fromMap > 0) {
     return fromMap;

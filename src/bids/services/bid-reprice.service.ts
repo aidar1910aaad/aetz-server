@@ -86,7 +86,15 @@ export class BidRepriceService {
     currencySettings: any,
     workPrices: Record<string, number>,
     bmzSettings?: Record<string, any> | null,
-    transformers: Array<{ id: number; model: string; voltage: string; type: string; power: number; manufacturer: string; price: number }> = [],
+    transformers: Array<{
+      id: number;
+      model: string;
+      voltage: string;
+      type: string;
+      power: number;
+      manufacturer: string;
+      price: number;
+    }> = [],
     calculations: Array<{ id: number; name: string; slug: string; data: any }> = []
   ): PriceMaps {
     const materialsMap = new Map<number, number>();
@@ -119,9 +127,13 @@ export class BidRepriceService {
 
     const hasApiCalculationSettings =
       currencySettings &&
-      ['hourlyWage', 'productionExpenses', 'administrativeExpenses', 'plannedSavings', 'vatRate'].some(
-        (key) => currencySettings[key] !== undefined && currencySettings[key] !== null
-      );
+      [
+        'hourlyWage',
+        'productionExpenses',
+        'administrativeExpenses',
+        'plannedSavings',
+        'vatRate',
+      ].some((key) => currencySettings[key] !== undefined && currencySettings[key] !== null);
     const calculationSettings = hasApiCalculationSettings
       ? {
           hourlyRate: this.toNumber(currencySettings?.hourlyWage) || 2000,
@@ -447,10 +459,7 @@ export class BidRepriceService {
     return this.round(finalPrice);
   }
 
-  private calculateBusbarUstCost(
-    busbarUstData: any,
-    materialsMap: Map<number, number>
-  ): number {
+  private calculateBusbarUstCost(busbarUstData: any, materialsMap: Map<number, number>): number {
     if (!busbarUstData) return 0;
     const weight =
       this.toNumber(busbarUstData.mainUstWeight) + this.toNumber(busbarUstData.zeroUstWeight);
@@ -584,8 +593,10 @@ export class BidRepriceService {
           const areaSpanA = this.toNumber(a.maxArea) - this.toNumber(a.minArea);
           const areaSpanB = this.toNumber(b.maxArea) - this.toNumber(b.minArea);
           if (areaSpanA !== areaSpanB) return areaSpanA - areaSpanB;
-          const heightSpanA = this.toNumber(a.maxHeight ?? 999999) - this.toNumber(a.minHeight ?? 0);
-          const heightSpanB = this.toNumber(b.maxHeight ?? 999999) - this.toNumber(b.minHeight ?? 0);
+          const heightSpanA =
+            this.toNumber(a.maxHeight ?? 999999) - this.toNumber(a.minHeight ?? 0);
+          const heightSpanB =
+            this.toNumber(b.maxHeight ?? 999999) - this.toNumber(b.minHeight ?? 0);
           return heightSpanA - heightSpanB;
         });
       const priceRange = matchingRanges[0];
@@ -763,7 +774,10 @@ export class BidRepriceService {
     return 'transformerPrice2500';
   }
 
-  private calculateBmzInstallationDetails(config: any, workPrices: Record<string, number>): InstallationWorkDetail[] {
+  private calculateBmzInstallationDetails(
+    config: any,
+    workPrices: Record<string, number>
+  ): InstallationWorkDetail[] {
     const bmz = config?.bmz;
     const details: InstallationWorkDetail[] = [];
     const blockCount = this.toNumber(bmz?.blockCount);
@@ -774,10 +788,7 @@ export class BidRepriceService {
       name: 'Монтаж БМЗ',
       unit: 'блок',
       quantity: blockCount,
-      tiers: [
-        { limit: 6, priceKey: 'bmzPriceUpTo6Blocks' },
-        { priceKey: 'bmzPriceOver6Blocks' },
-      ],
+      tiers: [{ limit: 6, priceKey: 'bmzPriceUpTo6Blocks' }, { priceKey: 'bmzPriceOver6Blocks' }],
       workPrices,
     });
 
@@ -818,16 +829,25 @@ export class BidRepriceService {
   private countRusnBusBridges(rusn: any): number {
     const bridges = Array.isArray(rusn?.busBridges) ? rusn.busBridges : [];
     if (bridges.length > 0) {
-      return bridges.reduce((sum: number, bridge: any) => sum + (this.toNumber(bridge?.quantity) || 1), 0);
+      return bridges.reduce(
+        (sum: number, bridge: any) => sum + (this.toNumber(bridge?.quantity) || 1),
+        0
+      );
     }
     const summaries = Array.isArray(rusn?.busBridgeSummaries) ? rusn.busBridgeSummaries : [];
     if (summaries.length > 0) {
-      return summaries.reduce((sum: number, summary: any) => sum + (this.toNumber(summary?.quantity) || 1), 0);
+      return summaries.reduce(
+        (sum: number, summary: any) => sum + (this.toNumber(summary?.quantity) || 1),
+        0
+      );
     }
     return rusn?.busBridgeSummary ? this.toNumber(rusn.busBridgeSummary.quantity) || 1 : 0;
   }
 
-  private calculateRusnInstallationDetails(config: any, workPrices: Record<string, number>): InstallationWorkDetail[] {
+  private calculateRusnInstallationDetails(
+    config: any,
+    workPrices: Record<string, number>
+  ): InstallationWorkDetail[] {
     const rusn = config?.rusn || {};
     const details: InstallationWorkDetail[] = [];
     const totalCellCount = this.countRusnCells(rusn);
@@ -876,17 +896,27 @@ export class BidRepriceService {
 
   private countRunnPanels(runn: any): number {
     const cells = Array.isArray(runn?.cellConfigs) ? runn.cellConfigs : [];
-    return cells.reduce((sum: number, cell: any) => sum + (this.toNumber(cell?.quantity ?? cell?.count) || 1), 0);
+    return cells.reduce(
+      (sum: number, cell: any) => sum + (this.toNumber(cell?.quantity ?? cell?.count) || 1),
+      0
+    );
   }
 
   private countRunnBusBridges(runn: any): number {
     const bridges = Array.isArray(runn?.busBridges) ? runn.busBridges : [];
     if (bridges.length > 0) {
-      return bridges.reduce((sum: number, bridge: any) => sum + (this.toNumber(bridge?.quantity) || 1), 0);
+      return bridges.reduce(
+        (sum: number, bridge: any) => sum + (this.toNumber(bridge?.quantity) || 1),
+        0
+      );
     }
     const summaries = Array.isArray(runn?.busBridgeSummaries) ? runn.busBridgeSummaries : [];
     return summaries
-      .filter((summary: any) => String(summary?.name || '').toLowerCase().includes('шинный мост'))
+      .filter((summary: any) =>
+        String(summary?.name || '')
+          .toLowerCase()
+          .includes('шинный мост')
+      )
       .reduce((sum: number, summary: any) => sum + (this.toNumber(summary?.quantity) || 1), 0);
   }
 
@@ -897,11 +927,15 @@ export class BidRepriceService {
     if (!materialMatch || !sizeMatch) return null;
 
     const material = materialMatch[1].toLowerCase() === 'мт' ? 'Mt' : 'Ad';
-    const multiplicity = materialMatch[2] === '3' ? 'Triple' : materialMatch[2] === '2' ? 'Double' : 'Single';
+    const multiplicity =
+      materialMatch[2] === '3' ? 'Triple' : materialMatch[2] === '2' ? 'Double' : 'Single';
     return `runnUnit${material}10x${sizeMatch[1]}${multiplicity}`;
   }
 
-  private calculateRunnInstallationDetails(config: any, workPrices: Record<string, number>): InstallationWorkDetail[] {
+  private calculateRunnInstallationDetails(
+    config: any,
+    workPrices: Record<string, number>
+  ): InstallationWorkDetail[] {
     const runn = config?.runn || {};
     const details: InstallationWorkDetail[] = [];
     const panelCount = this.countRunnPanels(runn);
@@ -941,7 +975,10 @@ export class BidRepriceService {
     return details;
   }
 
-  private calculateTransformerInstallationDetails(config: any, workPrices: Record<string, number>): InstallationWorkDetail[] {
+  private calculateTransformerInstallationDetails(
+    config: any,
+    workPrices: Record<string, number>
+  ): InstallationWorkDetail[] {
     const details: InstallationWorkDetail[] = [];
     const quantity = this.getTransformerQuantity(config);
     const power = this.getTransformerPower(config);
@@ -959,7 +996,10 @@ export class BidRepriceService {
     return details;
   }
 
-  private calculateInstallationWorkDetails(config: any, workPrices: Record<string, number>): InstallationWorkDetail[] {
+  private calculateInstallationWorkDetails(
+    config: any,
+    workPrices: Record<string, number>
+  ): InstallationWorkDetail[] {
     return [
       ...this.calculateBmzInstallationDetails(config, workPrices),
       ...this.calculateRusnInstallationDetails(config, workPrices),
@@ -1107,16 +1147,18 @@ export class BidRepriceService {
       const oldBase = this.toNumber(oldBaseByTable[tableId]);
 
       if (!Number.isFinite(percent) && oldMarkupTotal != null && oldBase > 0) {
-        percent = this.round(((this.toNumber(oldMarkupTotal) / oldBase) - 1) * 100);
+        percent = this.round((this.toNumber(oldMarkupTotal) / oldBase - 1) * 100);
         tableMarkupPercents[tableId] = percent;
       }
 
       if (Number.isFinite(percent)) {
         tableMarkupTotals[tableId] = this.round(newBase * (1 + percent / 100));
       } else if (oldMarkupTotal != null && oldBase > 0) {
-        tableMarkupTotals[tableId] = this.round((this.toNumber(oldMarkupTotal) / oldBase) * newBase);
+        tableMarkupTotals[tableId] = this.round(
+          (this.toNumber(oldMarkupTotal) / oldBase) * newBase
+        );
         tableMarkupPercents[tableId] = this.round(
-          ((this.toNumber(tableMarkupTotals[tableId]) / newBase) - 1) * 100
+          (this.toNumber(tableMarkupTotals[tableId]) / newBase - 1) * 100
         );
       } else {
         tableMarkupTotals[tableId] = null;

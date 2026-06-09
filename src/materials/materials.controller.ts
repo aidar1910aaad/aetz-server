@@ -141,6 +141,34 @@ export class MaterialsController {
     return this.materialsService.findAll({ page, limit, search, sort, order, categoryId });
   }
 
+  @Get('price-import/preview')
+  @ApiOperation({
+    summary: 'Предпросмотр импорта цен из Excel',
+    description:
+      'Сравнивает data/data-materials.xlsx с текущей БД и возвращает список «было → станет».',
+  })
+  getPriceImportPreview() {
+    return this.materialsService.getPriceImportPreview();
+  }
+
+  @Post('price-import/apply')
+  @ApiOperation({
+    summary: 'Применить импорт цен из Excel в БД',
+    description:
+      'Обновляет и создаёт материалы по data/data-materials.xlsx и сохраняет метки импорта.',
+  })
+  applyPriceImport() {
+    return this.materialsService.applyPriceImport();
+  }
+
+  @Get('price-import/badges')
+  @ApiOperation({
+    summary: 'Метки материалов после последнего импорта Excel',
+  })
+  getPriceImportBadges() {
+    return this.materialsService.getPriceImportBadges();
+  }
+
   @Get('history')
   @ApiOperation({
     summary: 'Получить историю изменений материалов с фильтрацией',

@@ -481,7 +481,9 @@ describe('BidRepriceService', () => {
     );
 
     const worksList = result.data.config.works.worksList;
-    const aggregate = worksList.find((work: { name: string }) => work.name === 'Монтаж оборудования');
+    const aggregate = worksList.find(
+      (work: { name: string }) => work.name === 'Монтаж оборудования'
+    );
 
     expect(worksList).toHaveLength(1);
     expect(aggregate.price).toBe(5520);

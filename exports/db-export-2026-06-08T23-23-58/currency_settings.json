@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "usdRate": "500.00",
+    "eurRate": "600.00",
+    "rubRate": "7.02",
+    "kztRate": "1.00",
+    "defaultCurrency": "USD",
+    "hourlyWage": "2000.00",
+    "vatRate": "16.00",
+    "administrativeExpenses": "15.00",
+    "plannedSavings": "10.00",
+    "productionExpenses": "10.00",
+    "createdAt": "2025-06-03T05:47:20.248Z",
+    "updatedAt": "2026-05-20T18:05:06.519Z",
+    "cnyRate": "50.25"
+  }
+]

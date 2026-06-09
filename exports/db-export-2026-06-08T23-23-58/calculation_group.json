@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Камера КСО А12-10",
+    "slug": "kamera-kso-a12-10",
+    "voltageType": 10
+  },
+  {
+    "id": 6,
+    "name": "Камера КСО 366",
+    "slug": "kamera-kso-366",
+    "voltageType": 10
+  },
+  {
+    "id": 9,
+    "name": "Панель ЩО-70",
+    "slug": "panel-sho-70",
+    "voltageType": 400
+  },
+  {
+    "id": 8,
+    "name": "Камера 8DJH",
+    "slug": "kamera-8djh",
+    "voltageType": 10
+  },
+  {
+    "id": 4,
+    "name": "Камера КСО А17-20",
+    "slug": "kamera-kso-a17-20",
+    "voltageType": 20
+  },
+  {
+    "id": 17,
+    "name": "Шкафы для доп комплектации",
+    "slug": "shkafy-dlya-dop-komplektacii",
+    "voltageType": 400
+  },
+  {
+    "id": 18,
+    "name": "УСТ",
+    "slug": "ust",
+    "voltageType": 10
+  },
+  {
+    "id": 5,
+    "name": "Камера КМ1-АФ",
+    "slug": "kamera-km1-af",
+    "voltageType": 10
+  }
+]

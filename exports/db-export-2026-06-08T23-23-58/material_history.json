@@ -1,0 +1,3251 @@
+[
+  {
+    "id": 30,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель AETZ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-05-22T04:02:42.968Z",
+    "materialId": 1235
+  },
+  {
+    "id": 31,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель AETZ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-05-22T04:03:00.381Z",
+    "materialId": 1251
+  },
+  {
+    "id": 33,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель AETZ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-05-26T05:42:55.819Z",
+    "materialId": 1236
+  },
+  {
+    "id": 34,
+    "fieldChanged": "category",
+    "oldValue": "не указана",
+    "newValue": "РЗиА РС83",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-05-26T05:43:37.697Z",
+    "materialId": 2153
+  },
+  {
+    "id": 35,
+    "fieldChanged": "category",
+    "oldValue": "не указана",
+    "newValue": "РЗиА РС83",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-05-26T05:43:43.560Z",
+    "materialId": 2150
+  },
+  {
+    "id": 40,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель Siemens",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-05-29T02:02:34.046Z",
+    "materialId": 1171
+  },
+  {
+    "id": 46,
+    "fieldChanged": "category",
+    "oldValue": "Приборы учета",
+    "newValue": "Прибор учёта 100В",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:17:53.232Z",
+    "materialId": 2965
+  },
+  {
+    "id": 49,
+    "fieldChanged": "category",
+    "oldValue": "Приборы учета",
+    "newValue": "Прибор учёта 100В",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:20:36.144Z",
+    "materialId": 2979
+  },
+  {
+    "id": 50,
+    "fieldChanged": "category",
+    "oldValue": "Блок Релейной Защиты",
+    "newValue": "РЗиА РС83",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:21:11.152Z",
+    "materialId": 2155
+  },
+  {
+    "id": 51,
+    "fieldChanged": "category",
+    "oldValue": "Блок Релейной Защиты",
+    "newValue": "РЗиА РС83",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:21:21.746Z",
+    "materialId": 2157
+  },
+  {
+    "id": 52,
+    "fieldChanged": "category",
+    "oldValue": "не указана",
+    "newValue": "РЗиА РС83",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:21:59.434Z",
+    "materialId": 2151
+  },
+  {
+    "id": 53,
+    "fieldChanged": "category",
+    "oldValue": "не указана",
+    "newValue": "РЗиА РС83",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:22:07.878Z",
+    "materialId": 2152
+  },
+  {
+    "id": 54,
+    "fieldChanged": "name",
+    "oldValue": "Микропроцессорное устройство защиты  по напряжению РС83 В1-12111100 v 1.3",
+    "newValue": "РЗиА по напряжению РС83 В1",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:22:51.944Z",
+    "materialId": 2151
+  },
+  {
+    "id": 55,
+    "fieldChanged": "name",
+    "oldValue": "Микропроцессорное устройство защиты  по току РС 830 В2 - 6211111151",
+    "newValue": "РЗиА по току РС 830 В2",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:23:09.009Z",
+    "materialId": 2152
+  },
+  {
+    "id": 56,
+    "fieldChanged": "name",
+    "oldValue": "Микропроцессорное устройство защиты и автоматики по току РС 83 А 2.0- .",
+    "newValue": "РЗиА по току РС 83 А 2.0",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:24:04.491Z",
+    "materialId": 2155
+  },
+  {
+    "id": 57,
+    "fieldChanged": "name",
+    "oldValue": "Микропроцессорное устройство защиты и автоматики по току РС83 АВ2 - 35212121131",
+    "newValue": "РЗиА по току РС83 АВ2",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:24:22.478Z",
+    "materialId": 2157
+  },
+  {
+    "id": 58,
+    "fieldChanged": "name",
+    "oldValue": "Микропроцессорное устройство защиты  по току РС83  А2М - 35612151111V 1.3",
+    "newValue": "РЗиА по току РС83 А2М",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:24:55.693Z",
+    "materialId": 2153
+  },
+  {
+    "id": 59,
+    "fieldChanged": "category",
+    "oldValue": "РЗиА РС83",
+    "newValue": "Блок Релейной Защиты",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-06-24T03:25:11.010Z",
+    "materialId": 2150
+  },
+  {
+    "id": 61,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:23:17.925Z",
+    "materialId": 3171
+  },
+  {
+    "id": 62,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:23:28.775Z",
+    "materialId": 3172
+  },
+  {
+    "id": 63,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:23:39.342Z",
+    "materialId": 3173
+  },
+  {
+    "id": 64,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:23:56.300Z",
+    "materialId": 3174
+  },
+  {
+    "id": 69,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "72072",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:26:29.712Z",
+    "materialId": 3231
+  },
+  {
+    "id": 70,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:26:29.725Z",
+    "materialId": 3231
+  },
+  {
+    "id": 77,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-1-0,5/10Р -     600/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ 10 600/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:29:36.050Z",
+    "materialId": 3171
+  },
+  {
+    "id": 78,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ 10 600/5",
+    "newValue": "Трансформатор тока ТОЛ-10 600/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:29:48.909Z",
+    "materialId": 3171
+  },
+  {
+    "id": 79,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-1-0,5/10Р -     800/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 800/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:30:05.916Z",
+    "materialId": 3172
+  },
+  {
+    "id": 80,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-1-0,5/10Р -   1000/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 1000/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:30:26.594Z",
+    "materialId": 3173
+  },
+  {
+    "id": 81,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-1-0,5/10Р -   2000/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 2000/5 ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:30:43.682Z",
+    "materialId": 3174
+  },
+  {
+    "id": 82,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-7-0,5/10Р -   1500/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 1500/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:31:24.112Z",
+    "materialId": 3177
+  },
+  {
+    "id": 83,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "116802",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:31:24.121Z",
+    "materialId": 3177
+  },
+  {
+    "id": 84,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:31:24.137Z",
+    "materialId": 3177
+  },
+  {
+    "id": 85,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-М-29-0,5/10Р  -    20/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 20/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:32:41.521Z",
+    "materialId": 3181
+  },
+  {
+    "id": 86,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:32:41.535Z",
+    "materialId": 3181
+  },
+  {
+    "id": 87,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-М-29-0,5/10Р -     50/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 50/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:33:03.523Z",
+    "materialId": 3182
+  },
+  {
+    "id": 88,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:33:03.537Z",
+    "materialId": 3182
+  },
+  {
+    "id": 89,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-М-29-0,5/10Р -     75/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 75/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:33:18.669Z",
+    "materialId": 3183
+  },
+  {
+    "id": 90,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:33:46.740Z",
+    "materialId": 3183
+  },
+  {
+    "id": 91,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-М-29-0,5/10Р -   100/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 100/5 ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:34:07.216Z",
+    "materialId": 3184
+  },
+  {
+    "id": 92,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:34:17.594Z",
+    "materialId": 3184
+  },
+  {
+    "id": 93,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-М-29-0,5/10Р -   150/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 150/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:34:44.503Z",
+    "materialId": 3185
+  },
+  {
+    "id": 94,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:34:44.517Z",
+    "materialId": 3185
+  },
+  {
+    "id": 95,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-М-29-0,5/10Р -   200/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 200/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:35:02.121Z",
+    "materialId": 3186
+  },
+  {
+    "id": 96,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:35:08.262Z",
+    "materialId": 3186
+  },
+  {
+    "id": 97,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-М-29-0,5/10Р -   300/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 300/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:35:26.352Z",
+    "materialId": 3187
+  },
+  {
+    "id": 98,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:35:26.364Z",
+    "materialId": 3187
+  },
+  {
+    "id": 99,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-М-29-0,5/10Р -   400/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 400/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:35:47.975Z",
+    "materialId": 3188
+  },
+  {
+    "id": 100,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор ТОЛ-10-1-2-0,5/10Р -    30/ 5 У2",
+    "newValue": "Трансформатор тока ТОЛ-10 30/ 5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:37:09.083Z",
+    "materialId": 3231
+  },
+  {
+    "id": 101,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока ТОЛ-СВЭЛ - 10-М-29-0,5/10Р  -    15/5 УХЛ2",
+    "newValue": "Трансформатор тока ТОЛ-10 15/5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:38:23.816Z",
+    "materialId": 3180
+  },
+  {
+    "id": 102,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "72072",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:38:23.825Z",
+    "materialId": 3180
+  },
+  {
+    "id": 103,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор тока 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:38:23.838Z",
+    "materialId": 3180
+  },
+  {
+    "id": 104,
+    "fieldChanged": "category",
+    "oldValue": "Вакуумный выключатель AETZ",
+    "newValue": "Выключатели высоковольтные",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:47:33.435Z",
+    "materialId": 1251
+  },
+  {
+    "id": 105,
+    "fieldChanged": "category",
+    "oldValue": "Вакуумный выключатель AETZ",
+    "newValue": "Выключатели высоковольтные",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:47:45.514Z",
+    "materialId": 1236
+  },
+  {
+    "id": 106,
+    "fieldChanged": "category",
+    "oldValue": "Приборы учета",
+    "newValue": "Прибор учёта 100В",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:50:04.855Z",
+    "materialId": 2968
+  },
+  {
+    "id": 107,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик электрической энергии трехфазный статический СТЭМ-300KZ.253.SU",
+    "newValue": "Счетчики электроэнергии СТЭМ-300KZ.253.SU",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:51:21.714Z",
+    "materialId": 2986
+  },
+  {
+    "id": 108,
+    "fieldChanged": "category",
+    "oldValue": "Приборы учета",
+    "newValue": "Прибор учёта 100В",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:51:21.731Z",
+    "materialId": 2986
+  },
+  {
+    "id": 109,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э Меркурий 234 ARTM 2  - 00 PBR.G",
+    "newValue": "Счетчики электроэнергии Меркурий 234 ARTM 2  - 00 PBR.G",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:51:46.447Z",
+    "materialId": 2968
+  },
+  {
+    "id": 110,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э Меркурий 234 ART 2     - 00 PR",
+    "newValue": "Счетчики электроэнергии Меркурий 234 ART 2     - 00 PR",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:52:47.829Z",
+    "materialId": 2965
+  },
+  {
+    "id": 111,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э Отан ТХ RS OP IP CAP 3У       -       Э 712  3*57,7/100 V   5-7,5 А  100 В",
+    "newValue": "Счетчики электроэнергии Сайман Э 712  3*57,7/100 V ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:53:45.527Z",
+    "materialId": 2979
+  },
+  {
+    "id": 112,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты выше 1кВ",
+    "newValue": "Разъединитель 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:55:21.229Z",
+    "materialId": 2634
+  },
+  {
+    "id": 113,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/2000 - III - УХЛ2 Контэл,",
+    "newValue": "Разъединитель РВЗ-10/2000 - III ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:56:13.351Z",
+    "materialId": 2639
+  },
+  {
+    "id": 114,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "345750",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:56:13.361Z",
+    "materialId": 2639
+  },
+  {
+    "id": 115,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты выше 1кВ",
+    "newValue": "Разъединитель 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T00:56:13.374Z",
+    "materialId": 2639
+  },
+  {
+    "id": 116,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ-10/2000 - III ",
+    "newValue": "Разъединитель РВЗ - 10/2000 - III ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:12:00.737Z",
+    "materialId": 2639
+  },
+  {
+    "id": 117,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/ 630 - III УХЛ2",
+    "newValue": "Разъединитель РВЗ - 10/ 630 - III ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:15:50.161Z",
+    "materialId": 2634
+  },
+  {
+    "id": 118,
+    "fieldChanged": "category",
+    "oldValue": "Трансформатор тока 10кВ",
+    "newValue": "Разъединитель 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:16:07.063Z",
+    "materialId": 3672
+  },
+  {
+    "id": 119,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/ 630 - III ",
+    "newValue": "Разъединитель РВЗ - 10/630 - III ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:16:42.425Z",
+    "materialId": 2634
+  },
+  {
+    "id": 120,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/ 630 - II УХЛ 2 (укороченный)",
+    "newValue": "Разъединитель РВЗ - 10/630 - II УХЛ 2 (укороченный)",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:16:51.442Z",
+    "materialId": 2633
+  },
+  {
+    "id": 121,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/ 630 - II  УХЛ 2",
+    "newValue": "Разъединитель РВЗ - 10/630 - II",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:17:00.809Z",
+    "materialId": 2632
+  },
+  {
+    "id": 122,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/1000 - II - УХЛ2",
+    "newValue": "Разъединитель РВЗ - 10/1000 - II",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:17:06.907Z",
+    "materialId": 2635
+  },
+  {
+    "id": 123,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/1600 - II - УХЛ2",
+    "newValue": "Разъединитель РВЗ - 10/1600 - II",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:17:16.396Z",
+    "materialId": 2636
+  },
+  {
+    "id": 124,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/630 - II УХЛ 2 (укороченный)",
+    "newValue": "Разъединитель РВЗ - 10/630 - II (укороченный)",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:17:23.827Z",
+    "materialId": 2633
+  },
+  {
+    "id": 125,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/2000 - II - УХЛ2 Контэл,",
+    "newValue": "Разъединитель РВЗ - 10/2000 - II",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:17:46.744Z",
+    "materialId": 2638
+  },
+  {
+    "id": 126,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВЗ - 10/2000 - I - УХЛ2 Контэл,",
+    "newValue": "Разъединитель РВЗ - 10/2000 - I",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:18:06.607Z",
+    "materialId": 2637
+  },
+  {
+    "id": 127,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "354311.61",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:18:06.617Z",
+    "materialId": 2637
+  },
+  {
+    "id": 128,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВФЗ - 10/ 630 - II - II - УХЛ2",
+    "newValue": "Разъединитель РВФЗ - 10/ 630 - II - II",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:18:28.049Z",
+    "materialId": 2642
+  },
+  {
+    "id": 129,
+    "fieldChanged": "name",
+    "oldValue": "Разъединитель РВФЗ - 10/ 630 - I - II - УХЛ2",
+    "newValue": "Разъединитель РВФЗ - 10/ 630 - I - II",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:22:49.667Z",
+    "materialId": 2641
+  },
+  {
+    "id": 130,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "124048.91",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:22:49.678Z",
+    "materialId": 2641
+  },
+  {
+    "id": 131,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор напряжения3*3НОЛП-СВЭЛ-10М -УХЛ2 (10000; 100; 100/3; 0,5/225; 3Р/400) аналог НАМИ-10 0",
+    "newValue": "Трансформатор напряжения 3*3НОЛП-10",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:25:36.135Z",
+    "materialId": 3068
+  },
+  {
+    "id": 132,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор напряжения 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:25:36.147Z",
+    "materialId": 3068
+  },
+  {
+    "id": 133,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы ВН",
+    "newValue": "Трансформатор напряжения 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:25:51.560Z",
+    "materialId": 3065
+  },
+  {
+    "id": 134,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор напряжения 3*3НОЛП-10",
+    "newValue": "Трансформатор напряжения 3*3НОЛП-10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:26:08.987Z",
+    "materialId": 3068
+  },
+  {
+    "id": 135,
+    "fieldChanged": "category",
+    "oldValue": "Силовые трансформаторы",
+    "newValue": "Трансформатор ТСН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:28:53.441Z",
+    "materialId": 3099
+  },
+  {
+    "id": 136,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор ТМГ-     25/ 10-0,4 кВ (У/Ун-0)",
+    "newValue": "Трансформатор ТМГ-     25/ 10-0,4 кВ ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:29:31.587Z",
+    "materialId": 3098
+  },
+  {
+    "id": 137,
+    "fieldChanged": "category",
+    "oldValue": "Силовые трансформаторы",
+    "newValue": "Трансформатор ТСН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-01T01:29:31.600Z",
+    "materialId": 3098
+  },
+  {
+    "id": 138,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель AETZ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T01:52:14.280Z",
+    "materialId": 1239
+  },
+  {
+    "id": 139,
+    "fieldChanged": "name",
+    "oldValue": "Вакуумный выключатель BB/TEL-10-31, 5/2000 У2 исп.1",
+    "newValue": "Вакуумный выключатель BB/TEL-10-31,5 2000А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T03:45:51.844Z",
+    "materialId": 1239
+  },
+  {
+    "id": 140,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "CHINT тест категория",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T18:25:27.329Z",
+    "materialId": 1061
+  },
+  {
+    "id": 141,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "CHINT тест категория",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T18:25:45.848Z",
+    "materialId": 1062
+  },
+  {
+    "id": 142,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "CHINT тест категория",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T18:26:02.634Z",
+    "materialId": 1063
+  },
+  {
+    "id": 143,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "CHINT тест категория",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T18:26:12.367Z",
+    "materialId": 1064
+  },
+  {
+    "id": 144,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "CHINT тест категория",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T18:26:21.170Z",
+    "materialId": 1065
+  },
+  {
+    "id": 145,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "CHINT тест категория",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T18:26:28.939Z",
+    "materialId": 1066
+  },
+  {
+    "id": 146,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "CHINT тест категория",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T18:26:37.090Z",
+    "materialId": 1067
+  },
+  {
+    "id": 147,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "CHINT тест категория",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T18:26:43.712Z",
+    "materialId": 1068
+  },
+  {
+    "id": 148,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "CHINT тест категория",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-02T18:26:54.025Z",
+    "materialId": 1069
+  },
+  {
+    "id": 149,
+    "fieldChanged": "name",
+    "oldValue": "Вакуумный выключатель VR 1 - 24/   630 - 25   24 кВ",
+    "newValue": "Вакуумный выключатель  АV-24 630A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-03T03:22:21.289Z",
+    "materialId": 1249
+  },
+  {
+    "id": 150,
+    "fieldChanged": "name",
+    "oldValue": "Вакуумный выключатель VR 1 - 24/ 1250 - 25   24 кВ",
+    "newValue": "Вакуумный выключатель  AV-24 1250A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-03T03:22:54.199Z",
+    "materialId": 1250
+  },
+  {
+    "id": 151,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель AETZ 20кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-03T03:23:15.456Z",
+    "materialId": 1250
+  },
+  {
+    "id": 152,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель AETZ 20кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-07-03T03:23:21.611Z",
+    "materialId": 1249
+  },
+  {
+    "id": 154,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "РПС левый",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:40:25.156Z",
+    "materialId": 2765
+  },
+  {
+    "id": 155,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "РПС правый",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:40:34.331Z",
+    "materialId": 2766
+  },
+  {
+    "id": 156,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "РПС левый",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:40:43.003Z",
+    "materialId": 2767
+  },
+  {
+    "id": 157,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "РПС правый",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:40:50.218Z",
+    "materialId": 2768
+  },
+  {
+    "id": 158,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "РПС левый",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:40:58.103Z",
+    "materialId": 2769
+  },
+  {
+    "id": 159,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "РПС правый",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:41:19.254Z",
+    "materialId": 2770
+  },
+  {
+    "id": 160,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "РПС левый",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:41:25.345Z",
+    "materialId": 2771
+  },
+  {
+    "id": 161,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "РПС правый",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:41:31.733Z",
+    "materialId": 2772
+  },
+  {
+    "id": 162,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Автомат КЭАЗ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:50:11.676Z",
+    "materialId": 1052
+  },
+  {
+    "id": 163,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Автомат КЭАЗ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:50:24.345Z",
+    "materialId": 1051
+  },
+  {
+    "id": 164,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Автомат КЭАЗ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:50:32.939Z",
+    "materialId": 1050
+  },
+  {
+    "id": 165,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Автомат КЭАЗ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:50:41.707Z",
+    "materialId": 1049
+  },
+  {
+    "id": 166,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Автомат КЭАЗ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:50:49.515Z",
+    "materialId": 1048
+  },
+  {
+    "id": 167,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Автомат КЭАЗ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:50:59.583Z",
+    "materialId": 1046
+  },
+  {
+    "id": 168,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Автомат КЭАЗ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T05:51:16.933Z",
+    "materialId": 1045
+  },
+  {
+    "id": 169,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "Рубильник Р",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T06:00:27.517Z",
+    "materialId": 2627
+  },
+  {
+    "id": 170,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "Рубильник Р",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T06:00:37.681Z",
+    "materialId": 2629
+  },
+  {
+    "id": 171,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "65000",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T06:01:04.995Z",
+    "materialId": 2631
+  },
+  {
+    "id": 172,
+    "fieldChanged": "category",
+    "oldValue": "Коммутационные аппараты до 1кВ",
+    "newValue": "Рубильник Р",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-08-12T06:01:05.008Z",
+    "materialId": 2631
+  },
+  {
+    "id": 173,
+    "fieldChanged": "category",
+    "oldValue": "Предохранители НН",
+    "newValue": "Предохранители РУНН ПН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T18:54:59.385Z",
+    "materialId": 2456
+  },
+  {
+    "id": 174,
+    "fieldChanged": "category",
+    "oldValue": "Предохранители НН",
+    "newValue": "Предохранители РУНН ПН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T18:55:17.762Z",
+    "materialId": 2460
+  },
+  {
+    "id": 175,
+    "fieldChanged": "category",
+    "oldValue": "Предохранители НН",
+    "newValue": "Предохранители РУНН ПН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T18:55:28.906Z",
+    "materialId": 2463
+  },
+  {
+    "id": 176,
+    "fieldChanged": "category",
+    "oldValue": "Предохранители НН",
+    "newValue": "Предохранители РУНН ПН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T18:55:37.996Z",
+    "materialId": 2465
+  },
+  {
+    "id": 177,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:04:15.104Z",
+    "materialId": 3144
+  },
+  {
+    "id": 263,
+    "fieldChanged": "price",
+    "oldValue": "1424145.09",
+    "newValue": "1692964",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:20:42.187Z",
+    "materialId": 1009
+  },
+  {
+    "id": 178,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:04:26.487Z",
+    "materialId": 3257
+  },
+  {
+    "id": 179,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:04:49.251Z",
+    "materialId": 3165
+  },
+  {
+    "id": 180,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:04:55.602Z",
+    "materialId": 3164
+  },
+  {
+    "id": 181,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:02.916Z",
+    "materialId": 3163
+  },
+  {
+    "id": 182,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:09.104Z",
+    "materialId": 3162
+  },
+  {
+    "id": 183,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:14.312Z",
+    "materialId": 3161
+  },
+  {
+    "id": 184,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:22.820Z",
+    "materialId": 3160
+  },
+  {
+    "id": 185,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:28.643Z",
+    "materialId": 3159
+  },
+  {
+    "id": 186,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:34.458Z",
+    "materialId": 3158
+  },
+  {
+    "id": 187,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:39.460Z",
+    "materialId": 3157
+  },
+  {
+    "id": 188,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:44.979Z",
+    "materialId": 3156
+  },
+  {
+    "id": 189,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:50.075Z",
+    "materialId": 3155
+  },
+  {
+    "id": 190,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:05:55.661Z",
+    "materialId": 3154
+  },
+  {
+    "id": 191,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:06:00.827Z",
+    "materialId": 3153
+  },
+  {
+    "id": 192,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:06:05.992Z",
+    "materialId": 3152
+  },
+  {
+    "id": 193,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:06:16.608Z",
+    "materialId": 3151
+  },
+  {
+    "id": 194,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:06:29.093Z",
+    "materialId": 3145
+  },
+  {
+    "id": 195,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:06:36.875Z",
+    "materialId": 3146
+  },
+  {
+    "id": 196,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:06:42.330Z",
+    "materialId": 3147
+  },
+  {
+    "id": 197,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "1",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:06:54.915Z",
+    "materialId": 3148
+  },
+  {
+    "id": 198,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:06:54.926Z",
+    "materialId": 3148
+  },
+  {
+    "id": 199,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "1",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:07:03.677Z",
+    "materialId": 3150
+  },
+  {
+    "id": 200,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:07:03.687Z",
+    "materialId": 3150
+  },
+  {
+    "id": 201,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-03T19:07:11.195Z",
+    "materialId": 3149
+  },
+  {
+    "id": 202,
+    "fieldChanged": "name",
+    "oldValue": "Автомат-     63 А      ВА 57 - 35",
+    "newValue": "Автомат ВА-57-ф35 / 63А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-08T05:03:39.006Z",
+    "materialId": 1045
+  },
+  {
+    "id": 203,
+    "fieldChanged": "name",
+    "oldValue": "Автомат-     80 А      ВА 57 - 35",
+    "newValue": "Автомат ВА-57-ф35 / 80А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-08T05:03:51.125Z",
+    "materialId": 1046
+  },
+  {
+    "id": 204,
+    "fieldChanged": "name",
+    "oldValue": "Автомат-   100 А      ВА 57 - 35",
+    "newValue": "Автомат ВА-57-ф35 / 100 А      ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-08T05:03:59.818Z",
+    "materialId": 1048
+  },
+  {
+    "id": 205,
+    "fieldChanged": "name",
+    "oldValue": "Автомат-   125 А      ВА 57 - 35",
+    "newValue": "Автомат ВА-57-ф35 / 125 А      ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-08T05:04:08.307Z",
+    "materialId": 1049
+  },
+  {
+    "id": 206,
+    "fieldChanged": "name",
+    "oldValue": "Автомат-   160 А      ВА 57 - 35",
+    "newValue": "Автомат ВА-57-ф35 / 160 А      ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-08T05:04:17.212Z",
+    "materialId": 1050
+  },
+  {
+    "id": 207,
+    "fieldChanged": "name",
+    "oldValue": "Автомат-   200 А      ВА 57 - 35",
+    "newValue": "Автомат ВА-57-ф35 / 200 А      ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-08T05:04:28.511Z",
+    "materialId": 1051
+  },
+  {
+    "id": 208,
+    "fieldChanged": "name",
+    "oldValue": "Автомат-   250 А      ВА 57 - 35",
+    "newValue": "Автомат ВА-57-ф35 / 250 А      ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-08T05:04:40.197Z",
+    "materialId": 1052
+  },
+  {
+    "id": 209,
+    "fieldChanged": "name",
+    "oldValue": "Автомат- 400 А ВА 57 - 39",
+    "newValue": "Автомат ВА-57-39 / 400 А      ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-08T05:04:48.208Z",
+    "materialId": 3674
+  },
+  {
+    "id": 210,
+    "fieldChanged": "name",
+    "oldValue": "Автомат ВА-57-ф35 / 32А",
+    "newValue": "Автомат ВА-57-ф35 / 31,5А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-08T05:07:57.855Z",
+    "materialId": 3681
+  },
+  {
+    "id": 212,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-09T04:40:23.806Z",
+    "materialId": 3130
+  },
+  {
+    "id": 213,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-09T04:40:43.534Z",
+    "materialId": 3132
+  },
+  {
+    "id": 214,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные трансформаторы НН",
+    "newValue": "Трансформатор тока РУНН",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-09T04:40:54.860Z",
+    "materialId": 3133
+  },
+  {
+    "id": 218,
+    "fieldChanged": "category",
+    "oldValue": "Приборы учета",
+    "newValue": "Прибор учёта 380В",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T01:43:49.277Z",
+    "materialId": 2959
+  },
+  {
+    "id": 219,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T01:47:40.645Z",
+    "materialId": 1020
+  },
+  {
+    "id": 220,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T01:47:46.527Z",
+    "materialId": 1018
+  },
+  {
+    "id": 335,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока Т-0,66  -   400/ 5 УЗ ГОСТ 7746-2001",
+    "newValue": "Трансформатор тока Т-0,66  -   400/ 5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T00:57:32.598Z",
+    "materialId": 3158
+  },
+  {
+    "id": 336,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор проходной ИПУ- 10/ 1600/ 12,5 УХЛ1,",
+    "newValue": "Изолятор проходной ИПУ- 10/ 1600A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:11:33.383Z",
+    "materialId": 1625
+  },
+  {
+    "id": 221,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T01:47:51.474Z",
+    "materialId": 1016
+  },
+  {
+    "id": 222,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T01:47:57.156Z",
+    "materialId": 1015
+  },
+  {
+    "id": 223,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T01:48:04.748Z",
+    "materialId": 1013
+  },
+  {
+    "id": 224,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-10D3-10A M2D2D2AX NG0UO RU",
+    "newValue": "Автомат выкатной Metasol AN-10D3-1000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:20:34.649Z",
+    "materialId": 1013
+  },
+  {
+    "id": 225,
+    "fieldChanged": "price",
+    "oldValue": "705334.79",
+    "newValue": "1318166",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:20:34.740Z",
+    "materialId": 1013
+  },
+  {
+    "id": 226,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AN-08D3-08A M2D2D2BX AC6U0AL",
+    "newValue": "Автомат выкатной Metasol AN-08D3-800A ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:22:59.769Z",
+    "materialId": 1011
+  },
+  {
+    "id": 227,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "1292151",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:22:59.778Z",
+    "materialId": 1011
+  },
+  {
+    "id": 228,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-06D3-06A M2D2D2AX NG5UO RU",
+    "newValue": "Автомат выкатной Metasol AN-06D3-630A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:23:24.479Z",
+    "materialId": 1012
+  },
+  {
+    "id": 229,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "1251014",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:23:24.489Z",
+    "materialId": 1012
+  },
+  {
+    "id": 230,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-10D3-1250 A M2D2D2AX NG0UO RU",
+    "newValue": "Автомат выкатной Metasol AN-13D3-1250A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:24:03.804Z",
+    "materialId": 1014
+  },
+  {
+    "id": 231,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "1345350",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:24:03.814Z",
+    "materialId": 1014
+  },
+  {
+    "id": 232,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-16D3-16A M2D2D2AX NG5UO RU",
+    "newValue": "Автомат выкатной Metasol AN-16D3-1600A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:49:10.677Z",
+    "materialId": 1016
+  },
+  {
+    "id": 233,
+    "fieldChanged": "price",
+    "oldValue": "433822.46",
+    "newValue": "1514351",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:49:10.698Z",
+    "materialId": 1016
+  },
+  {
+    "id": 234,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-10D3-6300A M2D2D2AX NG0UO RU",
+    "newValue": "Автомат выкатной Metasol AS-63G3-6300A ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:50:00.893Z",
+    "materialId": 1015
+  },
+  {
+    "id": 235,
+    "fieldChanged": "price",
+    "oldValue": "3643492.74",
+    "newValue": "5140799",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:50:00.902Z",
+    "materialId": 1015
+  },
+  {
+    "id": 236,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-20D3-20A M2D2D2AX NG5UO RU",
+    "newValue": "Автомат выкатной Metasol AS-20E3-2000A ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:50:47.849Z",
+    "materialId": 1018
+  },
+  {
+    "id": 237,
+    "fieldChanged": "price",
+    "oldValue": "959405.04",
+    "newValue": "1564307",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:50:47.857Z",
+    "materialId": 1018
+  },
+  {
+    "id": 238,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-25E3-25A M2D2D2AX NG5UO RU",
+    "newValue": "Автомат выкатной Metasol AS-25E3-2500A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:51:14.117Z",
+    "materialId": 1020
+  },
+  {
+    "id": 239,
+    "fieldChanged": "price",
+    "oldValue": "1339285.71",
+    "newValue": "1774299",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:51:14.125Z",
+    "materialId": 1020
+  },
+  {
+    "id": 240,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-32E3-32A M2D2D2AX NG5UO RU",
+    "newValue": "Автомат выкатной Metasol AS-32E3-3200A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:51:44.808Z",
+    "materialId": 1022
+  },
+  {
+    "id": 241,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "2143613",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:51:44.818Z",
+    "materialId": 1022
+  },
+  {
+    "id": 242,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-40E3-40A M2D2D2AX NG5UO RU",
+    "newValue": "Автомат выкатной Metasol AS-40E3-4000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:52:13.432Z",
+    "materialId": 1023
+  },
+  {
+    "id": 243,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "2949948",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:52:13.441Z",
+    "materialId": 1023
+  },
+  {
+    "id": 244,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-50F3-50A M2D2D2AX NG5UO RU",
+    "newValue": "Автомат выкатной Metasol AS-50F3-5000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:52:35.253Z",
+    "materialId": 1024
+  },
+  {
+    "id": 245,
+    "fieldChanged": "price",
+    "oldValue": "0",
+    "newValue": "3159733",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:52:35.262Z",
+    "materialId": 1024
+  },
+  {
+    "id": 246,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:52:47.161Z",
+    "materialId": 1022
+  },
+  {
+    "id": 247,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:52:54.577Z",
+    "materialId": 1012
+  },
+  {
+    "id": 248,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:53:03.234Z",
+    "materialId": 1011
+  },
+  {
+    "id": 249,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:53:10.306Z",
+    "materialId": 1014
+  },
+  {
+    "id": 250,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:59:49.519Z",
+    "materialId": 1023
+  },
+  {
+    "id": 251,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:59:49.522Z",
+    "materialId": 1023
+  },
+  {
+    "id": 252,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Metasol",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T03:59:56.928Z",
+    "materialId": 1024
+  },
+  {
+    "id": 253,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGN40В 4000А",
+    "newValue": "Автомат выкатной Hyundai HGN40А 4000А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:19:00.969Z",
+    "materialId": 1005
+  },
+  {
+    "id": 254,
+    "fieldChanged": "price",
+    "oldValue": "1964732.14",
+    "newValue": "2266929",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:19:00.990Z",
+    "materialId": 1005
+  },
+  {
+    "id": 255,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Hyundai",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:19:01.003Z",
+    "materialId": 1005
+  },
+  {
+    "id": 256,
+    "fieldChanged": "price",
+    "oldValue": "977891.37",
+    "newValue": "1163036",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:19:21.727Z",
+    "materialId": 1006
+  },
+  {
+    "id": 257,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Hyundai",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:19:21.739Z",
+    "materialId": 1006
+  },
+  {
+    "id": 258,
+    "fieldChanged": "price",
+    "oldValue": "992375",
+    "newValue": "1179643",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:19:44.229Z",
+    "materialId": 1007
+  },
+  {
+    "id": 259,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Hyundai",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:19:44.242Z",
+    "materialId": 1007
+  },
+  {
+    "id": 260,
+    "fieldChanged": "price",
+    "oldValue": "1346428.57",
+    "newValue": "1553571",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:20:13.640Z",
+    "materialId": 1008
+  },
+  {
+    "id": 261,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Hyundai",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:20:13.654Z",
+    "materialId": 1008
+  },
+  {
+    "id": 262,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS25В 2500А",
+    "newValue": "Автомат выкатной Hyundai HGS25А 2500А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:20:42.177Z",
+    "materialId": 1009
+  },
+  {
+    "id": 264,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Hyundai",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:20:42.203Z",
+    "materialId": 1009
+  },
+  {
+    "id": 265,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS32 3200А",
+    "newValue": "Автомат выкатной Hyundai HGS32А 3200А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:38:22.836Z",
+    "materialId": 1010
+  },
+  {
+    "id": 266,
+    "fieldChanged": "price",
+    "oldValue": "1540750.56",
+    "newValue": "1821750",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:38:22.859Z",
+    "materialId": 1010
+  },
+  {
+    "id": 267,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Hyundai",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T04:38:22.872Z",
+    "materialId": 1010
+  },
+  {
+    "id": 268,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGN40А 4000А",
+    "newValue": "Автомат выкатной Hyundai HGN40А 4000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:24:12.898Z",
+    "materialId": 1005
+  },
+  {
+    "id": 269,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGN50А 5000А",
+    "newValue": "Автомат выкатной Hyundai HGN50А 5000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:24:19.528Z",
+    "materialId": 3691
+  },
+  {
+    "id": 270,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGN63А 6300А",
+    "newValue": "Автомат выкатной Hyundai HGN63А 6300A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:24:24.687Z",
+    "materialId": 3692
+  },
+  {
+    "id": 271,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS06А 630А",
+    "newValue": "Автомат выкатной Hyundai HGS06А 630A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:24:30.097Z",
+    "materialId": 3690
+  },
+  {
+    "id": 272,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS08А 800А",
+    "newValue": "Автомат выкатной Hyundai HGS08А 800A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:24:36.425Z",
+    "materialId": 3694
+  },
+  {
+    "id": 273,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS10А 1000А",
+    "newValue": "Автомат выкатной Hyundai HGS10А 1000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:24:41.891Z",
+    "materialId": 3693
+  },
+  {
+    "id": 274,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS12A 1250А",
+    "newValue": "Автомат выкатной Hyundai HGS12A 1250A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:24:47.893Z",
+    "materialId": 1006
+  },
+  {
+    "id": 275,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS16A 1600А",
+    "newValue": "Автомат выкатной Hyundai HGS16A 1600A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:24:52.383Z",
+    "materialId": 1007
+  },
+  {
+    "id": 276,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS20В 2000А",
+    "newValue": "Автомат выкатной Hyundai HGS20В 2000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:24:56.465Z",
+    "materialId": 1008
+  },
+  {
+    "id": 277,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS25А 2500А",
+    "newValue": "Автомат выкатной Hyundai HGS25А 2500A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:25:00.871Z",
+    "materialId": 1009
+  },
+  {
+    "id": 278,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS32А 3200А",
+    "newValue": "Автомат выкатной Hyundai HGS32А 3200A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T05:26:29.090Z",
+    "materialId": 1010
+  },
+  {
+    "id": 279,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AN-06D3-630A",
+    "newValue": "Автоматический воздушный выключатель Metasol AN-06D3-630A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:17:38.912Z",
+    "materialId": 1012
+  },
+  {
+    "id": 280,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AN-08D3-800A ",
+    "newValue": "Автоматический воздушный выключатель Metasol AN-08D3-800A ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:17:57.813Z",
+    "materialId": 1011
+  },
+  {
+    "id": 281,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AN-10D3-1000A",
+    "newValue": "Автоматический воздушный выключатель Metasol AN-10D3-1000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:18:05.604Z",
+    "materialId": 1013
+  },
+  {
+    "id": 282,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-63G3-6300A ",
+    "newValue": "Автоматический воздушный выключатель Metasol AS-63G3-6300A ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:24:54.253Z",
+    "materialId": 1015
+  },
+  {
+    "id": 283,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-50F3-5000A",
+    "newValue": "Автоматический воздушный выключатель Metasol AS-50F3-5000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:25:03.830Z",
+    "materialId": 1024
+  },
+  {
+    "id": 284,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AN-13D3-1250A",
+    "newValue": "Автоматический воздушный выключатель Metasol AN-13D3-1250A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:25:11.809Z",
+    "materialId": 1014
+  },
+  {
+    "id": 285,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AN-16D3-1600A",
+    "newValue": "Автоматический воздушный выключатель Metasol AN-16D3-1600A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:25:18.070Z",
+    "materialId": 1016
+  },
+  {
+    "id": 286,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-20E3-2000A ",
+    "newValue": "Автоматический воздушный выключатель Metasol AS-20E3-2000A ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:25:23.994Z",
+    "materialId": 1018
+  },
+  {
+    "id": 287,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-25E3-2500A",
+    "newValue": "Автоматический воздушный выключатель Metasol AS-25E3-2500A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:25:31.595Z",
+    "materialId": 1020
+  },
+  {
+    "id": 288,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-32E3-3200A",
+    "newValue": "Автоматический воздушный выключатель Metasol AS-32E3-3200A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:25:42.273Z",
+    "materialId": 1022
+  },
+  {
+    "id": 289,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Metasol AS-40E3-4000A",
+    "newValue": "Автоматический воздушный выключатель Metasol AS-40E3-4000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:25:50.098Z",
+    "materialId": 1023
+  },
+  {
+    "id": 290,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGN40А 4000A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGN40А 4000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:26:47.609Z",
+    "materialId": 1005
+  },
+  {
+    "id": 291,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGN50А 5000A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGN50А 5000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:26:57.123Z",
+    "materialId": 3691
+  },
+  {
+    "id": 292,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGN63А 6300A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGN63А 6300A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:27:06.613Z",
+    "materialId": 3692
+  },
+  {
+    "id": 293,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS06А 630A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGS06А 630A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:27:12.501Z",
+    "materialId": 3690
+  },
+  {
+    "id": 294,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS08А 800A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGS08А 800A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:27:18.341Z",
+    "materialId": 3694
+  },
+  {
+    "id": 295,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS10А 1000A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGS10А 1000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:27:24.456Z",
+    "materialId": 3693
+  },
+  {
+    "id": 296,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS12A 1250A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGS12A 1250A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:27:29.878Z",
+    "materialId": 1006
+  },
+  {
+    "id": 297,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS16A 1600A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGS16A 1600A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:27:36.832Z",
+    "materialId": 1007
+  },
+  {
+    "id": 298,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS20В 2000A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGS20В 2000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:27:42.527Z",
+    "materialId": 1008
+  },
+  {
+    "id": 299,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS25А 2500A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGS25А 2500A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:27:50.084Z",
+    "materialId": 1009
+  },
+  {
+    "id": 300,
+    "fieldChanged": "name",
+    "oldValue": "Автомат выкатной Hyundai HGS32А 3200A",
+    "newValue": "Автоматический воздушный выключатель Hyundai HGS32А 3200A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:27:55.882Z",
+    "materialId": 1010
+  },
+  {
+    "id": 301,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 1000 -  630,  630 A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 1000 - 630A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:31:53.409Z",
+    "materialId": 1061
+  },
+  {
+    "id": 302,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 1000 -1000,  1000 A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 1000 -1000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:32:05.474Z",
+    "materialId": 1062
+  },
+  {
+    "id": 303,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 2000 -1250,  1250 A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 2000 -1250A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:32:16.369Z",
+    "materialId": 1063
+  },
+  {
+    "id": 304,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 2000 -1600,  1600 A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 2000 -1600A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:32:28.793Z",
+    "materialId": 1064
+  },
+  {
+    "id": 305,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 2000 -2000,  2000 A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 2000 - 2000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:32:39.474Z",
+    "materialId": 1065
+  },
+  {
+    "id": 306,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 3200 -2500,  2500 A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 3200 - 2500A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:32:50.062Z",
+    "materialId": 1066
+  },
+  {
+    "id": 307,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 2000 -1250A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 2000 - 1250A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:33:01.992Z",
+    "materialId": 1063
+  },
+  {
+    "id": 308,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 2000 -1600A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 2000 - 1600A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:33:09.984Z",
+    "materialId": 1064
+  },
+  {
+    "id": 309,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 3200 -3200,  3200 A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 3200 - 3200A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:33:21.304Z",
+    "materialId": 1067
+  },
+  {
+    "id": 310,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 4000 -4000,  4000 A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 4000 - 4000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:33:30.601Z",
+    "materialId": 1068
+  },
+  {
+    "id": 311,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический воздушный выключатель (CHINT) NA 6300 -5000,  5000 A",
+    "newValue": "Автоматический воздушный выключатель (CHINT) NA 6300 - 5000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-11T06:33:42.487Z",
+    "materialId": 1069
+  },
+  {
+    "id": 312,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель Susol LS 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-12T01:13:01.177Z",
+    "materialId": 1248
+  },
+  {
+    "id": 313,
+    "fieldChanged": "name",
+    "oldValue": "Вакуумный выключатель VL -  12 P 32 B 25 - M8C2T2SB2U0-ABW EXP",
+    "newValue": "Вакуумный выключатель VL -  12 2500А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-12T01:14:56.811Z",
+    "materialId": 1248
+  },
+  {
+    "id": 314,
+    "fieldChanged": "name",
+    "oldValue": "Вакуумный выключатель VL -  12 P 25 D 13 - M8C2T8SA2U0-ABIW RUS, 12 кВ, 1250 А",
+    "newValue": "Вакуумный выключатель VL -  12 1250 А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-12T01:15:57.825Z",
+    "materialId": 1246
+  },
+  {
+    "id": 315,
+    "fieldChanged": "name",
+    "oldValue": "Вакуумный выключатель VL -  12 P 32 B 20 - M8C2T2SB2U0-ABW EXP",
+    "newValue": "Вакуумный выключатель VL -  12 2000 А",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-12T01:16:30.064Z",
+    "materialId": 1247
+  },
+  {
+    "id": 316,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель Susol LS 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-12T01:24:01.763Z",
+    "materialId": 1246
+  },
+  {
+    "id": 317,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель Susol LS 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-12T01:24:20.243Z",
+    "materialId": 1247
+  },
+  {
+    "id": 318,
+    "fieldChanged": "category",
+    "oldValue": "не указана",
+    "newValue": "Доп. компетенции РУ-10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:18:24.950Z",
+    "materialId": 2008
+  },
+  {
+    "id": 319,
+    "fieldChanged": "category",
+    "oldValue": "не указана",
+    "newValue": "Доп. компетенции РУ-10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:18:36.797Z",
+    "materialId": 2007
+  },
+  {
+    "id": 320,
+    "fieldChanged": "category",
+    "oldValue": "не указана",
+    "newValue": "Доп. компетенции РУ-10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:18:42.475Z",
+    "materialId": 2009
+  },
+  {
+    "id": 321,
+    "fieldChanged": "category",
+    "oldValue": "не указана",
+    "newValue": "Доп. компетенции РУ-10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:18:48.600Z",
+    "materialId": 2010
+  },
+  {
+    "id": 322,
+    "fieldChanged": "category",
+    "oldValue": "Измерительные приборы",
+    "newValue": "Доп. компетенции РУ-0,4кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:19:19.107Z",
+    "materialId": 927
+  },
+  {
+    "id": 323,
+    "fieldChanged": "category",
+    "oldValue": "не указана",
+    "newValue": "Доп. компетенции РУ-0,4кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:21:29.620Z",
+    "materialId": 1159
+  },
+  {
+    "id": 324,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический выкл. NXM-400S/3P 400A 50кА (CHINT)",
+    "newValue": "Автоматический выкл. NXM-400S/3P 400A ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:22:55.884Z",
+    "materialId": 1075
+  },
+  {
+    "id": 325,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Chint",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:22:55.900Z",
+    "materialId": 1075
+  },
+  {
+    "id": 326,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический выкл. NXM-250S/3P 250A 35кА (CHINT)",
+    "newValue": "Автоматический выкл. NXM-250S/3P 250A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:23:12.332Z",
+    "materialId": 1074
+  },
+  {
+    "id": 327,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Chint",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:23:12.348Z",
+    "materialId": 1074
+  },
+  {
+    "id": 328,
+    "fieldChanged": "name",
+    "oldValue": "Автоматический выкл. NXM-160S/3P 160A 35кA (CHINT)",
+    "newValue": "Автоматический выкл. NXM-160S/3P 160A ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:24:22.712Z",
+    "materialId": 1073
+  },
+  {
+    "id": 329,
+    "fieldChanged": "category",
+    "oldValue": "Автоматические выключатели напряжением до 1 кВ",
+    "newValue": "Воздушный автоматический выключатель выкатной Chint",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:24:22.740Z",
+    "materialId": 1073
+  },
+  {
+    "id": 330,
+    "fieldChanged": "category",
+    "oldValue": "Воздушный автоматический выключатель выкатной Chint",
+    "newValue": "Автоматический выключатель стационарный Chint",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:24:57.674Z",
+    "materialId": 1073
+  },
+  {
+    "id": 331,
+    "fieldChanged": "category",
+    "oldValue": "Воздушный автоматический выключатель выкатной Chint",
+    "newValue": "Автоматический выключатель стационарный Chint",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:25:03.451Z",
+    "materialId": 1074
+  },
+  {
+    "id": 332,
+    "fieldChanged": "category",
+    "oldValue": "Воздушный автоматический выключатель выкатной Chint",
+    "newValue": "Автоматический выключатель стационарный Chint",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-17T06:25:12.460Z",
+    "materialId": 1075
+  },
+  {
+    "id": 333,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока Т-0,66  -   250/ 5 УЗ ГОСТ 7746-2001",
+    "newValue": "Трансформатор тока Т-0,66  -   250/ 5 ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T00:57:09.353Z",
+    "materialId": 3156
+  },
+  {
+    "id": 334,
+    "fieldChanged": "name",
+    "oldValue": "Трансформатор тока Т-0,66  -   600/ 5 УЗ ГОСТ 7746-2001",
+    "newValue": "Трансформатор тока Т-0,66  -   600/ 5",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T00:57:20.953Z",
+    "materialId": 3160
+  },
+  {
+    "id": 383,
+    "fieldChanged": "price",
+    "oldValue": "50000",
+    "newValue": "500000",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-28T16:48:26.797Z",
+    "materialId": 3670
+  },
+  {
+    "id": 337,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор ИПУ-10/1000-7,5 УХЛ1 (кв.фл)",
+    "newValue": "Изолятор проходной ИПУ-10/1000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:11:48.644Z",
+    "materialId": 1600
+  },
+  {
+    "id": 338,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор проходной ИПУ- 10/   630 -7,5 УХЛ1",
+    "newValue": "Изолятор проходной ИПУ- 10/   630A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:12:02.012Z",
+    "materialId": 1624
+  },
+  {
+    "id": 339,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор проходной ИПУ-10/1000A",
+    "newValue": "Изолятор проходной ИПУ-10/ 1000A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:12:17.085Z",
+    "materialId": 1600
+  },
+  {
+    "id": 340,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор проходной ИПУ- 10/   630A",
+    "newValue": "Изолятор проходной ИПУ- 10/ 630A",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:12:29.141Z",
+    "materialId": 1624
+  },
+  {
+    "id": 341,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор SM 25 бочонок",
+    "newValue": "Изолятор бочонок SM 25",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:13:10.335Z",
+    "materialId": 1591
+  },
+  {
+    "id": 342,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор SM 20",
+    "newValue": "Изолятор бочонок SM 20",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:13:16.846Z",
+    "materialId": 1590
+  },
+  {
+    "id": 343,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор SM 30",
+    "newValue": "Изолятор бочонок SM 30",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:13:21.809Z",
+    "materialId": 1592
+  },
+  {
+    "id": 344,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор SM 40",
+    "newValue": "Изолятор бочонок SM 40",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:13:28.158Z",
+    "materialId": 1593
+  },
+  {
+    "id": 345,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор SM 51",
+    "newValue": "Изолятор бочонок SM 51",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:13:32.739Z",
+    "materialId": 1594
+  },
+  {
+    "id": 346,
+    "fieldChanged": "name",
+    "oldValue": "Изолятор SM 76",
+    "newValue": "Изолятор бочонок SM 76",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:13:37.299Z",
+    "materialId": 1595
+  },
+  {
+    "id": 347,
+    "fieldChanged": "name",
+    "oldValue": "Шина  медная ШМТ М1   10 * 120 * 4000",
+    "newValue": "Шина  медная ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:20:59.321Z",
+    "materialId": 3490
+  },
+  {
+    "id": 348,
+    "fieldChanged": "name",
+    "oldValue": "Шина   алюмин  10 х 120 х 4000",
+    "newValue": "Шина   алюмин",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:21:04.510Z",
+    "materialId": 3489
+  },
+  {
+    "id": 349,
+    "fieldChanged": "price",
+    "oldValue": "2055",
+    "newValue": "2590",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:21:43.290Z",
+    "materialId": 3489
+  },
+  {
+    "id": 350,
+    "fieldChanged": "price",
+    "oldValue": "5600",
+    "newValue": "5805",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:21:53.243Z",
+    "materialId": 3490
+  },
+  {
+    "id": 353,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э Меркурий 234 ARTX 2  - 02 PBR",
+    "newValue": "Счетчик э/э Меркурий 234 ARTX 2-02 PBR",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:29:45.021Z",
+    "materialId": 2974
+  },
+  {
+    "id": 354,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик электрической энергии трехфазный многофункциональный I-SM302 5(10)A.0,5s/0,5. D.P.O.2RF.2RS.",
+    "newValue": "Счетчик э/э многофункциональный I-SM302 5(10)A.0,5s/0,5. D.P.O.2RF.2RS.",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:37:55.195Z",
+    "materialId": 2985
+  },
+  {
+    "id": 355,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик матрица AD13A 6(I) -ENRs-Z-r-JW",
+    "newValue": "Счетчик э/э матрица AD13A 6(I) -ENRs-Z-r-JW",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:38:07.806Z",
+    "materialId": 2956
+  },
+  {
+    "id": 356,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик  NP 73E  2-12-1 (I-2Rs-T-Y) (2 -29-1)",
+    "newValue": "Счетчик э/э  NP 73E  2-12-1 (I-2Rs-T-Y) (2 -29-1)",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:38:12.250Z",
+    "materialId": 2955
+  },
+  {
+    "id": 357,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик эл. Матрица (NP 73E 3-14-1 (1-2 RS 3-31-1)",
+    "newValue": "Счетчик э/э Матрица (NP 73E 3-14-1 (1-2 RS 3-31-1)",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:38:23.107Z",
+    "materialId": 2984
+  },
+  {
+    "id": 358,
+    "fieldChanged": "name",
+    "oldValue": "Счетчики электроэнергии Меркурий 234 ART 2     - 00 PR",
+    "newValue": "Счетчик э/э Меркурий 234 ART 2     - 00 PR",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:38:30.953Z",
+    "materialId": 2965
+  },
+  {
+    "id": 359,
+    "fieldChanged": "name",
+    "oldValue": "Счетчики электроэнергии Меркурий 234 ARTM 2  - 00 PBR.G",
+    "newValue": "Счетчик э/э Меркурий 234 ARTM 2  - 00 PBR.G",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:38:37.945Z",
+    "materialId": 2968
+  },
+  {
+    "id": 360,
+    "fieldChanged": "name",
+    "oldValue": "Счетчики электроэнергии СТЭМ-300KZ.253.SU",
+    "newValue": "Счетчик э/э СТЭМ-300KZ.253.SU",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:38:45.785Z",
+    "materialId": 2986
+  },
+  {
+    "id": 361,
+    "fieldChanged": "name",
+    "oldValue": "Счетчики электроэнергии Сайман Э 712  3*57,7/100 V ",
+    "newValue": "Счетчик э/э Сайман Э 712  3*57,7/100 V ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:38:52.108Z",
+    "materialId": 2979
+  },
+  {
+    "id": 362,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э матрица AD13A 6(I) -ENRs-Z-r-JW",
+    "newValue": "Счетчик э/э Матрица AD13A 6(I) -ENRs-Z-r-JW",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:40:00.322Z",
+    "materialId": 2956
+  },
+  {
+    "id": 363,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э  NP 73E  2-12-1 (I-2Rs-T-Y) (2 -29-1)",
+    "newValue": "Счетчик э/э Матрица NP 73E  2-12-1 (I-2Rs-T-Y) (2 -29-1)",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:40:19.256Z",
+    "materialId": 2955
+  },
+  {
+    "id": 364,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э трехфазный матрица NP 73 Е/      3 - 14 - 1  0,05-5 (10) А 3*230/400В (возв. без паспор",
+    "newValue": "Счетчик э/э Матрица NP 73 Е/      3 - 14 - 1  0,05-5 (10) А 3*230/400В (возв. без паспор",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:40:28.641Z",
+    "materialId": 2982
+  },
+  {
+    "id": 365,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э Дала R ТХ IP П RS Д G/PLC CA4У - Э 720  (3*220/380V 5-7,5 A) LQ с Saicom -P1 (PLC-моду",
+    "newValue": "Счетчик э/э Сайман CA4У - Э 720  (3*220/380V 5-7,5 A)",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:41:44.637Z",
+    "materialId": 2959
+  },
+  {
+    "id": 366,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э Сайман Э 712  3*57,7/100 V ",
+    "newValue": "Счетчик э/э Сайман CA4У Э712  3*57,7/100 V ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:42:36.733Z",
+    "materialId": 2979
+  },
+  {
+    "id": 367,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э Сайман CA4У Э712  3*57,7/100 V ",
+    "newValue": "Счетчик э/э Сайман CA4У-Э712  3*57,7/100 V ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:42:48.872Z",
+    "materialId": 2979
+  },
+  {
+    "id": 368,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э Сайман CA4У - Э 720  (3*220/380V 5-7,5 A)",
+    "newValue": "Счетчик э/э Сайман CA4У-Э720  (3*220/380V 5-7,5 A)",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:43:02.934Z",
+    "materialId": 2959
+  },
+  {
+    "id": 369,
+    "fieldChanged": "name",
+    "oldValue": "Счетчик э/э Сайман CA4У-Э712  3*57,7/100 V ",
+    "newValue": "Счетчик э/э Сайман CA4У-Э712  (3*57,7/100V)",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T01:43:15.699Z",
+    "materialId": 2979
+  },
+  {
+    "id": 371,
+    "fieldChanged": "price",
+    "oldValue": "2590",
+    "newValue": "2378",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T23:16:28.693Z",
+    "materialId": 3489
+  },
+  {
+    "id": 372,
+    "fieldChanged": "price",
+    "oldValue": "5805",
+    "newValue": "5700",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-18T23:16:35.906Z",
+    "materialId": 3490
+  },
+  {
+    "id": 373,
+    "fieldChanged": "name",
+    "oldValue": "Кабель АСБГ 3 * 120",
+    "newValue": "Кабель АСБГ 3х120",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-19T01:28:56.559Z",
+    "materialId": 1681
+  },
+  {
+    "id": 374,
+    "fieldChanged": "price",
+    "oldValue": "4885.89",
+    "newValue": "6800",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-19T01:28:56.579Z",
+    "materialId": 1681
+  },
+  {
+    "id": 375,
+    "fieldChanged": "name",
+    "oldValue": "Кабель ВВГ   1 * 120",
+    "newValue": "Кабель ВВГ 1х120",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-19T01:30:26.707Z",
+    "materialId": 1687
+  },
+  {
+    "id": 376,
+    "fieldChanged": "price",
+    "oldValue": "7285.71",
+    "newValue": "6655",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-19T01:30:26.715Z",
+    "materialId": 1687
+  },
+  {
+    "id": 377,
+    "fieldChanged": "name",
+    "oldValue": "Кабель ВВГнг 1*240",
+    "newValue": "Кабель ВВГнг 1х240",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-19T01:36:51.066Z",
+    "materialId": 1703
+  },
+  {
+    "id": 378,
+    "fieldChanged": "price",
+    "oldValue": "9160.71",
+    "newValue": "13162",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-19T01:36:51.074Z",
+    "materialId": 1703
+  },
+  {
+    "id": 379,
+    "fieldChanged": "name",
+    "oldValue": "Кабель ВВГнг 1*400",
+    "newValue": "Кабель ВВГнг 1х400",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-19T01:37:14.271Z",
+    "materialId": 1704
+  },
+  {
+    "id": 380,
+    "fieldChanged": "price",
+    "oldValue": "15437.5",
+    "newValue": "22565",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-19T01:37:14.279Z",
+    "materialId": 1704
+  },
+  {
+    "id": 381,
+    "fieldChanged": "price",
+    "oldValue": "60000",
+    "newValue": "80000",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-28T16:47:39.463Z",
+    "materialId": 3670
+  },
+  {
+    "id": 382,
+    "fieldChanged": "price",
+    "oldValue": "80000",
+    "newValue": "50000",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-28T16:48:06.057Z",
+    "materialId": 3670
+  },
+  {
+    "id": 384,
+    "fieldChanged": "category",
+    "oldValue": "Прибор учёта 100В",
+    "newValue": "Прибор учёта Меркурий 100В",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-30T02:50:47.975Z",
+    "materialId": 2968
+  },
+  {
+    "id": 385,
+    "fieldChanged": "category",
+    "oldValue": "Прибор учёта 100В",
+    "newValue": "Прибор учёта Меркурий 100В",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-30T02:50:59.008Z",
+    "materialId": 2965
+  },
+  {
+    "id": 386,
+    "fieldChanged": "category",
+    "oldValue": "Прибор учёта 100В",
+    "newValue": "Прибор учёта Сайман 100В",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-30T02:51:18.927Z",
+    "materialId": 2979
+  },
+  {
+    "id": 387,
+    "fieldChanged": "category",
+    "oldValue": "Вакуумный выключатель AETZ 10кВ",
+    "newValue": "Вакуумный выключатель Таврида 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-30T02:53:22.259Z",
+    "materialId": 1239
+  },
+  {
+    "id": 388,
+    "fieldChanged": "name",
+    "oldValue": "Вакуумный выключатель BB/TEL-10-20/1000 У2 исп.1",
+    "newValue": "Вакуумный выключатель BB/TEL-10-20 1000A ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-30T02:54:20.848Z",
+    "materialId": 1238
+  },
+  {
+    "id": 389,
+    "fieldChanged": "category",
+    "oldValue": "Выключатели высоковольтные",
+    "newValue": "Вакуумный выключатель Таврида 10кВ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-09-30T02:54:20.862Z",
+    "materialId": 1238
+  },
+  {
+    "id": 393,
+    "fieldChanged": "name",
+    "oldValue": "Тест комплект 1",
+    "newValue": "Средства защиты ",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-10-09T03:42:55.518Z",
+    "materialId": 3700
+  },
+  {
+    "id": 394,
+    "fieldChanged": "price",
+    "oldValue": "6000",
+    "newValue": "155000",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-10-09T03:42:55.568Z",
+    "materialId": 3700
+  },
+  {
+    "id": 395,
+    "fieldChanged": "name",
+    "oldValue": "Тест комплектация 2",
+    "newValue": "Средства защиты (BI Group)",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-10-09T03:43:39.933Z",
+    "materialId": 3701
+  },
+  {
+    "id": 396,
+    "fieldChanged": "price",
+    "oldValue": "66000",
+    "newValue": "656000",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-10-09T03:43:39.943Z",
+    "materialId": 3701
+  },
+  {
+    "id": 400,
+    "fieldChanged": "price",
+    "oldValue": "9473.4",
+    "newValue": "2950",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-10-09T04:30:15.634Z",
+    "materialId": 1675
+  },
+  {
+    "id": 401,
+    "fieldChanged": "category",
+    "oldValue": "Приборы учета",
+    "newValue": "Прибор учета Меркурий 380В",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2025-10-09T06:44:11.082Z",
+    "materialId": 2966
+  },
+  {
+    "id": 402,
+    "fieldChanged": "price",
+    "oldValue": "19329.46",
+    "newValue": "19330",
+    "changedBy": "Аблайхан Абсалиев",
+    "changedAt": "2025-10-30T03:44:50.825Z",
+    "materialId": 917
+  },
+  {
+    "id": 403,
+    "fieldChanged": "price",
+    "oldValue": "5700",
+    "newValue": "6700",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2025-11-06T01:31:38.797Z",
+    "materialId": 3490
+  },
+  {
+    "id": 404,
+    "fieldChanged": "name",
+    "oldValue": "Шина  медная ",
+    "newValue": "Шина медная МТ ",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2025-11-06T01:31:54.401Z",
+    "materialId": 3490
+  },
+  {
+    "id": 405,
+    "fieldChanged": "name",
+    "oldValue": "Шина   алюмин",
+    "newValue": "Шина алюминий МТ",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2025-11-06T01:32:23.055Z",
+    "materialId": 3489
+  },
+  {
+    "id": 406,
+    "fieldChanged": "name",
+    "oldValue": "Шина алюминий МТ",
+    "newValue": "Шина алюминий АД",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2025-11-06T01:32:27.758Z",
+    "materialId": 3489
+  },
+  {
+    "id": 407,
+    "fieldChanged": "price",
+    "oldValue": "19330",
+    "newValue": "20000",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2025-12-12T05:19:58.171Z",
+    "materialId": 917
+  },
+  {
+    "id": 408,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "100.00",
+    "newValue": "1000",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2026-04-13T06:04:49.602Z",
+    "materialId": 3719
+  },
+  {
+    "id": 409,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "842624.77",
+    "newValue": "850000",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2026-04-13T06:13:52.045Z",
+    "materialId": 1122
+  },
+  {
+    "id": 410,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "850000.00",
+    "newValue": "8500000",
+    "changedBy": "Айдар Айдарович",
+    "changedAt": "2026-04-13T08:07:26.608Z",
+    "materialId": 1122
+  },
+  {
+    "id": 411,
+    "fieldChanged": "name",
+    "oldValue": "автомат",
+    "newValue": "1253 А",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2026-04-15T05:36:46.894Z",
+    "materialId": 3720
+  },
+  {
+    "id": 412,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "25.00",
+    "newValue": "25",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2026-04-15T05:36:46.912Z",
+    "materialId": 3720
+  },
+  {
+    "id": 413,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "25.00",
+    "newValue": "100",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2026-04-15T05:38:17.631Z",
+    "materialId": 3720
+  },
+  {
+    "id": 417,
+    "fieldChanged": "name",
+    "oldValue": "asddsff",
+    "newValue": "asddsffфываывф",
+    "changedBy": "aidarr",
+    "changedAt": "2026-04-21T07:01:45.258Z",
+    "materialId": 3722
+  },
+  {
+    "id": 418,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "1231123.00",
+    "newValue": "123112334",
+    "changedBy": "aidarr",
+    "changedAt": "2026-04-21T07:01:46.516Z",
+    "materialId": 3722
+  },
+  {
+    "id": 419,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "123112334.00",
+    "newValue": "1231123344",
+    "changedBy": "aidarr",
+    "changedAt": "2026-04-21T09:01:29.805Z",
+    "materialId": 3722
+  },
+  {
+    "id": 420,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "1231123344.00",
+    "newValue": "12311233445",
+    "changedBy": "aidarr",
+    "changedAt": "2026-04-21T09:05:57.548Z",
+    "materialId": 3722
+  },
+  {
+    "id": 421,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "1231123344.00",
+    "newValue": "1231123234",
+    "changedBy": "aidarr",
+    "changedAt": "2026-04-21T09:06:14.832Z",
+    "materialId": 3722
+  },
+  {
+    "id": 422,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "1231123234.00",
+    "newValue": "123143",
+    "changedBy": "aidarr",
+    "changedAt": "2026-04-21T09:14:53.181Z",
+    "materialId": 3722
+  },
+  {
+    "id": 423,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "40060.00",
+    "newValue": "27300",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2026-04-23T00:22:01.396Z",
+    "materialId": 3723
+  },
+  {
+    "id": 424,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "181811.00",
+    "newValue": "123900",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2026-04-23T00:22:22.543Z",
+    "materialId": 3724
+  },
+  {
+    "id": 425,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "46223.00",
+    "newValue": "31500",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2026-04-23T00:22:34.576Z",
+    "materialId": 3725
+  },
+  {
+    "id": 426,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "31500.00",
+    "newValue": "43050",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2026-04-23T00:22:55.758Z",
+    "materialId": 3725
+  },
+  {
+    "id": 427,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "53927.00",
+    "newValue": "36750",
+    "changedBy": "Маден  Куралов ",
+    "changedAt": "2026-04-23T00:23:23.181Z",
+    "materialId": 3727
+  },
+  {
+    "id": 428,
+    "fieldChanged": "name",
+    "oldValue": "8888 тест",
+    "newValue": "тест 88",
+    "changedBy": "215@aetz.kz",
+    "changedAt": "2026-05-13T22:27:47.069Z",
+    "materialId": 3717
+  },
+  {
+    "id": 429,
+    "fieldChanged": "currency",
+    "oldValue": "RUB",
+    "newValue": "USD",
+    "changedBy": "215@aetz.kz",
+    "changedAt": "2026-05-13T22:27:47.117Z",
+    "materialId": 3717
+  },
+  {
+    "id": 430,
+    "fieldChanged": "priceInCurrency",
+    "oldValue": "100.00",
+    "newValue": "110",
+    "changedBy": "215@aetz.kz",
+    "changedAt": "2026-05-13T22:27:47.142Z",
+    "materialId": 3717
+  }
+]

@@ -20,7 +20,12 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "export:db": "ts-node scripts/export-db.ts",
+    "export:materials-template": "ts-node scripts/export-materials-template.ts",
+    "import:prices": "ts-node scripts/import-material-prices.ts",
+    "preview:prices": "ts-node scripts/preview-material-prices.ts",
+    "snapshot:materials-baseline": "ts-node scripts/snapshot-materials-baseline.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -43,7 +48,8 @@
     "rxjs": "^7.8.1",
     "slugify": "^1.6.6",
     "swagger-ui-express": "^5.0.1",
-    "typeorm": "^0.3.22"
+    "typeorm": "^0.3.22",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

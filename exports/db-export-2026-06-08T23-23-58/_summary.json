@@ -1,0 +1,30 @@
+{
+  "exportedAt": "2026-06-08T23:24:04.856Z",
+  "database": "neondb",
+  "host": "ep-spring-sun-a1m8k0rq-pooler.ap-southeast-1.aws.neon.tech",
+  "tables": {
+    "audit_logs": 58,
+    "bids": 78,
+    "bmz_area_price": 0,
+    "bmz_area_prices": 0,
+    "bmz_equipment": 0,
+    "bmz_option": 0,
+    "bmz_settings": 1,
+    "bmz_wall_thickness": 0,
+    "calculation": 83,
+    "calculation_group": 8,
+    "calculation_item": 0,
+    "calculation_log": 0,
+    "category": 77,
+    "currency_settings": 1,
+    "material": 2708,
+    "material_history": 361,
+    "migrations": 9,
+    "setting": 1,
+    "switchgear_configs": 64,
+    "transformer": 62,
+    "users": 19,
+    "work_prices_settings": 1
+  },
+  "totalRows": 3531
+}

@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "basePricePerSquareMeter": "50.00",
+    "isActive": true,
+    "createdAt": "2025-06-04T22:53:13.837Z",
+    "updatedAt": "2026-06-04T07:04:53.167Z",
+    "areaPriceRanges": [
+      {
+        "maxArea": 1000,
+        "minArea": 0,
+        "maxHeight": 2701,
+        "minHeight": 2700,
+        "maxWallThickness": 50,
+        "minWallThickness": 50,
+        "pricePerSquareMeter": 204000
+      },
+      {
+        "maxArea": 1000,
+        "minArea": 0,
+        "maxHeight": 3001,
+        "minHeight": 3000,
+        "maxWallThickness": 50,
+        "minWallThickness": 50,
+        "pricePerSquareMeter": 207000
+      }
+    ],
+    "equipment": [
+      {
+        "name": "Освещение",
+        "priceType": "perSquareMeter",
+        "description": "",
+        "pricePerSquareMeter": 3000
+      },
+      {
+        "name": "Отопление",
+        "priceType": "perSquareMeter",
+        "description": "",
+        "pricePerSquareMeter": 3000
+      },
+      {
+        "name": "Охрано-пожарная сигнализация",
+        "priceType": "perSquareMeter",
+        "description": "",
+        "pricePerSquareMeter": 10000
+      },
+      {
+        "name": "Кабельные полки и стойки",
+        "priceType": "perSquareMeter",
+        "description": "",
+        "pricePerSquareMeter": 7600
+      },
+      {
+        "name": "Шахта для принудительной вентиляции",
+        "priceType": "fixed",
+        "fixedPrice": 250000,
+        "description": ""
+      },
+      {
+        "name": "Утепленный пол",
+        "priceType": "perSquareMeter",
+        "description": "",
+        "pricePerSquareMeter": 7500
+      }
+    ]
+  }
+]

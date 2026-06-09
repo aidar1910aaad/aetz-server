@@ -1,0 +1,2790 @@
+[
+  {
+    "id": 72,
+    "type": "Панель ЩО-70N",
+    "breaker": "630",
+    "amperage": 870,
+    "group": "АД",
+    "busbar": "60x6",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 4
+      },
+      {
+        "name": "СВ",
+        "quantity": 2
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 4
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1
+      }
+    ],
+    "createdAt": "2025-09-30T03:35:52.502Z",
+    "updatedAt": "2025-10-29T19:14:13.279Z"
+  },
+  {
+    "id": 63,
+    "type": "Панель ЩО-70N",
+    "breaker": "2000",
+    "amperage": 2310,
+    "group": "МТ",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 29
+      },
+      {
+        "name": "СВ",
+        "quantity": 12
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 11
+      },
+      {
+        "name": "УСТ",
+        "quantity": 36
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 9
+      }
+    ],
+    "createdAt": "2025-09-30T03:30:32.643Z",
+    "updatedAt": "2025-10-29T19:14:12.783Z"
+  },
+  {
+    "id": 65,
+    "type": "Панель ЩО-70N",
+    "breaker": "1600",
+    "amperage": 1690,
+    "group": "МТ",
+    "busbar": "80x8",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 19
+      },
+      {
+        "name": "СВ",
+        "quantity": 8
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 7
+      },
+      {
+        "name": "УСТ",
+        "quantity": 23
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 5.7
+      }
+    ],
+    "createdAt": "2025-09-30T03:31:48.246Z",
+    "updatedAt": "2025-10-29T19:14:12.681Z"
+  },
+  {
+    "id": 77,
+    "type": "Панель ЩО-70N",
+    "breaker": "160",
+    "amperage": 665,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 5
+      },
+      {
+        "name": "СВ",
+        "quantity": 2
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "УСТ",
+        "quantity": 6
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:38:37.368Z",
+    "updatedAt": "2025-10-29T19:14:12.743Z"
+  },
+  {
+    "id": 81,
+    "type": "Панель ЩО-70N",
+    "breaker": "63",
+    "amperage": 665,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 5
+      },
+      {
+        "name": "СВ",
+        "quantity": 2
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "УСТ",
+        "quantity": 6
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:39:32.002Z",
+    "updatedAt": "2025-10-29T19:14:12.739Z"
+  },
+  {
+    "id": 73,
+    "type": "Панель ЩО-70N",
+    "breaker": "400",
+    "amperage": 625,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 2
+      },
+      {
+        "name": "СВ",
+        "quantity": 1
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 6
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:36:51.142Z",
+    "updatedAt": "2025-10-29T19:14:12.754Z"
+  },
+  {
+    "id": 69,
+    "type": "Панель ЩО-70N",
+    "breaker": "1000",
+    "amperage": 860,
+    "group": "МТ",
+    "busbar": "50x5",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 8
+      },
+      {
+        "name": "СВ",
+        "quantity": 3
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 3
+      },
+      {
+        "name": "УСТ",
+        "quantity": 9
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 2.2
+      }
+    ],
+    "createdAt": "2025-09-30T03:34:15.461Z",
+    "updatedAt": "2025-10-29T19:14:12.699Z"
+  },
+  {
+    "id": 28,
+    "type": "Панель ЩО-70",
+    "breaker": "3150",
+    "amperage": 5200,
+    "group": "МТ3",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 370
+      },
+      {
+        "name": "СВ",
+        "quantity": 476
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 84
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 14.22
+      },
+      {
+        "name": "УСТ",
+        "quantity": 385
+      }
+    ],
+    "createdAt": "2025-09-11T05:33:13.232Z",
+    "updatedAt": "2025-10-29T19:14:12.741Z"
+  },
+  {
+    "id": 60,
+    "type": "Панель ЩО-70N",
+    "breaker": "3150",
+    "amperage": 3610,
+    "group": "МТ2",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 58
+      },
+      {
+        "name": "СВ",
+        "quantity": 24
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 22
+      },
+      {
+        "name": "УСТ",
+        "quantity": 72
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 9
+      }
+    ],
+    "createdAt": "2025-09-30T03:27:05.180Z",
+    "updatedAt": "2025-10-29T19:14:12.783Z"
+  },
+  {
+    "id": 70,
+    "type": "Панель ЩО-70N",
+    "breaker": "1000",
+    "amperage": 1320,
+    "group": "АД",
+    "busbar": "80x8",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 6
+      },
+      {
+        "name": "СВ",
+        "quantity": 3
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 3
+      },
+      {
+        "name": "УСТ",
+        "quantity": 8
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.8
+      }
+    ],
+    "createdAt": "2025-09-30T03:34:45.363Z",
+    "updatedAt": "2025-10-29T19:14:12.699Z"
+  },
+  {
+    "id": 68,
+    "type": "Панель ЩО-70N",
+    "breaker": "1250",
+    "amperage": 1320,
+    "group": "АД",
+    "busbar": "80x8",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 6
+      },
+      {
+        "name": "СВ",
+        "quantity": 3
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 3
+      },
+      {
+        "name": "УСТ",
+        "quantity": 8
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.8
+      }
+    ],
+    "createdAt": "2025-09-30T03:33:35.665Z",
+    "updatedAt": "2025-10-29T19:14:12.701Z"
+  },
+  {
+    "id": 32,
+    "type": "Панель ЩО-70",
+    "breaker": "2000",
+    "amperage": 3610,
+    "group": "МТ2",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 208
+      },
+      {
+        "name": "СВ",
+        "quantity": 267
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 47
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 9
+      },
+      {
+        "name": "УСТ",
+        "quantity": 216
+      }
+    ],
+    "createdAt": "2025-09-11T05:39:32.611Z",
+    "updatedAt": "2025-10-29T19:14:12.733Z"
+  },
+  {
+    "id": 75,
+    "type": "Панель ЩО-70N",
+    "breaker": "250",
+    "amperage": 665,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 5
+      },
+      {
+        "name": "СВ",
+        "quantity": 2
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "УСТ",
+        "quantity": 6
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:38:02.887Z",
+    "updatedAt": "2025-10-29T19:14:12.790Z"
+  },
+  {
+    "id": 82,
+    "type": "Панель ЩО-70N",
+    "breaker": "63",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 2
+      },
+      {
+        "name": "СВ",
+        "quantity": 1
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 2
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 0.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:39:45.192Z",
+    "updatedAt": "2025-10-29T19:14:12.755Z"
+  },
+  {
+    "id": 78,
+    "type": "Панель ЩО-70N",
+    "breaker": "160",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 2
+      },
+      {
+        "name": "СВ",
+        "quantity": 1
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 2
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 0.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:38:48.993Z",
+    "updatedAt": "2025-10-29T19:14:12.756Z"
+  },
+  {
+    "id": 85,
+    "type": "Панель ЩО-70N",
+    "breaker": "25",
+    "amperage": 665,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 5
+      },
+      {
+        "name": "СВ",
+        "quantity": 2
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "УСТ",
+        "quantity": 6
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:40:35.664Z",
+    "updatedAt": "2025-10-29T19:14:12.767Z"
+  },
+  {
+    "id": 86,
+    "type": "Панель ЩО-70N",
+    "breaker": "25",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 2
+      },
+      {
+        "name": "СВ",
+        "quantity": 1
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 2
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 0.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:40:48.168Z",
+    "updatedAt": "2025-10-29T19:14:12.768Z"
+  },
+  {
+    "id": 18,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 1600A",
+    "amperage": 1690,
+    "group": "МТ",
+    "busbar": "80x8",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 45
+      },
+      {
+        "name": "СВ",
+        "quantity": 45
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 45
+      },
+      {
+        "name": "ТР",
+        "quantity": 45
+      },
+      {
+        "name": "ТН",
+        "quantity": 45
+      },
+      {
+        "name": "ТСН",
+        "quantity": 45
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 45
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 67
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:05:50.271Z",
+    "updatedAt": "2025-10-29T19:14:12.778Z"
+  },
+  {
+    "id": 19,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 2000A",
+    "amperage": 2070,
+    "group": "АД",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 21
+      },
+      {
+        "name": "СВ",
+        "quantity": 21
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 21
+      },
+      {
+        "name": "ТР",
+        "quantity": 21
+      },
+      {
+        "name": "ТН",
+        "quantity": 21
+      },
+      {
+        "name": "ТСН",
+        "quantity": 22
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 21
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 40
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:06:10.600Z",
+    "updatedAt": "2025-10-29T19:14:12.758Z"
+  },
+  {
+    "id": 23,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 1250A",
+    "amperage": 1320,
+    "group": "АД",
+    "busbar": "80x8",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 11
+      },
+      {
+        "name": "СВ",
+        "quantity": 11
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 11
+      },
+      {
+        "name": "ТР",
+        "quantity": 11
+      },
+      {
+        "name": "ТН",
+        "quantity": 11
+      },
+      {
+        "name": "ТСН",
+        "quantity": 12
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 11
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 22
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:08:25.563Z",
+    "updatedAt": "2025-10-29T19:14:12.758Z"
+  },
+  {
+    "id": 24,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 2500A",
+    "amperage": 2650,
+    "group": "МТ",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 50
+      },
+      {
+        "name": "СВ",
+        "quantity": 50
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 50
+      },
+      {
+        "name": "ТР",
+        "quantity": 50
+      },
+      {
+        "name": "ТН",
+        "quantity": 50
+      },
+      {
+        "name": "ТСН",
+        "quantity": 50
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 50
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 126
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:09:43.959Z",
+    "updatedAt": "2025-10-29T19:14:12.764Z"
+  },
+  {
+    "id": 21,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 2500A",
+    "amperage": 2860,
+    "group": "АД2",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 31
+      },
+      {
+        "name": "СВ",
+        "quantity": 31
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 31
+      },
+      {
+        "name": "ТР",
+        "quantity": 31
+      },
+      {
+        "name": "ТН",
+        "quantity": 31
+      },
+      {
+        "name": "ТСН",
+        "quantity": 31
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 31
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 71
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:06:47.030Z",
+    "updatedAt": "2025-10-29T19:14:12.779Z"
+  },
+  {
+    "id": 16,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 1250A",
+    "amperage": 860,
+    "group": "МТ",
+    "busbar": "60x6",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 20
+      },
+      {
+        "name": "СВ",
+        "quantity": 20
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 20
+      },
+      {
+        "name": "ТР",
+        "quantity": 20
+      },
+      {
+        "name": "ТН",
+        "quantity": 20
+      },
+      {
+        "name": "ТСН",
+        "quantity": 20
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 20
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 38
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:04:03.388Z",
+    "updatedAt": "2025-10-29T19:14:12.781Z"
+  },
+  {
+    "id": 84,
+    "type": "Панель ЩО-70N",
+    "breaker": "40",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 2
+      },
+      {
+        "name": "СВ",
+        "quantity": 1
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 2
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 0.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:40:17.520Z",
+    "updatedAt": "2025-10-29T19:14:12.763Z"
+  },
+  {
+    "id": 74,
+    "type": "Панель ЩО-70N",
+    "breaker": "400",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 2
+      },
+      {
+        "name": "СВ",
+        "quantity": 1
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 2
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 0.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:37:24.475Z",
+    "updatedAt": "2025-10-29T19:14:12.770Z"
+  },
+  {
+    "id": 26,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 3150A",
+    "amperage": 3610,
+    "group": "МТ2",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 70
+      },
+      {
+        "name": "СВ",
+        "quantity": 70
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 70
+      },
+      {
+        "name": "ТР",
+        "quantity": 70
+      },
+      {
+        "name": "ТН",
+        "quantity": 70
+      },
+      {
+        "name": "ТСН",
+        "quantity": 70
+      },
+      {
+        "name": "СР",
+        "quantity": 70
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 211
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:14:23.523Z",
+    "updatedAt": "2025-10-29T19:14:12.772Z"
+  },
+  {
+    "id": 52,
+    "type": "Панель ЩО-70",
+    "breaker": "40",
+    "amperage": 625,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 18
+      },
+      {
+        "name": "СВ",
+        "quantity": 23
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 4
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      },
+      {
+        "name": "УСТ",
+        "quantity": 18
+      }
+    ],
+    "createdAt": "2025-09-11T06:00:57.274Z",
+    "updatedAt": "2025-10-29T19:14:12.793Z"
+  },
+  {
+    "id": 76,
+    "type": "Панель ЩО-70N",
+    "breaker": "250",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 2
+      },
+      {
+        "name": "СВ",
+        "quantity": 1
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 2
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 0.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:38:21.433Z",
+    "updatedAt": "2025-10-29T19:14:12.741Z"
+  },
+  {
+    "id": 71,
+    "type": "Панель ЩО-70N",
+    "breaker": "630",
+    "amperage": 860,
+    "group": "МТ",
+    "busbar": "50x5",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 8
+      },
+      {
+        "name": "СВ",
+        "quantity": 3
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 3
+      },
+      {
+        "name": "УСТ",
+        "quantity": 9
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 2.2
+      }
+    ],
+    "createdAt": "2025-09-30T03:35:23.711Z",
+    "updatedAt": "2025-10-29T19:14:12.713Z"
+  },
+  {
+    "id": 80,
+    "type": "Панель ЩО-70N",
+    "breaker": "100",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 2
+      },
+      {
+        "name": "СВ",
+        "quantity": 1
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 2
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 0.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:39:17.181Z",
+    "updatedAt": "2025-10-29T19:14:12.737Z"
+  },
+  {
+    "id": 20,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 2000A",
+    "amperage": 2310,
+    "group": "МТ",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 45
+      },
+      {
+        "name": "СВ",
+        "quantity": 45
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 45
+      },
+      {
+        "name": "ТР",
+        "quantity": 45
+      },
+      {
+        "name": "ТН",
+        "quantity": 45
+      },
+      {
+        "name": "ТСН",
+        "quantity": 45
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 45
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 106
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:06:29.674Z",
+    "updatedAt": "2025-10-29T19:14:12.793Z"
+  },
+  {
+    "id": 66,
+    "type": "Панель ЩО-70N",
+    "breaker": "1600",
+    "amperage": 1820,
+    "group": "АД",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 10
+      },
+      {
+        "name": "СВ",
+        "quantity": 4
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 4
+      },
+      {
+        "name": "УСТ",
+        "quantity": 12
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3
+      }
+    ],
+    "createdAt": "2025-09-30T03:32:13.561Z",
+    "updatedAt": "2025-10-29T19:14:12.679Z"
+  },
+  {
+    "id": 17,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 1600A",
+    "amperage": 1820,
+    "group": "АД",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 21
+      },
+      {
+        "name": "СВ",
+        "quantity": 21
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 21
+      },
+      {
+        "name": "ТР",
+        "quantity": 21
+      },
+      {
+        "name": "ТН",
+        "quantity": 21
+      },
+      {
+        "name": "ТСН",
+        "quantity": 21
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 21
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 36
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:05:29.846Z",
+    "updatedAt": "2025-10-29T19:14:12.728Z"
+  },
+  {
+    "id": 83,
+    "type": "Панель ЩО-70N",
+    "breaker": "40",
+    "amperage": 665,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 5
+      },
+      {
+        "name": "СВ",
+        "quantity": 2
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "УСТ",
+        "quantity": 6
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:40:03.833Z",
+    "updatedAt": "2025-10-29T19:14:12.752Z"
+  },
+  {
+    "id": 61,
+    "type": "Панель ЩО-70N",
+    "breaker": "2500",
+    "amperage": 2310,
+    "group": "МТ",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 29
+      },
+      {
+        "name": "СВ",
+        "quantity": 12
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 11
+      },
+      {
+        "name": "УСТ",
+        "quantity": 36
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 9
+      }
+    ],
+    "createdAt": "2025-09-30T03:28:26.424Z",
+    "updatedAt": "2025-10-29T19:14:12.790Z"
+  },
+  {
+    "id": 50,
+    "type": "Панель ЩО-70",
+    "breaker": "63",
+    "amperage": 625,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 18
+      },
+      {
+        "name": "СВ",
+        "quantity": 23
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 4
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      },
+      {
+        "name": "УСТ",
+        "quantity": 18
+      }
+    ],
+    "createdAt": "2025-09-11T05:59:02.020Z",
+    "updatedAt": "2025-10-29T19:14:12.680Z"
+  },
+  {
+    "id": 48,
+    "type": "Панель ЩО-70",
+    "breaker": "100",
+    "amperage": 625,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 18
+      },
+      {
+        "name": "СВ",
+        "quantity": 23
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 4
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      },
+      {
+        "name": "УСТ",
+        "quantity": 18
+      }
+    ],
+    "createdAt": "2025-09-11T05:58:24.228Z",
+    "updatedAt": "2025-10-29T19:14:12.698Z"
+  },
+  {
+    "id": 45,
+    "type": "Панель ЩО-70",
+    "breaker": "160",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 6
+      },
+      {
+        "name": "СВ",
+        "quantity": 8
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 2
+      }
+    ],
+    "createdAt": "2025-09-11T05:56:51.016Z",
+    "updatedAt": "2025-10-29T19:14:12.699Z"
+  },
+  {
+    "id": 33,
+    "type": "Панель ЩО-70",
+    "breaker": "1600",
+    "amperage": 2860,
+    "group": "АД2",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 69
+      },
+      {
+        "name": "СВ",
+        "quantity": 89
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 16
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3
+      },
+      {
+        "name": "УСТ",
+        "quantity": 82
+      }
+    ],
+    "createdAt": "2025-09-11T05:40:09.367Z",
+    "updatedAt": "2025-10-29T19:14:12.714Z"
+  },
+  {
+    "id": 35,
+    "type": "Панель ЩО-70",
+    "breaker": "1600",
+    "amperage": 2650,
+    "group": "МТ",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 124
+      },
+      {
+        "name": "СВ",
+        "quantity": 159
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 28
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 14.22
+      },
+      {
+        "name": "УСТ",
+        "quantity": 129
+      }
+    ],
+    "createdAt": "2025-09-11T05:45:25.919Z",
+    "updatedAt": "2025-10-29T19:14:12.717Z"
+  },
+  {
+    "id": 79,
+    "type": "Панель ЩО-70N",
+    "breaker": "100",
+    "amperage": 665,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 5
+      },
+      {
+        "name": "СВ",
+        "quantity": 2
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "УСТ",
+        "quantity": 6
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      }
+    ],
+    "createdAt": "2025-09-30T03:39:01.208Z",
+    "updatedAt": "2025-10-29T19:14:12.779Z"
+  },
+  {
+    "id": 67,
+    "type": "Панель ЩО-70N",
+    "breaker": "1250",
+    "amperage": 1690,
+    "group": "МТ",
+    "busbar": "80x8",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 19
+      },
+      {
+        "name": "СВ",
+        "quantity": 8
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 7
+      },
+      {
+        "name": "УСТ",
+        "quantity": 23
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 5.7
+      }
+    ],
+    "createdAt": "2025-09-30T03:33:12.600Z",
+    "updatedAt": "2025-10-29T19:14:12.712Z"
+  },
+  {
+    "id": 64,
+    "type": "Панель ЩО-70N",
+    "breaker": "2000",
+    "amperage": 1820,
+    "group": "АД",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 10
+      },
+      {
+        "name": "СВ",
+        "quantity": 4
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 4
+      },
+      {
+        "name": "УСТ",
+        "quantity": 12
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3
+      }
+    ],
+    "createdAt": "2025-09-30T03:31:16.967Z",
+    "updatedAt": "2025-10-29T19:14:12.748Z"
+  },
+  {
+    "id": 25,
+    "type": "Камера КСО А12-10",
+    "breaker": "AV-12 3150A",
+    "amperage": 3200,
+    "group": "АД2",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 31
+      },
+      {
+        "name": "СВ",
+        "quantity": 31
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 31
+      },
+      {
+        "name": "ТР",
+        "quantity": 31
+      },
+      {
+        "name": "ТН",
+        "quantity": 31
+      },
+      {
+        "name": "ТСН",
+        "quantity": 32
+      },
+      {
+        "name": "СР",
+        "quantity": 31
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 80
+      },
+      {
+        "name": "УСТ",
+        "quantity": 0
+      }
+    ],
+    "createdAt": "2025-07-02T01:13:31.991Z",
+    "updatedAt": "2025-10-29T19:14:12.766Z"
+  },
+  {
+    "id": 51,
+    "type": "Панель ЩО-70",
+    "breaker": "40",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 6
+      },
+      {
+        "name": "СВ",
+        "quantity": 8
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 4
+      },
+      {
+        "name": "УСТ",
+        "quantity": 2
+      }
+    ],
+    "createdAt": "2025-09-11T06:00:36.604Z",
+    "updatedAt": "2025-10-29T19:14:12.793Z"
+  },
+  {
+    "id": 40,
+    "type": "Панель ЩО-70",
+    "breaker": "630",
+    "amperage": 1125,
+    "group": "МТ",
+    "busbar": "60x6",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 37
+      },
+      {
+        "name": "СВ",
+        "quantity": 48
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 9
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3.2
+      },
+      {
+        "name": "УСТ",
+        "quantity": 39
+      }
+    ],
+    "createdAt": "2025-09-11T05:50:33.155Z",
+    "updatedAt": "2025-10-29T19:14:12.726Z"
+  },
+  {
+    "id": 39,
+    "type": "Панель ЩО-70",
+    "breaker": "630",
+    "amperage": 1320,
+    "group": "АД",
+    "busbar": "80x8",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 21
+      },
+      {
+        "name": "СВ",
+        "quantity": 27
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 3
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.8
+      },
+      {
+        "name": "УСТ",
+        "quantity": 22
+      }
+    ],
+    "createdAt": "2025-09-11T05:49:53.472Z",
+    "updatedAt": "2025-10-29T19:14:12.728Z"
+  },
+  {
+    "id": 47,
+    "type": "Панель ЩО-70",
+    "breaker": "100",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 6
+      },
+      {
+        "name": "СВ",
+        "quantity": 8
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 2
+      },
+      {
+        "name": "УСТ",
+        "quantity": 4
+      }
+    ],
+    "createdAt": "2025-09-11T05:58:02.740Z",
+    "updatedAt": "2025-10-29T19:14:13.353Z"
+  },
+  {
+    "id": 31,
+    "type": "Панель ЩО-70",
+    "breaker": "2000",
+    "amperage": 3200,
+    "group": "АД2",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 79
+      },
+      {
+        "name": "СВ",
+        "quantity": 101
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 18
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3.4
+      },
+      {
+        "name": "УСТ",
+        "quantity": 82
+      }
+    ],
+    "createdAt": "2025-09-11T05:37:29.996Z",
+    "updatedAt": "2025-10-29T19:14:12.729Z"
+  },
+  {
+    "id": 62,
+    "type": "Панель ЩО-70N",
+    "breaker": "2500",
+    "amperage": 2070,
+    "group": "АД",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 11
+      },
+      {
+        "name": "СВ",
+        "quantity": 5
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 5
+      },
+      {
+        "name": "УСТ",
+        "quantity": 14
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3.4
+      }
+    ],
+    "createdAt": "2025-09-30T03:29:35.816Z",
+    "updatedAt": "2025-10-29T19:14:12.789Z"
+  },
+  {
+    "id": 43,
+    "type": "Панель ЩО-70",
+    "breaker": "250",
+    "amperage": 665,
+    "group": "АД",
+    "busbar": "50x5",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 9
+      },
+      {
+        "name": "СВ",
+        "quantity": 11
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 0.7
+      },
+      {
+        "name": "УСТ",
+        "quantity": 9
+      }
+    ],
+    "createdAt": "2025-09-11T05:52:32.253Z",
+    "updatedAt": "2025-10-29T19:14:12.681Z"
+  },
+  {
+    "id": 38,
+    "type": "Панель ЩО-70",
+    "breaker": "1000",
+    "amperage": 1690,
+    "group": "МТ",
+    "busbar": "80x8",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 66
+      },
+      {
+        "name": "СВ",
+        "quantity": 85
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 15
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 5.7
+      },
+      {
+        "name": "УСТ",
+        "quantity": 69
+      }
+    ],
+    "createdAt": "2025-09-11T05:49:10.895Z",
+    "updatedAt": "2025-10-29T19:14:12.715Z"
+  },
+  {
+    "id": 44,
+    "type": "Панель ЩО-70",
+    "breaker": "250",
+    "amperage": 625,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 18
+      },
+      {
+        "name": "СВ",
+        "quantity": 23
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 4
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      },
+      {
+        "name": "УСТ",
+        "quantity": 18
+      }
+    ],
+    "createdAt": "2025-09-11T05:53:35.193Z",
+    "updatedAt": "2025-10-29T19:14:12.700Z"
+  },
+  {
+    "id": 54,
+    "type": "Панель ЩО-70",
+    "breaker": "25",
+    "amperage": 625,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 18
+      },
+      {
+        "name": "СВ",
+        "quantity": 23
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 4
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      },
+      {
+        "name": "УСТ",
+        "quantity": 18
+      }
+    ],
+    "createdAt": "2025-09-11T06:01:30.145Z",
+    "updatedAt": "2025-10-29T19:14:12.681Z"
+  },
+  {
+    "id": 37,
+    "type": "Панель ЩО-70",
+    "breaker": "1000",
+    "amperage": 1820,
+    "group": "АД",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 35
+      },
+      {
+        "name": "СВ",
+        "quantity": 45
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 8
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3
+      },
+      {
+        "name": "УСТ",
+        "quantity": 36
+      }
+    ],
+    "createdAt": "2025-09-11T05:47:17.213Z",
+    "updatedAt": "2025-10-29T19:14:12.680Z"
+  },
+  {
+    "id": 36,
+    "type": "Панель ЩО-70",
+    "breaker": "1250",
+    "amperage": 2310,
+    "group": "МТ",
+    "busbar": "100x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 104
+      },
+      {
+        "name": "СВ",
+        "quantity": 134
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 24
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 9
+      },
+      {
+        "name": "УСТ",
+        "quantity": 108
+      }
+    ],
+    "createdAt": "2025-09-11T05:46:42.293Z",
+    "updatedAt": "2025-10-29T19:14:12.700Z"
+  },
+  {
+    "id": 49,
+    "type": "Панель ЩО-70",
+    "breaker": "63",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 6
+      },
+      {
+        "name": "СВ",
+        "quantity": 8
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 1
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3
+      },
+      {
+        "name": "УСТ",
+        "quantity": 5
+      }
+    ],
+    "createdAt": "2025-09-11T05:58:45.893Z",
+    "updatedAt": "2025-10-29T19:14:12.714Z"
+  },
+  {
+    "id": 34,
+    "type": "Панель ЩО-70",
+    "breaker": "1250",
+    "amperage": 2070,
+    "group": "АД",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 40
+      },
+      {
+        "name": "СВ",
+        "quantity": 51
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 9
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3.4
+      },
+      {
+        "name": "УСТ",
+        "quantity": 41
+      }
+    ],
+    "createdAt": "2025-09-11T05:44:44.166Z",
+    "updatedAt": "2025-10-29T19:14:12.728Z"
+  },
+  {
+    "id": 53,
+    "type": "Панель ЩО-70",
+    "breaker": "25",
+    "amperage": 480,
+    "group": "АД",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 6
+      },
+      {
+        "name": "СВ",
+        "quantity": 8
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 2
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3
+      },
+      {
+        "name": "УСТ",
+        "quantity": 4
+      }
+    ],
+    "createdAt": "2025-09-11T06:01:12.602Z",
+    "updatedAt": "2025-10-29T19:14:13.350Z"
+  },
+  {
+    "id": 30,
+    "type": "Панель ЩО-70",
+    "breaker": "2500",
+    "amperage": 4100,
+    "group": "МТ2",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 247
+      },
+      {
+        "name": "СВ",
+        "quantity": 317
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 56
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 14.22
+      },
+      {
+        "name": "УСТ",
+        "quantity": 256
+      }
+    ],
+    "createdAt": "2025-09-11T05:36:49.524Z",
+    "updatedAt": "2025-10-29T19:14:12.747Z"
+  },
+  {
+    "id": 42,
+    "type": "Панель ЩО-70",
+    "breaker": "400",
+    "amperage": 860,
+    "group": "МТ",
+    "busbar": "50x5",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 26
+      },
+      {
+        "name": "СВ",
+        "quantity": 33
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 6
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 2.2
+      },
+      {
+        "name": "УСТ",
+        "quantity": 27
+      }
+    ],
+    "createdAt": "2025-09-11T05:51:53.132Z",
+    "updatedAt": "2025-10-29T19:14:12.730Z"
+  },
+  {
+    "id": 41,
+    "type": "Панель ЩО-70",
+    "breaker": "400",
+    "amperage": 870,
+    "group": "АД",
+    "busbar": "60x6",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 12
+      },
+      {
+        "name": "СВ",
+        "quantity": 15
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 3
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1
+      },
+      {
+        "name": "УСТ",
+        "quantity": 12
+      }
+    ],
+    "createdAt": "2025-09-11T05:51:09.624Z",
+    "updatedAt": "2025-10-29T19:14:12.713Z"
+  },
+  {
+    "id": 29,
+    "type": "Панель ЩО-70",
+    "breaker": "2500",
+    "amperage": 4100,
+    "group": "АД3",
+    "busbar": "120x10",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 118
+      },
+      {
+        "name": "СВ",
+        "quantity": 151
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 27
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 3.4
+      },
+      {
+        "name": "УСТ",
+        "quantity": 123
+      }
+    ],
+    "createdAt": "2025-09-11T05:35:56.559Z",
+    "updatedAt": "2025-10-29T19:14:12.680Z"
+  },
+  {
+    "id": 46,
+    "type": "Панель ЩО-70",
+    "breaker": "160",
+    "amperage": 625,
+    "group": "МТ",
+    "busbar": "40x4",
+    "cells": [
+      {
+        "name": "Ввод",
+        "quantity": 18
+      },
+      {
+        "name": "СВ",
+        "quantity": 23
+      },
+      {
+        "name": "ОТХ",
+        "quantity": 4
+      },
+      {
+        "name": "ТР",
+        "quantity": 0
+      },
+      {
+        "name": "ТН",
+        "quantity": 0
+      },
+      {
+        "name": "ТСН",
+        "quantity": 0
+      },
+      {
+        "name": "ЗШН",
+        "quantity": 0
+      },
+      {
+        "name": "СР",
+        "quantity": 0
+      },
+      {
+        "name": "Шинный мост",
+        "quantity": 1.5
+      },
+      {
+        "name": "УСТ",
+        "quantity": 18
+      }
+    ],
+    "createdAt": "2025-09-11T05:57:36.373Z",
+    "updatedAt": "2025-10-29T19:14:12.741Z"
+  }
+]

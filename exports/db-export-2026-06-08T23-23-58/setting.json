@@ -1,0 +1,120 @@
+[
+  {
+    "createdAt": "2025-06-03T05:47:16.572Z",
+    "updatedAt": "2025-11-02T23:45:37.534Z",
+    "id": "settings",
+    "settings": {
+      "sr": [],
+      "tn": [],
+      "bmz": [],
+      "tsn": [],
+      "runn": [
+        {
+          "type": "avtomatVyk",
+          "isVisible": true,
+          "categoryId": 5555
+        },
+        {
+          "type": "avtomatVyk",
+          "isVisible": true,
+          "categoryId": 1210
+        },
+        {
+          "type": "avtomatVyk",
+          "isVisible": true,
+          "categoryId": 1102
+        },
+        {
+          "type": "avtomatLity",
+          "isVisible": true,
+          "categoryId": 1240
+        },
+        {
+          "type": "counter",
+          "isVisible": true,
+          "categoryId": 420
+        },
+        {
+          "type": "rpsLeft",
+          "isVisible": true,
+          "categoryId": 10101
+        },
+        {
+          "type": "fusesPn",
+          "isVisible": true,
+          "categoryId": 5678
+        },
+        {
+          "type": "currentTransformer",
+          "isVisible": true,
+          "categoryId": 8907
+        },
+        {
+          "type": "moldedCaseSwitch",
+          "isVisible": true,
+          "categoryId": 101014
+        }
+      ],
+      "rusn": [
+        {
+          "type": "switch",
+          "isVisible": true,
+          "categoryId": 3000
+        },
+        {
+          "type": "switch",
+          "isVisible": true,
+          "categoryId": 9
+        },
+        {
+          "type": "switch",
+          "isVisible": true,
+          "categoryId": 5000
+        },
+        {
+          "type": "switch",
+          "isVisible": true,
+          "categoryId": 3232
+        },
+        {
+          "type": "rza",
+          "isVisible": true,
+          "categoryId": 1111
+        },
+        {
+          "type": "counter",
+          "isVisible": true,
+          "categoryId": 43632
+        },
+        {
+          "type": "counter",
+          "isVisible": true,
+          "categoryId": 411111
+        },
+        {
+          "type": "sr",
+          "isVisible": true,
+          "categoryId": 4456
+        },
+        {
+          "type": "tsn",
+          "isVisible": true,
+          "categoryId": 1720
+        },
+        {
+          "type": "tn",
+          "isVisible": true,
+          "categoryId": 8989
+        },
+        {
+          "type": "tt",
+          "isVisible": true,
+          "categoryId": 4
+        }
+      ],
+      "work": [],
+      "transformer": [],
+      "additionalEquipment": []
+    }
+  }
+]

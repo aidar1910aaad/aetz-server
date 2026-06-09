@@ -1,4 +1,20 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import * as fs from 'fs';
+import {
+  buildPriceImportPreview,
+  DEFAULT_EXCEL_PATH,
+  loadExcelRowsWithMeta,
+  normalizeCode,
+  PriceImportPreview,
+} from './utils/material-price-import';
+import { loadImportBadges, saveImportBadges } from './utils/material-price-import-badges';
+import { executeImportActions } from './utils/material-price-import-execute';
+import {
+  buildImportBadges,
+  DbMaterialForImport,
+  ImportBadges,
+  planImportActions,
+} from './utils/material-price-import-plan';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Brackets, Repository } from 'typeorm';
 import { Material } from './entities/material.entity';
@@ -602,6 +618,121 @@ export class MaterialsService {
     const [data, total] = await queryBuilder.getManyAndCount();
 
     return { data, total };
+  }
+
+  async getPriceImportPreview(excelPath = DEFAULT_EXCEL_PATH): Promise<PriceImportPreview> {
+    if (!fs.existsSync(excelPath)) {
+      throw new NotFoundException(`Файл импорта не найден: ${excelPath}`);
+    }
+
+    const { rows: excelRows, duplicateCodes } = await loadExcelRowsWithMeta(excelPath);
+    const materials = await this.materialRepo
+      .createQueryBuilder('material')
+      .select([
+        'material.id',
+        'material.name',
+        'material.code',
+        'material.unit',
+        'material.currency',
+        'material.price',
+        'material.priceInCurrency',
+      ])
+      .where('material.code IS NOT NULL')
+      .andWhere("TRIM(material.code) <> ''")
+      .getMany();
+
+    return buildPriceImportPreview(
+      excelPath,
+      excelRows,
+      materials.map((material) => ({
+        id: material.id,
+        name: material.name,
+        code: material.code,
+        unit: material.unit,
+        currency: material.currency,
+        price: this.toNumber(material.price),
+        priceInCurrency: this.toNumber(material.priceInCurrency),
+      })),
+      duplicateCodes
+    );
+  }
+
+  async getPriceImportBadges(): Promise<ImportBadges | null> {
+    return loadImportBadges();
+  }
+
+  async applyPriceImport(excelPath = DEFAULT_EXCEL_PATH): Promise<{
+    appliedAt: string;
+    created: number;
+    updated: number;
+    badges: ImportBadges;
+  }> {
+    if (!fs.existsSync(excelPath)) {
+      throw new NotFoundException(`Файл импорта не найден: ${excelPath}`);
+    }
+
+    const { rows: excelRows } = await loadExcelRowsWithMeta(excelPath);
+    const materials = await this.materialRepo
+      .createQueryBuilder('material')
+      .select([
+        'material.id',
+        'material.name',
+        'material.code',
+        'material.unit',
+        'material.currency',
+        'material.price',
+        'material.priceInCurrency',
+      ])
+      .where('material.code IS NOT NULL')
+      .andWhere("TRIM(material.code) <> ''")
+      .getMany();
+
+    const byCode = new Map<string, DbMaterialForImport>();
+    const snapshotsByCode = new Map<string, { priceInCurrency: number }>();
+
+    for (const material of materials) {
+      const code = normalizeCode(material.code);
+      const snapshot: DbMaterialForImport = {
+        id: material.id,
+        name: material.name,
+        unit: material.unit,
+        currency: material.currency,
+        price: this.toNumber(material.price),
+        priceInCurrency: this.toNumber(material.priceInCurrency),
+      };
+      byCode.set(code, snapshot);
+      snapshotsByCode.set(code, { priceInCurrency: snapshot.priceInCurrency });
+    }
+
+    const actions = planImportActions(excelRows, byCode);
+    const queryRunner = this.materialRepo.manager.connection.createQueryRunner();
+
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      const { createdIds, updatedIds } = await executeImportActions(
+        queryRunner,
+        actions,
+        snapshotsByCode
+      );
+
+      const badges = buildImportBadges(excelPath, actions, createdIds, updatedIds);
+      saveImportBadges(badges);
+      await queryRunner.commitTransaction();
+
+      return {
+        appliedAt: badges.appliedAt,
+        created: createdIds.length,
+        updated: updatedIds.length,
+        badges,
+      };
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   async delete(id: number, changedBy?: string): Promise<void> {
