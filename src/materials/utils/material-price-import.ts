@@ -3,6 +3,7 @@ import * as path from 'path';
 
 export const PRICE_TOLERANCE = 0.01;
 export const DEFAULT_EXCEL_PATH = path.join(process.cwd(), 'data', 'data-materials.xlsx');
+export const DEFAULT_BASELINE_PATH = path.join(process.cwd(), 'data', 'material-baseline.json');
 
 export type ExcelRow = {
   line: number;
@@ -49,6 +50,7 @@ export type PriceImportPreview = {
   generatedAt: string;
   excelFile: string;
   baselineSource: 'database' | 'snapshot';
+  baselineExportedAt?: string;
   summary: {
     totalExcelRows: number;
     toUpdate: number;
@@ -406,11 +408,42 @@ function pricesEqual(current: number, next: number): boolean {
   return Math.abs(current - next) < PRICE_TOLERANCE;
 }
 
+export function loadBaselineMaterials(
+  baselinePath = DEFAULT_BASELINE_PATH,
+): { materials: DbMaterialSnapshot[]; exportedAt?: string } | null {
+  if (!fs.existsSync(baselinePath)) return null;
+
+  const parsed = JSON.parse(fs.readFileSync(baselinePath, 'utf8')) as
+    | Array<Record<string, unknown>>
+    | { materials?: Array<Record<string, unknown>>; exportedAt?: string };
+
+  const raw = Array.isArray(parsed) ? parsed : parsed.materials ?? [];
+  const exportedAt = Array.isArray(parsed) ? undefined : parsed.exportedAt;
+
+  const materials = raw
+    .filter((row) => row.code)
+    .map((row) => ({
+      id: Number(row.id),
+      name: String(row.name ?? ''),
+      code: String(row.code),
+      unit: String(row.unit ?? 'шт'),
+      currency: String(row.currency ?? 'KZT'),
+      price: toNumber(row.price),
+      priceInCurrency: toNumber(row.priceInCurrency ?? row.price),
+    }));
+
+  return { materials, exportedAt };
+}
+
 export function buildPriceImportPreview(
   excelFile: string,
   excelRows: ExcelRow[],
   materials: DbMaterialSnapshot[],
-  duplicateCodes: Array<{ code: string; lines: number[]; mergedName?: string }> = []
+  duplicateCodes: Array<{ code: string; lines: number[]; mergedName?: string }> = [],
+  options: {
+    baselineSource?: 'database' | 'snapshot';
+    baselineExportedAt?: string;
+  } = {},
 ): PriceImportPreview {
   const byCode = new Map<string, DbMaterialSnapshot>();
   for (const material of materials) {
@@ -529,7 +562,8 @@ export function buildPriceImportPreview(
   return {
     generatedAt: new Date().toISOString(),
     excelFile,
-    baselineSource: 'database',
+    baselineSource: options.baselineSource ?? 'database',
+    baselineExportedAt: options.baselineExportedAt,
     summary: {
       totalExcelRows: excelRows.length,
       toUpdate,

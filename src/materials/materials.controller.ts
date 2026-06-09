@@ -145,7 +145,7 @@ export class MaterialsController {
   @ApiOperation({
     summary: 'Предпросмотр импорта цен из Excel',
     description:
-      'Сравнивает data/data-materials.xlsx с текущей БД и возвращает список «было → станет».',
+      'Сравнивает data/data-materials.xlsx со снимком БД до импорта (material-baseline.json), если он есть, иначе с текущей БД.',
   })
   getPriceImportPreview() {
     return this.materialsService.getPriceImportPreview();

@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import {
   buildPriceImportPreview,
   DEFAULT_EXCEL_PATH,
+  loadBaselineMaterials,
   loadExcelRowsWithMeta,
   normalizeCode,
   PriceImportPreview,
@@ -626,6 +627,21 @@ export class MaterialsService {
     }
 
     const { rows: excelRows, duplicateCodes } = await loadExcelRowsWithMeta(excelPath);
+
+    const baseline = loadBaselineMaterials();
+    if (baseline) {
+      return buildPriceImportPreview(
+        excelPath,
+        excelRows,
+        baseline.materials,
+        duplicateCodes,
+        {
+          baselineSource: 'snapshot',
+          baselineExportedAt: baseline.exportedAt,
+        },
+      );
+    }
+
     const materials = await this.materialRepo
       .createQueryBuilder('material')
       .select([
@@ -653,7 +669,8 @@ export class MaterialsService {
         price: this.toNumber(material.price),
         priceInCurrency: this.toNumber(material.priceInCurrency),
       })),
-      duplicateCodes
+      duplicateCodes,
+      { baselineSource: 'database' },
     );
   }
 
