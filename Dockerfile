@@ -15,7 +15,7 @@ RUN npm ci
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN npm run build && test -f dist/main.js
 
 # Expose port
 EXPOSE 3000
