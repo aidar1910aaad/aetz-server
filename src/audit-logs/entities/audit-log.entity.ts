@@ -26,6 +26,6 @@ export class AuditLog {
   @Column({ type: 'varchar' })
   changedBy: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamptz' })
   changedAt: Date;
 }

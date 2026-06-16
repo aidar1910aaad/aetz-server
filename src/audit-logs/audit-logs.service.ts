@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuditLog } from './entities/audit-log.entity';
+import { formatAlmatyDateTime } from '../common/utils/format-almaty-datetime';
 
 type LogPayload = {
   entityType: string;
@@ -15,9 +16,6 @@ type LogPayload = {
 
 @Injectable()
 export class AuditLogsService {
-  // Для текущей схемы с TIMESTAMP без timezone в БД добавляем поправку +5 часов,
-  // чтобы вывести фактическое локальное время Алматы в журнале.
-  private static readonly ALMATY_LEGACY_OFFSET_MS = 5 * 60 * 60 * 1000;
   private readonly entityTypeLabelsRu: Record<string, string> = {
     material: 'Материал',
     calculation: 'Калькуляция',
@@ -109,31 +107,15 @@ export class AuditLogsService {
 
     qb.skip((page - 1) * limit).take(limit);
     const [data, total] = await qb.getManyAndCount();
-    const dataWithLabels = data.map((item) => {
-      // Поправка для корректного отображения времени в Алматы.
-      // Иначе фронт получает время с отставанием.
-      const correctedDate = new Date(
-        item.changedAt.getTime() + AuditLogsService.ALMATY_LEGACY_OFFSET_MS
-      );
-      return {
-        ...item,
-        entityTypeRu: this.entityTypeLabelsRu[item.entityType] || item.entityType,
-        actionRu: this.actionLabelsRu[item.action] || item.action,
-        fieldChangedRu: item.fieldChanged
-          ? this.fieldLabelsRu[item.fieldChanged] || item.fieldChanged
-          : '—',
-        changedAtAlmaty: new Intl.DateTimeFormat('ru-RU', {
-          timeZone: 'Asia/Almaty',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false,
-        }).format(correctedDate),
-      };
-    });
+    const dataWithLabels = data.map((item) => ({
+      ...item,
+      entityTypeRu: this.entityTypeLabelsRu[item.entityType] || item.entityType,
+      actionRu: this.actionLabelsRu[item.action] || item.action,
+      fieldChangedRu: item.fieldChanged
+        ? this.fieldLabelsRu[item.fieldChanged] || item.fieldChanged
+        : '—',
+      changedAtAlmaty: formatAlmatyDateTime(item.changedAt),
+    }));
     return { data: dataWithLabels, total };
   }
 }
