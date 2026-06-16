@@ -409,7 +409,7 @@ function pricesEqual(current: number, next: number): boolean {
 }
 
 export function loadBaselineMaterials(
-  baselinePath = DEFAULT_BASELINE_PATH,
+  baselinePath = DEFAULT_BASELINE_PATH
 ): { materials: DbMaterialSnapshot[]; exportedAt?: string } | null {
   if (!fs.existsSync(baselinePath)) return null;
 
@@ -417,7 +417,7 @@ export function loadBaselineMaterials(
     | Array<Record<string, unknown>>
     | { materials?: Array<Record<string, unknown>>; exportedAt?: string };
 
-  const raw = Array.isArray(parsed) ? parsed : parsed.materials ?? [];
+  const raw = Array.isArray(parsed) ? parsed : (parsed.materials ?? []);
   const exportedAt = Array.isArray(parsed) ? undefined : parsed.exportedAt;
 
   const materials = raw
@@ -443,7 +443,7 @@ export function buildPriceImportPreview(
   options: {
     baselineSource?: 'database' | 'snapshot';
     baselineExportedAt?: string;
-  } = {},
+  } = {}
 ): PriceImportPreview {
   const byCode = new Map<string, DbMaterialSnapshot>();
   for (const material of materials) {

@@ -2,14 +2,16 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString, IsInt, Min, IsNotEmpty } from 'class-validator';
 
 export class CreateCategoryDto {
-  @ApiProperty({
-    example: 1,
-    description: 'Уникальный идентификатор категории',
+  @ApiPropertyOptional({
+    example: 1001,
+    description:
+      'Уникальный идентификатор категории (4 цифры). Если не указан — сгенерируется автоматически',
     minimum: 1,
   })
+  @IsOptional()
   @IsInt()
   @Min(1)
-  id: number;
+  id?: number;
 
   @ApiProperty({
     example: 'Электрооборудование',

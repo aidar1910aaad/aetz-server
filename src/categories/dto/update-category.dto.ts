@@ -1,7 +1,17 @@
-import { IsOptional, IsString, IsNotEmpty, MaxLength } from 'class-validator';
+import { IsOptional, IsString, IsNotEmpty, MaxLength, IsInt, Min } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateCategoryDto {
+  @ApiPropertyOptional({
+    example: 1001,
+    description: 'Новый ID категории',
+    minimum: 1,
+  })
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  id?: number;
+
   @ApiPropertyOptional({
     example: 'Новое название категории',
     description: 'Новое название категории (должно быть уникальным)',

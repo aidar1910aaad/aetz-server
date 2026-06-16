@@ -14,6 +14,11 @@ export class UpdateMaterialDto {
   @IsString()
   unit?: string;
 
+  @ApiPropertyOptional({ example: '10000009398' })
+  @IsOptional()
+  @IsString()
+  code?: string;
+
   @ApiPropertyOptional({ example: 100000 })
   @IsOptional()
   @IsNumber()

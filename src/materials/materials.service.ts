@@ -26,6 +26,7 @@ import { Category } from '../categories/entities/category.entity';
 import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
 import { Calculation } from '../calculations/entities/calculation.entity';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
+import { patchCalculationDataBySingleMaterial } from '../calculations/utils/sync-calculation-material-fields';
 
 @Injectable()
 export class MaterialsService {
@@ -137,84 +138,26 @@ export class MaterialsService {
     });
   }
 
-  private updateCalculationDataPriceByMaterialId(
-    data: any,
+  private async syncMaterialInCalculations(
     materialId: number,
-    newPrice: number
-  ): any {
-    if (!data || typeof data !== 'object') {
-      return data;
-    }
-
-    const nextData = { ...data };
-
-    if (Array.isArray(nextData.categories)) {
-      nextData.categories = nextData.categories.map((category) => {
-        if (!Array.isArray(category?.items)) {
-          return category;
-        }
-
-        return {
-          ...category,
-          items: category.items.map((item) => {
-            if (item?.id === materialId) {
-              return { ...item, price: newPrice };
-            }
-            return item;
-          }),
-        };
-      });
-    }
-
-    if (nextData.cellConfig?.materials && typeof nextData.cellConfig.materials === 'object') {
-      const materials = { ...nextData.cellConfig.materials };
-      Object.keys(materials).forEach((key) => {
-        const value = materials[key];
-        if (Array.isArray(value)) {
-          materials[key] = value.map((item) =>
-            item?.id === materialId ? { ...item, price: newPrice } : item
-          );
-          return;
-        }
-
-        if (value?.id === materialId) {
-          materials[key] = { ...value, price: newPrice };
-        }
-      });
-
-      nextData.cellConfig = {
-        ...nextData.cellConfig,
-        materials,
-      };
-    }
-
-    return nextData;
-  }
-
-  private async syncMaterialPriceInCalculations(
-    materialId: number,
-    priceKzt: number
+    updates: { price: number; name: string }
   ): Promise<void> {
     const calculations = await this.calculationRepo.find();
     if (!calculations.length) {
       return;
     }
 
-    const updates: Calculation[] = [];
+    const updatesToSave: Calculation[] = [];
     for (const calc of calculations) {
-      const updatedData = this.updateCalculationDataPriceByMaterialId(
-        calc.data,
-        materialId,
-        priceKzt
-      );
+      const updatedData = patchCalculationDataBySingleMaterial(calc.data, materialId, updates);
       if (JSON.stringify(updatedData) !== JSON.stringify(calc.data)) {
         calc.data = updatedData;
-        updates.push(calc);
+        updatesToSave.push(calc);
       }
     }
 
-    if (updates.length > 0) {
-      await this.calculationRepo.save(updates);
+    if (updatesToSave.length > 0) {
+      await this.calculationRepo.save(updatesToSave);
     }
   }
 
@@ -438,6 +381,30 @@ export class MaterialsService {
       }
     }
 
+    if (dto.code !== undefined) {
+      const nextCode = dto.code.trim();
+      const currentCode = (material.code ?? '').trim();
+
+      if (nextCode !== currentCode) {
+        await this.historyRepo.save({
+          material,
+          fieldChanged: 'code',
+          oldValue: currentCode || 'не указан',
+          newValue: nextCode || 'не указан',
+          changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
+        });
+        await this.logAudit({
+          entityId: material.id,
+          action: 'UPDATE',
+          fieldChanged: 'code',
+          oldValue: currentCode || null,
+          newValue: nextCode || null,
+          changedBy: changedBy || dto.changedBy || 'Неизвестный пользователь',
+        });
+        material.code = nextCode;
+      }
+    }
+
     if (dto.currency !== undefined && dto.currency.toUpperCase() !== material.currency) {
       await this.historyRepo.save({
         material,
@@ -532,7 +499,10 @@ export class MaterialsService {
     }
 
     const saved = await this.materialRepo.save(material);
-    await this.syncMaterialPriceInCalculations(saved.id, this.toNumber(saved.price));
+    await this.syncMaterialInCalculations(saved.id, {
+      price: this.toNumber(saved.price),
+      name: saved.name,
+    });
     return this.enrichMaterialWithCurrentPrice(saved);
   }
 
@@ -630,16 +600,10 @@ export class MaterialsService {
 
     const baseline = loadBaselineMaterials();
     if (baseline) {
-      return buildPriceImportPreview(
-        excelPath,
-        excelRows,
-        baseline.materials,
-        duplicateCodes,
-        {
-          baselineSource: 'snapshot',
-          baselineExportedAt: baseline.exportedAt,
-        },
-      );
+      return buildPriceImportPreview(excelPath, excelRows, baseline.materials, duplicateCodes, {
+        baselineSource: 'snapshot',
+        baselineExportedAt: baseline.exportedAt,
+      });
     }
 
     const materials = await this.materialRepo
@@ -670,7 +634,7 @@ export class MaterialsService {
         priceInCurrency: this.toNumber(material.priceInCurrency),
       })),
       duplicateCodes,
-      { baselineSource: 'database' },
+      { baselineSource: 'database' }
     );
   }
 
@@ -737,6 +701,16 @@ export class MaterialsService {
       const badges = buildImportBadges(excelPath, actions, createdIds, updatedIds);
       saveImportBadges(badges);
       await queryRunner.commitTransaction();
+
+      if (updatedIds.length > 0) {
+        const updatedMaterials = await this.materialRepo.findByIds(updatedIds);
+        for (const updatedMaterial of updatedMaterials) {
+          await this.syncMaterialInCalculations(updatedMaterial.id, {
+            price: this.toNumber(updatedMaterial.price),
+            name: updatedMaterial.name,
+          });
+        }
+      }
 
       return {
         appliedAt: badges.appliedAt,

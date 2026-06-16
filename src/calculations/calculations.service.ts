@@ -12,6 +12,7 @@ import { UpdateCalculationDto } from './dto/update-calculation.dto';
 import { UpdateCalculationGroupDto } from './dto/update-calculation-group.dto';
 import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
+import { patchCalculationDataByMaterialMaps } from './utils/sync-calculation-material-fields';
 
 @Injectable()
 export class CalculationsService {
@@ -61,53 +62,48 @@ export class CalculationsService {
     return Number((priceInCurrency * rate).toFixed(2));
   }
 
-  // 🔄 Вспомогательная функция для обновления цен в cellConfig
-  private updateCellConfigPrices(cellConfig: any, materialsMap: Map<number, number>) {
-    if (!cellConfig || !cellConfig.materials) {
-      return cellConfig;
+  private patchCalculationData(
+    data: any,
+    pricesByMaterialId: Map<number, number>,
+    namesByMaterialId: Map<number, string>,
+    settings: any
+  ) {
+    if (!data) return data;
+
+    const patchedData = patchCalculationDataByMaterialMaps(
+      data,
+      pricesByMaterialId,
+      namesByMaterialId
+    );
+
+    if (patchedData.calculation) {
+      patchedData.calculation = this.applyCurrentCalculationSettings(
+        patchedData.calculation,
+        settings
+      );
     }
 
-    const updatedMaterials = { ...cellConfig.materials };
-
-    // Обновляем цены для одиночных материалов
-    const singleMaterialTypes = ['switch', 'rza', 'counter', 'sr', 'tsn', 'tn'];
-    singleMaterialTypes.forEach((type) => {
-      if (updatedMaterials[type] && updatedMaterials[type].id) {
-        const freshPrice = materialsMap.get(updatedMaterials[type].id);
-        if (freshPrice !== undefined) {
-          updatedMaterials[type] = {
-            ...updatedMaterials[type],
-            price: freshPrice,
-          };
-        }
-      }
-    });
-
-    // Обновляем цены для массивов материалов
-    const arrayMaterialTypes = ['tt', 'pu', 'disconnector', 'busbar', 'busbridge'];
-    arrayMaterialTypes.forEach((type) => {
-      if (Array.isArray(updatedMaterials[type])) {
-        updatedMaterials[type] = updatedMaterials[type].map((material: any) => {
-          if (material && material.id) {
-            const freshPrice = materialsMap.get(material.id);
-            if (freshPrice !== undefined) {
-              return {
-                ...material,
-                price: freshPrice,
-              };
-            }
-          }
-          return material;
-        });
-      }
-    });
-
-    return {
-      ...cellConfig,
-      materials: updatedMaterials,
-    };
+    return patchedData;
   }
 
+  private async buildMaterialsMapWithSettings(): Promise<{
+    pricesByMaterialId: Map<number, number>;
+    namesByMaterialId: Map<number, string>;
+    settings: any;
+  }> {
+    const [freshMaterials, settings] = await Promise.all([
+      this.materialRepo.find(),
+      this.currencySettingsService.getSettings(),
+    ]);
+
+    return {
+      settings,
+      pricesByMaterialId: new Map(
+        freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)])
+      ),
+      namesByMaterialId: new Map(freshMaterials.map((m) => [m.id, m.name])),
+    };
+  }
   private applyCurrentCalculationSettings(calculation: any, settings: any) {
     const current = calculation || {};
     return {
@@ -118,58 +114,6 @@ export class CalculationsService {
       adminPercentage: this.toNumber(settings.administrativeExpenses) || 15,
       plannedProfitPercentage: this.toNumber(settings.plannedSavings) || 10,
       ndsPercentage: this.toNumber(settings.vatRate) || 12,
-    };
-  }
-
-  private patchCalculationData(data: any, materialsMap: Map<number, number>, settings: any) {
-    if (!data) return data;
-
-    const patchedData = { ...data };
-
-    if (Array.isArray(patchedData.categories)) {
-      patchedData.categories = patchedData.categories.map((cat) => ({
-        ...cat,
-        items: Array.isArray(cat.items)
-          ? cat.items.map((item) => {
-              if (!item.id) return item; // ручной материал
-              const freshPrice = materialsMap.get(item.id);
-              return {
-                ...item,
-                price: freshPrice ?? item.price,
-              };
-            })
-          : [],
-      }));
-    }
-
-    if (patchedData.calculation) {
-      patchedData.calculation = this.applyCurrentCalculationSettings(
-        patchedData.calculation,
-        settings
-      );
-    }
-
-    if (patchedData.cellConfig) {
-      patchedData.cellConfig = this.updateCellConfigPrices(patchedData.cellConfig, materialsMap);
-    }
-
-    return patchedData;
-  }
-
-  private async buildMaterialsMapWithSettings(): Promise<{
-    materialsMap: Map<number, number>;
-    settings: any;
-  }> {
-    const [freshMaterials, settings] = await Promise.all([
-      this.materialRepo.find(),
-      this.currencySettingsService.getSettings(),
-    ]);
-
-    return {
-      settings,
-      materialsMap: new Map(
-        freshMaterials.map((m) => [m.id, this.getMaterialCurrentPriceKzt(m, settings)])
-      ),
     };
   }
 
@@ -227,11 +171,12 @@ export class CalculationsService {
       where: { group: { id: group.id } },
       order: { name: 'ASC' },
     });
-    const { materialsMap, settings } = await this.buildMaterialsMapWithSettings();
+    const { pricesByMaterialId, namesByMaterialId, settings } =
+      await this.buildMaterialsMapWithSettings();
 
     return calculations.map((calc) => ({
       ...calc,
-      data: this.patchCalculationData(calc.data, materialsMap, settings),
+      data: this.patchCalculationData(calc.data, pricesByMaterialId, namesByMaterialId, settings),
     }));
   }
 
@@ -249,7 +194,8 @@ export class CalculationsService {
 
     if (!calc) throw new NotFoundException('Калькуляция не найдена');
 
-    const { materialsMap, settings } = await this.buildMaterialsMapWithSettings();
+    const { pricesByMaterialId, namesByMaterialId, settings } =
+      await this.buildMaterialsMapWithSettings();
 
     // 🛡 Защита от отсутствия data или categories
     if (!calc.data || !Array.isArray(calc.data.categories)) {
@@ -257,7 +203,12 @@ export class CalculationsService {
       return calc;
     }
 
-    calc.data = this.patchCalculationData(calc.data, materialsMap, settings);
+    calc.data = this.patchCalculationData(
+      calc.data,
+      pricesByMaterialId,
+      namesByMaterialId,
+      settings
+    );
 
     return calc;
   }
@@ -295,8 +246,14 @@ export class CalculationsService {
     // Сохраняем обновленную калькуляцию
     const updatedCalc = await this.calcRepo.save(calc);
 
-    const { materialsMap, settings } = await this.buildMaterialsMapWithSettings();
-    updatedCalc.data = this.patchCalculationData(updatedCalc.data, materialsMap, settings);
+    const { pricesByMaterialId, namesByMaterialId, settings } =
+      await this.buildMaterialsMapWithSettings();
+    updatedCalc.data = this.patchCalculationData(
+      updatedCalc.data,
+      pricesByMaterialId,
+      namesByMaterialId,
+      settings
+    );
 
     await this.auditLogsService.log({
       entityType: 'calculation',

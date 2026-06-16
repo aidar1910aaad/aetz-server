@@ -351,7 +351,7 @@ export class MaterialsController {
     @Body() dto: UpdateMaterialDto,
     @CurrentUser() user: JwtPayload
   ) {
-    return this.materialsService.update(id, dto, user?.username);
+    return this.materialsService.update(id, dto, dto.changedBy || user?.username);
   }
 
   @Get(':id/history')

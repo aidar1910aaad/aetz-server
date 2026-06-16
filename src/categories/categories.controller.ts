@@ -194,12 +194,20 @@ export class CategoriesController {
     return this.categoriesService.update(id, updateCategoryDto);
   }
 
+  @Delete('batch')
+  @Roles(UserRole.ADMIN, UserRole.PTO)
+  @ApiOperation({ summary: 'Удалить несколько категорий по ID' })
+  @ApiResponse({ status: 200, description: 'Категории удалены' })
+  removeMany(@Body() ids: number[]) {
+    return this.categoriesService.removeMany(ids);
+  }
+
   @Delete(':id')
-  @Roles(UserRole.ADMIN)
+  @Roles(UserRole.ADMIN, UserRole.PTO)
   @ApiOperation({
     summary: 'Удалить категорию',
     description:
-      'Удаляет категорию и все связанные с ней материалы. Требуются права администратора.',
+      'Удаляет категорию. Требуются права администратора или PTO. Категория с привязанными материалами удалить нельзя.',
   })
   @ApiParam({
     name: 'id',
@@ -233,13 +241,5 @@ export class CategoriesController {
   @ApiResponse({ status: 200, description: 'Список материалов', type: [Material] })
   async getMaterialsByCategory(@Param('id', ParseIntPipe) id: number): Promise<Material[]> {
     return this.categoriesService.findMaterialsByCategoryId(id);
-  }
-
-  @Delete('batch')
-  @Roles(UserRole.ADMIN, UserRole.PTO)
-  @ApiOperation({ summary: 'Удалить несколько категорий по ID' })
-  @ApiResponse({ status: 200, description: 'Категории удалены' })
-  removeMany(@Body() ids: number[]) {
-    return this.categoriesService.removeMany(ids);
   }
 }

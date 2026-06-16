@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-06-09T20:19:23.156Z",
-  "excelFile": "./data/data-materials.xlsx",
-  "baselineSource": "database",
+  "generatedAt": "2026-06-09T21:18:01.534Z",
+  "excelFile": "c:\\Users\\BG\\Desktop\\Aidar\\AETZ\\aetz-server\\data\\data-materials.xlsx",
+  "baselineSource": "snapshot",
   "summary": {
     "totalExcelRows": 665,
     "toUpdate": 278,
@@ -86,17 +86,17 @@
       "name": "Автоматический выключатель модульный 1P 6A",
       "action": "skip_empty",
       "before": {
-        "id": 941,
+        "id": 940,
         "name": "Автомат   1Р     6 А      ВА 47- 63",
         "unit": "шт",
         "currency": "KZT",
-        "price": 855
+        "price": 483.35
       },
       "after": {
         "name": "Автоматический выключатель модульный 1P 6A",
         "unit": "шт",
         "currency": "KZT",
-        "price": 855
+        "price": 483.35
       },
       "priceDiff": 0
     },
@@ -3084,7 +3084,7 @@
       "name": "Замок электромагнитной блокировки ЗБ-1-220DC-УХЛЗ-КЭАЗ",
       "action": "skip_empty",
       "before": {
-        "id": 1550,
+        "id": 1549,
         "name": "Замок электромагнитной блокировки ЗБ-1-220DC-УХЛЗ-КЭАЗ",
         "unit": "шт",
         "currency": "KZT",
@@ -4412,7 +4412,7 @@
       "name": "Конденсатор RTR Energia 15,0 kvar",
       "action": "update",
       "before": {
-        "id": 1883,
+        "id": 1882,
         "name": "Конденсатор RTR Energia 15,0 kvar",
         "unit": "шт",
         "currency": "KZT",
@@ -4452,7 +4452,7 @@
       "name": "Конденсатор RTR Energia 25,0 kvar",
       "action": "update",
       "before": {
-        "id": 1887,
+        "id": 1886,
         "name": "Конденсатор RTR Energia 25,0 kvar",
         "unit": "шт",
         "currency": "KZT",
@@ -5068,11 +5068,11 @@
       "name": "Блок микропроцессорной релейной защиты РС 83 А 2.0- . (3х толовый)",
       "action": "update",
       "before": {
-        "id": 2155,
-        "name": "РЗиА по току РС 83 А 2.0",
+        "id": 2156,
+        "name": "Микропроцессорное устройство защиты и автоматики по току РС 83 А 2.0- .",
         "unit": "шт",
         "currency": "KZT",
-        "price": 288462.88
+        "price": 291461.23
       },
       "after": {
         "name": "Блок микропроцессорной релейной защиты РС 83 А 2.0- . (3х толовый)",
@@ -5080,7 +5080,7 @@
         "currency": "KZT",
         "price": 361776
       },
-      "priceDiff": 73313.12
+      "priceDiff": 70314.77
     },
     {
       "line": 284,
@@ -8136,11 +8136,11 @@
       "name": "Силовой трансформатор ТМГ 2500/10-0,4кВ",
       "action": "update",
       "before": {
-        "id": 3120,
+        "id": 3119,
         "name": "Трансформатор ТМГ- 2500/ 10-0,4кВ",
         "unit": "шт",
         "currency": "KZT",
-        "price": 12120535.71
+        "price": 7739821.43
       },
       "after": {
         "name": "Силовой трансформатор ТМГ 2500/10-0,4кВ",
@@ -8148,7 +8148,7 @@
         "currency": "KZT",
         "price": 8166466
       },
-      "priceDiff": -3954069.71
+      "priceDiff": 426644.57
     },
     {
       "line": 450,
@@ -10232,11 +10232,11 @@
       "name": "Вольтметр - Киловольтметр  10kV/ 100 V   96 - L    (13kV)",
       "action": "update",
       "before": {
-        "id": 1313,
+        "id": 1312,
         "name": "Вольтметр - Киловольтметр  10kV/ 100 V   96 - L    (13kV)",
         "unit": "шт",
         "currency": "KZT",
-        "price": 3051.93
+        "price": 1513.76
       },
       "after": {
         "name": "Вольтметр - Киловольтметр  10kV/ 100 V   96 - L    (13kV)",
@@ -10244,7 +10244,7 @@
         "currency": "KZT",
         "price": 3300
       },
-      "priceDiff": 248.07
+      "priceDiff": 1786.24
     },
     {
       "line": 565,
@@ -10252,17 +10252,17 @@
       "name": "Диодный мост 35А",
       "action": "skip_empty",
       "before": {
-        "id": 1442,
+        "id": 1441,
         "name": "Диодный мост 35А",
         "unit": "шт",
         "currency": "KZT",
-        "price": 714.29
+        "price": 3931.62
       },
       "after": {
         "name": "Диодный мост 35А",
         "unit": "шт",
         "currency": "KZT",
-        "price": 714.29
+        "price": 3931.62
       },
       "priceDiff": 0
     },
@@ -10680,11 +10680,11 @@
       "name": "МК ОПС",
       "action": "update",
       "before": {
-        "id": 3507,
+        "id": 3506,
         "name": "Шкаф охранно пожарной сигнализации (ОПС)",
         "unit": "шт",
         "currency": "KZT",
-        "price": 38853.15
+        "price": 13260.71
       },
       "after": {
         "name": "МК ОПС",
@@ -10692,7 +10692,7 @@
         "currency": "KZT",
         "price": 36225
       },
-      "priceDiff": -2628.15
+      "priceDiff": 22964.29
     },
     {
       "line": 588,
@@ -11498,7 +11498,7 @@
       "name": "Токовая катушка 3 А,15 V/A .resistance",
       "action": "skip_empty",
       "before": {
-        "id": 3040,
+        "id": 3039,
         "name": "Токовая катушка 3 А,15 V/A .resistance",
         "unit": "шт",
         "currency": "KZT",
@@ -11948,17 +11948,17 @@
       "name": "Стенд СИЗ.",
       "action": "skip_empty",
       "before": {
-        "id": 2909,
+        "id": 2908,
         "name": "Стенд СИЗ.",
         "unit": "шт",
         "currency": "KZT",
-        "price": 0
+        "price": 6579.46
       },
       "after": {
         "name": "Стенд СИЗ.",
         "unit": "шт",
         "currency": "KZT",
-        "price": 0
+        "price": 6579.46
       },
       "priceDiff": 0
     },

@@ -65,7 +65,7 @@ async function bootstrap() {
     .setTitle('AETZ API')
     .setDescription(
       `
-      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+      <div style="font-family: 'Onest', system-ui, sans-serif;">
         <h2 style="color: #2563eb; margin-bottom: 20px;">🏢 AETZ API - Система управления электротехническими проектами</h2>
         <p style="font-size: 16px; color: #374151; margin-bottom: 25px;">
           Комплексная система для управления материалами, расчетами и проектами в области электротехники.
@@ -194,6 +194,15 @@ async function bootstrap() {
     },
     customSiteTitle: 'AETZ API - Документация',
     customfavIcon: 'https://aetz-client.vercel.app/favicon.ico',
+    customCss: `
+      @import url('https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700&display=swap');
+      html, body, .swagger-ui, .swagger-ui .title, .swagger-ui .opblock-tag,
+      .swagger-ui .opblock-summary-description, .swagger-ui .opblock-description-wrapper,
+      .swagger-ui .model-title, .swagger-ui table, .swagger-ui input, .swagger-ui textarea,
+      .swagger-ui select, .swagger-ui button {
+        font-family: 'Onest', system-ui, sans-serif !important;
+      }
+    `,
     customJs: [
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js',
