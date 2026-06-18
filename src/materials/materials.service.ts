@@ -17,7 +17,7 @@ import {
   planImportActions,
 } from './utils/material-price-import-plan';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Brackets, Repository } from 'typeorm';
+import { Brackets, In, Repository } from 'typeorm';
 import { Material } from './entities/material.entity';
 import { CreateMaterialDto } from './dto/create-material.dto';
 import { UpdateMaterialDto } from './dto/update-material.dto';
@@ -264,6 +264,23 @@ export class MaterialsService {
     const enrichedData = await this.enrichMaterialsWithCurrentPrices(data);
 
     return { data: enrichedData, total };
+  }
+
+  async findByCodes(codes: string[]): Promise<Array<Material & { currentPriceKzt: number }>> {
+    const normalized = [
+      ...new Set(codes.map((code) => normalizeCode(code)).filter((code) => Boolean(code))),
+    ];
+
+    if (normalized.length === 0) {
+      return [];
+    }
+
+    const materials = await this.materialRepo.find({
+      where: { code: In(normalized) },
+      relations: ['category'],
+    });
+
+    return this.enrichMaterialsWithCurrentPrices(materials);
   }
 
   async findOne(id: number): Promise<Material & { currentPriceKzt: number }> {
@@ -741,5 +758,33 @@ export class MaterialsService {
       changedBy: changedBy || 'Неизвестный пользователь',
     });
     await this.materialRepo.remove(material);
+  }
+
+  async deleteMany(ids: number[], changedBy?: string): Promise<{ deleted: number }> {
+    const uniqueIds = [...new Set(ids.filter((id) => Number.isInteger(id) && id > 0))];
+
+    if (uniqueIds.length === 0) {
+      return { deleted: 0 };
+    }
+
+    const materials = await this.materialRepo.findBy({ id: In(uniqueIds) });
+
+    if (materials.length === 0) {
+      throw new NotFoundException('Материалы для удаления не найдены');
+    }
+
+    for (const material of materials) {
+      await this.logAudit({
+        entityId: material.id,
+        action: 'DELETE',
+        fieldChanged: 'entity',
+        oldValue: `Удален материал "${material.name}" (${material.code || 'без кода'})`,
+        changedBy: changedBy || 'Неизвестный пользователь',
+      });
+    }
+
+    await this.materialRepo.remove(materials);
+
+    return { deleted: materials.length };
   }
 }

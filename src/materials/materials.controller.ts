@@ -141,6 +141,15 @@ export class MaterialsController {
     return this.materialsService.findAll({ page, limit, search, sort, order, categoryId });
   }
 
+  @Post('by-codes')
+  @ApiOperation({
+    summary: 'Получить материалы по списку кодов',
+    description: 'Возвращает материалы из БД, сопоставленные по полю code.',
+  })
+  findByCodes(@Body() body: { codes?: string[] }) {
+    return this.materialsService.findByCodes(body?.codes ?? []);
+  }
+
   @Get('price-import/preview')
   @ApiOperation({
     summary: 'Предпросмотр импорта цен из Excel',
@@ -389,6 +398,25 @@ export class MaterialsController {
   @ApiResponse({ status: 401, description: 'Не авторизован' })
   getHistory(@Param('id', ParseIntPipe) id: number) {
     return this.materialsService.getHistory(id);
+  }
+
+  @Delete('batch')
+  @ApiOperation({
+    summary: 'Удалить несколько материалов',
+    description: 'Безвозвратно удаляет несколько материалов по списку ID.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Материалы успешно удалены',
+    schema: {
+      type: 'object',
+      properties: {
+        deleted: { type: 'number', example: 3 },
+      },
+    },
+  })
+  deleteMany(@Body() ids: number[], @CurrentUser() user: JwtPayload) {
+    return this.materialsService.deleteMany(ids, user?.username);
   }
 
   @Delete(':id')
