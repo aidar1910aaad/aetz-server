@@ -18,7 +18,8 @@ export class AuditLogsController {
     @Query('limit') limit?: number,
     @Query('entityType') entityType?: string,
     @Query('action') action?: string,
-    @Query('changedBy') changedBy?: string
+    @Query('changedBy') changedBy?: string,
+    @Query('materialSearch') materialSearch?: string
   ) {
     return this.auditLogsService.findAll({
       page: page ? +page : undefined,
@@ -26,6 +27,7 @@ export class AuditLogsController {
       entityType,
       action,
       changedBy,
+      materialSearch,
     });
   }
 }

@@ -134,7 +134,7 @@ export class MaterialsController {
     @Query('page') page?: number,
     @Query('limit') limit?: number,
     @Query('search') search?: string,
-    @Query('sort') sort?: 'name' | 'price' | 'code',
+    @Query('sort') sort?: 'name' | 'price' | 'code' | 'createdAt',
     @Query('order') order?: 'ASC' | 'DESC',
     @Query('categoryId') categoryId?: number
   ) {

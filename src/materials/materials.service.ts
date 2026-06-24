@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
 import * as fs from 'fs';
 import {
   buildPriceImportPreview,
@@ -27,6 +27,11 @@ import { CurrencySettingsService } from '../currency-settings/currency-settings.
 import { Calculation } from '../calculations/entities/calculation.entity';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import { patchCalculationDataBySingleMaterial } from '../calculations/utils/sync-calculation-material-fields';
+import {
+  formatMaterialCode,
+  isValidMaterialCodeFormat,
+  MATERIAL_CODE_MIN,
+} from './utils/generate-material-code';
 
 @Injectable()
 export class MaterialsService {
@@ -161,6 +166,78 @@ export class MaterialsService {
     }
   }
 
+  private async getMaxMaterialCodeNumber(): Promise<number> {
+    const row = await this.materialRepo
+      .createQueryBuilder('material')
+      .select('MAX(CAST(material.code AS BIGINT))', 'maxCode')
+      .where("material.code ~ '^[0-9]{11}$'")
+      .andWhere('CAST(material.code AS BIGINT) >= :minCode', { minCode: MATERIAL_CODE_MIN })
+      .getRawOne<{ maxCode: string | null }>();
+
+    const maxCode = row?.maxCode ? Number(row.maxCode) : 0;
+    return Number.isFinite(maxCode) ? maxCode : 0;
+  }
+
+  private async assertMaterialCodeUnique(code: string, excludeMaterialId?: number): Promise<void> {
+    const normalized = normalizeCode(code);
+    if (!normalized) {
+      return;
+    }
+
+    const queryBuilder = this.materialRepo
+      .createQueryBuilder('material')
+      .where('material.code = :code', { code: normalized });
+
+    if (excludeMaterialId !== undefined) {
+      queryBuilder.andWhere('material.id != :excludeMaterialId', { excludeMaterialId });
+    }
+
+    const existing = await queryBuilder.getOne();
+    if (existing) {
+      throw new ConflictException(`Материал с кодом ${normalized} уже существует`);
+    }
+  }
+
+  private validateMaterialCodeFormat(code: string): string {
+    const normalized = normalizeCode(code);
+    if (!isValidMaterialCodeFormat(normalized)) {
+      throw new BadRequestException(
+        'Код материала должен быть 11-значным числом, начиная с 10000000000'
+      );
+    }
+    return normalized;
+  }
+
+  private async resolveMaterialCode(
+    dtoCode: string | undefined,
+    nextCodeCounter: { value: number },
+    reservedCodes: Set<string>
+  ): Promise<string> {
+    if (dtoCode?.trim()) {
+      const code = this.validateMaterialCodeFormat(dtoCode);
+      if (reservedCodes.has(code)) {
+        throw new ConflictException(`Код ${code} уже используется в текущем запросе`);
+      }
+      await this.assertMaterialCodeUnique(code);
+      reservedCodes.add(code);
+      return code;
+    }
+
+    while (true) {
+      nextCodeCounter.value += 1;
+      const code = formatMaterialCode(nextCodeCounter.value);
+      if (reservedCodes.has(code)) {
+        continue;
+      }
+
+      const exists = await this.materialRepo.exist({ where: { code } });
+      if (!exists) {
+        reservedCodes.add(code);
+        return code;
+      }
+    }
+  }
+
   async create(
     dto: CreateMaterialDto,
     changedBy?: string
@@ -193,7 +270,11 @@ export class MaterialsService {
     material.rateAtCreation = rateAtCreation;
     material.priceKztAtCreation = priceKztAtCreation;
     material.price = priceKztAtCreation;
-    material.code = dto.code || String(Date.now());
+    material.code = await this.resolveMaterialCode(
+      dto.code,
+      { value: Math.max(await this.getMaxMaterialCodeNumber(), MATERIAL_CODE_MIN) },
+      new Set<string>()
+    );
     if (category) {
       material.category = category;
     }
@@ -214,7 +295,7 @@ export class MaterialsService {
     page?: number;
     limit?: number;
     search?: string;
-    sort?: 'name' | 'price' | 'code';
+    sort?: 'name' | 'price' | 'code' | 'createdAt';
     order?: 'ASC' | 'DESC';
     categoryId?: number;
   }): Promise<{ data: Array<Material & { currentPriceKzt: number }>; total: number }> {
@@ -301,6 +382,10 @@ export class MaterialsService {
     const batchSize = 100; // Размер пакета для вставки
     let currentBatch: Material[] = [];
     const settings = await this.currencySettingsService.getSettings();
+    const nextCodeCounter = {
+      value: Math.max(await this.getMaxMaterialCodeNumber(), MATERIAL_CODE_MIN),
+    };
+    const reservedCodes = new Set<string>();
 
     for (const dto of dtos) {
       let category: Category | undefined;
@@ -331,7 +416,7 @@ export class MaterialsService {
       material.rateAtCreation = rateAtCreation;
       material.priceKztAtCreation = priceKztAtCreation;
       material.price = priceKztAtCreation;
-      material.code = dto.code ? String(dto.code) : String(Date.now());
+      material.code = await this.resolveMaterialCode(dto.code, nextCodeCounter, reservedCodes);
       if (category) {
         material.category = category;
       }
@@ -399,10 +484,11 @@ export class MaterialsService {
     }
 
     if (dto.code !== undefined) {
-      const nextCode = dto.code.trim();
-      const currentCode = (material.code ?? '').trim();
+      const nextCode = this.validateMaterialCodeFormat(dto.code.trim());
+      const currentCode = normalizeCode(material.code ?? '');
 
       if (nextCode !== currentCode) {
+        await this.assertMaterialCodeUnique(nextCode, material.id);
         await this.historyRepo.save({
           material,
           fieldChanged: 'code',

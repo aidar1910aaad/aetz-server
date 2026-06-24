@@ -82,6 +82,7 @@ export class AuditLogsService {
     entityType?: string;
     action?: string;
     changedBy?: string;
+    materialSearch?: string;
   }): Promise<{
     data: Array<
       AuditLog & {
@@ -100,10 +101,35 @@ export class AuditLogsService {
     if (query.entityType)
       qb.andWhere('LOWER(audit.entityType) = LOWER(:entityType)', { entityType: query.entityType });
     if (query.action) qb.andWhere('LOWER(audit.action) = LOWER(:action)', { action: query.action });
-    if (query.changedBy)
-      qb.andWhere('LOWER(audit.changedBy) LIKE LOWER(:changedBy)', {
-        changedBy: `%${query.changedBy}%`,
-      });
+    if (query.changedBy) {
+      const changedByPattern = `%${query.changedBy}%`;
+      qb.andWhere(
+        `(LOWER(audit.changedBy) LIKE LOWER(:changedBy)
+          OR audit.changedBy IN (
+            SELECT u.username FROM users u
+            WHERE LOWER(u.email) LIKE LOWER(:changedBy)
+              OR LOWER(u."firstName") LIKE LOWER(:changedBy)
+              OR LOWER(u."lastName") LIKE LOWER(:changedBy)
+              OR LOWER(TRIM(CONCAT(COALESCE(u."lastName", ''), ' ', COALESCE(u."firstName", '')))) LIKE LOWER(:changedBy)
+          ))`,
+        { changedBy: changedByPattern }
+      );
+    }
+    if (query.materialSearch) {
+      const materialPattern = `%${query.materialSearch}%`;
+      qb.andWhere(
+        `(audit.entityType = 'material' AND (
+          audit."entityId" IN (
+            SELECT CAST(m.id AS varchar) FROM material m
+            WHERE LOWER(m.name) LIKE LOWER(:materialSearch)
+              OR LOWER(m.code) LIKE LOWER(:materialSearch)
+          )
+          OR LOWER(audit."oldValue") LIKE LOWER(:materialSearch)
+          OR LOWER(audit."newValue") LIKE LOWER(:materialSearch)
+        ))`,
+        { materialSearch: materialPattern }
+      );
+    }
 
     qb.skip((page - 1) * limit).take(limit);
     const [data, total] = await qb.getManyAndCount();
