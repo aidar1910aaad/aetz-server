@@ -2,12 +2,14 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { AuditLogsService } from '../audit-logs/audit-logs.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private auditLogsService: AuditLogsService
   ) {}
 
   async validateUser(username: string, pass: string) {
@@ -37,6 +39,19 @@ export class AuthService {
       username: user.username,
       role: user.role, // Используем существующее поле role
     };
+
+    await this.auditLogsService.log({
+      entityType: 'auth',
+      entityId: user.id,
+      action: 'LOGIN',
+      fieldChanged: 'session',
+      newValue: {
+        message: 'Успешная авторизация',
+        username: user.username,
+        role: user.role,
+      },
+      changedBy: user.username,
+    });
 
     return {
       access_token: this.jwtService.sign(payload),

@@ -20,15 +20,18 @@ export class AuditLogsService {
     material: 'Материал',
     calculation: 'Калькуляция',
     currency_settings: 'Курсы валют',
+    auth: 'Авторизация',
   };
 
   private readonly actionLabelsRu: Record<string, string> = {
     CREATE: 'Создание',
     UPDATE: 'Изменение',
     DELETE: 'Удаление',
+    LOGIN: 'Вход',
   };
 
   private readonly fieldLabelsRu: Record<string, string> = {
+    session: 'Сессия',
     entity: 'Сущность',
     name: 'Название',
     unit: 'Ед. изм.',
