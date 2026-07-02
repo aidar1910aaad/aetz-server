@@ -36,6 +36,20 @@ export class SettingsService {
     }
   }
 
+  private normalizeSettings(settings: Partial<Setting['settings']>): Setting['settings'] {
+    return {
+      rusn: settings.rusn ?? [],
+      bmz: settings.bmz ?? [],
+      runn: settings.runn ?? [],
+      work: settings.work ?? [],
+      transformer: settings.transformer ?? [],
+      additionalEquipment: settings.additionalEquipment ?? [],
+      sr: settings.sr ?? [],
+      tsn: settings.tsn ?? [],
+      tn: settings.tn ?? [],
+    };
+  }
+
   async create(dto: CreateSettingDto): Promise<Setting> {
     // Проверяем существование всех категорий
     const allCategoryIds = [
@@ -64,7 +78,7 @@ export class SettingsService {
     }
 
     const setting = await this.getSettings();
-    setting.settings = dto.settings;
+    setting.settings = this.normalizeSettings(dto.settings);
     return this.settingRepo.save(setting);
   }
 
@@ -83,6 +97,8 @@ export class SettingsService {
 
   async update(dto: CreateSettingDto): Promise<Setting> {
     const setting = await this.getSettings();
+    const hasSection = (key: keyof CreateSettingDto['settings']) =>
+      Object.prototype.hasOwnProperty.call(dto.settings, key);
 
     // Проверяем существование всех категорий из обновляемых полей
     const allCategoryIds = [
@@ -113,16 +129,16 @@ export class SettingsService {
     // Обновляем только те поля, которые были отправлены в запросе
     const updatedSettings = { ...setting.settings };
 
-    if (dto.settings.rusn) updatedSettings.rusn = dto.settings.rusn;
-    if (dto.settings.bmz) updatedSettings.bmz = dto.settings.bmz;
-    if (dto.settings.runn) updatedSettings.runn = dto.settings.runn;
-    if (dto.settings.work) updatedSettings.work = dto.settings.work;
-    if (dto.settings.transformer) updatedSettings.transformer = dto.settings.transformer;
-    if (dto.settings.additionalEquipment)
-      updatedSettings.additionalEquipment = dto.settings.additionalEquipment;
-    if (dto.settings.sr) updatedSettings.sr = dto.settings.sr;
-    if (dto.settings.tsn) updatedSettings.tsn = dto.settings.tsn;
-    if (dto.settings.tn) updatedSettings.tn = dto.settings.tn;
+    if (hasSection('rusn')) updatedSettings.rusn = dto.settings.rusn ?? [];
+    if (hasSection('bmz')) updatedSettings.bmz = dto.settings.bmz ?? [];
+    if (hasSection('runn')) updatedSettings.runn = dto.settings.runn ?? [];
+    if (hasSection('work')) updatedSettings.work = dto.settings.work ?? [];
+    if (hasSection('transformer')) updatedSettings.transformer = dto.settings.transformer ?? [];
+    if (hasSection('additionalEquipment'))
+      updatedSettings.additionalEquipment = dto.settings.additionalEquipment ?? [];
+    if (hasSection('sr')) updatedSettings.sr = dto.settings.sr ?? [];
+    if (hasSection('tsn')) updatedSettings.tsn = dto.settings.tsn ?? [];
+    if (hasSection('tn')) updatedSettings.tn = dto.settings.tn ?? [];
 
     setting.settings = updatedSettings;
     return this.settingRepo.save(setting);

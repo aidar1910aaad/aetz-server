@@ -56,7 +56,7 @@ export class EquipmentSettingsDto {
   @ValidateNested({ each: true })
   @Type(() => CategorySettingDto)
   @IsOptional()
-  rusn: CategorySettingDto[] = [];
+  rusn?: CategorySettingDto[];
 
   @ApiProperty({
     type: [CategorySettingDto],
@@ -74,7 +74,7 @@ export class EquipmentSettingsDto {
   @ValidateNested({ each: true })
   @Type(() => CategorySettingDto)
   @IsOptional()
-  bmz: CategorySettingDto[] = [];
+  bmz?: CategorySettingDto[];
 
   @ApiProperty({
     type: [CategorySettingDto],
@@ -92,7 +92,7 @@ export class EquipmentSettingsDto {
   @ValidateNested({ each: true })
   @Type(() => CategorySettingDto)
   @IsOptional()
-  runn: CategorySettingDto[] = [];
+  runn?: CategorySettingDto[];
 
   @ApiProperty({
     type: [CategorySettingDto],
@@ -110,7 +110,7 @@ export class EquipmentSettingsDto {
   @ValidateNested({ each: true })
   @Type(() => CategorySettingDto)
   @IsOptional()
-  work: CategorySettingDto[] = [];
+  work?: CategorySettingDto[];
 
   @ApiProperty({
     type: [CategorySettingDto],
@@ -128,7 +128,7 @@ export class EquipmentSettingsDto {
   @ValidateNested({ each: true })
   @Type(() => CategorySettingDto)
   @IsOptional()
-  transformer: CategorySettingDto[] = [];
+  transformer?: CategorySettingDto[];
 
   @ApiProperty({
     type: [CategorySettingDto],
@@ -146,7 +146,7 @@ export class EquipmentSettingsDto {
   @ValidateNested({ each: true })
   @Type(() => CategorySettingDto)
   @IsOptional()
-  additionalEquipment: CategorySettingDto[] = [];
+  additionalEquipment?: CategorySettingDto[];
 
   @ApiProperty({
     type: [CategorySettingDto],
@@ -164,7 +164,7 @@ export class EquipmentSettingsDto {
   @ValidateNested({ each: true })
   @Type(() => CategorySettingDto)
   @IsOptional()
-  sr: CategorySettingDto[] = [];
+  sr?: CategorySettingDto[];
 
   @ApiProperty({
     type: [CategorySettingDto],
@@ -182,7 +182,7 @@ export class EquipmentSettingsDto {
   @ValidateNested({ each: true })
   @Type(() => CategorySettingDto)
   @IsOptional()
-  tsn: CategorySettingDto[] = [];
+  tsn?: CategorySettingDto[];
 
   @ApiProperty({
     type: [CategorySettingDto],
@@ -200,7 +200,7 @@ export class EquipmentSettingsDto {
   @ValidateNested({ each: true })
   @Type(() => CategorySettingDto)
   @IsOptional()
-  tn: CategorySettingDto[] = [];
+  tn?: CategorySettingDto[];
 }
 
 export class CreateSettingDto {
