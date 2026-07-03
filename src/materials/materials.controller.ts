@@ -40,7 +40,7 @@ export class MaterialsController {
       properties: {
         id: { type: 'number', example: 1 },
         name: { type: 'string', example: 'Вакуумный выключатель AV-24 1250A' },
-        code: { type: 'string', example: '10000009398' },
+        code: { type: 'string', example: '20000009398' },
         unit: { type: 'string', example: 'шт' },
         price: { type: 'number', example: 1610000 },
         category: {
@@ -77,7 +77,7 @@ export class MaterialsController {
         properties: {
           id: { type: 'number', example: 1 },
           name: { type: 'string', example: 'Вакуумный выключатель AV-24 1250A' },
-          code: { type: 'string', example: '10000009398' },
+          code: { type: 'string', example: '20000009398' },
           unit: { type: 'string', example: 'шт' },
           price: { type: 'number', example: 1610000 },
         },
@@ -112,7 +112,7 @@ export class MaterialsController {
             properties: {
               id: { type: 'number', example: 1 },
               name: { type: 'string', example: 'Вакуумный выключатель AV-24 1250A' },
-              code: { type: 'string', example: '10000009398' },
+              code: { type: 'string', example: '20000009398' },
               unit: { type: 'string', example: 'шт' },
               price: { type: 'number', example: 1610000 },
               category: {
@@ -303,7 +303,7 @@ export class MaterialsController {
       properties: {
         id: { type: 'number', example: 1 },
         name: { type: 'string', example: 'Вакуумный выключатель AV-24 1250A' },
-        code: { type: 'string', example: '10000009398' },
+        code: { type: 'string', example: '20000009398' },
         unit: { type: 'string', example: 'шт' },
         price: { type: 'number', example: 1610000 },
         category: {
@@ -338,7 +338,7 @@ export class MaterialsController {
       properties: {
         id: { type: 'number', example: 1 },
         name: { type: 'string', example: 'Вакуумный выключатель AV-24 1250A' },
-        code: { type: 'string', example: '10000009398' },
+        code: { type: 'string', example: '20000009398' },
         unit: { type: 'string', example: 'шт' },
         price: { type: 'number', example: 1610000 },
         category: {

@@ -44,9 +44,19 @@ export interface CellConfig {
     | 'input'
     | 'section_switch'
     | 'outgoing'
+    | 'kso_a17_zssh'
+    | 'busbar_grounding'
     | 'bha_input'
     | 'bha_transformer'
     | 'bha_outgoing';
+  rzaCellTargets?: (
+    | 'input'
+    | 'section_switch'
+    | 'outgoing'
+    | 'transformer'
+    | 'kso_a17_zssh'
+    | 'tn'
+  )[];
   materials: {
     switch?: CellMaterial;
     rza?: CellMaterial;

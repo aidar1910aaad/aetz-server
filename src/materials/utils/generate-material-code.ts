@@ -1,4 +1,4 @@
-export const MATERIAL_CODE_MIN = 10_000_000_000;
+export const MATERIAL_CODE_MIN = 20_000_000_000;
 export const MATERIAL_CODE_LENGTH = 11;
 
 export function formatMaterialCode(value: number): string {

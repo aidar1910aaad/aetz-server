@@ -202,7 +202,7 @@ export class MaterialsService {
     const normalized = normalizeCode(code);
     if (!isValidMaterialCodeFormat(normalized)) {
       throw new BadRequestException(
-        'Код материала должен быть 11-значным числом, начиная с 10000000000'
+        'Код материала должен быть 11-значным числом, начиная с 20000000000'
       );
     }
     return normalized;

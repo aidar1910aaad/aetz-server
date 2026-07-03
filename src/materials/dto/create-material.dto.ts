@@ -45,8 +45,8 @@ export class CreateMaterialDto {
   priceInCurrency?: number;
 
   @ApiPropertyOptional({
-    example: '10000009398',
-    description: 'Код материала. Если не указан — генерируется автоматически (11 цифр, от 10000000000)',
+    example: '20000009398',
+    description: 'Код материала. Если не указан — генерируется автоматически (11 цифр, от 20000000000)',
   })
   @IsOptional()
   @IsString()

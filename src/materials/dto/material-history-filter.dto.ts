@@ -12,7 +12,7 @@ export class MaterialHistoryFilterDto {
   materialName?: string;
 
   @ApiPropertyOptional({
-    example: '10000009398',
+    example: '20000009398',
     description: 'Фильтр по коду материала',
   })
   @IsOptional()

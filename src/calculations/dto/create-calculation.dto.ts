@@ -1,5 +1,5 @@
-import { IsString, IsNotEmpty, IsObject, IsNumber, ValidateNested, IsEnum } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNotEmpty, IsObject, IsNumber, ValidateNested, IsEnum, IsOptional, IsArray } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   CalculationData,
@@ -145,6 +145,8 @@ export class CreateCellConfigDto implements CellConfig {
       'input',
       'section_switch',
       'outgoing',
+      'kso_a17_zssh',
+      'busbar_grounding',
       'bha_input',
       'bha_transformer',
       'bha_outgoing',
@@ -168,6 +170,8 @@ export class CreateCellConfigDto implements CellConfig {
     'input',
     'section_switch',
     'outgoing',
+    'kso_a17_zssh',
+    'busbar_grounding',
     'bha_input',
     'bha_transformer',
     'bha_outgoing',
@@ -187,9 +191,40 @@ export class CreateCellConfigDto implements CellConfig {
     | 'input'
     | 'section_switch'
     | 'outgoing'
+    | 'kso_a17_zssh'
+    | 'busbar_grounding'
     | 'bha_input'
     | 'bha_transformer'
     | 'bha_outgoing';
+
+  @ApiPropertyOptional({
+    enum: [
+      'input',
+      'section_switch',
+      'outgoing',
+      'transformer',
+      'kso_a17_zssh',
+      'tn',
+    ],
+    isArray: true,
+    description:
+      'Подтипы ячеек для калькуляции РЗА: ввод, секционный выключатель, отходящая, трансформаторная, ТН с ЗСШ, ТН',
+    example: ['input'],
+  })
+  @IsOptional()
+  @IsArray()
+  @IsEnum(
+    ['input', 'section_switch', 'outgoing', 'transformer', 'kso_a17_zssh', 'tn'],
+    { each: true },
+  )
+  rzaCellTargets?: (
+    | 'input'
+    | 'section_switch'
+    | 'outgoing'
+    | 'transformer'
+    | 'kso_a17_zssh'
+    | 'tn'
+  )[];
 
   @ApiProperty({
     description: 'Конфигурация оборудования ячейки',
