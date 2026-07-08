@@ -14,7 +14,10 @@ export class UpdateMaterialDto {
   @IsString()
   unit?: string;
 
-  @ApiPropertyOptional({ example: '20000009398' })
+  @ApiPropertyOptional({
+    example: '20000009398',
+    description: 'Код материала. При обновлении формат не проверяется — только уникальность.',
+  })
   @IsOptional()
   @IsString()
   code?: string;

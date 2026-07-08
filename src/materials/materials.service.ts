@@ -484,11 +484,13 @@ export class MaterialsService {
     }
 
     if (dto.code !== undefined) {
-      const nextCode = this.validateMaterialCodeFormat(dto.code.trim());
+      const nextCode = normalizeCode(dto.code);
       const currentCode = normalizeCode(material.code ?? '');
 
       if (nextCode !== currentCode) {
-        await this.assertMaterialCodeUnique(nextCode, material.id);
+        if (nextCode) {
+          await this.assertMaterialCodeUnique(nextCode, material.id);
+        }
         await this.historyRepo.save({
           material,
           fieldChanged: 'code',
