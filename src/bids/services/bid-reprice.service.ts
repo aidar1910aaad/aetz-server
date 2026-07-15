@@ -570,7 +570,7 @@ export class BidRepriceService {
     }
 
     const area = (this.toNumber(bmz.length) / 1000) * (this.toNumber(bmz.width) / 1000);
-    const roundedArea = Math.round(area);
+    const roundedArea = Math.round(area * 100) / 100;
     let total = 0;
 
     if (bmz.buildingType === 'bmz' && bmz.settings?.areaPriceRanges) {
@@ -611,8 +611,8 @@ export class BidRepriceService {
         .replace(/\s+/g, '');
       if (!bmz.equipmentState?.[stateKey]) return;
       let quantity = 0;
-      if (eq.priceType === 'perSquareMeter') quantity = Math.round(area);
-      else if (eq.priceType === 'perHalfSquareMeter') quantity = Math.round(area / 2);
+      if (eq.priceType === 'perSquareMeter') quantity = roundedArea;
+      else if (eq.priceType === 'perHalfSquareMeter') quantity = Math.round((roundedArea / 2) * 100) / 100;
       else if (eq.priceType === 'fixed') quantity = 1;
       const price = this.toNumber(eq.pricePerSquareMeter ?? eq.fixedPrice ?? 0);
       total += price * quantity;
