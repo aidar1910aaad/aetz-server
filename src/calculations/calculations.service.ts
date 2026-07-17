@@ -13,6 +13,7 @@ import { UpdateCalculationGroupDto } from './dto/update-calculation-group.dto';
 import { CurrencySettingsService } from '../currency-settings/currency-settings.service';
 import { AuditLogsService } from '../audit-logs/audit-logs.service';
 import { patchCalculationDataByMaterialMaps } from './utils/sync-calculation-material-fields';
+import { isCustomPercentagesGroup } from './constants/custom-percentages-groups';
 
 @Injectable()
 export class CalculationsService {
@@ -66,7 +67,8 @@ export class CalculationsService {
     data: any,
     pricesByMaterialId: Map<number, number>,
     namesByMaterialId: Map<number, string>,
-    settings: any
+    settings: any,
+    groupSlug?: string
   ) {
     if (!data) return data;
 
@@ -79,7 +81,8 @@ export class CalculationsService {
     if (patchedData.calculation) {
       patchedData.calculation = this.applyCurrentCalculationSettings(
         patchedData.calculation,
-        settings
+        settings,
+        groupSlug
       );
     }
 
@@ -104,11 +107,56 @@ export class CalculationsService {
       namesByMaterialId: new Map(freshMaterials.map((m) => [m.id, m.name])),
     };
   }
-  private applyCurrentCalculationSettings(calculation: any, settings: any) {
+  private hasSavedValue(value: unknown): boolean {
+    return value !== undefined && value !== null && value !== '';
+  }
+
+  private resolveSavedOrGlobal(
+    savedValue: unknown,
+    globalValue: unknown,
+    fallback: number
+  ): number {
+    if (this.hasSavedValue(savedValue)) {
+      return this.toNumber(savedValue);
+    }
+    return this.toNumber(globalValue) || fallback;
+  }
+
+  private applyCurrentCalculationSettings(
+    calculation: any,
+    settings: any,
+    groupSlug?: string
+  ) {
     const current = calculation || {};
+    const manufacturingHours = this.toNumber(current.manufacturingHours) || 4;
+
+    if (isCustomPercentagesGroup(groupSlug)) {
+      return {
+        ...current,
+        manufacturingHours,
+        hourlyRate: this.resolveSavedOrGlobal(current.hourlyRate, settings.hourlyWage, 2000),
+        overheadPercentage: this.resolveSavedOrGlobal(
+          current.overheadPercentage,
+          settings.productionExpenses,
+          10
+        ),
+        adminPercentage: this.resolveSavedOrGlobal(
+          current.adminPercentage,
+          settings.administrativeExpenses,
+          15
+        ),
+        plannedProfitPercentage: this.resolveSavedOrGlobal(
+          current.plannedProfitPercentage,
+          settings.plannedSavings,
+          10
+        ),
+        ndsPercentage: this.resolveSavedOrGlobal(current.ndsPercentage, settings.vatRate, 12),
+      };
+    }
+
     return {
       ...current,
-      manufacturingHours: this.toNumber(current.manufacturingHours) || 4,
+      manufacturingHours,
       hourlyRate: this.toNumber(settings.hourlyWage) || 2000,
       overheadPercentage: this.toNumber(settings.productionExpenses) || 10,
       adminPercentage: this.toNumber(settings.administrativeExpenses) || 15,
@@ -176,7 +224,13 @@ export class CalculationsService {
 
     return calculations.map((calc) => ({
       ...calc,
-      data: this.patchCalculationData(calc.data, pricesByMaterialId, namesByMaterialId, settings),
+      data: this.patchCalculationData(
+        calc.data,
+        pricesByMaterialId,
+        namesByMaterialId,
+        settings,
+        slug
+      ),
     }));
   }
 
@@ -207,7 +261,8 @@ export class CalculationsService {
       calc.data,
       pricesByMaterialId,
       namesByMaterialId,
-      settings
+      settings,
+      groupSlug
     );
 
     return calc;
@@ -252,7 +307,8 @@ export class CalculationsService {
       updatedCalc.data,
       pricesByMaterialId,
       namesByMaterialId,
-      settings
+      settings,
+      groupSlug
     );
 
     await this.auditLogsService.log({

@@ -471,6 +471,52 @@ export class BidRepriceService {
     return this.round(weight * pricePerKg);
   }
 
+  private isUst04CalculationName(name: unknown): boolean {
+    const normalized = String(name || '')
+      .toLowerCase()
+      .replace(/,/g, '.')
+      .replace(/\s+/g, '');
+    return (
+      normalized.includes('0.4кв') ||
+      normalized.includes('уст-0.4кв') ||
+      normalized.includes('уст-0-4кв')
+    );
+  }
+
+  private buildUstRows(
+    transformer: any,
+    materialsMap: Map<number, number>,
+    section: 'rusn' | 'runn'
+  ): Array<{ name: string; unit: string; quantity: number; price: number; total: number }> {
+    const payload = this.getTransformerPayload(transformer);
+    if (!payload) return [];
+
+    const calculations =
+      Array.isArray(payload.ustCalculations) && payload.ustCalculations.length > 0
+        ? payload.ustCalculations
+        : payload.ustCalculation
+          ? [payload.ustCalculation]
+          : [];
+    const quantity = this.toNumber(payload.quantity) || 2;
+    const busbarCost = this.calculateBusbarUstCost(payload.busbarUstData, materialsMap);
+
+    return calculations
+      .filter((calc: any) => {
+        const isRunn = this.isUst04CalculationName(calc?.name || calc?.slug);
+        return section === 'runn' ? isRunn : !isRunn;
+      })
+      .map((calc: any) => {
+        const price = this.calculateUstPrice(calc, section === 'runn' ? busbarCost : 0);
+        return {
+          name: String(calc?.name || 'УСТ'),
+          unit: 'шт',
+          quantity,
+          price,
+          total: this.round(price * quantity),
+        };
+      });
+  }
+
   private calculateTransformerTotal(
     transformer: any,
     materialsMap: Map<number, number>,
@@ -485,24 +531,8 @@ export class BidRepriceService {
     const basePrice = this.toNumber(payload?.price);
     const transformerBaseTotal = basePrice * quantity;
 
-    let ustTotal = 0;
-    const busbarUstData = payload?.busbarUstData;
-
-    if (Array.isArray(payload?.ustCalculations) && payload.ustCalculations.length > 0) {
-      payload.ustCalculations.forEach((calc: any) => {
-        const calcName = String(calc?.name || '');
-        const shouldAddBusbarCost = calcName.includes('0.4кВ') || calcName.includes('УСТ-0.4кВ');
-        const additionalCost = shouldAddBusbarCost
-          ? this.calculateBusbarUstCost(busbarUstData, materialsMap)
-          : 0;
-        ustTotal += this.calculateUstPrice(calc, additionalCost) * quantity;
-      });
-    } else if (payload?.ustCalculation) {
-      ustTotal = this.calculateUstPrice(payload.ustCalculation) * quantity;
-    }
-
     const custom = this.sumCustomRowsByTable(customRowsByTable, 'transformer');
-    return this.round(transformerBaseTotal + ustTotal + custom);
+    return this.round(transformerBaseTotal + custom);
   }
 
   private buildTransformerRows(
@@ -529,36 +559,6 @@ export class BidRepriceService {
       price: basePrice,
       total: this.round(basePrice * quantity),
     });
-
-    const busbarUstData = payload?.busbarUstData;
-
-    if (Array.isArray(payload?.ustCalculations) && payload.ustCalculations.length > 0) {
-      payload.ustCalculations.forEach((calc: any) => {
-        const calcName = String(calc?.name || 'УСТ');
-        const shouldAddBusbarCost = calcName.includes('0.4кВ') || calcName.includes('УСТ-0.4кВ');
-        const additionalCost = shouldAddBusbarCost
-          ? this.calculateBusbarUstCost(busbarUstData, materialsMap)
-          : 0;
-        const calcPrice = this.calculateUstPrice(calc, additionalCost);
-        rows.push({
-          name: calcName,
-          unit: 'шт',
-          quantity,
-          price: calcPrice,
-          total: this.round(calcPrice * quantity),
-        });
-      });
-    } else if (payload?.ustCalculation) {
-      const calcName = String(payload?.ustCalculation?.name || 'УСТ');
-      const calcPrice = this.calculateUstPrice(payload.ustCalculation);
-      rows.push({
-        name: calcName,
-        unit: 'шт',
-        quantity,
-        price: calcPrice,
-        total: this.round(calcPrice * quantity),
-      });
-    }
 
     return rows;
   }
@@ -676,6 +676,28 @@ export class BidRepriceService {
     return rows;
   }
 
+  private calculateDguTotal(config: any, snapshot: any): number {
+    const dgu = config?.dgu || snapshot?.dgu || config?.runn?.dgu || snapshot?.runn?.dgu;
+    if (!dgu?.enabled) return 0;
+
+    const cellsTotal = Array.isArray(dgu.cellSummaries)
+      ? dgu.cellSummaries.reduce(
+          (sum: number, s: any) => sum + this.toNumber(s?.totalPrice),
+          0
+        )
+      : 0;
+    const busbarTotal = this.toNumber(dgu.busbarSummary?.totalPrice);
+    const bridgesTotal = Array.isArray(dgu.busBridgeSummaries)
+      ? dgu.busBridgeSummaries.reduce(
+          (sum: number, b: any) => sum + this.toNumber(b?.totalPrice),
+          0
+        )
+      : 0;
+    const generatorTotal = this.toNumber(dgu.settings?.price);
+
+    return this.round(cellsTotal + busbarTotal + bridgesTotal + generatorTotal);
+  }
+
   private calculateRunnTotal(
     config: any,
     snapshot: any,
@@ -685,8 +707,9 @@ export class BidRepriceService {
     const rowTotal = this.round(
       this.mapRunnRows(runn).reduce((sum, row) => sum + this.toNumber(row.total), 0)
     );
+    const dguTotal = this.calculateDguTotal(config, snapshot);
     const custom = this.sumCustomRowsByTable(customRowsByTable, 'runn');
-    return this.round(rowTotal + custom);
+    return this.round(rowTotal + dguTotal + custom);
   }
 
   private calculateAdditionalEquipmentTotal(
@@ -1267,8 +1290,20 @@ export class BidRepriceService {
         transformerTotal
       );
     }
-    const rusnTotal = this.calculateRusnTotal(config, snapshot, customRowsByTable);
-    const runnTotal = this.calculateRunnTotal(config, snapshot, customRowsByTable);
+    const rusnUstRows = this.buildUstRows(config?.transformer, prices.materialsMap, 'rusn');
+    const runnUstRows = this.buildUstRows(config?.transformer, prices.materialsMap, 'runn');
+    const rusnUstTotal = this.round(
+      rusnUstRows.reduce((sum, row) => sum + this.toNumber(row.total), 0)
+    );
+    const runnUstTotal = this.round(
+      runnUstRows.reduce((sum, row) => sum + this.toNumber(row.total), 0)
+    );
+    const rusnTotal = this.round(
+      this.calculateRusnTotal(config, snapshot, customRowsByTable) + rusnUstTotal
+    );
+    const runnTotal = this.round(
+      this.calculateRunnTotal(config, snapshot, customRowsByTable) + runnUstTotal
+    );
     const additionalEquipmentTotal = this.calculateAdditionalEquipmentTotal(
       config,
       customRowsByTable
@@ -1322,8 +1357,16 @@ export class BidRepriceService {
         baseTotal: transformerBaseTotal,
         customTotal: transformerCustomTotal,
       },
-      rusn: { ...(snapshot?.rusn || {}), total: rusnTotal },
-      runn: { ...(snapshot?.runn || {}), total: runnTotal },
+      rusn: {
+        ...(snapshot?.rusn || {}),
+        total: rusnTotal,
+        ustRows: rusnUstRows,
+      },
+      runn: {
+        ...(snapshot?.runn || {}),
+        total: runnTotal,
+        ustRows: runnUstRows,
+      },
       additionalEquipment: {
         ...(snapshot?.additionalEquipment || {}),
         total: additionalEquipmentTotal,
