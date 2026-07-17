@@ -128,7 +128,10 @@ export class CalculationsService {
     groupSlug?: string
   ) {
     const current = calculation || {};
-    const manufacturingHours = this.toNumber(current.manufacturingHours) || 4;
+    // 0 часов — валидное значение; fallback только если поле не сохранено
+    const manufacturingHours = this.hasSavedValue(current.manufacturingHours)
+      ? this.toNumber(current.manufacturingHours)
+      : 4;
 
     if (isCustomPercentagesGroup(groupSlug)) {
       return {
